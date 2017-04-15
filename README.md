@@ -1,8 +1,8 @@
 # VDEngine #
 ---
-VDEngine - (Virtual Dimension) Engine is a finalized game engine that was in development 2013. It was part of an assignment in secondary school.
+VDEngine - (Virtual Dimension) Engine is a finalized game engine that was in development 2013. It was part of an assignment in secondary school. It was influenced by Unity3D engine.
 
-
+This game engines design is highly entangled thus it's not recommend to continue the development of this engine. However it's useful enough to make small projects.
 
 ## Features ##
 ---
@@ -11,12 +11,13 @@ The engine uses SDL2 for window management and OpenGL for rendering in order ena
 * Custom Script - Custom script that is attachable to game-object with callback event such as update, preculled and etc.
 * PostEffect - Posteffect for adding visual effects such as guassian-blur, glow, Depth-to-Field and etc.
 * RenderingPipe - Support forward and deferred rendering.
-* Shadow - Hard and PCF shadows.
+* Light - point, directional and spot light supported.
+* Shadow - Hard and PCF shadows supported.
 * Physic - Physic components can be attached to object in order to perform physic simulation.
-* Animation - 
+* Animation - animation 
 * Audio - Audio is supported through either FMOD or OpenAL. Where OpenAL is compiled by default. Because it can be installed with a packet manager.
 * Morph - Morph animation is 
-* Material - 
+* Material -
 
 
 
@@ -29,7 +30,7 @@ cmake .
 make 
 make install
 ```
-This will install the header in order develop game with as well the shared library.  
+This will install the headers in order develop game with as well the shared library.  
 
  
 
