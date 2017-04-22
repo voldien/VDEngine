@@ -32,7 +32,20 @@ make install
 ```
 This will install the headers in order develop game with as well the shared library.  
 
- 
+
+## Examples ##
+-----------
+1. The following code will initialize the engine and start running the engine.
+
+```
+#!c++
+#include<VDEngine/API.h>
+int main(int argc, const char** argv){
+VDEngine::init(argc, argv, VDEngine::eDefault);
+VDEngine::run();
+}
+```
+
 
 
 ## Dependencies ##
