@@ -1,6 +1,6 @@
 # VDEngine #
 ---
-VDEngine - (Virtual Dimension) Engine is a finalized game engine that was in development 2013. It was part of an assignment in secondary school. It was influenced by Unity3D engine.
+VDEngine - (Virtual Dimension) Engine is a finalized game engine that was in development 2013. It was part of an assignment in secondary school. It was influenced by the Unity3D engine.
 
 This game engines design is highly entangled thus it's not recommend to continue the development of this engine. However it's useful enough to make small projects.
 
