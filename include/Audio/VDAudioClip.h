@@ -18,8 +18,7 @@
 */
 #ifndef _VD_AUDIO_CLIP_H_
 #define _VD_AUDIO_CLIP_H_ 1
-#include <Asset/VDAssetObject.h>
-#include <VDDef.h>
+#include"../Asset/VDAssetObject.h"
 
 #if defined(VD_INTERNAL) && defined(USE_FMOD)
 	#include<fmod/fmod.hpp>
