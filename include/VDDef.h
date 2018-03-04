@@ -32,7 +32,7 @@
 	#include<limits.h>
 #endif
 
-#define VD_ENGINE_VERSION ( (VD_ENGINE_VERSION_MAJOR  << 24) | (VD_ENGINE_VERSION_MINOR  << 16) | (VD_ENGINE_VERSION_REVISION  << 8) )
+#define VD_ENGINE_VERSION ( (MAJOR_VERSION  << 24) | (MINOR_VERSION  << 16) | (PATCH_VERSION  << 8) )
 
 /**
  *	Copy virtual table.

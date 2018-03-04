@@ -20,7 +20,6 @@
 #define _VD_DATA_STRUCTURE_H_ 1
 
 #include"VDDisjointSet.h"
-#include"VDQuadTree.h"
 #include"VDPoolAllactor.h"
 #include"VDVector.h"
 

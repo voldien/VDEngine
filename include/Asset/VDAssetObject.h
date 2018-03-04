@@ -19,7 +19,7 @@
 #ifndef _VD_ASSET_OBJECT_H_
 #define _VD_ASSET_OBJECT_H_ 1
 #include"VDSmartReference.h"
-#include"Core/VDObject.h"
+#include"../Core/VDObject.h"
 
 /**
  *	Asset object.

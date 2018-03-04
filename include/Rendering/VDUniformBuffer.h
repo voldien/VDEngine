@@ -55,7 +55,7 @@ public:
 	virtual void VDAPIENTRY setSize(int size);
 
 	/**
-	 *
+	 *	Resize and assign buffer value.
 	 */
 	virtual void VDAPIENTRY setSize(unsigned int nBytes, void* pValues, unsigned int flag);
 
