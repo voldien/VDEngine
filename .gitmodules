@@ -1,3 +1,6 @@
 [submodule "extern/fragengine"]
 	path = extern/fragengine
 	url = https://github.com/voldien/fragengine
+[submodule "extern/hpmcpp"]
+	path = extern/hpmcpp
+	url = https://github.com/voldien/hpmcpp
