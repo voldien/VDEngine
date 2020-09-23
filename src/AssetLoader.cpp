@@ -1,7 +1,7 @@
 #include <Animation/VDAnimationClip.h>
 #include <Asset/VDAssetLoader.h>
 #include <Core/VDObject.h>
-#include <hpmcpp/HCAABB.h>
+#include <HCAABB.h>
 #include <Rendering/Texture/VDTexture2D.h>
 #include <Rendering/VDMaterial.h>
 #include <Rendering/VDMesh.h>

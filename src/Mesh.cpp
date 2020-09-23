@@ -2,8 +2,8 @@
 #include <DataStructure/VDBoundVolume.h>
 #include <DataStructure/VDPoolAllactor.h>
 #include <GL/glew.h>
-#include <hpmcpp/HCAABB.h>
-#include <hpmcpp/HCVector3.h>
+#include <HCAABB.h>
+#include <HCVector3.h>
 #include <Rendering/VDMesh.h>
 #include <Rendering/VDRenderingAPICache.h>
 #include <Rendering/VDShaderConstant.h>

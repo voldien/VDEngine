@@ -11,9 +11,9 @@
 #include <DataStructure/VDSize.h>
 #include <DataStructure/VDVector.h>
 #include <GL/glew.h>
-#include <hpmcpp/HCRay.h>
-#include <hpmcpp/HCVector2.h>
-#include <hpmcpp/HCVector3.h>
+#include <HCRay.h>
+#include <HCVector2.h>
+#include <HCVector3.h>
 #include <malloc.h>
 #include <Physic/VDPhysic.h>
 #include <Physic/VDRaycastHit.h>
@@ -161,12 +161,12 @@ VDCamera::ProjectionMode VDCamera::getProjectionMode(void)const{
 }
 
 void VDCamera::setPolygoneMode(PolygoneMode mode){
-	this->flag = (this->flag & ~(PolygoneMode::ePoint | PolygoneMode::eTriangle  | PolygoneMode::eWireFrame) ) |
-			(mode & (PolygoneMode::ePoint | PolygoneMode::eTriangle  | PolygoneMode::eWireFrame));
+	this->flag = (this->flag & ~(PolygoneMode::Point | PolygoneMode::eTriangle  | PolygoneMode::eWireFrame) ) |
+			(mode & (PolygoneMode::Point | PolygoneMode::eTriangle  | PolygoneMode::eWireFrame));
 }
 
 VDCamera::PolygoneMode VDCamera::getPolygoneMode(PolygoneMode mode){
-	return (VDCamera::PolygoneMode) ( this->flag & (PolygoneMode::ePoint | PolygoneMode::eTriangle  | PolygoneMode::eWireFrame) );
+	return (VDCamera::PolygoneMode) ( this->flag & (PolygoneMode::Point | PolygoneMode::eTriangle  | PolygoneMode::eWireFrame) );
 }
 
 void VDCamera::setCullingMask(const VDLayer& mask){

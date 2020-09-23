@@ -19,11 +19,12 @@
 #ifndef _VD_CONFIG_H_
 #define _VD_CONFIG_H_ 1
 #include"../VDDef.h"
+#include<fragcore/Core/IConfig.h>
 
 /**
  *
  */
-class VDDECLSPEC VDConfigure{
+class VDDECLSPEC VDConfigure : public fragcore::IConfig {
 public:
 
 	/**
@@ -62,17 +63,6 @@ public:
 	 *	Generate default config.
 	 */
 	static void VDAPIENTRY defaultConfig(VDConfig* config);
-
-	/**
-	 *	@Return
-	 */
-	static int VDAPIENTRY loadConfigFile(const char* cconfigfilename, VDConfig* config);
-
-	/**
-	 *	@Return
-	 */
-	static int VDAPIENTRY saveConfigFile(const char* cconfigfilename, VDConfig* config);
-
 };
 
 #endif 

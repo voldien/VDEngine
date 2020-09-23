@@ -23,7 +23,7 @@
 /**
  *
  */
-class VDDECLSPEC VDResources{
+class VDDECLSPEC VDResources {
 public:
 
 	template<class T>

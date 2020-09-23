@@ -143,11 +143,11 @@ void VDPhysicActor::PxSimulate(bool simulation){
 void VDPhysicActor::PxShapeSimulate(bool shapesimulate){
 	PxShape* shape = this->getShape();
 	if(shape != NULL){
-		if(this->menable & VDBehavior::eColliderShape){
+		if(this->menable & VDBehavior::ColliderShape){
 			shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, !shapesimulate);
 			shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, shapesimulate);
 		}
-		if(this->menable & VDBehavior::eColliderTrigger){
+		if(this->menable & VDBehavior::ColliderTrigger){
 			shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, !shapesimulate);
 			shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, shapesimulate);
 		}

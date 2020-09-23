@@ -19,7 +19,8 @@ VDComponent::VDComponent(void) : VDObject(){
 	this->pgameObject = NULL;
 }
 
-VDComponent::~VDComponent(void){
+VDComponent::~VDComponent(void) {
+
 }
 
 VDComponent& VDComponent::operator=(const VDComponent& rh){

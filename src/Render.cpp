@@ -7,8 +7,8 @@
 #include <Core/VDObject.h>
 #include <DataStructure/VDVector.h>
 #include <GL/glew.h>
-#include <hpmcpp/HCAABB.h>
-#include <hpmcpp/HCVector3.h>
+#include <HCAABB.h>
+#include <HCVector3.h>
 #include <malloc.h>
 #include <Rendering/Texture/VDTexture2D.h>
 #include <Rendering/VDLight.h>
@@ -353,7 +353,7 @@ void VDRenderer::internalShadowDraw(VDShader* Shadowpass, VDLight* light, VDMesh
 						VDMatrix::scale(render->transform()->getScale());
 
 						switch(light->getType()){
-						case VDLight::ePoint:
+						case VDLight::Point:
 							glProgramUniformMatrix4fv(Shadowpass->getProgram(), Shadowpass->matrixInfo.modelMatrix,
 													1,
 													GL_FALSE,

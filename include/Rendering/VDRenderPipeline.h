@@ -18,7 +18,6 @@
 */
 #ifndef _VD_RENDER_PIPELINE_H_
 #define _VD_RENDER_PIPELINE_H_ 1
-#include <Core/VDTaskSchedule.h>
 #include <DataStructure/VDQueue.h>
 #include <DataStructure/VDVector.h>
 #include <Rendering/VDRender.h>
@@ -60,7 +59,7 @@ public:
 	 *	Draw lights visiable in cameras frustm.
 	 */
 	static void VDAPIENTRY drawLight(VDCamera* camera, VDDoubleBufferedAllocator* allocator);
-	static void VDAPIENTRY drawShadowTask(VDTaskSchedule::VDTaskPackage* package);
+	//static void VDAPIENTRY drawShadowTask(VDTaskSchedule::VDTaskPackage* package);
 
 	/**
 	 *
@@ -75,8 +74,8 @@ public:
 	/**
 	 *
 	 */
-	static void occludeTask(VDTaskSchedule::VDTaskPackage* package);
-	static void particleTask(VDTaskSchedule::VDTaskPackage* package);
+	// static void occludeTask(VDTaskSchedule::VDTaskPackage* package);
+	// static void particleTask(VDTaskSchedule::VDTaskPackage* package);
 
 
 public:	/*	Main rendering pipeline.	*/

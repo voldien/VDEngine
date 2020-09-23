@@ -93,7 +93,7 @@ VDAudioSetting::Format VDAudioSetting::getFormat(void){
 	if(VDCASTP(FMOD::System*,engine.audioContext)->getSoftwareFormat(&sampleRate,&format,&numoutputchannels,&maxinputchannels,&resamplemethod,NULL) == FMOD_OK){
 		return (VDAudioSetting::Format)format;
 	}
-	return eNone;
+	return None;
 }
 
 void VDAudioSetting::setFormat(Format format){

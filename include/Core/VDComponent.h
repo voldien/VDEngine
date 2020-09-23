@@ -25,10 +25,11 @@
 /**
  *	Base class for behaviors.
  */
-class VDDECLSPEC VDComponent : public VDObject{
+class VDDECLSPEC VDComponent : public VDObject {//TOOD add non copyable
 	friend class VDGameObject;
-public:
+protected:
 	VDComponent(void);
+	VDComponent(const VDComponent& other) = default;
 	virtual ~VDComponent(void);
 
 private:	/*	Attributes.	*/
@@ -97,7 +98,7 @@ public:	/*	Public methods.	*/
 	 *	Check if object is of type.
 	 */
 	template<class T>
-	inline  int is(void){
+	inline bool is(void) const {
 		return this->existComponet(VDTypeInfo::getType<T>());
 	}
 
@@ -105,7 +106,7 @@ public:	/*	Public methods.	*/
 	 *	Cast object to any type.
 	 */
 	template<class T>
-	inline  T* cast(void)const{
+	inline T* cast(void) const {
 		return (T*)this;
 	}
 
@@ -125,7 +126,7 @@ public:	/*	Public methods.	*/
 	 *	Get component if exists.
 	 */
 	template<class T>
-	inline T* getComponent(void){
+	inline T* getComponent(void) {
 		return (T*)getComponent(VDTypeInfo::getType<T>());
 	}
 

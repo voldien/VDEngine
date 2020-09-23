@@ -25,7 +25,7 @@
 /**
  *	Event base class.
  */
-class VDDECLSPEC VDEvent{
+class VDDECLSPEC VDEvent {
 public:
 
 	VDEvent(void);

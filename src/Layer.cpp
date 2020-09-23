@@ -57,7 +57,7 @@ bool VDLayer::operator!=(const VDLayer& layer)const{
 	return (index  != layer.getIndex());
 }
 void VDLayer::setIndextName(unsigned int index, const char* cname){
-	layer_names.insert(std::pair<char*, unsigned int>( (char*)cname, index ));
+	//layer_names.insert(std::pair<char*, unsigned int>( (char*)cname, index ));
 }
 
 const char* VDLayer::getIndexName(unsigned int index){
@@ -65,5 +65,5 @@ const char* VDLayer::getIndexName(unsigned int index){
 }
 
 VDLayer VDLayer::getIndexByName(const char* cname){
-	return VDLayer(layer_names[(char*)cname]);
+	//return VDLayer(layer_names[(char*)cname]);
 }

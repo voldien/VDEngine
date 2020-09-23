@@ -35,7 +35,7 @@ public:
 	};
 
 	enum BlendMode{
-		eNone		= 0x0,	/**/
+		None		= 0x0,	/**/
 		eMultiply	= 0x1,	/*	*/
 	};
 

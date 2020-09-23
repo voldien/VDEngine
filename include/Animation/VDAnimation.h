@@ -1,38 +1,38 @@
 /**
-    VDEngine virtual dimension
-    Copyright (C) 2014  Valdemar Lindberg
+	VDEngine virtual dimension
+	Copyright (C) 2014  Valdemar Lindberg
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 #ifndef _VD_ANIMATION_H_
 #define _VD_ANIMATION_H_ 1
-#include"VDAnimationClip.h"
-#include"../Core/VDBehavior.h"
-#include"../VDDef.h"
+#include "../Core/VDBehavior.h"
+#include "../VDDef.h"
+#include "VDAnimationClip.h"
 
 /**
  *	Gameobject componenets for adding
  *	animation.
  */
-class VDDECLSPEC VDAnimation: public VDBehavior {
-public:
+class VDDECLSPEC VDAnimation : public VDBehavior {
+   public:
 	enum AnimationState {
-		eNone = 0x0, /*	*/
-		eIsPlaying = 0x1, /*	*/
-		eIsQueed = 0x2, /*	*/
-		eIsBlend = 0x4, /*	*/
+		None = 0x0,      /*	*/
+		IsPlaying = 0x1, /*	*/
+		eIsQueed = 0x2,   /*	*/
+		eIsBlend = 0x4,   /*	*/
 	};
 
 	VDAnimation(void);
@@ -61,7 +61,7 @@ public:
 	 *	@Return
 	 */
 	inline AnimationState getCurrentState(void) const {
-		return (AnimationState) this->animationState;
+		return (AnimationState)this->animationState;
 	}
 
 	/**
@@ -69,8 +69,8 @@ public:
 	 *
 	 *	@Return
 	 */
-	int VDAPIENTRY blend(VDAnimationClip* animationClip, float blendWeight =
-			1.0f);
+	int VDAPIENTRY blend(VDAnimationClip* animationClip,
+						 float blendWeight = 1.0f);
 
 	/**
 	 *	Blend current animation with new animation.
@@ -143,16 +143,16 @@ public:
 	 */
 	void VDAPIENTRY setAnimationOnStep(float time);
 
-private:
+   private:
 	/*	Attributes.	*/
 
-	VDVector<VDAnimationClip*> clips; 	/*	Array of animation clips.	*/
-	double time; 						/*	Current time of animation.	*/
-	AnimationState animationState; 		/*	Animation state.	*/
+	VDVector<VDAnimationClip*> clips; /*	Array of animation clips.
+									   */
+	double time;                      /*	Current time of animation.	*/
+	AnimationState animationState;    /*	Animation state.	*/
 
 	/*	TODO conclude if needed.	*/
 	int currentkeyframe;
-
 };
 
 #endif

@@ -155,7 +155,7 @@ void VDQualitySetting::setShadowFilter(ShadowFilter filter){
 			texture = VDScene::getScene()->lightcollection[x]->getShadowTexture()->getTextureAttachment(0, VDRenderTexture::eDepthAttachment);
 			VDScene::getScene()->lightcollection[x]->getShadowTexture()->setTextureAttachment(VDRenderTexture::eDepthAttachment, (VDTexture*)NULL);
 
-			if(light->getType() != VDLight::ePoint){
+			if(light->getType() != VDLight::Point){
 			VDRenderBuffer depthbuffer = VDRenderBuffer();
 			depthbuffer.setStorage(light->getShadowTexture()->width(), light->getShadowTexture()->height(), VDTexture::eDepthComponent32);
 			VDScene::getScene()->lightcollection[x]->getShadowTexture()->setAttachment(VDRenderTexture::eDepthAttachment, &depthbuffer);
@@ -206,7 +206,7 @@ void VDQualitySetting::setSamplerMode(SampleType mode){
 	case VDQualitySetting::eSA:
 		break;
 	default:
-		gQualitySettings.sampleMode = VDQualitySetting::SampleType::eNone;
+		gQualitySettings.sampleMode = VDQualitySetting::SampleType::None;
 	}
 }
 

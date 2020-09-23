@@ -18,6 +18,7 @@
 */
 #ifndef _VD_ASSET_MANANGER_H_
 #define _VD_ASSET_MANANGER_H_ 1
+#include<fragcore/Core/IO/IFileSystem.h>
 #include"../Core/VDGUID.h"
 #include"../Core/VDTypes.h"
 #include"../VDDef.h"
@@ -26,7 +27,7 @@
 /*
  *
  */
-typedef struct registry{
+typedef struct registry {
 	VDTypeInfo type;		/*	*/
 	VDGUID guid;			/*	Unique identifer.	*/
 	VDAssetObject* asset;	/*	Pointer to object.	*/
@@ -115,8 +116,9 @@ private:	/*	Static attributes.	*/
 
 	static RegistryTable assetreg;		/*	*/
 	static char* rootpath;				/*	*/
+	fragcore::IFileSystem* fileSystem;
 
-private:	/*	Prevent class from being instantiated.	*/
+private: /*	Prevent class from being instantiated.	*/
 
 	VDAssetManager(void){}
 	VDAssetManager(const VDAssetManager& other){}

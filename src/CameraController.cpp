@@ -16,7 +16,6 @@
 #include <Scene/VDGameObject.h>
 #include <Scene/VDTransform.h>
 #include <SDL2/SDL_keycode.h>
-#include <vl/Vector3.h>
 #include <VDSimpleType.h>
 
 VDCameraController::VDCameraController(void) : VDCustomBehavior(){

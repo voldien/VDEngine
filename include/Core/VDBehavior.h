@@ -25,16 +25,16 @@
  *	Base class for enable behavior for
  *	attachable components for gameobjects.
  */
-class VDDECLSPEC VDBehavior : public VDComponent{
+class VDDECLSPEC VDBehavior : public VDComponent {
 public:
 
-	enum State{
-		eEnable 			= 0x1,	/*	*/
-		eBehavior			= 0x2,	/*	*/
-		eCustomBehavior 	= 0x4,	/*	*/
-		eRigidbodyActor 	= 0x8,	/*	*/
-		eColliderTrigger 	= 0x10,	/*	*/
-		eColliderShape 		= 0x20,	/*	*/
+	enum State {
+		Enable 			= 0x1,	/*	*/
+		Behavior			= 0x2,	/*	*/
+		CustomBehavior 	= 0x4,	/*	*/
+		RigidbodyActor 	= 0x8,	/*	*/
+		ColliderTrigger 	= 0x10,	/*	*/
+		ColliderShape 		= 0x20,	/*	*/
 	};
 
 	VDBehavior(void);

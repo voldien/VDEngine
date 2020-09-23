@@ -11,6 +11,7 @@
 #include <assimp/texture.h>
 #include <assimp/types.h>
 #include <assimp/vector3.h>
+#define VD_ASSIMP
 #include <Animation/VDAnimation.h>
 #include <Animation/VDAnimationClip.h>
 #include <Animation/VDCurve.h>
@@ -23,7 +24,7 @@
 #include <Core/VDGUID.h>
 #include <Core/VDObject.h>
 #include <GL/glew.h>
-#include <hpmcpp/HCVector3.h>
+#include <HCVector3.h>
 #include <malloc.h>
 #include <Misc/VDFile.h>
 #include <Physic/VDMeshCollider.h>
@@ -43,11 +44,13 @@
 #include <SDL2/SDL_stdinc.h>
 #include <Utility/VDGeometryUtility.h>
 #include <VDSimpleType.h>
+#include<Asset/VDAssetLoader.h>
 #include <cassert>
 #include <climits>
 #include <cstring>
 #include <string>
 #include <vector>
+
 
 using namespace std;
 using namespace Assimp;
@@ -221,20 +224,20 @@ void VDMeshLoader::initNoodeRoot(const aiNode* nodes, VDGameObject* parent) {
 				/*	get mesh by index.	*/
 				mesh = getMesh(*nodes->mChildren[x]->mMeshes);
 
-				if (!this->sceneRef->mMeshes[*nodes->mChildren[x]->mMeshes]->HasBones()) {
-					renderer = pobject->addComponet<VDRenderer>();
-				}
+				// if (!this->sceneRef->mMeshes[*nodes->mChildren[x]->mMeshes]->HasBones()) {
+				// 	renderer = pobject->addComponet<VDRenderer>();
+				// }
 
 				if (renderer) {
 					this->setRenderer(renderer);
 					renderer->setMesh(mesh);
 				}
 				if (this->getFlag() & IMPORT_MATERIAL) {
-					VDMaterial* mat =
-					        this->getMaterial(
-					                this->sceneRef->mMeshes[*nodes->mChildren[x]->mMeshes]->mMaterialIndex);
+					// VDMaterial* mat =
+					//         this->getMaterial(
+					//                 this->sceneRef->mMeshes[*nodes->mChildren[x]->mMeshes]->mMaterialIndex);
 					if (renderer != NULL) {
-						renderer->setMaterial(mat);
+						//renderer->setMaterial(mat);
 					}
 				}
 			}
@@ -513,7 +516,7 @@ VDLight* VDMeshLoader::initLight(const aiLight* Llight, unsigned int index) {
 
 	switch (Llight->mType) {
 	case aiLightSource_POINT:
-		light->setType(VDLight::ePoint);
+		light->setType(VDLight::Point);
 		break;
 	case aiLightSource_DIRECTIONAL:
 		light->setType(VDLight::eDirection);

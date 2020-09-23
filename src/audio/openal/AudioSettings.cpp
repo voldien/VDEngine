@@ -75,7 +75,7 @@ VDAudioSetting::Format VDAudioSetting::getFormat(void){
 	int numoutputchannels;
 	int maxinputchannels;
 
-	return eNone;
+	return None;
 }
 
 void VDAudioSetting::setFormat(Format format){

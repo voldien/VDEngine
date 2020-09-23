@@ -78,8 +78,6 @@ using namespace	physx::debugger::comm;
 using namespace physx::debugger;
 using namespace std;
 
-
-
 physx::PxFilterFlags PxCustomFilterShader(physx::PxFilterObjectAttributes attributes0,
 	physx::PxFilterData filterData0,
 	physx::PxFilterObjectAttributes attributes1,
@@ -326,7 +324,7 @@ int VDPhysic::initialzeScene(void){
 	// Initialize simulation Data
 	//This will enable basic visualization of PhysX objects like- actors collision shapes and their axes. 
 	//The function PxScene::getRenderBuffer() is used to render any active visualization for scene.
-	if( (VDEngine::getFlag() & VDEngine::eDebug) ){	/*	TODO fix! and add VD_DEBUG CHECK	*/
+	if( (VDEngine::getFlag() & VDEngine::Debug) ){	/*	TODO fix! and add VD_DEBUG CHECK	*/
 
 		VDPhysic::getPhysicScene()->setVisualizationParameter(PxVisualizationParameter::eSCALE,				1.0);	//Global visualization scale which gets multiplied with the individual scales
 		VDPhysic::getPhysicScene()->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_SHAPES,	1.0f);		//Enable visualization of actor's shape

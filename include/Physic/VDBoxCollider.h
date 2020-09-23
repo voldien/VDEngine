@@ -23,7 +23,7 @@
 /**
  *	Box collider.
  */
-class VDDECLSPEC VDBoxCollider : public VDCollider{
+class VDDECLSPEC VDBoxCollider : public VDCollider {
 public:
 	VDBoxCollider(void);
 	VDBoxCollider(const VDBoxCollider& collider);

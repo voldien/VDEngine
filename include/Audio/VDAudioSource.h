@@ -18,6 +18,7 @@
 */
 #ifndef _VD_AUDIOSOURCE_H_
 #define _VD_AUDIOSOURCE_H_ 1
+#include<fragcore/audio/AudioSource.h>
 #include"../Core/VDBehavior.h"
 #include"../VDDef.h"
 
@@ -145,10 +146,10 @@ public:
 	static void VDAPIENTRY AudioMechanicUpdate(VDDoubleBufferedAllocator* allocator = NULL);
 
 private:	/*	Attributes.	*/
+ fragcore::AudioSource* source;
+ VDAudioClip* clip; /*	Audio clip assoicated with the audio clip.	*/
 
-	VDAudioClip* clip;	/*	Audio clip assoicated with the audio clip.	*/
-
-	union{
+ union {
 #if defined(VD_INTERNAL) && defined(USE_FMOD)
 	FMODNAMESPACE::Channel* channel;
 #else

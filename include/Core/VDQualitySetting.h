@@ -33,7 +33,7 @@ public:
 
 	enum SampleType{
 		eAntiAliasingEnable = 0x1,
-		eNone 	= (1 << 4),	/*	*/
+		None 	= (1 << 4),	/*	*/
 		eSSAA 	= (1 << 6),	/*	Supersample  anti aliasing.	*/
 		eMSAA 	= (1 << 9),	/*	Multisample anti-aliasing.	*/
 		eSA 	= (1 << 10),/*	*/

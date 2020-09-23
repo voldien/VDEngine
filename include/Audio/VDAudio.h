@@ -26,7 +26,7 @@
  *	Main class assoicated
  *	with the audio.
  */
-class VDDECLSPEC VDAudio{
+class VDDECLSPEC VDAudio {
 public:
 
 	/**

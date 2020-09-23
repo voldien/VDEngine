@@ -5,8 +5,8 @@
 #include <DataStructure/VDStackAllactor.h>
 #include <DataStructure/VDVector.h>
 #include <GL/glew.h>
-#include <hpmcpp/HCQuaternion.h>
-#include <hpmcpp/HCVector3.h>
+#include <HCQuaternion.h>
+#include <HCVector3.h>
 #include <Misc/VDMath.h>
 #include <Rendering/Texture/VDCubeMap.h>
 #include <Rendering/Texture/VDRenderTexture.h>
@@ -46,10 +46,10 @@ VDLight::VDLight(void) : VDFrustum(-5.0f, 5.0f, -5.0f, 5.0f, -5.0f, 5.0f){
 	this->range = 10.0f;
 	this->outerCone = 0.90f;
 	this->innerCone = 0.80f;
-	this->flag = VDLight::eMediumShadowQuality | VDLight::ePoint;
+	this->flag = VDLight::eMediumShadowQuality | VDLight::Point;
 	this->setShadowStrength(1.0);
 	this->setShadowTexture(NULL);
-	this->setType(VDLight::ePoint);
+	this->setType(VDLight::Point);
 	this->setAttenuation(VDLight::Attenuation::eConstant, 1.0);
 	this->setAttenuation(VDLight::Attenuation::eLinear, 0.1);
 	this->setAttenuation(VDLight::Attenuation::eQuadratic, 0.025);
@@ -71,7 +71,7 @@ VDLight::VDLight(LightType lightType) : VDFrustum(-5.0f, 5.0f, -5.0f, 5.0f, -5.0
 	this->outerCone = 0.80f;
 	this->innerCone = 0.90f;
 	this->shadowStrength = 1.0f;
-	this->flag = eMediumShadowQuality | VDLight::ePoint;
+	this->flag = eMediumShadowQuality | VDLight::Point;
 
 	this->setShadowTexture(NULL);
 	this->setType(lightType);
@@ -92,7 +92,7 @@ void VDLight::initializeComponent(void){
 	VDScene::getScene()->uniform.engineState.numLights++;
 
 	this->setType((VDLight::LightType)getType());
-	if(getType() != VDLight::ePoint){
+	if(getType() != VDLight::Point){
 		VDScene::getScene()->lightcollection.push_back(this);
 		//gLightCollection.insert(gLightCollection.begin(), this);
 	}
@@ -168,7 +168,7 @@ void VDLight::setType(VDLight::LightType lighType){
 	case VDLight::eDirection:
 		VDScene::getScene()->uniform.engineState.numDirection = VDMath::clamp<int>(VDScene::getScene()->uniform.engineState.numDirection - 1, 0 , 0xfffffff);
 		break;
-	case VDLight::ePoint:
+	case VDLight::Point:
 		VDScene::getScene()->uniform.engineState.numPoint = VDMath::clamp<int>(VDScene::getScene()->uniform.engineState.numPoint - 1, 0 , 0xfffffff);
 		break;
 	case VDLight::eSpot:
@@ -183,7 +183,7 @@ void VDLight::setType(VDLight::LightType lighType){
 		VDScene::getScene()->uniform.engineState.numDirection += 1;
 		this->setOrth(VDMath::infinity, -VDMath::infinity, VDMath::infinity, -VDMath::infinity, VDMath::infinity, -VDMath::infinity);
 		break;
-	case VDLight::ePoint:
+	case VDLight::Point:
 		VDScene::getScene()->uniform.engineState.numPoint += 1;
 		this->setOrth(getRange(),-getRange(),getRange(),-getRange(),getRange(),-getRange());
 		break;
@@ -258,7 +258,7 @@ void VDLight::enableShadow(bool enabled){
 		case eSpot:
 			VDScene::getScene()->uniform.engineState.numShadowSpot++;
 			break;
-		case ePoint:
+		case Point:
 			VDScene::getScene()->uniform.engineState.numShadowPoint++;
 			break;
 		default:
@@ -326,7 +326,7 @@ VDMatrix4x4 VDLight::getShadowMatrix(unsigned int pointLightIndex)const{
 				-shadowDist,
 				shadowDist) * lightprojectM;
 	break;
-	case VDLight::ePoint:{
+	case VDLight::Point:{
 		VDQuaternion projangle = VDCubeMap::getCubePlaneQuaternion(pointLightIndex + VDTexture::eCubeMapPositiveX);
 
 		lightprojectM = VDMatrix4x4::rotate(projangle.conjugate());
@@ -368,7 +368,7 @@ int VDLight::attachShadowComponent(unsigned int shadowFlag){
 	/*	get the minium value in order to fix max texture size.	*/
 	size = VDMath::min<int>(VDSystemInfo::getCompatibility()->sMaxTextureSize, size);
 
-	if( !(this->getType() & VDLight::ePoint) ){
+	if( !(this->getType() & VDLight::Point) ){
 
 		if(!this->getShadowTexture()){
 			this->shadowBuffer = VDRenderTexture::ShadowMap(size, size, VDTexture::eDepthComponent, VDTexture::eDepthComponent32, VDTexture::eFloat);
@@ -419,7 +419,7 @@ void VDLight::updateLightUniformLocation(VDStackAllocator* allocator){
 		light = VDScene::getScene()->lightcollection[x];
 
 		/**/
-		if(light->getType() != VDLight::ePoint){
+		if(light->getType() != VDLight::Point){
 			uniformLight[x].direction = light->transform()->getRotation().forward().normalize();
 		}
 		uniformLight[x].angle = light->getOuterCone();
@@ -447,7 +447,7 @@ void VDLight::updateLightUniformLocation(VDStackAllocator* allocator){
 			continue;
 		}
 		switch(light->getType()){
-		case VDLight::ePoint:
+		case VDLight::Point:
 			VDScene::getScene()->lightinfo.pointIndices.push(x);
 			break;
 		case VDLight::eDirection:
@@ -534,7 +534,7 @@ void VDLight::drawLightAccumulationShadow(VDCamera* camera){
 
 		/*	add to shadow buffer.	*/
 		switch(light->getType()){
-		case VDLight::ePoint:
+		case VDLight::Point:
 			VDScene::getScene()->lightinfo.shadowPointIndices.push(x);
 			break;
 		case VDLight::eDirection:
@@ -554,7 +554,7 @@ void VDLight::drawLightAccumulationShadow(VDCamera* camera){
 		glClear(GL_DEPTH_BUFFER_BIT);
 
 		/*	light sources except the point light.	*/
-		if(light->getType() != VDLight::ePoint){
+		if(light->getType() != VDLight::Point){
 			memcpy(&shadowUniform[numShadow].shadow[0][0], &( biasMatrix * light->getShadowMatrix(0) )[0][0], sizeof(VDMatrix4x4) );
 			samplerCount++;
 			shadowShader->bind();

@@ -5,7 +5,7 @@
 
 
 VDBehavior::VDBehavior(void) : VDComponent(){
-	this->menable = eEnable;
+	this->menable = Enable;
 }
 
 VDBehavior::~VDBehavior(void){
@@ -13,21 +13,21 @@ VDBehavior::~VDBehavior(void){
 }
 
 void VDBehavior::enable(void){
-	this->menable |= eEnable;
+	this->menable |= Enable;
 	this->onEnable();
 }
 
 void VDBehavior::disable(void){
-	this->menable = this->menable & ~eEnable;
+	this->menable = this->menable & ~Enable;
 	this->onDisable();
 }
 
 bool VDBehavior::isDisabled(void)const{
-	return (this->menable & VDBehavior::eEnable) == 0;
+	return (this->menable & VDBehavior::Enable) == 0;
 }
 
 bool VDBehavior::isEnabled(void)const{
-	return (this->menable & VDBehavior::eEnable) == VDBehavior::eEnable ;
+	return (this->menable & VDBehavior::Enable) == VDBehavior::Enable ;
 }
 
 void VDBehavior::setState(unsigned int state){
@@ -39,7 +39,7 @@ unsigned int VDBehavior::getState(void)const{
 }
 
 void VDBehavior::initializeComponent(void){
-	this->menable |= VDBehavior::eBehavior;
+	this->menable |= VDBehavior::Behavior;
 
 }
 
@@ -102,11 +102,11 @@ VDCustomBehavior* VDBehavior::getCustomBehavior(void) {
 }
 
 int VDBehavior::isBehavior(void) const {
-	return (this->menable & VDBehavior::eBehavior);
+	return (this->menable & VDBehavior::Behavior);
 }
 
 int VDBehavior::isCustomBehavior(void) const {
-	return (this->menable & VDBehavior::eCustomBehavior);
+	return (this->menable & VDBehavior::CustomBehavior);
 }
 
 void VDBehavior::setVTable(const void* data){

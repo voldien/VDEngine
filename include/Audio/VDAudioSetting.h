@@ -45,7 +45,7 @@ public:
 	 *
 	 */
 	enum Format{
-	    eNone,				/* Unitialized / unknown. */
+	    None,				/* Unitialized / unknown. */
 	    ePCM8,				/* 8bit integer PCM data. */
 	    ePCM16,				/* 16bit integer PCM data. */
 	    ePCM24,				/* 24bit integer PCM data. */

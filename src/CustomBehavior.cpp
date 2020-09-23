@@ -62,8 +62,8 @@ void VDCustomBehavior::onPreCulled(void){
 
 void VDCustomBehavior::initializeComponent(void){
 	VDBehavior::initializeComponent();
-	this->menable |= VDCustomBehavior::eCustomBehavior;
-	this->gameObject()->active |= VDCustomBehavior::eCustomBehavior;
+	this->menable |= VDCustomBehavior::CustomBehavior;
+	this->gameObject()->active |= VDCustomBehavior::CustomBehavior;
 	this->onAwake();
 }
 

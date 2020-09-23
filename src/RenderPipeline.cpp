@@ -10,7 +10,6 @@
 #include <Core/VDMatrix.h>
 #include <Core/VDQualitySetting.h>
 #include <Core/VDScreen.h>
-#include <Core/VDTaskSchedule.h>
 #include <DataStructure/VDBoundVolume.h>
 #include <DataStructure/VDDoubleBufferedAllocator.h>
 #include <DataStructure/VDQueue.h>
@@ -201,9 +200,9 @@ void VDRenderPipeLine::drawLight(VDCamera* camera, VDDoubleBufferedAllocator* al
 	VDLight::drawLightAccumulationShadow(camera);
 }
 
-void VDRenderPipeLine::drawShadowTask(VDTaskSchedule::VDTaskPackage* package){
+// void VDRenderPipeLine::drawShadowTask(VDTaskSchedule::VDTaskPackage* package){
 
-}
+// }
 
 void VDRenderPipeLine::bindShadowMaps(VDCamera* camera){
 	register VDLight* light;
@@ -241,180 +240,180 @@ void VDRenderPipeLine::bindShadowMaps(VDCamera* camera){
 
 void VDRenderPipeLine::occlude(VDFrustum* camera, VDDoubleBufferedAllocator* allocator){
 
-	/**/
-	unsigned int numRenderer = VDRenderCollection::numRenderer();
-	numRenderer = VDRenderCollection::getRenderColorTypeNumRenderers(VDRenderer::eMesh, VDRenderCollection::eOpaque);
-	const int packageSize = 16;
-	int n;
+	// /**/
+	// unsigned int numRenderer = VDRenderCollection::numRenderer();
+	// numRenderer = VDRenderCollection::getRenderColorTypeNumRenderers(VDRenderer::eMesh, VDRenderCollection::eOpaque);
+	// const int packageSize = 16;
+	// int n;
 
 
-	/*	*/
-	register RenderCollection::iterator i = VDRenderCollection::getRenderCollection().begin();
-	register RenderCollection::iterator j = VDRenderCollection::getRenderCollection().end();
+	// /*	*/
+	// register RenderCollection::iterator i = VDRenderCollection::getRenderCollection().begin();
+	// register RenderCollection::iterator j = VDRenderCollection::getRenderCollection().end();
 
-	/*	iterate through all of a given	*/
-	for(; i != j; i++){
+	// /*	iterate through all of a given	*/
+	// for(; i != j; i++){
 
-		/*	don't render particle and lensflare.	*/
-		if((*i).first >= VDRenderer::eParticle){
-			continue;
-		}
+	// 	/*	don't render particle and lensflare.	*/
+	// 	if((*i).first >= VDRenderer::eParticle){
+	// 		continue;
+	// 	}
 
-		/**/
-		for(LightTransmissionObjectType::iterator a = (*i).second.materialType.begin(); a != (*i).second.materialType.end(); a++){
-			for(MaterialRendererArrayCollection::iterator x = a->second.collec.begin(); x != a->second.collec.end(); x++){
-				register VDMaterial* m = (*x).second.index;
-				numRenderer = x->second.renderers.size();
-				int lastchunk = numRenderer % packageSize;
-				VDTaskSchedule* schedular = &VDEngine::getTaskSchedule();
-				VDTaskSchedule::VDTaskPackage task = {0};
+	// 	/**/
+	// 	for(LightTransmissionObjectType::iterator a = (*i).second.materialType.begin(); a != (*i).second.materialType.end(); a++){
+	// 		for(MaterialRendererArrayCollection::iterator x = a->second.collec.begin(); x != a->second.collec.end(); x++){
+	// 			register VDMaterial* m = (*x).second.index;
+	// 			numRenderer = x->second.renderers.size();
+	// 			int lastchunk = numRenderer % packageSize;
+	// 			VDTaskSchedule* schedular = &VDEngine::getTaskSchedule();
+	// 			VDTaskSchedule::VDTaskPackage task = {0};
 
-				for(n = 0; n < numRenderer; n += packageSize){
-					task.begin = &x->second.renderers[n];
-					task.end = &x->second.renderers[n] +  ( (numRenderer - n) >=  packageSize ? packageSize : lastchunk ) ;
-					task.callback = (VDTaskSchedule::VDTaskCallback)occludeTask;
-					task.flag = 0;
-					task.offset = n;
-					task.size = packageSize;
-					occludeTask(&task);
-				}
+	// 			for(n = 0; n < numRenderer; n += packageSize){
+	// 				task.begin = &x->second.renderers[n];
+	// 				task.end = &x->second.renderers[n] +  ( (numRenderer - n) >=  packageSize ? packageSize : lastchunk ) ;
+	// 				task.callback = (VDTaskSchedule::VDTaskCallback)occludeTask;
+	// 				task.flag = 0;
+	// 				task.offset = n;
+	// 				task.size = packageSize;
+	// 				occludeTask(&task);
+	// 			}
 
-			}
-		}
-	}
+	// 		}
+	// 	}
+	// }
 
-	/*	send package for particle culling.	*/
-	if(0){
-		static void* particleIndices = allocator->fetch(256);
-		VDTaskSchedule::VDTaskPackage partiTask = {0};
-		void** partiProt = (void**)allocator->fetch(256);
-		partiTask.begin = partiProt;
-		partiProt[0] = particleIndices;
-		partiProt[1] = &VDRenderCollection::getRenderColorTypeIt(VDRenderer::eParticle, VDRenderCollection::eTranslucent)->second.renderers[0];
-		partiTask.end = &VDRenderCollection::getRenderColorTypeIt(VDRenderer::eParticle,
-									VDRenderCollection::eTranslucent)->second.renderers[
-									VDRenderCollection::getRenderColorTypeIt(VDRenderer::eParticle, VDRenderCollection::eTranslucent)->second.renderers.size()];
+	// /*	send package for particle culling.	*/
+	// if(0){
+	// 	static void* particleIndices = allocator->fetch(256);
+	// 	VDTaskSchedule::VDTaskPackage partiTask = {0};
+	// 	void** partiProt = (void**)allocator->fetch(256);
+	// 	partiTask.begin = partiProt;
+	// 	partiProt[0] = particleIndices;
+	// 	partiProt[1] = &VDRenderCollection::getRenderColorTypeIt(VDRenderer::eParticle, VDRenderCollection::eTranslucent)->second.renderers[0];
+	// 	partiTask.end = &VDRenderCollection::getRenderColorTypeIt(VDRenderer::eParticle,
+	// 								VDRenderCollection::eTranslucent)->second.renderers[
+	// 								VDRenderCollection::getRenderColorTypeIt(VDRenderer::eParticle, VDRenderCollection::eTranslucent)->second.renderers.size()];
 
-		partiTask.size = 256;
-		partiTask.callback = (VDTaskSchedule::VDTaskCallback)particleTask;
-		partiTask.offset = 0;
-		partiTask.flag = 0x4;
-		//VDEngine::getTaskSchedule().submitTask(&partiTask);
-	}
+	// 	partiTask.size = 256;
+	// 	partiTask.callback = (VDTaskSchedule::VDTaskCallback)particleTask;
+	// 	partiTask.offset = 0;
+	// 	partiTask.flag = 0x4;
+	// 	//VDEngine::getTaskSchedule().submitTask(&partiTask);
+	// }
 
 
 
-	/*	TODO let the camera decide.	*/
-	if(VDQualitySetting::getCulling() == VDQualitySetting::eEarlyZRejection){
-		if(!VDSystemInfo::getCompatibility()->sShaderImageLoadStorage){
-			/*	write to the framebuffer.	*/
-			VDCamera* cam = VDCamera::getCurrentCamera();
-			VDRenderTexture* rendertex = cam->getRenderTexture();
-			VDRenderTexture* target = VDRenderSetting::getRenderingPathFrameBuffer(VDRenderSetting::getRenderingPath());
-			if(target){
-				target->write();
-			}
+	// /*	TODO let the camera decide.	*/
+	// if(VDQualitySetting::getCulling() == VDQualitySetting::eEarlyZRejection){
+	// 	if(!VDSystemInfo::getCompatibility()->sShaderImageLoadStorage){
+	// 		/*	write to the framebuffer.	*/
+	// 		VDCamera* cam = VDCamera::getCurrentCamera();
+	// 		VDRenderTexture* rendertex = cam->getRenderTexture();
+	// 		VDRenderTexture* target = VDRenderSetting::getRenderingPathFrameBuffer(VDRenderSetting::getRenderingPath());
+	// 		if(target){
+	// 			target->write();
+	// 		}
 
-		/*	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-			glDepthMask(SDL_TRUE);
-			glEnable(GL_STENCIL_TEST);
-			glEnable(GL_DEPTH_TEST);
-			glDisable(GL_CULL_FACE);
-			glDepthFunc(GL_LESS);
-			VDQueue<VDRenderer*>::Iterator it = queue.begin();
+	// 	/*	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+	// 		glDepthMask(SDL_TRUE);
+	// 		glEnable(GL_STENCIL_TEST);
+	// 		glEnable(GL_DEPTH_TEST);
+	// 		glDisable(GL_CULL_FACE);
+	// 		glDepthFunc(GL_LESS);
+	// 		VDQueue<VDRenderer*>::Iterator it = queue.begin();
 
-			while(it != queue.end()){
-				register VDRenderer* rend = (*it);
-				assert(rend);
-				VDTransform* trans = rend->transform();
-				VDMatrix4x4 mvp = cam->getProjectionViewMatrix() * trans->getMatrix();
-				rend->getMaterial()->getShader()->bind();
-				rend->getMaterial()->setMatrix4v(VDShaderConstant::ModelViewProjection(), &mvp[0][0], 1);
-				rend->draw();
-				it++;
-			}
+	// 		while(it != queue.end()){
+	// 			register VDRenderer* rend = (*it);
+	// 			assert(rend);
+	// 			VDTransform* trans = rend->transform();
+	// 			VDMatrix4x4 mvp = cam->getProjectionViewMatrix() * trans->getMatrix();
+	// 			rend->getMaterial()->getShader()->bind();
+	// 			rend->getMaterial()->setMatrix4v(VDShaderConstant::ModelViewProjection(), &mvp[0][0], 1);
+	// 			rend->draw();
+	// 			it++;
+	// 		}
 
-			glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
-			*/
-			//glDepthMask(SDL_TRUE);
-			//glEnable(GL_STENCIL_TEST);
-			//glEnable(GL_DEPTH_TEST);
-			//glDisable(GL_CULL_FACE);
-		}
-	}
+	// 		glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+	// 		*/
+	// 		//glDepthMask(SDL_TRUE);
+	// 		//glEnable(GL_STENCIL_TEST);
+	// 		//glEnable(GL_DEPTH_TEST);
+	// 		//glDisable(GL_CULL_FACE);
+	// 	}
+	// }
 
-	/*	send data to queue*/
-	VDDebug::debugLog("End of Occluder.\n");
+	// /*	send data to queue*/
+	// VDDebug::debugLog("End of Occluder.\n");
 }
 
 
-void VDRenderPipeLine::occludeTask(VDTaskSchedule::VDTaskPackage* package){
-	unsigned int ind;
-	//ind = ((VDTaskSchedule::VDTaskPool*)package->pool)->coreIndex;
-	ind = 0;
+// void VDRenderPipeLine::occludeTask(VDTaskSchedule::VDTaskPackage* package){
+// 	unsigned int ind;
+// 	//ind = ((VDTaskSchedule::VDTaskPool*)package->pool)->coreIndex;
+// 	ind = 0;
 
-	/*	fetch needed information.	*/
-	VDCamera* curCamera = VDCamera::getCurrentCamera();
-	bool useFrustum = curCamera ? curCamera->isFrustumCulling() : true;
-	bool useOcclusion = curCamera ? curCamera->isFrustumCulling() : true;
-	VDLayer layer = curCamera ? curCamera->getCullingMask() : VDLayer((unsigned int)-1);
-	VDGameObject* gobj;
+// 	/*	fetch needed information.	*/
+// 	VDCamera* curCamera = VDCamera::getCurrentCamera();
+// 	bool useFrustum = curCamera ? curCamera->isFrustumCulling() : true;
+// 	bool useOcclusion = curCamera ? curCamera->isFrustumCulling() : true;
+// 	VDLayer layer = curCamera ? curCamera->getCullingMask() : VDLayer((unsigned int)-1);
+// 	VDGameObject* gobj;
 
-	/*	iterate through all renderer pointers.	*/
-	for(VDRenderer** y = (VDRenderer**)package->begin; y != (VDRenderer**)package->end; y++){
-		VDRenderer*rend = *y;
-		/*	Check if renderer exists or if layer is valid.	*/
-		if(rend == NULL || !(layer & rend->gameObject()->getLayer()) ){
-			continue;
-		}
-
-
-		/*	discard if object is not enabled or no mesh.	*/
-		if(!rend->isVisiable() || rend->getMesh() == NULL){
-			continue;
-		}
-
-		gobj = rend->gameObject();
-		if(gobj->hasCustomBehavior()){
-			for(unsigned int z = 0; z < gobj->getComponentCount();z++){
-				if(gobj->getComponentByIndex(z)->isCustomBehavior()){
-					VDCASTP(VDCustomBehavior*, gobj->getComponentByIndex(z))->onPreCulled();
-				}
-			}
-		}/**/
+// 	/*	iterate through all renderer pointers.	*/
+// 	for(VDRenderer** y = (VDRenderer**)package->begin; y != (VDRenderer**)package->end; y++){
+// 		VDRenderer*rend = *y;
+// 		/*	Check if renderer exists or if layer is valid.	*/
+// 		if(rend == NULL || !(layer & rend->gameObject()->getLayer()) ){
+// 			continue;
+// 		}
 
 
-		VDBound::BoundType type = (VDBound::BoundType)( rend->getMesh()->getMeshFlag() & VDBound::eBound );
-		if(!useFrustum || curCamera->intersectionAABB(rend->getRenderBounds())){	/*	TMP */
+// 		/*	discard if object is not enabled or no mesh.	*/
+// 		if(!rend->isVisiable() || rend->getMesh() == NULL){
+// 			continue;
+// 		}
+
+// 		gobj = rend->gameObject();
+// 		if(gobj->hasCustomBehavior()){
+// 			for(unsigned int z = 0; z < gobj->getComponentCount();z++){
+// 				if(gobj->getComponentByIndex(z)->isCustomBehavior()){
+// 					VDCASTP(VDCustomBehavior*, gobj->getComponentByIndex(z))->onPreCulled();
+// 				}
+// 			}
+// 		}/**/
 
 
-			if(rend->getMaterial()->isOpaque()){
-				queues[ind].enqueue(rend);
-			}
-			else{
-				queues[ind].push_front(rend);
-			}
+// 		VDBound::BoundType type = (VDBound::BoundType)( rend->getMesh()->getMeshFlag() & VDBound::eBound );
+// 		if(!useFrustum || curCamera->intersectionAABB(rend->getRenderBounds())){	/*	TMP */
 
 
-			if(gobj->getActiveFlag() & VDGameObject::eAnimation){
-				gobj->animation()->internalUpdate();
-			}
-
-		}/**/
-	}/**/
-
-}
-
-void VDRenderPipeLine::particleTask(VDTaskSchedule::VDTaskPackage* package){
-	void* indices = VDCAST( void**, package->begin)[0];
-	package->cbegin += sizeof(void*);
-	//package->begin = VDCAST(void**, package->begin)[0];
-	for(; package->begin != package->end; package->cbegin += sizeof(void*)){
-		VDRenderer* rend = (VDRenderer*)package->begin;
+// 			if(rend->getMaterial()->isOpaque()){
+// 				queues[ind].enqueue(rend);
+// 			}
+// 			else{
+// 				queues[ind].push_front(rend);
+// 			}
 
 
-	}
-}
+// 			if(gobj->getActiveFlag() & VDGameObject::eAnimation){
+// 				gobj->animation()->internalUpdate();
+// 			}
+
+// 		}/**/
+// 	}/**/
+
+// }
+
+// void VDRenderPipeLine::particleTask(VDTaskSchedule::VDTaskPackage* package){
+// 	void* indices = VDCAST( void**, package->begin)[0];
+// 	package->cbegin += sizeof(void*);
+// 	//package->begin = VDCAST(void**, package->begin)[0];
+// 	for(; package->begin != package->end; package->cbegin += sizeof(void*)){
+// 		VDRenderer* rend = (VDRenderer*)package->begin;
+
+
+// 	}
+// }
 
 void VDRenderPipeLine::internalForwardRendering(VDFrustum* frustum, VDCamera* camera, VDDoubleBufferedAllocator* allocator, VDQueue<VDRenderer*>* renderers){
 	unsigned int cull = 0;

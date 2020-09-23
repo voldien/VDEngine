@@ -56,7 +56,7 @@ public:
 
 	enum PolygoneMode{
 		eWireFrame 	= (1 << 10),	/*	*/
-		ePoint 		= (1 << 11),	/*	*/
+		Point 		= (1 << 11),	/*	*/
 		eTriangle 	= (1 << 12),	/*	*/
 	};
 

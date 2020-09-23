@@ -24,7 +24,7 @@
 /**
  *	Base texture class.
  */
-class VDTexture : public VDAssetObject{
+class VDTexture : public VDAssetObject {
 	friend class VDRenderTexture;
 public:
 	enum TextureFlag{

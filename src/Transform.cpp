@@ -1,8 +1,8 @@
 #include <Core/VDComponent.h>
 #include <Core/VDObject.h>
 #include <DataStructure/VDPoolAllactor.h>
-#include <hpmcpp/HCQuaternion.h>
-#include <hpmcpp/HCVector3.h>
+#include <HCQuaternion.h>
+#include <HCVector3.h>
 #include <malloc.h>
 #include <Misc/VDMath.h>
 #include <Scene/VDGameObject.h>
@@ -134,7 +134,7 @@ void VDTransform::lookAt(const VDGameObject* gameObject){
 }
 
 void VDTransform::lookAt(const VDVector3& Target){
-	this->setRotation(VDQuaternion::lookRotation((Target - this->getPosition()), VDVector3::up()).normalize());
+	//this->setRotation(VDQuaternion::lookRotation((Target - this->getPosition()), VDVector3::up()).normalize());
 }
 
 VDTransform* VDTransform::findChild(const char* name){

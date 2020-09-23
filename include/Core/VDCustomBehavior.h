@@ -26,7 +26,7 @@
  *	Class for adding custom behavior
  *	to gameobjects.
  */
-class VDDECLSPEC VDCustomBehavior : public VDBehavior{
+class VDDECLSPEC VDCustomBehavior : public VDBehavior {
 public:
 
 	VDCustomBehavior(void);

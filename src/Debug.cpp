@@ -90,7 +90,7 @@ bool VDDebug::isDebugBuild(void){
 }
 
 bool VDDebug::isDebugEnabled(void){
-	return (VDEngine::getSubSystemFlag() & VDEngine::SubSystem::eDebug) != SDL_FALSE;
+	return (VDEngine::getSubSystemFlag() & VDEngine::SubSystem::Debug) != SDL_FALSE;
 }
 
 void VDDebug::log(const char* format,...){

@@ -20,7 +20,12 @@
 #define _VD_SIMPLE_TYPE_H_ 1
 #include"VDDef.h"
 #include"VDPrerequisites.h"
-#include<hpmcpp/HC.h>
+#include<HpmCpp.h>
+#include<HCPlane.h>
+#include<HCVector2.h>
+#include<HCVector4.h>
+#include<HCVector3.h>
+#include<HCQuaternion.h>
 
 /**
  *	Declare HC class object

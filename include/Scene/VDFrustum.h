@@ -28,7 +28,7 @@
  *	View frustum, where everything inside the
  *	frustum is visable.
  */
-class VDDECLSPEC VDFrustum : public VDBehavior{
+class VDDECLSPEC VDFrustum : public VDBehavior {
 public:
 
 	/**

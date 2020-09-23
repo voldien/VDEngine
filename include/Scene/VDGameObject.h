@@ -222,7 +222,7 @@ public:
 		int x;
 
 		for(x = 0; x < transform()->getChildCount(); x++){
-			comp = transform()->child(x)->getComponents<T>();
+			comp = transform()->child(x)->gameObject()->getComponents<T>();
 			com.merge(tmp);
 		}
 

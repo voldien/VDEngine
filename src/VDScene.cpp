@@ -11,7 +11,7 @@
 void VDScene::init(void){
 
 	/*	setup scene data */
-	VDScene::getScene()->version = VD_ENGINE_VERSION;
+	VDScene::getScene()->version = 0;//VD_ENGINE_VERSION;
 	VDScene::getScene()->flag = 0;
 	memcpy(VDScene::getScene()->name, "default scene", sizeof("default scene"));
 	VDRenderSetting::setAmbientColor(VDColor(0.7));

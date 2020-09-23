@@ -155,7 +155,6 @@ class VDGameObject;
 class VDRigidBody;
 class VDTransform;
 
-class VDTaskSchedule;
 
 class VDTypeInfo;
 class VDSize;

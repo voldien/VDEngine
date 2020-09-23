@@ -5,9 +5,6 @@
 #include <Core/VDGUID.h>
 #include <Core/VDObject.h>
 #include <malloc.h>
-#include <Misc/VDFile.h>
-#include <SDL2/SDL_filesystem.h>
-#include <SDL2/SDL_stdinc.h>
 #include <unistd.h>
 #include <VDSystemInfo.h>
 #include <assert.h>
@@ -28,7 +25,7 @@ void VDAssetManager::setRootDirectory(const char* cpath) {
 	char buffer[PATH_MAX];
 	const char* cRootPath = cpath;
 	if (!cpath) {
-		SDL_GetBasePath();
+		//SDL_GetBasePath();
 		//ExGetAppliationPath(buffer, sizeof(buffer));
 		//cRootPath = &buffer[0];
 	}
@@ -51,9 +48,9 @@ char* VDAssetManager::getAbsolutePath(const char* relativePath, char* buffer,
 	if (!buffer) {
 		return NULL;
 	}
-	if (!VDFile::isRelativePath(relativePath)) {
-		return (char*) relativePath;
-	}
+	// if (!VDFile::isRelativePath(relativePath)) {
+	// 	return (char*) relativePath;
+	// }
 
 	sprintf(buffer, "%s/%s", getRootDirectory(), relativePath);
 	//memmove(relativePath + strlen(getRootDirectory()) , relativePath, strlen(getRootDirectory())  );
@@ -73,8 +70,8 @@ std::string VDAssetManager::getResourcePath(ResourceType type) {
 	if (VDSystemInfo::operatingSystem() & VDSystemInfo::eUnix) {
 		switch (type) {
 		case ResourceType::eConfig:
-			env = SDL_getenv("USER");
-			sprintf(path, "/home/%s/.vdengine/%s/engine.conf", env, appname);
+			// env = SDL_getenv("USER");
+			// sprintf(path, "/home/%s/.vdengine/%s/engine.conf", env, appname);
 			break;
 		case ResourceType::eConfigInternal:
 

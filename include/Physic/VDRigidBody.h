@@ -18,18 +18,20 @@
 */
 #ifndef _VD_RIGIDBODY_H_
 #define _VD_RIGIDBODY_H_ 1
+#include<fragcore/physic/RigidBody.h>
 #include"VDPhysicActorBase.h"
 
 /**
  *
  */
-class VDDECLSPEC VDRigidBody : public VDPhysicActor{
+class VDDECLSPEC VDRigidBody : public VDPhysicActor {
 public:
 
 	enum Mode{
 		eDiscret 	= 0x1,	/*	*/
 		eCCD 		= 0x2,	/*	*/
 	};
+	fragcore::RigidBody* rigidBody;
 
 	VDRigidBody(void);
 	VDRigidBody(const VDRigidBody& rigidbody);
@@ -50,102 +52,142 @@ public:
 	 *	Apply Force as A Vector. which takes the magnitude as
 	 *	force and direction of the vector direction.
 	 */
-	void VDAPIENTRY addForce(const VDVector3& force);
+	void VDAPIENTRY addForce(const VDVector3& force){
+		rigidBody->addForce(force);
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY addForce(float x, float y, float z);
+	void VDAPIENTRY addForce(float x, float y, float z){
+		rigidBody->addForce(VDVector3(x,y,z));
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY addForceAtPosition(const VDVector3& force,const VDVector3& position);
+	void VDAPIENTRY addForceAtPosition(const VDVector3& force,const VDVector3& position){
+
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY addRelativeForce(const VDVector3& force);
+	void VDAPIENTRY addRelativeForce(const VDVector3& force){
+
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY addRelativeTorque(const VDVector3& force);
+	void VDAPIENTRY addRelativeTorque(const VDVector3& force){
+
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY addTorque(const VDVector3& force);
+	void VDAPIENTRY addTorque(const VDVector3& force){
+
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIFASTENTRY setCollisioMode(unsigned int state);
+	void VDAPIFASTENTRY setCollisioMode(unsigned int state){
+
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY setMass(float mass);
+	void VDAPIENTRY setMass(float mass){
+
+	}
 
 	/**
 	 *
 	 */
-	float VDAPIFASTENTRY getMass(void)const;
+	float VDAPIFASTENTRY getMass(void)const{
+
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY setDrag(float drag);
+	void VDAPIENTRY setDrag(float drag){
+
+	}
 
 	/**
 	 *
 	 */
-	float VDAPIFASTENTRY getDrag(void)const;
+	float VDAPIFASTENTRY getDrag(void)const{
+
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY setAngularDrag(float angularDrag);
+	void VDAPIENTRY setAngularDrag(float angularDrag){
+
+	}
 
 	/**
 	 *
 	 */
-	float VDAPIFASTENTRY getAngularDrag(void)const;
+	float VDAPIFASTENTRY getAngularDrag(void)const{
+
+	}
 
 	/**
 	 *
 	 */
-	int VDAPIENTRY isSleeping(void)const;
+	int VDAPIENTRY isSleeping(void)const{
+
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIFASTENTRY sleep(void);
+	void VDAPIFASTENTRY sleep(void){
+
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIFASTENTRY wake(void);
+	void VDAPIFASTENTRY wake(void){
+
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY useGraivity(bool useGravity);
+	void VDAPIENTRY useGraivity(bool useGravity){
+
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY kinect(bool kinect);
+	void VDAPIENTRY kinect(bool kinect){
+
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIFASTENTRY enableCCD(void);
+	void VDAPIFASTENTRY enableCCD(void){
+
+	}
 
 	/**
 	 *
 	 */
-	void VDAPIFASTENTRY disableCCD(void);
+	void VDAPIFASTENTRY disableCCD(void){
+		
+	}
 
 };
 

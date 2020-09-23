@@ -89,7 +89,7 @@ public:
 	};
 
 	enum Primitive{
-		ePoint = 0x0,					/*	GL_POINTS*/
+		Point = 0x0,					/*	GL_POINTS*/
 		eLine = 0x1,					/*	GL_LINES*/
 		eLineLoop = 0x2,				/*	GL_LINE_LOOP	*/
 		eLineStrip = 0x3,				/*	GL_TRIANGLES*/

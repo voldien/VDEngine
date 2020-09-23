@@ -26,14 +26,14 @@
  *	Light gameobject components. Responsible for
  *	adding light and shadow.
  */
-class VDDECLSPEC VDLight : public VDFrustum{
+class VDDECLSPEC VDLight : public VDFrustum {
 public:
 
 	/**
 	 *
 	 */
 	enum LightType {
-		ePoint 		= 0x4,			/*	Point light, aka omni light.	*/
+		Point 		= 0x4,			/*	Point light, aka omni light.	*/
 		eSpot 		= 0x8,			/*	Spot light.	*/
 		eDirection 	= 0x10,			/*	Direction light.	*/
 	};
@@ -51,7 +51,7 @@ public:
 	};
 
 	enum Attenuation{
-		eNone 		= 0x8000,		/*	*/
+		None 		= 0x8000,		/*	*/
 		eConstant 	= 0x10000,		/*	*/
 		eLinear 	= 0x20000,		/*	*/
 		eQuadratic 	= 0x40000,		/*	*/

@@ -36,8 +36,8 @@ public:
 	 *	Sub system of the engine.
 	 */
 	enum SubSystem{
-		eNone 				= 0x0,
-		eDebug 				= 0x4,
+		None 				= 0x0,
+		Debug 				= 0x4,
 		eAudio 				= 0x8,
 		eDefualtMaterialLowQuality 	= 0x200,
 		eDefualtMaterialHighQuality 	= 0x400,
@@ -45,7 +45,7 @@ public:
 		eInitialize 			= 0x2000,
 
 		eDefault = ( eDefualtMaterialLowQuality | ePhysic ),
-		eAll = (eDebug | eDefualtMaterialLowQuality | eDefualtMaterialHighQuality |
+		eAll = (Debug | eDefualtMaterialLowQuality | eDefualtMaterialHighQuality |
 				ePhysic | eInitialize | eDefault)
 	};
 
@@ -191,7 +191,7 @@ public:
 	/**
 	 * Get task scheduler associated with the engine.
 	 */
-	static VDTaskSchedule& VDAPIENTRY getTaskSchedule(void);
+	//static VDTaskSchedule& VDAPIENTRY getTaskSchedule(void);
 
 	/**
 	 * Get debug object.

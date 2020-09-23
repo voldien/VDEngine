@@ -17,7 +17,7 @@ using namespace std;
 
 VDAnimation::VDAnimation(void) : VDBehavior(){
 	this->time = 0;
-	this->animationState = VDAnimation::eNone;
+	this->animationState = VDAnimation::None;
 }
 
 VDAnimation::VDAnimation(const VDAnimation& animation) : VDBehavior(){
@@ -58,12 +58,12 @@ VDBehavior* VDAnimation::copyComponent(unsigned int& dataSize){
 }
 
 bool VDAnimation::isPlaying(void)const{
-	return (VDAnimation::getState() & VDAnimation::eIsPlaying);
+	return (VDAnimation::getState() & VDAnimation::IsPlaying);
 }
 
 void VDAnimation::play(int index){
 	this->time = 0.0f;
-	this->animationState |= VDAnimation::eIsPlaying;
+	this->animationState |= (int)VDAnimation::IsPlaying;
 	std::swap(*this->clips[0], *this->clips[index]);
 }
 
@@ -79,7 +79,7 @@ void VDAnimation::play(const char* animationClip){
 void VDAnimation::stop(void){
 	/*	Reset timer.	*/
 	this->time = 0.0f;
-	this->animationState = (~VDAnimation::eIsPlaying & this->animationState);
+	this->animationState = (~VDAnimation::IsPlaying & this->animationState);
 }
 
 void VDAnimation::addClip(VDAnimationClip* animationClip){

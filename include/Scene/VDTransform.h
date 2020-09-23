@@ -24,7 +24,7 @@
 /**
  *	Transformation of node object.
  */
-class VDDECLSPEC VDTransform : public VDBehavior{
+class VDDECLSPEC VDTransform : public VDBehavior {
 
 	typedef struct vd_node_t{
 		VDTransform* parent;

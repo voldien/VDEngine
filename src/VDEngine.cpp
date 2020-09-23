@@ -14,7 +14,6 @@
 #include <Core/VDObject.h>
 #include <Core/VDQualitySetting.h>
 #include <Core/VDScreen.h>
-#include <Core/VDTaskSchedule.h>
 #include <Core/VDTime.h>
 #include <DataStructure/VDDoubleBufferedAllocator.h>
 #include <DataStructure/VDPoolAllactor.h>
@@ -62,6 +61,9 @@
 #include <cstring>
 #include <map>
 #include <string>
+#include<HpmCpp.h>
+#include<fragcore/FragCore.h>
+#include<fragcore/Window/WindowManager.h>
 
 
 #define VDENGINE_DEINIT (1 << 31)
@@ -69,8 +71,6 @@
 VDEngineCore engine;
 
 extern char* getGameEngineDefaultTitle(void);
-
-
 
 /*	signal interrupt event	*/
 void catchEngineSignal(int signal){
@@ -103,10 +103,6 @@ void catchEngineSignal(int signal){
 	}
 }
 
-
-
-
-
 int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 
 	int ret = SDL_FALSE;
@@ -135,7 +131,6 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 	/*	Add engine terminate function in the event of a crash.	*/
 	atexit(VDEngine::releaseEngine);
 
-
 	/*	Read arguments	*/
 	engine.config = (VDConfigure::VDConfig*)malloc(sizeof(VDConfigure::VDConfig));
 	memset(engine.config, 0, sizeof(VDConfigure::VDConfig));
@@ -145,9 +140,9 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 
 
 	/*	TODO resolve absolute path for engine files in respect to what platform.	*/
-	if(VDConfigure::loadConfigFile(cconfigfile.c_str(), engine.config) == SDL_FALSE){
-		VDDebug::errorLog("Failed to load configuration file %s\n", cconfigfile.c_str());
-	}
+	// if(VDConfigure::loadConfigFile(cconfigfile.c_str(), engine.config) == SDL_FALSE){
+	// 	VDDebug::errorLog("Failed to load configuration file %s\n", cconfigfile.c_str());
+	// }
 
 	/*	Read first pass of option argument.	*/
 	if(VDEngine::readArgument(argc, argv, 1) == 2){
@@ -166,10 +161,13 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 	engine.flag |= subsystem;
 
 
+	//HpmCpp::init(HpmCpp::eHPM_DEFAULT);
 	if(!hpm_init(HPM_DEFAULT)){
 		fprintf(stderr, "Failed to init hpm.\n");
 		exit(EXIT_FAILURE);
 	}
+
+
 
 	/*	Initialize EC core.	*/
 	ret = SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_GAMECONTROLLER);
@@ -265,15 +263,15 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 
 
 	/*	Create task scheduler.	*/
-	VDDebug::log("Creating TaskSchedule.\n");
-	engine.schedule = VDTaskSchedule();
-	engine.schedule.init(VDEngine::getConfig()->ntaskcores <= 0 ? VDSystemInfo::getCPUCoreCount() : VDEngine::getConfig()->ntaskcores);
-	VDRenderingAPICache::init(VDEngine::getTaskSchedule().getNumTaskPool());
-	VDRenderingAPICache::enable();
-	VDRenderPipeLine::queues.resize(VDEngine::getTaskSchedule().getNumTaskPool());
-	for(int x = 0; x < VDEngine::getTaskSchedule().getNumTaskPool(); x++){
-		VDRenderPipeLine::queues.push( VDQueue<VDRenderer*>(4096) );
-	}
+	// VDDebug::log("Creating TaskSchedule.\n");
+	// engine.schedule = VDTaskSchedule();
+	// engine.schedule.init(VDEngine::getConfig()->ntaskcores <= 0 ? VDSystemInfo::getCPUCoreCount() : VDEngine::getConfig()->ntaskcores);
+	// VDRenderingAPICache::init(VDEngine::getTaskSchedule().getNumTaskPool());
+	// VDRenderingAPICache::enable();
+	// VDRenderPipeLine::queues.resize(VDEngine::getTaskSchedule().getNumTaskPool());
+	// for(int x = 0; x < VDEngine::getTaskSchedule().getNumTaskPool(); x++){
+	// 	VDRenderPipeLine::queues.push( VDQueue<VDRenderer*>(4096) );
+	// }
 
 
 	/*	Create engine scene.	*/
@@ -345,7 +343,7 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 	VDQualitySetting::setShadowDistance(75.0f);
 	VDQualitySetting::setShadowFilter(VDQualitySetting::ShadowFilter::eSimple);
 	VDQualitySetting::useAntaiAlising(false);
-	VDQualitySetting::setSamplerMode(VDQualitySetting::SampleType::eNone);
+	VDQualitySetting::setSamplerMode(VDQualitySetting::SampleType::None);
 	VDQualitySetting::setTextureLod(0);
 	VDQualitySetting::setTextureAnisotropy(4.0f);
 	VDQualitySetting::setColorSpace(VDQualitySetting::ColorSpace::eLinear);
@@ -439,7 +437,7 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 	}
 
 	/*	*/
-	ret |= engine.schedule.runTaskSch();
+	//ret |= engine.schedule.runTaskSch();
 
 	return ret;
 }
@@ -447,7 +445,7 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 int VDEngine::initSubSystem(VDEngine::SubSystem subsystem){
 
 
-	if(subsystem & VDEngine::eDebug){
+	if(subsystem & VDEngine::Debug){
 		engine.debug = new VDDebug();
 		engine.debug->init();
 
@@ -497,7 +495,7 @@ int VDEngine::releaseSubSystem(SubSystem subsystem){
 	int status = 1;
 
 	/*	*/
-	if(subsystem & VDEngine::eDebug){
+	if(subsystem & VDEngine::Debug){
 		if(VDEngine::getDebug()){
 			VDEngine::getDebug()->release();
 		}
@@ -529,7 +527,7 @@ void VDEngine::releaseEngine(void){
 
 
 	/*	Terminate task sch	*/
-	result = VDEngine::getTaskSchedule().terminateTaskSch();
+	//result = VDEngine::getTaskSchedule().terminateTaskSch();
 
 
 	/*	Release subsystem.	*/
@@ -619,18 +617,18 @@ int VDEngine::readArgument(int argc, const char** argv, unsigned int pre){
 					if(strcmp(optarg, "1") == 0 || strcmp(optarg, "true") == 0 || strlen(optarg) == 0){
 						VDDebug::log("Argument for enable debugging.\n");
 						int st;
-						engine.flag |= VDEngine::eDebug;
+						engine.flag |= VDEngine::Debug;
 						SDL_GL_GetAttribute(SDL_GL_CONTEXT_FLAGS, &st);
 						SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_DEBUG_FLAG | st);
 					}
 					else{
 						VDDebug::log("Argument for disable debugging.\n");
-						engine.flag = engine.flag & ~VDEngine::eDebug;
+						engine.flag = engine.flag & ~VDEngine::Debug;
 					}
 				}
 				else{
 					VDDebug::log("Argument for enable debugging.\n");
-					engine.flag |= VDEngine::eDebug;
+					engine.flag |= VDEngine::Debug;
 					SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_DEBUG_FLAG);
 				}
 				break;
@@ -842,21 +840,21 @@ int VDEngine::run(void){
 		VDInput::internal_update();
 
 
-		/*	update routines.	*/
-		VDGameObject::internalGameObjectUpdate(&g_doubleFrameAllocator);
-		for(int x =0; x < engine.routines[VDEngine::SubRoutine::eUpdate].size(); x++ ){
-			VDTaskSchedule::VDTaskPackage pack = {0};
-			pack.callback = (VDTaskSchedule::VDTaskCallback)VDEngine::getCallBack(VDEngine::SubRoutine::eUpdate)[x];
-			VDEngine::getTaskSchedule().submitTask(&pack);
-		}
+		// /*	update routines.	*/
+		// VDGameObject::internalGameObjectUpdate(&g_doubleFrameAllocator);
+		// for(int x =0; x < engine.routines[VDEngine::SubRoutine::eUpdate].size(); x++ ){
+		// 	VDTaskSchedule::VDTaskPackage pack = {0};
+		// 	pack.callback = (VDTaskSchedule::VDTaskCallback)VDEngine::getCallBack(VDEngine::SubRoutine::eUpdate)[x];
+		// 	VDEngine::getTaskSchedule().submitTask(&pack);
+		// }
 
-		/*	Update fixed routines.	*/
-		VDGameObject::internalGameObjectFixedUpdate(&g_doubleFrameAllocator);
-		for(int x =0; x < engine.routines[VDEngine::SubRoutine::eFixedUpdate].size(); x++ ){
-			VDTaskSchedule::VDTaskPackage pack = {0};
-			pack.callback = (VDTaskSchedule::VDTaskCallback)VDEngine::getCallBack(VDEngine::SubRoutine::eFixedUpdate)[x];
-			VDEngine::getTaskSchedule().submitTask(&pack);
-		}
+		// /*	Update fixed routines.	*/
+		// VDGameObject::internalGameObjectFixedUpdate(&g_doubleFrameAllocator);
+		// for(int x =0; x < engine.routines[VDEngine::SubRoutine::eFixedUpdate].size(); x++ ){
+		// 	VDTaskSchedule::VDTaskPackage pack = {0};
+		// 	pack.callback = (VDTaskSchedule::VDTaskCallback)VDEngine::getCallBack(VDEngine::SubRoutine::eFixedUpdate)[x];
+		// 	VDEngine::getTaskSchedule().submitTask(&pack);
+		// }
 
 		/*	main render pipeline.	*/
 		VDRenderPipeLine::render(&g_doubleFrameAllocator);
@@ -958,9 +956,9 @@ VDVector<VDCustomCallBack>& VDEngine::getCallBack(SubRoutine enumCallBack){
 	return engine.routines[enumCallBack];
 }
 
-VDTaskSchedule& VDEngine::getTaskSchedule(void){
-	return engine.schedule;
-}
+// VDTaskSchedule& VDEngine::getTaskSchedule(void){
+// 	return engine.schedule;
+// }
 
 VDDebug* VDEngine::getDebug(void){
 	return engine.debug;
@@ -972,17 +970,17 @@ VDConfigure::VDConfig* VDEngine::getConfig(void){
 
 unsigned int VDEngine::getBuildVersion(unsigned int* major, unsigned int* minor, unsigned int* revision){
 
-	if(major){
-		*major = MAJOR_VERSION;
-	}
-	if(minor){
-		*minor = MINOR_VERSION;
-	}
-	if(revision){
-		*revision = PATCH_VERSION;
-	}
+	// if(major){
+	// 	*major = MAJOR_VERSION;
+	// }
+	// if(minor){
+	// 	*minor = MINOR_VERSION;
+	// }
+	// if(revision){
+	// 	*revision = PATCH_VERSION;
+	// }
 
-	return ( MAJOR_VERSION * 100 + MINOR_VERSION * 10 + PATCH_VERSION );
+	// return ( MAJOR_VERSION * 100 + MINOR_VERSION * 10 + PATCH_VERSION );
 }
 
 #define VD_ENGINE_DEFAULT_TITLE VD_TEXT("%s | VDEngine Version %s")

@@ -51,7 +51,7 @@ void VDCollider::initializeComponent(void){
 	this->PxSimulate(true);
 	this->isTrigger(false);
 	this->PxShapeSceneQuerty(true);
-	this->menable |= VDBehavior::eColliderShape;
+	this->menable |= VDBehavior::ColliderShape;
 	colliderCollection.push_back(this);
 
 	this->PxSetGlobalPosition(this->transform()->getPosition());
@@ -85,9 +85,9 @@ VDBehavior* VDCollider::copyComponent(unsigned int& dataSize){
 void VDCollider::isTrigger(bool trigger){
 	if(this->getShape()){
 		if(!trigger)
-			this->menable = (~VDBehavior::eColliderTrigger & this->menable) | VDBehavior::eColliderShape;
+			this->menable = (~VDBehavior::ColliderTrigger & this->menable) | VDBehavior::ColliderShape;
 		else
-			this->menable = (~VDBehavior::eColliderShape & this->menable) | VDBehavior::eColliderTrigger;
+			this->menable = (~VDBehavior::ColliderShape & this->menable) | VDBehavior::ColliderTrigger;
 		this->getShape()->setFlag(PxShapeFlag::eSIMULATION_SHAPE, !trigger);
 		this->getShape()->setFlag(PxShapeFlag::eTRIGGER_SHAPE, trigger);
 	}

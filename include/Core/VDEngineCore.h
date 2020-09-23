@@ -22,7 +22,6 @@
 
 #include <Core/VDConfig.h>
 #include <Core/VDEvent.h>
-#include <Core/VDTaskSchedule.h>
 #include <DataStructure/VDPoolAllactor.h>
 #include <DataStructure/VDVector.h>
 #include <Physic/VDPhysic.h>
@@ -66,7 +65,7 @@ typedef struct vd_engine_core_t {
 	 *	Task schedule for utilizing
 	 *	n number of cores evenly.
 	 */
-	VDTaskSchedule schedule;
+	//VDTaskSchedule schedule;
 
 	/**
 	 *

@@ -18,6 +18,7 @@
 */
 #ifndef _VD_JOINT_H_
 #define _VD_JOINT_H_ 1
+//#include<fragcore/physic/
 #include"VDPhysic.h"
 #include"../Core/VDBehavior.h"
 

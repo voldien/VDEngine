@@ -5,7 +5,6 @@
 #include <Core/VDDebug.h>
 #include <Core/VDLayer.h>
 #include <Core/VDObject.h>
-#include <Core/VDTaskSchedule.h>
 #include <Core/VDTypes.h>
 #include <DataStructure/VDPoolAllactor.h>
 #include <Physic/VDBoxCollider.h>
@@ -142,7 +141,7 @@ void VDGameObject::setActive(bool active){
 		for(int x = 0; x < this->componets.size(); x++){
 			unsigned int state = componets[x]->getState();
 			componets[x]->disable();
-			componets[x]->setState( (state & ~0x1) | ( (state & VDBehavior::eEnable) << 31) );
+			componets[x]->setState( (state & ~0x1) | ( (state & VDBehavior::Enable) << 31) );
 		}
 		this->active = this->active & ~VDGameObject::eActive;
 	}
@@ -198,7 +197,7 @@ VDBehavior* VDGameObject::detachComponent(VDBehavior* behavior){
 }
 
 unsigned int VDGameObject::hasCustomBehavior(void)const{
-	return (this->active & VDCustomBehavior::eCustomBehavior);
+	return (this->active & VDCustomBehavior::CustomBehavior);
 }
 
 
@@ -314,32 +313,32 @@ int VDGameObject::existComponet(const VDTypeInfo& info)const{
 
 
 
-static void* private_TaskUpdate(VDTaskSchedule::VDTaskPackage* package){
-	register VDGameObject* g = (VDGameObject*)package->begin;
-	register VDGameObject* end = (VDGameObject*)package->end;
-	while(g != package->end){
-		if(!g->hasCustomBehavior())
-			continue;
+// static void* private_TaskUpdate(VDTaskSchedule::VDTaskPackage* package){
+// 	register VDGameObject* g = (VDGameObject*)package->begin;
+// 	register VDGameObject* end = (VDGameObject*)package->end;
+// 	while(g != package->end){
+// 		if(!g->hasCustomBehavior())
+// 			continue;
 
-		for(int x = g->getComponentCount() - 1; x >= 0; x--){
-			if(g->getComponentByIndex(x)->isCustomBehavior())
-				VDCASTP(VDCustomBehavior*,g->getComponentByIndex(x))->update();
+// 		for(int x = g->getComponentCount() - 1; x >= 0; x--){
+// 			if(g->getComponentByIndex(x)->isCustomBehavior())
+// 				VDCASTP(VDCustomBehavior*,g->getComponentByIndex(x))->update();
 
-		}/*	update	*/
+// 		}/*	update	*/
 
-		if(!g->hasCustomBehavior())
-			continue;
+// 		if(!g->hasCustomBehavior())
+// 			continue;
 
-		for(int x = g->getComponentCount() - 1; x >= 0; --x){
-			if(g->getComponentByIndex(x)->isCustomBehavior())
-				VDCASTP(VDCustomBehavior*,g->getComponentByIndex(x))->lateUpdate();
+// 		for(int x = g->getComponentCount() - 1; x >= 0; --x){
+// 			if(g->getComponentByIndex(x)->isCustomBehavior())
+// 				VDCASTP(VDCustomBehavior*,g->getComponentByIndex(x))->lateUpdate();
 
-		}/*	fixed update	*/
+// 		}/*	fixed update	*/
 
-		g++;
-	}
-	return NULL;
-}
+// 		g++;
+// 	}
+// 	return NULL;
+// }
 
 
 void VDGameObject::internalGameObjectUpdate(VDDoubleBufferedAllocator* allocator){
