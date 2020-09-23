@@ -5,9 +5,9 @@
 #include <DataStructure/VDStackAllactor.h>
 #include <DataStructure/VDVector.h>
 #include <GL/glew.h>
+#include<Core/Math.h>
 #include <HCQuaternion.h>
 #include <HCVector3.h>
-#include <Misc/VDMath.h>
 #include <Rendering/Texture/VDCubeMap.h>
 #include <Rendering/Texture/VDRenderTexture.h>
 #include <Rendering/Texture/VDTexture.h>
@@ -166,13 +166,13 @@ void VDLight::setType(VDLight::LightType lighType){
 
 	switch(this->getType()){
 	case VDLight::eDirection:
-		VDScene::getScene()->uniform.engineState.numDirection = VDMath::clamp<int>(VDScene::getScene()->uniform.engineState.numDirection - 1, 0 , 0xfffffff);
+		VDScene::getScene()->uniform.engineState.numDirection = fragcore::Math::clamp<int>(VDScene::getScene()->uniform.engineState.numDirection - 1, 0 , 0xfffffff);
 		break;
 	case VDLight::Point:
-		VDScene::getScene()->uniform.engineState.numPoint = VDMath::clamp<int>(VDScene::getScene()->uniform.engineState.numPoint - 1, 0 , 0xfffffff);
+		VDScene::getScene()->uniform.engineState.numPoint = fragcore::Math::clamp<int>(VDScene::getScene()->uniform.engineState.numPoint - 1, 0 , 0xfffffff);
 		break;
 	case VDLight::eSpot:
-		VDScene::getScene()->uniform.engineState.numSpot = VDMath::clamp<int>(VDScene::getScene()->uniform.engineState.numSpot - 1, 0 , 0xfffffff);
+		VDScene::getScene()->uniform.engineState.numSpot = fragcore::Math::clamp<int>(VDScene::getScene()->uniform.engineState.numSpot - 1, 0 , 0xfffffff);
 		break;
 	}
 
@@ -181,7 +181,7 @@ void VDLight::setType(VDLight::LightType lighType){
 	switch(lighType){
 	case VDLight::eDirection:
 		VDScene::getScene()->uniform.engineState.numDirection += 1;
-		this->setOrth(VDMath::infinity, -VDMath::infinity, VDMath::infinity, -VDMath::infinity, VDMath::infinity, -VDMath::infinity);
+		this->setOrth(fragcore::Math::Infinite, -fragcore::Math::Infinite, fragcore::Math::Infinite, -fragcore::Math::Infinite, fragcore::Math::Infinite, -fragcore::Math::Infinite);
 		break;
 	case VDLight::Point:
 		VDScene::getScene()->uniform.engineState.numPoint += 1;
@@ -189,7 +189,7 @@ void VDLight::setType(VDLight::LightType lighType){
 		break;
 	case VDLight::eSpot:
 		VDScene::getScene()->uniform.engineState.numPoint += 1;
-		this->setPerspective( VDMath::deg2Rad(getOuterCone() * 90.0f ), 1, 0.5, getRange());
+		this->setPerspective( fragcore::Math::deg2Rad(getOuterCone() * 90.0f ), 1, 0.5, getRange());
 		break;
 	}
 
@@ -212,15 +212,15 @@ void VDLight::setColor(const VDColor& color){
 }
 
 void VDLight::setOuterCone(float Cutoff){
-	this->outerCone = VDMath::clamp( Cutoff, 0.0, 1.0);
+    this->outerCone = fragcore::Math::clamp(Cutoff, 0.0, 1.0);
 }
 
 void VDLight::setInnerCone(float InnerCone){
-	this->innerCone = VDMath::clamp( InnerCone, 0.0, 1.0);
+	this->innerCone = fragcore::Math::clamp( InnerCone, 0.0, 1.0);
 }
 
 void VDLight::setRange(float range){
-	this->range = VDMath::max<float>(range, 0.1);
+	this->range = fragcore::Math::max<float>(range, 0.1);
 	this->setFar(range);
 	this->calcFrustumPlanes(this->transform()->getPosition(), VDVector3::up(), VDVector3::forward());
 }
@@ -285,7 +285,7 @@ void VDLight::setShadow(unsigned int shadowFlag){
 
 void VDLight::setShadowSize(unsigned int size){
 	if(this->getShadowTexture()){
-		size = VDMath::min<int>(VDSystemInfo::getCompatibility()->sMaxTextureSize, size);
+		size = fragcore::Math::min<int>(VDSystemInfo::getCompatibility()->sMaxTextureSize, size);
 		this->getShadowTexture()->resize(size, size);
 	}
 }
@@ -333,7 +333,7 @@ VDMatrix4x4 VDLight::getShadowMatrix(unsigned int pointLightIndex)const{
 
 		lightprojectM *= VDMatrix4x4::translate(-transform->getPosition());
 
-		lightprojectM = (VDMatrix4x4::perspective(VDMath::deg2Rad( 90.0f ), 1.0f, 0.15f, 0.15f + this->getRange()) * lightprojectM);
+		lightprojectM = (VDMatrix4x4::perspective(fragcore::Math::deg2Rad( 90.0f ), 1.0f, 0.15f, 0.15f + this->getRange()) * lightprojectM);
 
 	}break;
 	case VDLight::eSpot:
@@ -341,7 +341,7 @@ VDMatrix4x4 VDLight::getShadowMatrix(unsigned int pointLightIndex)const{
 
 		lightprojectM *= VDMatrix4x4::translate(-transform->getPosition());
 
-		lightprojectM = (VDMatrix4x4::perspective(VDMath::deg2Rad( this->getOuterCone() * 180.0f ) , 1.0f, 0.5f, 0.5f + this->getRange()) * lightprojectM);
+		lightprojectM = (VDMatrix4x4::perspective(fragcore::Math::deg2Rad( this->getOuterCone() * 180.0f ) , 1.0f, 0.5f, 0.5f + this->getRange()) * lightprojectM);
 
 		break;
 	default:
@@ -366,7 +366,7 @@ int VDLight::attachShadowComponent(unsigned int shadowFlag){
 	else if( shadowFlag & eSuperShadowQuality ){size = 4096;}
 
 	/*	get the minium value in order to fix max texture size.	*/
-	size = VDMath::min<int>(VDSystemInfo::getCompatibility()->sMaxTextureSize, size);
+	size = fragcore::Math::min<int>(VDSystemInfo::getCompatibility()->sMaxTextureSize, size);
 
 	if( !(this->getType() & VDLight::Point) ){
 

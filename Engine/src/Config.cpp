@@ -1,7 +1,6 @@
 #include <Core/VDConfig.h>
 #include <Core/VDDebug.h>
 #include <DataStructure/VDSize.h>
-#include <Misc/VDFile.h>
 #include <SDL2/SDL_stdinc.h>
 #include <VDSystemInfo.h>
 #include <cstdio>

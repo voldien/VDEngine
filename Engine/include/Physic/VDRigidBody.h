@@ -18,7 +18,7 @@
 */
 #ifndef _VD_RIGIDBODY_H_
 #define _VD_RIGIDBODY_H_ 1
-#include<fragcore/physic/RigidBody.h>
+#include<physic/RigidBody.h>
 #include"VDPhysicActorBase.h"
 
 /**

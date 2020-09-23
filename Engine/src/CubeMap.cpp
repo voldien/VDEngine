@@ -1,12 +1,12 @@
 #include <GL/glew.h>
 #include <malloc.h>
-#include <Misc/VDMath.h>
 #include <Rendering/Texture/VDCubeMap.h>
 #include <Rendering/Texture/VDTexture.h>
 #include <Rendering/Texture/VDTexture2D.h>
 #include <stddef.h>
 #include <SDL2/SDL_stdinc.h>
 #include <VDSimpleType.h>
+#include<Core/Math.h>
 
 VDCubeMap::VDCubeMap(void) : VDTexture(VDTexture::eCubeMap){
 	this->mWidth = 0;
@@ -119,18 +119,20 @@ VDQuaternion VDCubeMap::getCubePlaneQuaternion(unsigned int planetarget){
 
 	switch(planetarget){
 	case VDTexture::eCubeMapPositiveX:
-		return VDQuaternion(0, VDMath::deg2Rad(90), 0);
+		return VDQuaternion(0, fragcore::Math::deg2Rad(90), 0);
 	case VDTexture::eCubeMapPositiveX + 1:
-		return VDQuaternion(0,VDMath::deg2Rad(-90), 0);
-	case VDTexture::eCubeMapPositiveX + 2:
-		return VDQuaternion(VDMath::deg2Rad(90), 0, 0);
-	case VDTexture::eCubeMapPositiveX + 3:
-		return VDQuaternion(VDMath::deg2Rad(-90), 0, 0);
-	case VDTexture::eCubeMapPositiveX + 4:
-		return VDQuaternion(0, VDMath::deg2Rad(0), VDMath::deg2Rad(0));
-	case VDTexture::eCubeMapPositiveX + 5:
-		return VDQuaternion(0, VDMath::deg2Rad(180), VDMath::deg2Rad(0));
-	default:
+            return VDQuaternion(0, fragcore::Math::deg2Rad(-90), 0);
+        case VDTexture::eCubeMapPositiveX + 2:
+            return VDQuaternion(fragcore::Math::deg2Rad(90), 0, 0);
+        case VDTexture::eCubeMapPositiveX + 3:
+            return VDQuaternion(fragcore::Math::deg2Rad(-90), 0, 0);
+        case VDTexture::eCubeMapPositiveX + 4:
+            return VDQuaternion(0, fragcore::Math::deg2Rad(0),
+                                fragcore::Math::deg2Rad(0));
+        case VDTexture::eCubeMapPositiveX + 5:
+            return VDQuaternion(0, fragcore::Math::deg2Rad(180),
+                                fragcore::Math::deg2Rad(0));
+        default:
 		return VDQuaternion::identity();
 	}
 }

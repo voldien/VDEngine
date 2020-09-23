@@ -1,4 +1,4 @@
-#include <Misc/VDMath.h>
+
 #include <Rendering/Texture/VDTexture2D.h>
 #include <Rendering/VDPostEffect.h>
 #include <Rendering/VDRender.h>

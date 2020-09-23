@@ -1,10 +1,10 @@
 #include <DataStructure/VDBoundVolume.h>
 #include <DataStructure/VDPlane.h>
-#include <Misc/VDMath.h>
 #include <Scene/VDFrustum.h>
 #include <VDSimpleType.h>
 #include <cmath>
 #include <cstring>
+#include<Core/Math.h>
 
 VDFrustum::VDFrustum(void){
 	memset(planes, 0, sizeof(*planes));
@@ -98,7 +98,7 @@ void VDFrustum::setOrth(float left, float right, float bottom, float top, float 
 	if(this->ratio == NAN || this->ratio == -NAN){
 		this->ratio = 1.0;
 	}
-	this->fov = VDMath::pi * 0.5;
+	this->fov = fragcore::Math::PI * 0.5;
 }
 
 void VDFrustum::calcFrustumPlanes(const VDVector3& position, const VDVector3& look, const VDVector3& up, const VDVector3& right){
