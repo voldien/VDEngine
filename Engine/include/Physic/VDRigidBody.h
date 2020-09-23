@@ -46,41 +46,43 @@ public:
 	/**
 	 *
 	 */
-	void VDAPIENTRY addExplosionForce(float force, VDVector3& position, float Radius);
+	void VDAPIENTRY addExplosionForce(float force, VDVector3& position, float Radius) {
+
+	}
 
 	/**
 	 *	Apply Force as A Vector. which takes the magnitude as
 	 *	force and direction of the vector direction.
 	 */
-	void VDAPIENTRY addForce(const VDVector3& force){
-		rigidBody->addForce(force);
+	void VDAPIENTRY addForce(const VDVector3& force) {
+		this->rigidBody->addForce(force);
 	}
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY addForce(float x, float y, float z){
-		rigidBody->addForce(VDVector3(x,y,z));
+	void VDAPIENTRY addForce(float x, float y, float z) {
+		this->rigidBody->addForce(VDVector3(x,y,z));
 	}
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY addForceAtPosition(const VDVector3& force,const VDVector3& position){
-
-	}
-
-	/**
-	 *
-	 */
-	void VDAPIENTRY addRelativeForce(const VDVector3& force){
+	void VDAPIENTRY addForceAtPosition(const VDVector3& force,const VDVector3& position) {
 
 	}
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY addRelativeTorque(const VDVector3& force){
+	void VDAPIENTRY addRelativeForce(const VDVector3& force) {
+
+	}
+
+	/**
+	 *
+	 */
+	void VDAPIENTRY addRelativeTorque(const VDVector3& force) {
 
 	}
 
@@ -101,7 +103,7 @@ public:
 	/**
 	 *
 	 */
-	void VDAPIENTRY setMass(float mass){
+	void VDAPIENTRY setMass(float mass) {
 
 	}
 

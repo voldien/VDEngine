@@ -43,7 +43,7 @@ public:
 	/**
 	 *
 	 */
-	int VDAPIENTRY collisionMode(unsigned int mode);
+	int VDAPIENTRY collisionMode(unsigned int mode){}
 
 	/**
 	 *	@Return
