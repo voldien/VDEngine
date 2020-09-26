@@ -28,7 +28,7 @@
 class VDDECLSPEC VDRenderTexture : public VDTexture2D {
 public:
 	enum Template{
-		eColor 		= 0x1,
+		Color 		= 0x1,
 		eLuminance 	= 0x2,
 		eShadowMapping 	= 0x3,
 		eStencil 	= 0x4,
@@ -36,7 +36,7 @@ public:
 	};
 
 	enum Attachment{
-		eDepthAttachment 	= 0x8D00,
+		DepthAttachment 	= 0x8D00,
 		eStencilAttachment 	= 0x8D20,
 		eColorAttachment0 	= 0x8CE0,
 		eDepthStencilAttachment = 0x821A,	/*	GL_DEPTH_STENCIL_ATTACHMENT	*/

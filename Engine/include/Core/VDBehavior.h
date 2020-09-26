@@ -30,11 +30,11 @@ public:
 
 	enum State {
 		Enable 			= 0x1,	/*	*/
-		Behavior			= 0x2,	/*	*/
+		Behavior		= 0x2,	/*	*/
 		CustomBehavior 	= 0x4,	/*	*/
 		RigidbodyActor 	= 0x8,	/*	*/
-		ColliderTrigger 	= 0x10,	/*	*/
-		ColliderShape 		= 0x20,	/*	*/
+		ColliderTrigger = 0x10,	/*	*/
+		ColliderShape 	= 0x20,	/*	*/
 	};
 
 	VDBehavior(void);

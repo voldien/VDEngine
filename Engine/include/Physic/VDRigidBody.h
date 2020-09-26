@@ -28,10 +28,10 @@ class VDDECLSPEC VDRigidBody : public VDPhysicActor {
 public:
 
 	enum Mode{
-		eDiscret 	= 0x1,	/*	*/
-		eCCD 		= 0x2,	/*	*/
+		Discret 	= 0x1,	/*	*/
+		CCD 		= 0x2,	/*	*/
 	};
-	fragcore::RigidBody* rigidBody;
+	fragcore::RigidBody* m_rigidBody;
 
 	VDRigidBody(void);
 	VDRigidBody(const VDRigidBody& rigidbody);
@@ -55,42 +55,42 @@ public:
 	 *	force and direction of the vector direction.
 	 */
 	void VDAPIENTRY addForce(const VDVector3& force) {
-		this->rigidBody->addForce(force);
+		this->m_rigidBody->addForce(force);
 	}
 
 	/**
 	 *
 	 */
 	void VDAPIENTRY addForce(float x, float y, float z) {
-		this->rigidBody->addForce(VDVector3(x,y,z));
+		this->m_rigidBody->addForce(VDVector3(x, y, z));
 	}
 
 	/**
 	 *
 	 */
 	void VDAPIENTRY addForceAtPosition(const VDVector3& force,const VDVector3& position) {
-
+		this->m_rigidBody->addForce(force);
 	}
 
 	/**
 	 *
 	 */
 	void VDAPIENTRY addRelativeForce(const VDVector3& force) {
-
+		this->m_rigidBody->addForce(force);
 	}
 
 	/**
 	 *
 	 */
 	void VDAPIENTRY addRelativeTorque(const VDVector3& force) {
-
+		this->m_rigidBody->addForce(force);
 	}
 
 	/**
 	 *
 	 */
 	void VDAPIENTRY addTorque(const VDVector3& force){
-
+		this->m_rigidBody->addForce(force);
 	}
 
 	/**
@@ -104,42 +104,42 @@ public:
 	 *
 	 */
 	void VDAPIENTRY setMass(float mass) {
-
+		this->m_rigidBody->setMass(mass);
 	}
 
 	/**
 	 *
 	 */
 	float VDAPIFASTENTRY getMass(void)const{
-
+		return this->m_rigidBody->getMass();
 	}
 
 	/**
 	 *
 	 */
 	void VDAPIENTRY setDrag(float drag){
-
+		this->m_rigidBody->setDrag(drag);
 	}
 
 	/**
 	 *
 	 */
 	float VDAPIFASTENTRY getDrag(void)const{
-
+		this->m_rigidBody->getDrag();
 	}
 
 	/**
 	 *
 	 */
 	void VDAPIENTRY setAngularDrag(float angularDrag){
-
+		this->m_rigidBody->setAngularDrag(angularDrag);
 	}
 
 	/**
 	 *
 	 */
 	float VDAPIFASTENTRY getAngularDrag(void)const{
-
+		this->m_rigidBody->getAngularDrag();
 	}
 
 	/**

@@ -49,11 +49,11 @@ VDCamera::VDCamera(void) : VDFrustum(){
 	this->setNear(0.15f);
 	this->flag = 0;
 	this->renderTexture = NULL;
-	this->setProjectionMode(VDCamera::ePerspective);
+	this->setProjectionMode(VDCamera::Perspective);
 	this->setBackColor(VDColor(0));
 	this->setCullingMask(VDLayer::getIndexByName("all"));
 	this->setRenderTexture(NULL);
-	this->setClearMode(VDCamera::eSkyBox);
+	this->setClearMode(VDCamera::SkyBox);
 	this->setClearFlag(VDCamera::eDepth);
 	this->useFrustumCulling(true);
 }
@@ -136,12 +136,12 @@ bool VDCamera::isHDREnabled(void)const{
 }
 
 void VDCamera::setClearMode(ClearMode clear){
-	this->flag = (this->flag & ~(ClearMode::eDontClear | ClearMode::eClear | ClearMode::eSkyBox) ) |
-			( clear & (ClearMode::eDontClear | ClearMode::eClear | ClearMode::eSkyBox)) ;
+	this->flag = (this->flag & ~(ClearMode::DontClear | ClearMode::Clear | ClearMode::SkyBox) ) |
+			( clear & (ClearMode::DontClear | ClearMode::Clear | ClearMode::SkyBox)) ;
 }
 
 VDCamera::ClearMode VDCamera::getClearMode(void)const{
-	return (VDCamera::ClearMode) ( this->flag & (ClearMode::eDontClear | ClearMode::eClear | ClearMode::eSkyBox) );
+	return (VDCamera::ClearMode) ( this->flag & (ClearMode::DontClear | ClearMode::Clear | ClearMode::SkyBox) );
 }
 
 void VDCamera::setClearFlag(ClearBuffer clearBuffer){
@@ -153,11 +153,11 @@ VDCamera::ClearBuffer VDCamera::getClearFlag(ClearBuffer clearBuffer)const{
 }
 
 void VDCamera::setProjectionMode(ProjectionMode projection){
-	this->flag = (this->flag & ~(VDCamera::ePerspective | VDCamera::eOrthographic)) | (projection & (VDCamera::ePerspective | VDCamera::eOrthographic));
+	this->flag = (this->flag & ~(VDCamera::Perspective | VDCamera::Orthographic)) | (projection & (VDCamera::Perspective | VDCamera::Orthographic));
 }
 
 VDCamera::ProjectionMode VDCamera::getProjectionMode(void)const{
-	return (VDCamera::ProjectionMode) ( this->flag & (VDCamera::ePerspective | VDCamera::eOrthographic) );
+	return (VDCamera::ProjectionMode) ( this->flag & (VDCamera::Perspective | VDCamera::Orthographic) );
 }
 
 void VDCamera::setPolygoneMode(PolygoneMode mode){
@@ -190,7 +190,7 @@ void VDCamera::setPostEffect(VDPostEffect* postEffect, unsigned int index){
 
 	/*	Check if post render texture has been created.	*/
 	if(VDRenderSetting::getSettings()->posttexture == NULL){
-		VDRenderSetting::getSettings()->posttexture = VDRenderTexture::createRenderTexture(VDSize(VDScreen::width(), VDScreen::height()), VDRenderTexture::eColor);
+		VDRenderSetting::getSettings()->posttexture = VDRenderTexture::createRenderTexture(VDSize(VDScreen::width(), VDScreen::height()), VDRenderTexture::Color);
 	}
 }
 
@@ -305,13 +305,13 @@ void VDCamera::beginSceneRender(void){
 
 
 	/*	push model matrix for object matrixs	*/
-	VDMatrix::matrixMode(VDMatrix::eProjection);
+	VDMatrix::matrixMode(VDMatrix::Projection);
 	VDMatrix::pushMatrix();
-	VDMatrix::identity(VDMatrix::eProjection);
+	VDMatrix::identity(VDMatrix::Projection);
 
 
 	/*	Create perspective for the camera.	*/
-	if((this->flag & VDCamera::ePerspective)){
+	if((this->flag & VDCamera::Perspective)){
 		VDMatrix::perspective(this->getFov(), this->getAspect(), this->getNear(), this->getFar());
 	}
 	else{
@@ -350,9 +350,9 @@ void VDCamera::beginSceneRender(void){
 
 
 	/*	global view matrix assignment	*/
-	VDMatrix::matrixMode(VDMatrix::eView);
+	VDMatrix::matrixMode(VDMatrix::View);
 	VDMatrix::pushMatrix();
-	VDMatrix::identity(VDMatrix::eView);
+	VDMatrix::identity(VDMatrix::View);
 	VDMatrix::rotation(transform()->getRotation());
 	VDMatrix::translate(transform()->getPosition());
 
@@ -389,19 +389,19 @@ void VDCamera::beginSceneRender(void){
 		}
 	}
 
-	if( this->flag & VDCamera::eDontClear ){
+	if( this->flag & VDCamera::DontClear ){
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}
-	else if( this->flag & VDCamera::eClear ){
+	else if( this->flag & VDCamera::Clear ){
 		VDRenderingAPICache::setClearColor(getBackColor().x(), getBackColor().y(), getBackColor().z(), getBackColor().w());
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
-	else if(this->flag & VDCamera::eSkyBox){
+	else if(this->flag & VDCamera::SkyBox){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	/* update perspective !! 	*/
-	VDMatrix::matrixMode(VDMatrix::eModel);
+	VDMatrix::matrixMode(VDMatrix::Model);
 }
 
 
@@ -412,7 +412,7 @@ void VDCamera::endSceneRender(void){
 	VDRenderTexture* readtarget;
 
 	/*	render skybox	*/
-	if( flag & eSkyBox  ){
+	if( flag & SkyBox  ){
 		if(VDScene::getScene()->skybox){
 			glDepthFunc(GL_LEQUAL);
 			VDScene::getScene()->skybox->render(this->transform()->getRotation());
@@ -427,11 +427,11 @@ void VDCamera::endSceneRender(void){
 	}
 
 	/**/
-	VDMatrix::matrixMode(VDMatrix::eProjection);
+	VDMatrix::matrixMode(VDMatrix::Projection);
 	VDMatrix::popMatrix();
-	VDMatrix::matrixMode(VDMatrix::eView);
+	VDMatrix::matrixMode(VDMatrix::View);
 	VDMatrix::popMatrix();
-	VDMatrix::matrixMode(VDMatrix::eModel);
+	VDMatrix::matrixMode(VDMatrix::Model);
 
 
 	if(this->isHDREnabled()){
@@ -541,10 +541,10 @@ VDMatrix4x4 VDCamera::getProjectionViewMatrix(void)const{
 
 void VDCamera::updateCameraMatrix(void){
 	/*
-	if(this->flag & eOrthographic){
+	if(this->flag & Orthographic){
 		this->projectionMatrix = glm::ortho<float>(-10, 10, -10, 10, -10 ,10);
 	}
-	else if(this->flag & ePerspective){
+	else if(this->flag & Perspective){
 		this->projectionMatrix = glm::perspective<float>(this->getFov(), this->getAspect(), this->getNear(), this->getFar());
 	}*/
 

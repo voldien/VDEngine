@@ -1,10 +1,10 @@
 #include <Core/VDInput.h>
 #include <Core/VDTime.h>
 #include <DataStructure/VDPoint.h>
-#include <Misc/VDMath.h>
 #include <Misc/VDMouseLook.h>
 #include <Scene/VDTransform.h>
 #include <VDSimpleType.h>
+#include<Core/Math.h>
 
 
 VDMouseLook::VDMouseLook(void) : VDCustomBehavior(){
@@ -48,8 +48,8 @@ void VDMouseLook::lateUpdate(void){
 		}break;
 	case eX:{
 		this->rotationY += this->sensitivityX  * mousedelta.y() * delta;
-		this->rotationY = VDMath::clamp(this->rotationY,this->minimumX, this->maximumX);
-		VDQuaternion q = VDQuaternion(VDMath::deg2Rad(this->rotationY), this->transform()->getRotation().getYaw(), 0.0f);
+		this->rotationY = fragcore::Math::clamp(this->rotationY,this->minimumX, this->maximumX);
+		VDQuaternion q = VDQuaternion(fragcore::Math::deg2Rad(this->rotationY), this->transform()->getRotation().getYaw(), 0.0f);
 		this->transform()->setLocalRotation(q);
 		}break;
 	case eY:{
@@ -58,17 +58,16 @@ void VDMouseLook::lateUpdate(void){
 	case eXandY:{
 		this->rotationX += (float)(mousedelta.x()) * this->sensitivityY * delta;
 		this->rotationY += (float)(mousedelta.y()) * this->sensitivityY * delta;
-		this->rotationY = VDMath::clamp(this->rotationY, this->minimumX, this->maximumX);
-
+		this->rotationY = fragcore::Math::clamp(this->rotationY, this->minimumX, this->maximumX);
 
 		VDQuaternion p = VDQuaternion::createQuaternionOfAxis(
-				VDMath::deg2Rad<float>(0.0f),
-				VDMath::deg2Rad<float>(this->rotationX),
-				VDMath::deg2Rad<float>(0.0f));
+			fragcore::Math::deg2Rad<float>(0.0f),
+			fragcore::Math::deg2Rad<float>(this->rotationX),
+			fragcore::Math::deg2Rad<float>(0.0f));
 		p *= VDQuaternion::createQuaternionOfAxis(
-				VDMath::deg2Rad<float>(this->rotationY),
-				VDMath::deg2Rad<float>(0.0f),
-				VDMath::deg2Rad<float>(0.0f));
+			fragcore::Math::deg2Rad<float>(this->rotationY),
+			fragcore::Math::deg2Rad<float>(0.0f),
+			fragcore::Math::deg2Rad<float>(0.0f));
 
 		this->transform()->setRotation( (p).normalize());
 		}break;

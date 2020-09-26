@@ -26,7 +26,7 @@
 /**
  *
  */
-class VDDECLSPEC VDCameraController : public VDCustomBehavior{
+class VDDECLSPEC VDCameraController : public VDCustomBehavior {
 public:
 	VDCameraController(void);
 	VDCameraController(const VDCameraController& controller);

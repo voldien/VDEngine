@@ -4,7 +4,6 @@
 #include <Core/VDQualitySetting.h>
 #include <DataStructure/VDVector.h>
 #include <GL/glew.h>
-#include <Misc/VDMath.h>
 #include <Rendering/Texture/VDCubeMap.h>
 #include <Rendering/Texture/VDRenderTexture.h>
 #include <Rendering/Texture/VDTexture.h>
@@ -20,6 +19,7 @@
 #include <cfloat>
 #include <cmath>
 #include <map>
+#include<Core/Math.h>
 
 /**
  *
@@ -123,7 +123,7 @@ void VDQualitySetting::setShadowFilter(ShadowFilter filter){
 			if(!VDScene::getScene()->lightcollection[x]->isShadowBufferAttached())
 				continue;
 
-			texture = VDScene::getScene()->lightcollection[x]->getShadowTexture()->getTextureAttachment(0, VDRenderTexture::eDepthAttachment);
+			texture = VDScene::getScene()->lightcollection[x]->getShadowTexture()->getTextureAttachment(0, VDRenderTexture::DepthAttachment);
 			texture.setInternalFormat(VDTexture::eDepthComponent, GL_FLOAT);
 			glBindTexture(texture.getTarget(), texture.getTexture());
 			glTexParameteri(texture.getTarget(), GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -137,7 +137,7 @@ void VDQualitySetting::setShadowFilter(ShadowFilter filter){
 			if(!VDScene::getScene()->lightcollection[x]->isShadowBufferAttached())
 				continue;
 
-			texture = VDScene::getScene()->lightcollection[x]->getShadowTexture()->getTextureAttachment(0, VDRenderTexture::eDepthAttachment);
+			texture = VDScene::getScene()->lightcollection[x]->getShadowTexture()->getTextureAttachment(0, VDRenderTexture::DepthAttachment);
 			texture.setInternalFormat(VDTexture::eDepthComponent, GL_FLOAT);
 			glBindTexture(texture.getTarget(), texture.getTexture());
 			glTexParameteri(texture.getTarget(), GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -152,17 +152,17 @@ void VDQualitySetting::setShadowFilter(ShadowFilter filter){
 			if(!VDScene::getScene()->lightcollection[x]->isShadowBufferAttached())
 				continue;
 
-			texture = VDScene::getScene()->lightcollection[x]->getShadowTexture()->getTextureAttachment(0, VDRenderTexture::eDepthAttachment);
-			VDScene::getScene()->lightcollection[x]->getShadowTexture()->setTextureAttachment(VDRenderTexture::eDepthAttachment, (VDTexture*)NULL);
+			texture = VDScene::getScene()->lightcollection[x]->getShadowTexture()->getTextureAttachment(0, VDRenderTexture::DepthAttachment);
+			VDScene::getScene()->lightcollection[x]->getShadowTexture()->setTextureAttachment(VDRenderTexture::DepthAttachment, (VDTexture*)NULL);
 
 			if(light->getType() != VDLight::Point){
 			VDRenderBuffer depthbuffer = VDRenderBuffer();
 			depthbuffer.setStorage(light->getShadowTexture()->width(), light->getShadowTexture()->height(), VDTexture::eDepthComponent32);
-			VDScene::getScene()->lightcollection[x]->getShadowTexture()->setAttachment(VDRenderTexture::eDepthAttachment, &depthbuffer);
+			VDScene::getScene()->lightcollection[x]->getShadowTexture()->setAttachment(VDRenderTexture::DepthAttachment, &depthbuffer);
 			}else{
 				VDCubeMap cubedepth = VDCubeMap(light->getShadowTexture()->width());
 				cubedepth.setInternalFormat(VDTexture::eDepthComponent32, GL_FLOAT);
-				light->getShadowTexture()->setTextureAttachment(VDRenderTexture::eDepthAttachment, &cubedepth);
+				light->getShadowTexture()->setTextureAttachment(VDRenderTexture::DepthAttachment, &cubedepth);
 			}
 
 			texture.setInternalFormat(VDTexture::eRGB, VDTexture::eFloat);
@@ -181,7 +181,7 @@ void VDQualitySetting::setShadowFilter(ShadowFilter filter){
 }
 
 void VDQualitySetting::setShadowDistance(float distance){
-	gQualitySettings.shadowdistance = VDMath::clamp<float>(distance, 0.1, FLT_MAX);
+	gQualitySettings.shadowdistance = fragcore::Math::clamp<float>(distance, 0.1, FLT_MAX);
 }
 
 float VDQualitySetting::getShadowDistance(void){
@@ -234,7 +234,8 @@ void VDQualitySetting::setAntaiAlisingSampling(unsigned int aaSample){
 		if(VDQualitySetting::getSampleMode() == VDQualitySetting::SampleType::eMSAA){
 
 			/*	check if number of sample is a power of two value.	*/
-			if((float)VDMath::modd((double)log2(aaSample)) != 0.0f){
+			if ((float)fragcore::Math::modd((double)log2(aaSample)) != 0.0f)
+			{
 				VDDebug::errorLog("MSAA has to be in power of two.\n");
 				return;
 			}
@@ -246,7 +247,7 @@ void VDQualitySetting::setAntaiAlisingSampling(unsigned int aaSample){
 
 			unsigned int sample = VDSystemInfo::numMSAASampling();
 			glGetIntegerv(GL_MAX_INTEGER_SAMPLES, (GLint*)&sample);
-			aaSample = VDMath::clamp<unsigned int>(aaSample, 0, sample);
+			aaSample = fragcore::Math::clamp<unsigned int>(aaSample, 0, sample);
 			SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, aaSample);
 			SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
 

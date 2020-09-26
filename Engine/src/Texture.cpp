@@ -1,11 +1,11 @@
 #include <Core/VDDebug.h>
 #include <GL/glew.h>
 #include <malloc.h>
-#include <Misc/VDMath.h>
 #include <Rendering/Texture/VDTexture.h>
 #include <Rendering/VDRenderingAPICache.h>
 #include <stddef.h>
 #include <VDSystemInfo.h>
+#include<Core/Math.h>
 
 VDTexture::VDTexture(void) : VDAssetObject(){
 	this->setTextureTarget(VDTexture::eTexture1D);
@@ -50,7 +50,7 @@ void VDTexture::release(void){
 
 void VDTexture::setAnisoLevel(float aniostropic){
 	this->bind();
-	aniostropic = VDMath::min<float>(aniostropic , (float)VDSystemInfo::getCompatibility()->sMaxAnsio);
+	aniostropic = fragcore::Math::min<float>(aniostropic, (float)VDSystemInfo::getCompatibility()->sMaxAnsio);
 	glTexParameterf(this->getTarget(), GL_TEXTURE_MAX_ANISOTROPY_EXT, aniostropic);
 }
 
@@ -168,7 +168,7 @@ int VDTexture::getTextureSize(unsigned int level)const{
 		glGetTexLevelParameteriv(this->getTarget(), level, GL_TEXTURE_INTENSITY_SIZE, 	&i);
 	}
 
-	return VDMath::clamp<int>( w * h * d * ((r + g + b + a + l + i) / 8), 0, ( 1 << 30 ) );
+	return fragcore::Math::clamp<int>(w * h * d * ((r + g + b + a + l + i) / 8), 0, (1 << 30));
 }
 
 int VDTexture::getCompressedTextureSize(unsigned int level)const{

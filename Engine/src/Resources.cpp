@@ -8,7 +8,6 @@
 #include <Core/VDTypes.h>
 #include <DataStructure/VDVector.h>
 #include <malloc.h>
-#include <Misc/VDFile.h>
 #include <Rendering/Texture/VDTexture.h>
 #include <Rendering/Texture/VDTexture2D.h>
 #include <Rendering/Texture/VDCubeMap.h>
@@ -23,10 +22,10 @@ void* VDResources::load(const char* cfilename, const VDTypeInfo& info){
 	void* asset = NULL;
 
 	/**/
-	if(!VDFile::existFile(cfilename)){
-		VDDebug::errorLog("%s is not a file.\n", cfilename);
-		return NULL;
-	}
+	// if(!VDFile::existFile(cfilename)){
+	// 	VDDebug::errorLog("%s is not a file.\n", cfilename);
+	// 	return NULL;
+	// }
 
 	/**/
 	if(*info.getType() == typeid(VDTexture2D)){
@@ -59,13 +58,13 @@ void* VDResources::load(const char* cfilename, const VDTypeInfo& info){
 		VDMaterial* material = VDMaterial::createMaterial();
 	}
 
-	/**/
-	if(*info.getType() == typeid(VDShader)){
-		char* source = NULL;
-		char* vs,*fs,*gs,*tcs,*tes;
-		VDFile::load(cfilename, &source);
-		free(source);
-	}
+	// /**/
+	// if(*info.getType() == typeid(VDShader)){
+	// 	char* source = NULL;
+	// 	char* vs,*fs,*gs,*tcs,*tes;
+	// 	VDFile::load(cfilename, &source);
+	// 	free(source);
+	// }
 
 
 	finished:	/*	*/
@@ -82,10 +81,10 @@ void* VDResources::loadAll(const char* cfilename, const VDTypeInfo& info){
 	void* p;
 
 	/**/
-	if(!VDFile::existFile(cfilename)){
-		VDDebug::errorLog("%s is not a file.\n", cfilename);
-		return NULL;
-	}
+	// if(!VDFile::existFile(cfilename)){
+	// 	VDDebug::errorLog("%s is not a file.\n", cfilename);
+	// 	return NULL;
+	// }
 
 
 	if(*info.getType() == typeid(VDTexture2D)){

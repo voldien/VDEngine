@@ -117,9 +117,9 @@ const void* VDBehavior::getVTable(void)const{
 	return this;
 }
 
-VDBehavior& VDBehavior::operator=(const VDBehavior& behavior){
-	VDComponent::operator=(behavior);
-	setVTable(behavior.getVTable());
-	this->menable = behavior.menable;
-	return *this;
-}
+// VDBehavior& VDBehavior::operator=(const VDBehavior& behavior){
+// 	VDComponent::operator=(behavior);
+// 	setVTable(behavior.getVTable());
+// 	this->menable = behavior.menable;
+// 	return *this;
+// }

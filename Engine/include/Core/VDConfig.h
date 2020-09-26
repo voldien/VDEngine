@@ -19,7 +19,7 @@
 #ifndef _VD_CONFIG_H_
 #define _VD_CONFIG_H_ 1
 #include"../VDDef.h"
-#include<fragcore/Core/IConfig.h>
+#include<Core/IConfig.h>
 
 /**
  *

@@ -1,8 +1,5 @@
 #include <Asset/VDAssetManager.h>
 #include <GL/glew.h>
-#include <Misc/VDFile.h>
-#include <Misc/VDGZFile.h>
-#include <Misc/VDZipFile.h>
 #include <Rendering/VDShader.h>
 #include <Rendering/VDShaderConstant.h>
 #include <Rendering/VDShaderCreator.h>
@@ -10,7 +7,7 @@
 #include <cstring>
 #include <string>
 
-VDZipFile* zip = VDZipFile::createZipFileObject(VDAssetManager::getResourcePath(VDAssetManager::eShaderPath).c_str());
+//VDZipFile* zip = VDZipFile::createZipFileObject(VDAssetManager::getResourcePath(VDAssetManager::eShaderPath).c_str());
 
 
 
@@ -275,7 +272,7 @@ VDShader* VDShaderCreator::SkyBox(void){
 		"",
 		"SkyBox");
 
-	unsigned int i = VDShaderConstant::eSkyBox;
+	unsigned int i = VDShaderConstant::SkyBox;
 	SkyBox->bind();
 	VDColor color = VDColor(1.0f);
 	glProgramUniform1iv(SkyBox->getProgram(), SkyBox->getUniformLocation(VDShaderConstant::ReflectionTexture()) , 1, (GLint*)&i);
@@ -353,17 +350,17 @@ long int VDShaderCreator::loadShaderString(const char* cfilename, void** data){
 		return -1;
 	}
 
-	if(strstr(cfilename, "glsl.gz") != NULL){
-		nbytes = VDGZFile::loadString(cfilename, (char**)data);
-		if(nbytes <= 0){
+	// if(strstr(cfilename, "glsl.gz") != NULL){
+	// 	nbytes = VDGZFile::loadString(cfilename, (char**)data);
+	// 	if(nbytes <= 0){
 
-		}
-	}else{
-		nbytes = VDFile::loadString(cfilename, (char**)data);
-		if(nbytes <= 0){
+	// 	}
+	// }else{
+	// 	nbytes = VDFile::loadString(cfilename, (char**)data);
+	// 	if(nbytes <= 0){
 
-		}
-	}
+	// 	}
+	// }
 
 	return nbytes;
 }
@@ -377,17 +374,17 @@ long int VDShaderCreator::loadBuiltInShaderSource(const char* cfilename, void** 
 		return -1;
 	}
 
-	if(strstr(cfilename, "glsl.gz") != NULL){
-		nbytes = VDGZFile::loadString(cfilename, (char**)pbuffer);
-		if(nbytes <= 0){
+	// if(strstr(cfilename, "glsl.gz") != NULL){
+	// 	nbytes = VDGZFile::loadString(cfilename, (char**)pbuffer);
+	// 	if(nbytes <= 0){
 
-		}
-	}else{
-		nbytes = VDFile::loadString(cfilename, (char**)pbuffer);
-		if(nbytes <= 0){
+	// 	}
+	// }else{
+	// 	nbytes = VDFile::loadString(cfilename, (char**)pbuffer);
+	// 	if(nbytes <= 0){
 
-		}
-	}
+	// 	}
+	// }
 
 	return nbytes;
 

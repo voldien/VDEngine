@@ -75,9 +75,9 @@ void VDSkyBox::render(const VDQuaternion& quat){
 	if(this->isDisabled() || this->getCubeMap() == NULL)
 		return;
 
-	VDMatrix::matrixMode(VDMatrix::eView);
+	VDMatrix::matrixMode(VDMatrix::View);
 	VDMatrix::pushMatrix();
-	VDMatrix::identity(VDMatrix::eView);
+	VDMatrix::identity(VDMatrix::View);
 
 	GLint OldCullFaceMode;
 	//glGetIntegerv(GL_CULL_FACE_MODE, &OldCullFaceMode);
@@ -101,7 +101,7 @@ void VDSkyBox::render(const VDQuaternion& quat){
 	VDRenderingAPICache::setState(GL_STENCIL_TEST, 1);
 	VDRenderingAPICache::setState(GL_BLEND, 0);
 
-	VDMatrix::matrixMode(VDMatrix::eView);
+	VDMatrix::matrixMode(VDMatrix::View);
 	VDMatrix::popMatrix();
 }
 

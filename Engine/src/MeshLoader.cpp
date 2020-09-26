@@ -26,7 +26,6 @@
 #include <GL/glew.h>
 #include <HCVector3.h>
 #include <malloc.h>
-#include <Misc/VDFile.h>
 #include <Physic/VDMeshCollider.h>
 #include <Physic/VDRigidBody.h>
 #include <Rendering/Texture/VDTexture.h>
@@ -410,42 +409,42 @@ VDMaterial* VDMeshLoader::initMaterial(aiMaterial* pmaterial) {
 	pmaterial->Get(AI_MATKEY_NAME, name);
 	mate->setName(name.C_Str());
 
-	/*	load all texture assoicated with texture.	*/
-	for (y = 0; y < aiTextureType::aiTextureType_UNKNOWN; y++) {
-		for (x = 0; x < pmaterial->GetTextureCount((aiTextureType) y); x++) {
+	// /*	load all texture assoicated with texture.	*/
+	// for (y = 0; y < aiTextureType::aiTextureType_UNKNOWN; y++) {
+	// 	for (x = 0; x < pmaterial->GetTextureCount((aiTextureType) y); x++) {
 
-			/*	extract texture information.	*/
-			if (pmaterial->GetTexture((aiTextureType) y, x, &path, NULL, NULL,
-			        NULL, NULL, &mapmode) == aiReturn::aiReturn_SUCCESS) {
-				if (path.C_Str()) {
-					std::string thepath = VDFile::getDirectory(this->getPath())
-					        + "/" + path.C_Str();
-					tex = findTexture(thepath.c_str());
+	// 		/*	extract texture information.	*/
+	// 		if (pmaterial->GetTexture((aiTextureType) y, x, &path, NULL, NULL,
+	// 		        NULL, NULL, &mapmode) == aiReturn::aiReturn_SUCCESS) {
+	// 			if (path.C_Str()) {
+	// 				std::string thepath = VDFile::getDirectory(this->getPath())
+	// 				        + "/" + path.C_Str();
+	// 				tex = findTexture(thepath.c_str());
 
-					if (tex == NULL) {
-						tex = VDResources::load<VDTexture2D>(thepath.c_str());
+	// 				if (tex == NULL) {
+	// 					tex = VDResources::load<VDTexture2D>(thepath.c_str());
 
-						/*	texture mapmode.	*/
-						if (tex != NULL) {
-							switch (mapmode) {
-							case aiTextureMapMode_Clamp:
-								tex->setWrapMode(VDTexture::eClamp);
-								break;
-							case aiTextureMapMode_Wrap:
-								tex->setWrapMode(VDTexture::eRepeat);
-								break;
-							}
+	// 					/*	texture mapmode.	*/
+	// 					if (tex != NULL) {
+	// 						switch (mapmode) {
+	// 						case aiTextureMapMode_Clamp:
+	// 							tex->setWrapMode(VDTexture::eClamp);
+	// 							break;
+	// 						case aiTextureMapMode_Wrap:
+	// 							tex->setWrapMode(VDTexture::eRepeat);
+	// 							break;
+	// 						}
 
-						}
-					}
+	// 					}
+	// 				}
 
-					mate->setTexture(y - 1, tex);
-				}
-			}
+	// 				mate->setTexture(y - 1, tex);
+	// 			}
+	// 		}
 
-			tex = NULL;
-		}/**/
-	}/**/
+	// 		tex = NULL;
+	// 	}/**/
+	// }/**/
 
 	/*	Determine shader type.	*/
 	pmaterial->Get(AI_MATKEY_SHADING_MODEL, name);

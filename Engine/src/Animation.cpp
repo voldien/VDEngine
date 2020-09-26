@@ -79,7 +79,7 @@ void VDAnimation::play(const char* animationClip){
 void VDAnimation::stop(void){
 	/*	Reset timer.	*/
 	this->time = 0.0f;
-	this->animationState = (~VDAnimation::IsPlaying & this->animationState);
+	this->animationState = (~VDAnimation::IsPlaying & (int)this->animationState);
 }
 
 void VDAnimation::addClip(VDAnimationClip* animationClip){

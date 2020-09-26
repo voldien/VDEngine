@@ -11,6 +11,7 @@
 #include <Utility/VDTextureUtility.h>
 #include <VDSimpleType.h>
 #include <vector>
+#include<Core/Math.h>
 
 
 
@@ -26,7 +27,7 @@ VDPostEffect::VDPostEffect(void) : VDMaterial(){
 VDPostEffect::VDPostEffect(const char* vertexShader, const char* fragmentShader) : VDMaterial() {
 	this->setShader(VDShaderCreator::createPostProcessingShader(vertexShader, fragmentShader, NULL));
 	this->enable = SDL_TRUE;
-	this->flag = eColor;
+	this->flag = Color;
 	this->sample = 1;
 
 	gPostProcessingObject.push_back(this);
@@ -104,7 +105,7 @@ VDPostEffect* VDPostEffect::blur(unsigned int samplerCount, float radius){
 		"shader/PostProcessing/blur.glsl"
 		);
 
-	blur->flag |= eColor;
+	blur->flag |= Color;
 	blur->sample = 4;
 	blur->setInt("BlurAmount",(unsigned int)(radius * 2.0f));
 	blur->setfloat("BlurScale", 1.0f);
@@ -125,7 +126,7 @@ VDPostEffect* VDPostEffect::DOF(float focusDistance, float focusLenght){
 		"shader/PostProcessing/dof.glsl"
 		);
 	DofEffect->sample = 1;
-	DofEffect->flag = eColor | eDepth;
+	DofEffect->flag = Color | eDepth;
 	DofEffect->setInt(VDShaderConstant::DepthTexture(), 1);
 
 	DofEffect->setfloat("FocusDistance",focusDistance);
@@ -156,7 +157,7 @@ VDPostEffect* VDPostEffect::GammaCorrection(void){
 	VDPostEffect* gamma = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl" ,
 		"shader/PostProcessing/gammecorrection.glsl" );
-	gamma->flag = eColor;
+	gamma->flag = Color;
 	return gamma;
 }
 
@@ -187,7 +188,7 @@ VDPostEffect* VDPostEffect::LightShattering(void){
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/VolumetricLight.glsl");
 
-	LightshattPost->flag = eColor | eDepth;
+	LightshattPost->flag = Color | eDepth;
 	LightshattPost->setInt(VDShaderConstant::DepthTexture(),1);
 	LightshattPost->setInt("RadianSampler", 20);
 	LightshattPost->setVec3("lightPos", VDVector3(0.4,-0.4, 200));
@@ -199,13 +200,13 @@ VDPostEffect* VDPostEffect::Fog(const VDColor& fogColor, float start, float end,
 	VDPostEffect* fogPost = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/Fog.glsl");
-	fogPost->flag = eColor | eDepth;
+	fogPost->flag = Color | eDepth;
 	fogPost->setInt(VDShaderConstant::DepthTexture(),1);
 	fogPost->setInt("FogMode",mode);
 	fogPost->setColor(VDShaderConstant::DiffuseColor(), fogColor);
 	fogPost->setfloat("startValue",start);
 	fogPost->setfloat("endValue",end);
-	fogPost->setfloat("density", VDMath::clamp(density, 0.0001f, 1.0f));
+	fogPost->setfloat("density", fragcore::Math::clamp(density, 0.0001f, 1.0f));
 	return fogPost;
 }
 
@@ -221,7 +222,7 @@ VDPostEffect* VDPostEffect::motionBlur(void){
 	motionBlur->setInt("DiffuseTexture4", 10);
 
 	motionBlur->sample = 1;
-	motionBlur->flag = (eColor | eDepth);
+	motionBlur->flag = (Color | eDepth);
 	return motionBlur;
 }
 
@@ -231,7 +232,7 @@ VDPostEffect* VDPostEffect::bloom(void){
 		"shader/PostProcessing/bloom.glsl"
 		);
 	BloomPost->sample = 1;
-	BloomPost->flag = eColor | eDepth | sIntensity;
+	BloomPost->flag = Color | eDepth | sIntensity;
 	return BloomPost;
 }
 
@@ -240,7 +241,7 @@ VDPostEffect* VDPostEffect::glow(unsigned int samplerCount, float Radius){
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/glow.glsl");
 
-	glowEffect->flag = (eColor);
+	glowEffect->flag = (Color);
 	glowEffect->setInt("BlurAmount",(unsigned int)(Radius * 2.0f));
 	glowEffect->setInt("GlowSettings", (2 | 4 | 8));
 

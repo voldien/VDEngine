@@ -19,11 +19,11 @@
 #include <DataStructure/VDPoolAllactor.h>
 #include <DataStructure/VDQueue.h>
 #include <DataStructure/VDSize.h>
+#include<Core/Math.h>
 #include <getopt.h>
 #include <GL/glew.h>
 #include <hpm/hpm.h>
-#include <Misc/VDFile.h>
-#include <Misc/VDMath.h>
+
 #include <Physic/VDPhysic.h>
 #include <Rendering/Texture/VDCubeMap.h>
 #include <Rendering/Texture/VDTexture.h>
@@ -62,8 +62,8 @@
 #include <map>
 #include <string>
 #include<HpmCpp.h>
-#include<fragcore/FragCore.h>
-#include<fragcore/Window/WindowManager.h>
+#include<FragCore.h>
+#include<Window/WindowManager.h>
 
 
 #define VDENGINE_DEINIT (1 << 31)
@@ -466,7 +466,7 @@ int VDEngine::initSubSystem(VDEngine::SubSystem subsystem){
 
 
 		/**/
-		engine.log = VDFile::safeOpenWrite("log.txt");
+		//engine.log = VDFile::safeOpenWrite("log.txt");
 
 		/**/
 		//if(( engine.log = fdopen(fileno(stdout),"w+") ) == -1)
@@ -808,8 +808,8 @@ int VDEngine::run(void){
 					break;
 				case SDL_WINDOWEVENT_RESIZED:
 					VDRenderingAPICache::setViewport(0, 0,
-							VDMath::max( event.window.data1,1),
-							VDMath::max( event.window.data2, 1) );
+							fragcore::Math::max( event.window.data1,1),
+							fragcore::Math::max( event.window.data2, 1) );
 					VDRenderSetting::setFrameBufferSize(event.window.data1, event.window.data2);
 					for(int x = 0; x < VDEvent::getNumEvents(); x++){
 						VDEvent::getEvent(x)->onResize(event.window.data1, event.window.data2);

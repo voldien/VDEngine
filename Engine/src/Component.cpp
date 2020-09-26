@@ -15,19 +15,19 @@
 #include <typeinfo>
 #include <vector>
 
-VDComponent::VDComponent(void) : VDObject(){
-	this->pgameObject = NULL;
-}
+// VDComponent::VDComponent(void) : VDObject(){
+// 	this->pgameObject = NULL;
+// }
 
 VDComponent::~VDComponent(void) {
 
 }
 
-VDComponent& VDComponent::operator=(const VDComponent& rh){
-	VDObject::operator=(rh);
-	this->pgameObject = rh.gameObject();
-	return *this;
-}
+// VDComponent& VDComponent::operator=(const VDComponent& rh){
+// 	VDObject::operator=(rh);
+// 	this->pgameObject = rh.gameObject();
+// 	return *this;
+// }
 
 bool VDComponent::operator==(const VDComponent* lh)const{
 	return ( this == lh);

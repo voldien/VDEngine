@@ -18,7 +18,7 @@
 */
 #ifndef _VD_AUDIOSOURCE_H_
 #define _VD_AUDIOSOURCE_H_ 1
-#include<fragcore/audio/AudioSource.h>
+#include<audio/AudioSource.h>
 #include"../Core/VDBehavior.h"
 #include"../VDDef.h"
 

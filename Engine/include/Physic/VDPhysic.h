@@ -18,7 +18,7 @@
 */
 #ifndef _VD_PHYSIC_H_
 #define _VD_PHYSIC_H_ 1
-#include<fragcore/physic/PhysicInterface.h>
+#include<physic/PhysicInterface.h>
 #include"VDPhysicMaterial.h"
 #include"../VDDef.h"
 #include"../VDSimpleType.h"

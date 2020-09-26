@@ -4,12 +4,12 @@
 #include <HCQuaternion.h>
 #include <HCVector3.h>
 #include <malloc.h>
-#include <Misc/VDMath.h>
 #include <Scene/VDGameObject.h>
 #include <Scene/VDScene.h>
 #include <Scene/VDTransform.h>
 #include <SDL2/SDL_stdinc.h>
 #include <VDSimpleType.h>
+#include<Core/Math.h>
 #include <cstring>
 
 using namespace std;
@@ -108,9 +108,9 @@ VDTransform* VDTransform::root(void)const{
 
 void VDTransform::rotate(const VDVector3& align){
 	VDQuaternion rotation = VDQuaternion::createQuaternionOfAxis(
-		VDMath::deg2Rad(align.x()),
-		VDMath::deg2Rad(align.y()),
-		VDMath::deg2Rad(align.z()));
+		fragcore::Math::deg2Rad(align.x()),
+		fragcore::Math::deg2Rad(align.y()),
+		fragcore::Math::deg2Rad(align.z()));
 	VDQuaternion rotat = this->getRotation() * rotation;
 	rotat.makeUnitQuaternion();
 	this->setRotation(rotat);

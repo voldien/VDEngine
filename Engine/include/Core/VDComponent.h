@@ -28,8 +28,8 @@
 class VDDECLSPEC VDComponent : public VDObject {//TOOD add non copyable
 	friend class VDGameObject;
 protected:
-	VDComponent(void);
-	VDComponent(const VDComponent& other) = default;
+	VDComponent(void) = default;
+	VDComponent(const VDComponent& other) = delete;
 	virtual ~VDComponent(void);
 
 private:	/*	Attributes.	*/
@@ -38,9 +38,9 @@ private:	/*	Attributes.	*/
 
 public:	/*	Public methods.	*/
 
-	VDComponent& operator=(const VDComponent& rh);
-	bool operator==(const VDComponent* lh)const; 		/*	Componets Equal Operator	*/
-	bool operator!=(const VDComponent* lh)const; 		/* Componets Not Equal Operator	*/
+	VDComponent& operator=(const VDComponent& rh) = delete;
+	bool operator==(const VDComponent* lh) const; 		/*	Componets Equal Operator	*/
+	bool operator!=(const VDComponent* lh) const; 		/* Componets Not Equal Operator	*/
 
 
 	/**

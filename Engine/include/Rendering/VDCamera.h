@@ -31,18 +31,18 @@
 /**
  *
  */
-class VDDECLSPEC VDCamera : public VDFrustum{
+class VDDECLSPEC VDCamera : public VDFrustum {
 public:
 
 	enum ClearMode{
-		eDontClear 	= (1 << 0),	/*	*/
-		eClear 		= (1 << 1),	/*	*/
-		eSkyBox 	= (1 << 2)	/*	*/
+		DontClear 	= (1 << 0),	/*	*/
+		Clear 		= (1 << 1),	/*	*/
+		SkyBox 	= (1 << 2)	/*	*/
 	};
 
 	enum ProjectionMode{
-		ePerspective 	= (1 << 3),	/*	*/
-		eOrthographic 	= (1 << 4),	/*	*/
+		Perspective 	= (1 << 3),	/*	*/
+		Orthographic 	= (1 << 4),	/*	*/
 	};
 
 	enum Culling{
@@ -65,10 +65,10 @@ public:
 	};
 
 	enum ClearBuffer{
-		eColor 		= (1 << 23),		/*	Clear color.	*/
+		Color 		= (1 << 23),		/*	Clear color.	*/
 		eDepth 		= (1 << 24),		/*	Clear depth.	*/
 		eStencil 	= (1 << 25),	/*	Clear stencil.	*/
-		eClearAll 	= (eColor | eDepth | eStencil),
+		eClearAll 	= (Color | eDepth | eStencil),
 	};
 
 	enum CameraBitFlag{
@@ -250,7 +250,7 @@ public:	/*	Public methods.	*/
 	 *
 	 *	@Return
 	 */
-	VDRenderTexture* VDAPIENTRY createRenderTexture(const VDSize& size, unsigned int rendertextureType = VDRenderTexture::eColor);
+	VDRenderTexture* VDAPIENTRY createRenderTexture(const VDSize& size, unsigned int rendertextureType = VDRenderTexture::Color);
 
 	/**
 	 *	Get render Texture Target.

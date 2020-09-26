@@ -29,10 +29,10 @@ class VDDECLSPEC VDMatrix{
 public:
 
 	enum MatrixSpace{
-		eModel 			= 0x1,				/*	Model matrix, aka world matrix.	*/
-		eView 			= 0x2,				/*	View matrix, aka camera matrix.	*/
-		eModelView 		= eModel | eView,	/*	ModelView Matrix,	*/
-		eProjection 	= 0x4				/*	Projection matrix.	*/
+		Model 			= 0x1,				/*	Model matrix, aka world matrix.	*/
+		View 			= 0x2,				/*	View matrix, aka camera matrix.	*/
+		ModelView 		= Model | View,	/*	ModelView Matrix,	*/
+		Projection 	= 0x4				/*	Projection matrix.	*/
 	};
 
 private:	/*	Attributes.	*/

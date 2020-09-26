@@ -2,7 +2,6 @@
 #include <Core/VDScreen.h>
 #include <DataStructure/VDSize.h>
 #include <GL/glew.h>
-#include <Misc/VDMath.h>
 #include <Rendering/Texture/VDRenderTexture.h>
 #include <Rendering/Texture/VDTexture.h>
 #include <Rendering/Texture/VDTexture2D.h>
@@ -11,6 +10,7 @@
 #include <VDSystemInfo.h>
 #include <cmath>
 #include <cstring>
+#include<Core/Math.h>
 
 using namespace std;
 
@@ -32,7 +32,7 @@ VDRenderTexture::VDRenderTexture(unsigned int width, unsigned int height, unsign
 	this->bind();
 	this->flag |= (mipMap & VDTexture::eMipMapping) != 0 ? VDTexture::eMipMapping : 0;
 
-	this->setTextureAttachment(surfaceFormat != VDTexture::eDepthComponent ? VDRenderTexture::eColorAttachment0 : VDRenderTexture::Attachment::eDepthAttachment, (VDTexture2D*)this);
+	this->setTextureAttachment(surfaceFormat != VDTexture::eDepthComponent ? VDRenderTexture::eColorAttachment0 : VDRenderTexture::Attachment::DepthAttachment, (VDTexture2D*)this);
 }
 
 VDRenderTexture::~VDRenderTexture(void){
@@ -111,11 +111,11 @@ void VDRenderTexture::resize(unsigned int width, unsigned int height, unsigned i
 		}
 
 		/*	depth buffer.	*/
-		texture = getTextureAttachment(0, VDRenderTexture::eDepthAttachment);
+		texture = getTextureAttachment(0, VDRenderTexture::DepthAttachment);
 		if(texture.isValid()){
 			glBindTexture(texture.getTarget(), this->getTexture());
 			glTexImage2D(texture.getTarget(), 0, texture.getInternalFormat(), width, height, 0, texture.getInternalFormat(), VDTexture::eUnsignedByte, NULL);
-			//this->setAttachment(VDRenderTexture::eDepthAttachment, &texture);
+			//this->setAttachment(VDRenderTexture::DepthAttachment, &texture);
 		}
 
 		/*	stencilbuffer.	*/
@@ -139,7 +139,7 @@ void VDRenderTexture::resize(unsigned int width, unsigned int height, unsigned i
 
 
 		/*	renderubffer depth buffer attachment.	*/
-		renderbuffer = getRenderBuffer(0, VDRenderTexture::eDepthAttachment);
+		renderbuffer = getRenderBuffer(0, VDRenderTexture::DepthAttachment);
 		if(renderbuffer.isValid()){
 			renderbuffer.setStorage(width, height, renderbuffer.getInternalFormat());
 		}
@@ -306,7 +306,8 @@ VDRenderBuffer VDRenderTexture::getRenderBuffer(int index, Attachment attachment
 
 void VDRenderTexture::setSamples(unsigned int sample){
 	/*	check if power of two.	*/
-	if(VDMath::modf( log2(sample) )  == 0){
+	if (fragcore::Math::modf(log2(sample)) == 0)
+	{
 		this->bind();
 		glFramebufferParameteri(GL_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_SAMPLES, sample);
 		/*	go through all components.	*/
@@ -457,7 +458,7 @@ bool VDRenderTexture::isColorAttached(Attachment attachment){
 bool VDRenderTexture::isDepthAttached(void){
 	int type;
 	VDRenderTexture::bind();
-	glGetFramebufferAttachmentParameteriv(GL_FRAMEBUFFER, VDRenderTexture::eDepthAttachment , GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE, &type);
+	glGetFramebufferAttachmentParameteriv(GL_FRAMEBUFFER, VDRenderTexture::DepthAttachment , GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE, &type);
 	return ( type == GL_RENDERBUFFER || type == GL_TEXTURE );
 }
 
@@ -529,7 +530,7 @@ VDRenderTexture* VDRenderTexture::colorTexture(unsigned int width, unsigned int 
 	VDRenderBuffer buffer = VDRenderBuffer();
 	buffer.bind();
 	buffer.setStorage(width, height, VDTexture::TextureFormat::eDepthComponent32);
-	render->setAttachment(VDRenderTexture::eDepthAttachment, (VDRenderBuffer*)&buffer);
+	render->setAttachment(VDRenderTexture::DepthAttachment, (VDRenderBuffer*)&buffer);
 	render->setAttachment(VDRenderTexture::eColorAttachment0, (VDTexture*)render);
 */
 
@@ -626,7 +627,7 @@ VDRenderTexture* VDRenderTexture::ShadowMap(unsigned int width, unsigned int hei
 	glTexParameteri(render->getTarget(), GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 
 
-	render->setTextureAttachment(VDRenderTexture::eDepthAttachment, render);
+	render->setTextureAttachment(VDRenderTexture::DepthAttachment, render);
 	glDrawBuffer(GL_NONE);
 	glReadBuffer(GL_NONE);
 
@@ -684,7 +685,7 @@ VDRenderTexture* VDRenderTexture::ShadowCubeMap(unsigned int Width, unsigned int
 
 VDRenderTexture* VDRenderTexture::createRenderTexture(const VDSize& size, unsigned int templateType){
 	switch(templateType){
-		case eColor: return VDRenderTexture::colorTexture(size.width(), size.height());
+		case Color: return VDRenderTexture::colorTexture(size.width(), size.height());
 		case eLuminance: return VDRenderTexture::LuminanceTexture(size.width(), size.height());
 		case eStencil: return VDRenderTexture::StencilTexture(size.width(), size.height());
 		case eShadowMapping: return VDRenderTexture::ShadowMap(size.width(), size.height());

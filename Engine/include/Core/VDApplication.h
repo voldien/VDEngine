@@ -24,7 +24,7 @@
  *	Main application class for
  *	changing the application.
  */
-class VDDECLSPEC VDApplication{
+class VDDECLSPEC VDApplication {
 public:
 
 	/**
