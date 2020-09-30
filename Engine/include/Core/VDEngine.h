@@ -29,7 +29,7 @@
  *	init method must be called before using
  *	the library.
  */
-class VDDECLSPEC VDEngine{
+class VDDECLSPEC VDEngine {
 public:
 
 	/**
@@ -38,27 +38,27 @@ public:
 	enum SubSystem{
 		None 				= 0x0,
 		Debug 				= 0x4,
-		eAudio 				= 0x8,
-		eDefualtMaterialLowQuality 	= 0x200,
-		eDefualtMaterialHighQuality 	= 0x400,
+		Audio 				= 0x8,
+		DefualtMaterialLowQuality 	= 0x200,
+		DefualtMaterialHighQuality 	= 0x400,
 		ePhysic 			= 0x1000,
-		eInitialize 			= 0x2000,
+		Initialize 			= 0x2000,
 
-		eDefault = ( eDefualtMaterialLowQuality | ePhysic ),
-		eAll = (Debug | eDefualtMaterialLowQuality | eDefualtMaterialHighQuality |
-				ePhysic | eInitialize | eDefault)
+		Default = ( DefualtMaterialLowQuality | ePhysic ),
+		All = (Debug | DefualtMaterialLowQuality | DefualtMaterialHighQuality |
+				ePhysic | Initialize | Default)
 	};
 
 	/**
 	 *	Engine subroutine.
 	 */
 	enum SubRoutine{
-		eUpdate 		= 0x1,	/*	Update every frame.	*/
-		eFixedUpdate		= 0x2,	/*	Update with the same frequency intervale.	*/
-		eRendering		= 0x4,	/*	In rendering pipeline.	*/
-		eShadowRendering	= 0x8,	/*	In shadow rendering pipeline.	*/
-		eCulling		= 0x10,	/*	In culling routine.	*/
-		eGUI			= 0x20,	/*	In GUI rendering.	*/
+		Update 		= 0x1,	/*	Update every frame.	*/
+		FixedUpdate		= 0x2,	/*	Update with the same frequency intervale.	*/
+		Rendering		= 0x4,	/*	In rendering pipeline.	*/
+		ShadowRendering	= 0x8,	/*	In shadow rendering pipeline.	*/
+		Culling		= 0x10,	/*	In culling routine.	*/
+		GUI			= 0x20,	/*	In GUI rendering.	*/
 	};
 
 	/**
@@ -72,7 +72,7 @@ public:
 	 *
 	 *	@Return
 	 */
-	static int VDAPIENTRY init(int argc, const char** argv, SubSystem subsystem = VDEngine::eDefault);
+	static int VDAPIENTRY init(int argc, const char** argv, SubSystem subsystem = VDEngine::Default);
 
 	/**
 	 *	Initialize subsystem.
@@ -121,22 +121,22 @@ public:
 	/**
 	 *	Get window assoicated with the game engine.
 	 */
-	static VDWindow* VDAPIENTRY getWindow(void);
+	static fragcore::RendererWindow* VDAPIENTRY getWindow(void);
 
 	/**
 	 * Get drawable window assoicated with the engine.
 	 */
-	static VDWindow* VDAPIENTRY getDrawable(void);
+	static fragcore::RendererWindow* VDAPIENTRY getDrawable(void);
 
 	/**
 	 *	Set window.
 	 */
-	static void VDAPIENTRY setWindow(VDWindow* window);
+	static void VDAPIENTRY setWindow(fragcore::RendererWindow *window);
 
 	/**
 	 *	Set drawable window.
 	 */
-	static void VDAPIENTRY setDrawable(VDWindow* window);
+	static void VDAPIENTRY setDrawable(fragcore::RendererWindow *window);
 
 	/**
 	 *	Set window title.
@@ -149,18 +149,17 @@ public:
 	 */
 	static char* VDAPIENTRY getWindowTitle(void);
 
+
+	//TODO Remove
 	/**
 	 *	Bind OpenGL context to current thread.
 	 */
 	static void VDAPIENTRY bindOpenGLContext(const VDGLContext glContext);
-
 	/**
 	 *	Get main OpenGL context.
 	 *	@Return non-null context pointer.
 	 */
 	static VDGLContext VDAPIENTRY getOpenGLContext(void);
-
-
 	/**
 	 *	Query a new shared instance of OpenGL context.
 	 *

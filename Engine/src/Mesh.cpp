@@ -395,8 +395,8 @@ void VDMesh::assemblyMesh(void* vertexbuffer, GLuint vertexStrideSize, unsigned 
 	this->flag |= eVAO;
 
 	if( bitFlag & VDMesh::eVertex){
-		glEnableVertexAttribArray(VDShaderConstant::eVERTEX_LOCATION);
-		glVertexAttribPointer(VDShaderConstant::eVERTEX_LOCATION, 3, GL_FLOAT, GL_FALSE, vertexStrideSize, 0); //			Vertex
+		glEnableVertexAttribArray(VDShaderConstant::VERTEX_LOCATION);
+		glVertexAttribPointer(VDShaderConstant::VERTEX_LOCATION, 3, GL_FLOAT, GL_FALSE, vertexStrideSize, 0); //			Vertex
 	}
 	if( bitFlag & VDMesh::eTextureCoord){
 		glEnableVertexAttribArray(VDShaderConstant::eTEXTURECOORD_LOCATION);

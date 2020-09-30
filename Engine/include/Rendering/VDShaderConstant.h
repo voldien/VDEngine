@@ -85,16 +85,16 @@ public:
 		eCustom1 				= 7,
 		eCustom8 				= 7,
       
-		eMotionTexture0 	= 8,
-		eSplashTexture 		= 8,
+		MotionTexture0 	= 8,
+		SplashTexture 		= 8,
       	/**/
-		eSkyBox = 9,
+		SkyBox = 9,
       	/*
       	 *
       	 */
-		eAmbientImageBased = 10,
+		AmbientImageBased = 10,
 
-		eShadowMapping = 11,
+		ShadowMapping = 11,
 		eShadowMappingCube = 31,
 
       	eMaxTextureUnit = 0xF /*	The least number of binded texture unit.*/
@@ -106,7 +106,7 @@ public:
 	 *	Vertex attributes constant location.
 	 */
 	enum AttributeLocation{
-		eVERTEX_LOCATION = 0x0,
+		VERTEX_LOCATION = 0x0,
 		eTEXTURECOORD_LOCATION = 0x1,
 		eNORMAL_LOCATION = 0x2,
 		eTANGENT_LOCATION = 0x3,

@@ -435,7 +435,7 @@ void VDRenderPipeLine::internalForwardRendering(VDFrustum* frustum, VDCamera* ca
 
 
 	/*	*/
-	VDMatrix::matrixMode(VDMatrix::eModel);
+	VDMatrix::matrixMode(VDMatrix::Model);
 	VDMatrix::pushMatrix();
 
 
@@ -475,8 +475,8 @@ void VDRenderPipeLine::internalForwardRendering(VDFrustum* frustum, VDCamera* ca
 
 			trans = rend->transform();
 
-			VDMatrix::identity(VDMatrix::eModel);
-			VDMatrix::matrixMode(VDMatrix::eModel);
+			VDMatrix::identity(VDMatrix::Model);
+			VDMatrix::matrixMode(VDMatrix::Model);
 			VDMatrix::translate(trans->getPosition());
 			VDMatrix::rotation(trans->getRotation());
 			VDMatrix::scale(trans->getScale());
@@ -487,7 +487,7 @@ void VDRenderPipeLine::internalForwardRendering(VDFrustum* frustum, VDCamera* ca
 		}
 	}
 
-	VDMatrix::matrixMode(VDMatrix::eModel);
+	VDMatrix::matrixMode(VDMatrix::Model);
 	VDMatrix::popMatrix();
 }
 

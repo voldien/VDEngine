@@ -237,7 +237,7 @@ void VDRenderSetting::setSkyBox(VDSkyBox* skybox){
 
 	if(skybox){
 		if(skybox->getCubeMap()){
-			skybox->getCubeMap()->bind(VDShaderConstant::eSkyBox);
+			skybox->getCubeMap()->bind(VDShaderConstant::SkyBox);
 
 			setImageAmbient(skybox->getCubeMap());
 		}

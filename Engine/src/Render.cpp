@@ -297,9 +297,9 @@ void VDRenderer::internalMultiDraw(unsigned int primcount, const unsigned int* c
 }
 
 void VDRenderer::externalDraw(VDShader* shader){
-	VDMatrix::matrixMode(VDMatrix::eModel);
+	VDMatrix::matrixMode(VDMatrix::Model);
 	VDMatrix::pushMatrix();	
-	VDMatrix::identity(VDMatrix::eModel);
+	VDMatrix::identity(VDMatrix::Model);
 
 	VDMatrix::translate(transform()->getPosition());
 	VDMatrix::rotation(transform()->getRotation());
@@ -314,7 +314,7 @@ void VDRenderer::externalDraw(VDShader* shader){
 void VDRenderer::internalShadowDraw(VDShader* Shadowpass, VDLight* light, VDMesh::Primitive drawmode){
 
 
-	VDMatrix::matrixMode(VDMatrix::eModel);
+	VDMatrix::matrixMode(VDMatrix::Model);
 	VDMatrix::pushMatrix();
 
 	register VDTransform* trans;
@@ -379,7 +379,7 @@ void VDRenderer::internalShadowDraw(VDShader* Shadowpass, VDLight* light, VDMesh
 	}/*collection*/
 
 
-	VDMatrix::matrixMode(VDMatrix::eModel);
+	VDMatrix::matrixMode(VDMatrix::Model);
 	VDMatrix::popMatrix();		
 }
 

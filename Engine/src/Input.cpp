@@ -13,7 +13,6 @@ int ydelta;
 VDPoint pmdelta;
 VDPoint mdelta;
 
-
 float VDInput::getAxis(unsigned int AxisFlag){
 
 
@@ -102,9 +101,9 @@ int VDInput::x(void){
 
 int VDInput::y(void){
 	int x,y;
-	if(VDEngine::getWindow() != SDL_GetKeyboardFocus()){
-		return 0;
-	}
+	// if(VDEngine::getWindow() != SDL_GetKeyboardFocus()){
+	// 	return 0;
+	// }
 
 	SDL_GetMouseState(&x, &y);
 	return y;

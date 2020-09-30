@@ -444,7 +444,7 @@ void VDShader::initFlagData(void){
 
 	/*	Shadow 2D.	*/
 	for(int x = 0; x < shadowcount; x++){
-		shadowsloc[x] = VDShaderConstant::eShadowMapping + x;
+		shadowsloc[x] = VDShaderConstant::ShadowMapping + x;
 	}
 	shadoUniform = this->getUniformLocation("ShadowSampler");
 	glProgramUniform1iv(this->getProgram(), shadoUniform, shadowcubecount, shadowsloc);

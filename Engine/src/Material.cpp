@@ -456,7 +456,7 @@ VDMaterial* VDMaterial::createDefaultMaterial(unsigned int preset){
 	VDShader* shader;
 
 	switch(preset){
-	case VDEngine::eDefualtMaterialLowQuality:{
+	case VDEngine::DefualtMaterialLowQuality:{
 			material = VDMaterial::createMaterial();
 			shader = VDShaderCreator::Diffuse();
 
