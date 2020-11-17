@@ -20,6 +20,7 @@
 #define _VD_COMPONENT_H_ 1
 #include"../VDDef.h"
 #include"../VDPrerequisites.h"
+#include"../VDSimpleType.h"
 #include"VDTypes.h"
 #include"VDObject.h"
 

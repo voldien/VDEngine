@@ -1,5 +1,4 @@
 #include <Core/VDDebug.h>
-#include <Core/VDEngineCore.h>
 #include <Core/VDInput.h>
 #include <Core/VDLayer.h>
 #include <Core/VDMatrix.h>
@@ -9,8 +8,6 @@
 #include <DataStructure/VDIterator.h>
 #include <DataStructure/VDRect.h>
 #include <DataStructure/VDSize.h>
-#include <DataStructure/VDVector.h>
-#include <GL/glew.h>
 #include <HCRay.h>
 #include <HCVector2.h>
 #include <HCVector3.h>
@@ -26,14 +23,12 @@
 #include <Rendering/VDRenderingAPICache.h>
 #include <Rendering/VDRenderSetting.h>
 #include <Rendering/VDShader.h>
-#include <Rendering/VDUniformBuffer.h>
 #include <Scene/VDFrustum.h>
 #include <Scene/VDScene.h>
 #include <Scene/VDSkyBox.h>
 #include <Scene/VDTransform.h>
 #include <SDL2/SDL_stdinc.h>
 #include <VDSimpleType.h>
-#include <VDSystemInfo.h>
 #include <cmath>
 #include <cstring>
 #include <iterator>
@@ -121,14 +116,14 @@ VDBehavior* VDCamera::copyComponent(unsigned int& dataSize){
 }
 
 void VDCamera::hdr(bool enabled){
-	if(VDSystemInfo::getCompatibility()->sFramebuffer && VDSystemInfo::SupportsRenderTextureFormat(VDTexture::eRGBA32F) ){
-		if(enabled)
-			this->flag |= eHDR;
-		else
-			this->flag = (flag & ~eHDR);
-	}else{
-		VDDebug::errorLog("HDR is not supported.\n");
-	}
+	// if(VDSystemInfo::getCompatibility()->sFramebuffer && VDSystemInfo::SupportsRenderTextureFormat(VDTexture::eRGBA32F) ){
+	// 	if(enabled)
+	// 		this->flag |= eHDR;
+	// 	else
+	// 		this->flag = (flag & ~eHDR);
+	// }else{
+	// 	VDDebug::errorLog("HDR is not supported.\n");
+	// }
 }
 
 bool VDCamera::isHDREnabled(void)const{
@@ -186,7 +181,7 @@ void VDCamera::setPostEffect(VDPostEffect* postEffect, unsigned int index){
 	/*	Check if image effect is supported.	*/
 	this->posteffect(true);
 
-	this->postEffect.push(postEffect);/*	TODO change to set at */
+	this->postEffect.push_back(postEffect);/*	TODO change to set at */
 
 	/*	Check if post render texture has been created.	*/
 	if(VDRenderSetting::getSettings()->posttexture == NULL){
@@ -199,7 +194,7 @@ void VDCamera::removePostEffect(VDPostEffect* postEffect){
 		return;
 	}
 
-	for(vector<VDPostEffect*>::Iterator x = this->postEffect.begin(); x != this->postEffect.end(); x++){
+	for(vector<VDPostEffect*>::iterator x = this->postEffect.begin(); x != this->postEffect.end(); x++){
 		if(postEffect == (*x)){
 			this->postEffect.erase(x);
 			/**/
@@ -246,7 +241,7 @@ VDRenderTexture* VDCamera::createRenderTexture(const VDSize& size, unsigned int 
 void VDCamera::setRenderTexture(VDRenderTexture* rendertexture){
 	this->enableRenderTexture(rendertexture != NULL);
 	if( ( rendertexture == NULL ) && ( this->getRenderTexture() != NULL) ){
-		this->getRenderTexture()->deincrement();
+		this->getRenderTexture()->deincreemnt();
 	}
 	this->renderTexture = rendertexture;
 
@@ -276,129 +271,129 @@ VDRect VDCamera::pixelRect(void)const{
 void VDCamera::beginSceneRender(void){
 
 	/*	Set	current camera being used.	*/
-	VDCamera::setCurrentCamera(this);
-	VDRect viewport = pixelRect();
-	VDRenderTexture* target;
+	// VDCamera::setCurrentCamera(this);
+	// VDRect viewport = pixelRect();
+	// VDRenderTexture* target;
 
 
-	/*	update uniform shared infor buffer!	*/
-	VDScene::getScene()->uniform.engineState.ambientColor = VDRenderSetting::getAmbientColor();
-	VDScene::getScene()->uniform.engineState.cameraDir = transform()->transformDirection(VDVector3::forward()).normalize();
-	VDScene::getScene()->uniform.engineState.cameraPosition = transform()->getPosition();
-	VDScene::getScene()->uniform.engineState.cameraNear = this->getNear();
-	VDScene::getScene()->uniform.engineState.cameraFar = this->getFar();
-	VDScene::getScene()->uniform.engineState.projection = this->getProjectionMatrix();
-	VDScene::getScene()->uniform.engineState.viewMatrix = this->transform()->getViewMatrix();
-	VDScene::getScene()->uniform.engineState.viewProjection = this->getProjectionViewMatrix();
-	VDScene::getScene()->uniform.engineState.height = viewport.height();
-	VDScene::getScene()->uniform.engineState.width = viewport.width();
-	VDScene::getScene()->uniform.engineState.xpos = VDInput::x();
-	VDScene::getScene()->uniform.engineState.ypos = VDInput::y();
-	VDScene::getScene()->uniform.engineState.time = VDTime::timef();
-	VDScene::getScene()->uniform.engineState.deltaTime = VDTime::deltaTime();	/*	TODO relocate later */
-	VDScene::getScene()->uniform.engineState.shadow = (int)VDQualitySetting::getShadowFilter();
-	VDScene::getScene()->uniform.engineState.ambientType = VDRenderSetting::getAmbientType();
-	/*	Update engine state.	*/
-	VDScene::getScene()->uniform.enginestate.write( &VDScene::getScene()->uniform.engineState, sizeof(VDScene::getScene()->uniform.engineState));
-
-
-
-
-	/*	push model matrix for object matrixs	*/
-	VDMatrix::matrixMode(VDMatrix::Projection);
-	VDMatrix::pushMatrix();
-	VDMatrix::identity(VDMatrix::Projection);
-
-
-	/*	Create perspective for the camera.	*/
-	if((this->flag & VDCamera::Perspective)){
-		VDMatrix::perspective(this->getFov(), this->getAspect(), this->getNear(), this->getFar());
-	}
-	else{
-		VDMatrix::ortho(
-			(float)-VDScreen::width(),
-			(float)VDScreen::width(),
-			(float)-VDScreen::height(),
-			(float)VDScreen::height(),
-			-(this->getFar() * 0.5f),
-			(this->getFar() * 0.5f));
-	}
-
-
-	/*	*/
-	if( this->usePostEffect()){
-		if(this->getNumPostEffects() > 0){
-			if(this->getRenderTexture() != NULL){
-				this->getRenderTexture()->write();
-			}
-			else {
-				target = this->getOutpuFrameBuffer();
-				if(target)
-					target->write();
-			}
-		}
-	}else if(this->isHDREnabled()){
-		this->getOutpuFrameBuffer()->write();
-	}
-
-	if( this->flag & eWireFrame ){
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-	else
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-
-	/*	global view matrix assignment	*/
-	VDMatrix::matrixMode(VDMatrix::View);
-	VDMatrix::pushMatrix();
-	VDMatrix::identity(VDMatrix::View);
-	VDMatrix::rotation(transform()->getRotation());
-	VDMatrix::translate(transform()->getPosition());
-
-	VDRect viewRect = pixelRect();
+	// /*	update uniform shared infor buffer!	*/
+	// VDScene::getScene()->uniform.engineState.ambientColor = VDRenderSetting::getAmbientColor();
+	// VDScene::getScene()->uniform.engineState.cameraDir = transform()->transformDirection(VDVector3::forward()).normalize();
+	// VDScene::getScene()->uniform.engineState.cameraPosition = transform()->getPosition();
+	// VDScene::getScene()->uniform.engineState.cameraNear = this->getNear();
+	// VDScene::getScene()->uniform.engineState.cameraFar = this->getFar();
+	// VDScene::getScene()->uniform.engineState.projection = this->getProjectionMatrix();
+	// VDScene::getScene()->uniform.engineState.viewMatrix = this->transform()->getViewMatrix();
+	// VDScene::getScene()->uniform.engineState.viewProjection = this->getProjectionViewMatrix();
+	// VDScene::getScene()->uniform.engineState.height = viewport.height();
+	// VDScene::getScene()->uniform.engineState.width = viewport.width();
+	// VDScene::getScene()->uniform.engineState.xpos = VDInput::x();
+	// VDScene::getScene()->uniform.engineState.ypos = VDInput::y();
+	// VDScene::getScene()->uniform.engineState.time = VDTime::timef();
+	// VDScene::getScene()->uniform.engineState.deltaTime = VDTime::deltaTime();	/*	TODO relocate later */
+	// VDScene::getScene()->uniform.engineState.shadow = (int)VDQualitySetting::getShadowFilter();
+	// VDScene::getScene()->uniform.engineState.ambientType = VDRenderSetting::getAmbientType();
+	// /*	Update engine state.	*/
+	// VDScene::getScene()->uniform.enginestate.write( &VDScene::getScene()->uniform.engineState, sizeof(VDScene::getScene()->uniform.engineState));
 
 
 
-	if(this->isMainCamera()){
 
-		float viewportscale = VDQualitySetting::getSampleMode() & VDQualitySetting::eSSAA ? 2.0f : 1.0f;
-		target = VDRenderSetting::getRenderingPathFrameBuffer(this->getRenderingPath());
-		if(viewportscale > 1.1 && target){
-			switch(getRenderingPath()){
-			case VDRenderSetting::eForwardRendering:
-				VDRenderSetting::getForwardFramebuffer()->write();
-				VDRenderSetting::getForwardFramebuffer()->resize(viewRect.width() * viewportscale, viewRect.height() * viewportscale);
-				break;
-			default:
-				assert(0);
-			}
-		}
-		VDRenderingAPICache::setViewport(viewRect.x(), viewRect.y(), viewRect.width() * viewportscale,viewRect.height() * viewportscale);
+	// /*	push model matrix for object matrixs	*/
+	// VDMatrix::matrixMode(VDMatrix::Projection);
+	// VDMatrix::pushMatrix();
+	// VDMatrix::identity(VDMatrix::Projection);
 
-	}
-	else{
-		if(!this->isMainCamera()){
-			this->getRenderTexture()->write();
-			viewRect = VDRect(0,0, this->getRenderTexture()->width(), this->getRenderTexture()->height());
-			VDRenderingAPICache::setViewport((int)viewRect.x(),
-					(int)viewRect.y(),
-					(int)viewRect.width(),
-					(int)viewRect.height());
-			glTextureBarrierNV();
-		}
-	}
 
-	if( this->flag & VDCamera::DontClear ){
-		glClear(GL_DEPTH_BUFFER_BIT);
-	}
-	else if( this->flag & VDCamera::Clear ){
-		VDRenderingAPICache::setClearColor(getBackColor().x(), getBackColor().y(), getBackColor().z(), getBackColor().w());
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-	else if(this->flag & VDCamera::SkyBox){
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
+	// /*	Create perspective for the camera.	*/
+	// if((this->flag & VDCamera::Perspective)){
+	// 	VDMatrix::perspective(this->getFov(), this->getAspect(), this->getNear(), this->getFar());
+	// }
+	// else{
+	// 	VDMatrix::ortho(
+	// 		(float)-VDScreen::width(),
+	// 		(float)VDScreen::width(),
+	// 		(float)-VDScreen::height(),
+	// 		(float)VDScreen::height(),
+	// 		-(this->getFar() * 0.5f),
+	// 		(this->getFar() * 0.5f));
+	// }
+
+
+	// /*	*/
+	// if( this->usePostEffect()){
+	// 	if(this->getNumPostEffects() > 0){
+	// 		if(this->getRenderTexture() != NULL){
+	// 			this->getRenderTexture()->write();
+	// 		}
+	// 		else {
+	// 			target = this->getOutpuFrameBuffer();
+	// 			if(target)
+	// 				target->write();
+	// 		}
+	// 	}
+	// }else if(this->isHDREnabled()){
+	// 	this->getOutpuFrameBuffer()->write();
+	// }
+
+	// if( this->flag & eWireFrame ){
+	// 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	// 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// }
+	// else
+	// 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+
+	// /*	global view matrix assignment	*/
+	// VDMatrix::matrixMode(VDMatrix::View);
+	// VDMatrix::pushMatrix();
+	// VDMatrix::identity(VDMatrix::View);
+	// VDMatrix::rotation(transform()->getRotation());
+	// VDMatrix::translate(transform()->getPosition());
+
+	// VDRect viewRect = pixelRect();
+
+
+
+	// if(this->isMainCamera()){
+
+	// 	float viewportscale = VDQualitySetting::getSampleMode() & VDQualitySetting::eSSAA ? 2.0f : 1.0f;
+	// 	target = VDRenderSetting::getRenderingPathFrameBuffer(this->getRenderingPath());
+	// 	if(viewportscale > 1.1 && target){
+	// 		switch(getRenderingPath()){
+	// 		case VDRenderSetting::eForwardRendering:
+	// 			VDRenderSetting::getForwardFramebuffer()->write();
+	// 			VDRenderSetting::getForwardFramebuffer()->resize(viewRect.width() * viewportscale, viewRect.height() * viewportscale);
+	// 			break;
+	// 		default:
+	// 			assert(0);
+	// 		}
+	// 	}
+	// 	VDRenderingAPICache::setViewport(viewRect.x(), viewRect.y(), viewRect.width() * viewportscale,viewRect.height() * viewportscale);
+
+	// }
+	// else{
+	// 	if(!this->isMainCamera()){
+	// 		this->getRenderTexture()->write();
+	// 		viewRect = VDRect(0,0, this->getRenderTexture()->width(), this->getRenderTexture()->height());
+	// 		VDRenderingAPICache::setViewport((int)viewRect.x(),
+	// 				(int)viewRect.y(),
+	// 				(int)viewRect.width(),
+	// 				(int)viewRect.height());
+	// 		glTextureBarrierNV();
+	// 	}
+	// }
+
+	// if( this->flag & VDCamera::DontClear ){
+	// 	glClear(GL_DEPTH_BUFFER_BIT);
+	// }
+	// else if( this->flag & VDCamera::Clear ){
+	// 	VDRenderingAPICache::setClearColor(getBackColor().x(), getBackColor().y(), getBackColor().z(), getBackColor().w());
+	// 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// }
+	// else if(this->flag & VDCamera::SkyBox){
+	// 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// }
 
 	/* update perspective !! 	*/
 	VDMatrix::matrixMode(VDMatrix::Model);
@@ -408,73 +403,73 @@ void VDCamera::beginSceneRender(void){
 
 void VDCamera::endSceneRender(void){
 
-	VDRenderTexture* writetarget;
-	VDRenderTexture* readtarget;
+	// VDRenderTexture* writetarget;
+	// VDRenderTexture* readtarget;
 
-	/*	render skybox	*/
-	if( flag & SkyBox  ){
-		if(VDScene::getScene()->skybox){
-			glDepthFunc(GL_LEQUAL);
-			VDScene::getScene()->skybox->render(this->transform()->getRotation());
-		}
-	}
+	// /*	render skybox	*/
+	// if( flag & SkyBox  ){
+	// 	if(VDScene::getScene()->skybox){
+	// 		glDepthFunc(GL_LEQUAL);
+	// 		VDScene::getScene()->skybox->render(this->transform()->getRotation());
+	// 	}
+	// }
 
-	if(this->getRenderTexture() == NULL){
-		writetarget = VDRenderSetting::getRenderingPathFrameBuffer(this->getRenderingPath());
-	}
-	else{
-		writetarget = this->getRenderTexture();
-	}
+	// if(this->getRenderTexture() == NULL){
+	// 	writetarget = VDRenderSetting::getRenderingPathFrameBuffer(this->getRenderingPath());
+	// }
+	// else{
+	// 	writetarget = this->getRenderTexture();
+	// }
 
-	/**/
-	VDMatrix::matrixMode(VDMatrix::Projection);
-	VDMatrix::popMatrix();
-	VDMatrix::matrixMode(VDMatrix::View);
-	VDMatrix::popMatrix();
-	VDMatrix::matrixMode(VDMatrix::Model);
-
-
-	if(this->isHDREnabled()){
-		/*	tone the texture*/
-		VDRenderingAPICache::bindFramebuffer(GL_FRAMEBUFFER, 0);
-			/*	*/
-			VDRenderSetting::getSettings()->toneMapping->bind();
-			VDRenderSetting::getRenderingPathFrameBuffer(this->getRenderingPath())->read();
-			VDRenderSetting::getRenderingPathFrameBuffer(this->getRenderingPath())->bindTextures(0);
-
-			VDRenderTexture* output = this->getOutpuFrameBuffer();
-			if(output){
-				output->write();
-			}
-			else{
-				VDRenderingAPICache::bindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-			}
-
-			VDRenderer::drawMesh(VDRenderSetting::getSettings()->quadDisplay);
-	}
+	// /**/
+	// VDMatrix::matrixMode(VDMatrix::Projection);
+	// VDMatrix::popMatrix();
+	// VDMatrix::matrixMode(VDMatrix::View);
+	// VDMatrix::popMatrix();
+	// VDMatrix::matrixMode(VDMatrix::Model);
 
 
-	/*	if DSR is enabled	*/
-	if((VDQualitySetting::getSampleMode() & VDQualitySetting::eSSAA )  && VDQualitySetting::isAntiAliasingEnable() ){
-		/*	*/
-		if(getRenderTexture())
-			getRenderTexture()->read();
-		else{
-			VDRenderSetting::getForwardFramebuffer()->read();
-		}
+	// if(this->isHDREnabled()){
+	// 	/*	tone the texture*/
+	// 	VDRenderingAPICache::bindFramebuffer(GL_FRAMEBUFFER, 0);
+	// 		/*	*/
+	// 		VDRenderSetting::getSettings()->toneMapping->bind();
+	// 		VDRenderSetting::getRenderingPathFrameBuffer(this->getRenderingPath())->read();
+	// 		VDRenderSetting::getRenderingPathFrameBuffer(this->getRenderingPath())->bindTextures(0);
 
-		//glReadBuffer(GL_BACK);
-		VDRenderingAPICache::bindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+	// 		VDRenderTexture* output = this->getOutpuFrameBuffer();
+	// 		if(output){
+	// 			output->write();
+	// 		}
+	// 		else{
+	// 			VDRenderingAPICache::bindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+	// 		}
 
-		//glReadBuffer(GL_FRONT);
-		glBlitFramebuffer(0,0,VDScreen::width() * 2, VDScreen::height() * 2,
-				0,0,VDScreen::width(), VDScreen::height(),
-				GL_COLOR_BUFFER_BIT, GL_NEAREST);
-		//VDRenderSetting::getRenderingPathFrameBuffer(this->getRenderingPath())->blitTo(NULL);
-	}
+	// 		VDRenderer::drawMesh(VDRenderSetting::getSettings()->quadDisplay);
+	// }
 
-	/*	*/
-	VDRenderingAPICache::bindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	// /*	if DSR is enabled	*/
+	// if((VDQualitySetting::getSampleMode() & VDQualitySetting::eSSAA )  && VDQualitySetting::isAntiAliasingEnable() ){
+	// 	/*	*/
+	// 	if(getRenderTexture())
+	// 		getRenderTexture()->read();
+	// 	else{
+	// 		VDRenderSetting::getForwardFramebuffer()->read();
+	// 	}
+
+	// 	//glReadBuffer(GL_BACK);
+	// 	VDRenderingAPICache::bindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+
+	// 	//glReadBuffer(GL_FRONT);
+	// 	glBlitFramebuffer(0,0,VDScreen::width() * 2, VDScreen::height() * 2,
+	// 			0,0,VDScreen::width(), VDScreen::height(),
+	// 			GL_COLOR_BUFFER_BIT, GL_NEAREST);
+	// 	//VDRenderSetting::getRenderingPathFrameBuffer(this->getRenderingPath())->blitTo(NULL);
+	// }
+
+	// /*	*/
+	// VDRenderingAPICache::bindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 

@@ -46,7 +46,7 @@ public:
 
 private:	/*	Attributes.	*/
 
-	vector<VDToolBase*> tools;	/*	*/
+	std::vector<VDToolBase*> tools;	/*	*/
 	int query[10];					/*	*/
 	unsigned int mode;				/*	*/
 
@@ -55,7 +55,7 @@ public:	/*	*/
 	/**
 	 *	Get tools.
 	 */
-	vector<VDToolBase*>& VDAPIENTRY getTools(void){
+	inline std::vector<VDToolBase*>& VDAPIENTRY getTools(void){
 		return this->tools;
 	}
 

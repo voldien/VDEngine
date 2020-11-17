@@ -67,13 +67,6 @@ public:
 	 */
 	static void VDAPIENTRY setResolution(int width, int height, bool fullscreen);
 
-
-	/**
-	 *	Set screen resolution.
-	 */
-	static int VDAPIENTRY setResolution(int width, int height, bool fullscreen);
-
-
 	/**
 	 * 	Get view rect.
 	 *

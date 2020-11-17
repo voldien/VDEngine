@@ -270,7 +270,7 @@ public:	/*	Static methods.	*/
 	/**
      *	Update all light uniform location to GLSL Shader.
      */
-    static void VDAPIENTRY updateLightUniformLocation(VDStackAllocator* allocator = NULL);
+    static void VDAPIENTRY updateLightUniformLocation(fragcore::StackAllocator* allocator = NULL);
   
 
 	/**

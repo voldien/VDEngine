@@ -21,6 +21,7 @@
 #include"VDDef.h"
 #include"VDSimpleType.h"
 #include"VDPrerequisites.h"
+#include<FragCore.h>
 
 #ifdef __cplusplus
 #include<cctype>
