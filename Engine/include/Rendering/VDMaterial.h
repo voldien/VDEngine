@@ -24,7 +24,7 @@
 /**
  *
  */
-class VDDECLSPEC VDMaterial : public VDAssetObject{
+class VDDECLSPEC VDMaterial : public VDAssetObject {
 protected:
 
 	VDMaterial(void);

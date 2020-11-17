@@ -24,27 +24,27 @@
 /**
  *
  */
-class VDDECLSPEC VDInput{
+class VDDECLSPEC VDInput {
 public:
 	typedef struct axis_input{
 
 	}AxisInput;
 
 	enum Button{
-		eLeft 	= 0x1,
-		eRight 	= 0x2,
-		eMiddle = 0x4
+		Left 	= 0x1,
+		Right 	= 0x2,
+		Middle = 0x4
 	};
 
 	enum {
-		eVertical 	= 0x2000,				// Movement of Controller[keyboard, XBoxController Joystict. etc]
-		eHorizontal 	= 0x4000,			// Movement of Controller[keyboard, XBoxController Joystict. etc]
-		eCAMERA_X 	= 0x8000,				// Camera Movement In X [Mouse Movement, XBoxController Left JoyStick, X
-		eCAMERA_Y 	= 0x10000,			// Camera Movement In Y [Mouse Movement, XBoxController Left
-		eJump 		= 0x20000,
-		eFire1 		= 0x40000,
-		eFire2 		= 0x80000,
-		eFire3 		= 0x100000
+		Vertical 	= 0x2000,				// Movement of Controller[keyboard, XBoxController Joystict. etc]
+		Horizontal 	= 0x4000,			// Movement of Controller[keyboard, XBoxController Joystict. etc]
+		CAMERA_X 	= 0x8000,				// Camera Movement In X [Mouse Movement, XBoxController Left JoyStick, X
+		CAMERA_Y 	= 0x10000,			// Camera Movement In Y [Mouse Movement, XBoxController Left
+		Jump 		= 0x20000,
+		Fire1 		= 0x40000,
+		Fire2 		= 0x80000,
+		Fire3 		= 0x100000
 	};
 
 	/**

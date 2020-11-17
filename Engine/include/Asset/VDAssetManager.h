@@ -19,7 +19,6 @@
 #ifndef _VD_ASSET_MANANGER_H_
 #define _VD_ASSET_MANANGER_H_ 1
 #include<Core/IO/IFileSystem.h>
-#include"../Core/VDGUID.h"
 #include"../Core/VDTypes.h"
 #include"../VDDef.h"
 #include"VDAssetObject.h"

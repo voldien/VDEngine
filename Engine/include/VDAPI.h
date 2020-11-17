@@ -20,8 +20,6 @@
 #define _VD_API_H_ 1
 #include"Physic/VDPhysic.h"
 #include"VDSystem.h"
-#include"VDSystemInfo.h"
-#include"Core/VDCore.h"
 #include"Audio/VDAudio.h"
 #include"Scene/VDScene.h"
 #include"Asset/VDAssetManager.h"

@@ -18,7 +18,6 @@
 */
 #ifndef _VD_SHADER_H_
 #define _VD_SHADER_H_ 1
-#include"VDUniformBuffer.h"
 #include"../Asset/VDAssetObject.h"
 #include"../Rendering/VDRenderingAPICache.h"
 #include <map>
@@ -436,7 +435,7 @@ public:	/*	Static methods.	*/
 	/*
 	 *
 	 */
-	static VDShader* VDAPIFASTENTRY getShader(const VDGUID guid);
+	//static VDShader* VDAPIFASTENTRY getShader(const VDGUID guid);
 
 public:	/*	Factory methods.	*/
 
@@ -505,7 +504,7 @@ typedef struct vd_uniform_data_t{
 
 	//unsigned int ubo;
 	//unsigned int ubo_index;
-	VDUniformBuffer enginestate;
+	//VDUniformBuffer enginestate;
 }VDSceneUniform;
 
 

@@ -40,7 +40,7 @@
 #include <cassert>
 #include <map>
 
-VDVector< VDQueue<VDRenderer*> >VDRenderPipeLine::queues;
+vector< VDQueue<VDRenderer*> >VDRenderPipeLine::queues;
 
 
 void VDRenderPipeLine::render(VDDoubleBufferedAllocator* allocator){
@@ -139,8 +139,8 @@ void VDRenderPipeLine::renderPostEffect(VDCamera* camera, VDRenderSetting::Rende
 
 
 	/*	bind rendertarget.	*/
-	VDTexture tex1 = rendertarget->getTextureAttachment(0, VDRenderTexture::eColorAttachment0);
-	VDTexture tex2 = VDRenderSetting::getSettings()->posttexture->getTextureAttachment(0, VDRenderTexture::eColorAttachment0);
+	VDTexture tex1 = rendertarget->getTextureAttachment(0, VDRenderTexture::ColorAttachment0);
+	VDTexture tex2 = VDRenderSetting::getSettings()->posttexture->getTextureAttachment(0, VDRenderTexture::ColorAttachment0);
 	VDTexture* ptex1 = &tex1;
 	VDTexture* ptex2 = &tex2;
 
@@ -217,7 +217,7 @@ void VDRenderPipeLine::bindShadowMaps(VDCamera* camera){
 
 		if(light->isShadowBufferAttached()){
 
-			shadTex = light->getShadowTexture()->getAttachmentNative(0, VDRenderTexture::eDepthAttachment);
+			shadTex = light->getShadowTexture()->getAttachmentNative(0, VDRenderTexture::DepthAttachment);
 			light->getShadowTexture()->unBind();
 
 			if(light->getShadowTexture()->isCubemap()){
@@ -228,7 +228,7 @@ void VDRenderPipeLine::bindShadowMaps(VDCamera* camera){
 
 			}
 			else{
-				VDRenderingAPICache::bindTexture(VDRenderTexture::eTexture2D, shadTex, VDShaderConstant::eShadowMapping + shadTexIndex);
+				VDRenderingAPICache::bindTexture(VDRenderTexture::eTexture2D, shadTex, VDShaderConstant::ShadowMapping + shadTexIndex);
 				//shadTex.bind(VDShaderConstant::eShadowMapping + shadTexIndex);
 				shadTexIndex++;
 			}

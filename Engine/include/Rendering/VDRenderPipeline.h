@@ -95,7 +95,7 @@ public:	/*	Main rendering pipeline.	*/
 	        VDQueue<VDRenderer*>* renderers = NULL);
 
 	/*	*/
-	static VDVector< VDQueue<VDRenderer*>> queues;
+	static vector< VDQueue<VDRenderer*>> queues;
 };
 
 

@@ -35,21 +35,21 @@ public:
 	 *
 	 */
 	enum Intersection{
-		eOut 		= 0,	/*	Outside the frustum.	*/
-		eIn 		= 1,	/*	Insode the frustum.	*/
-		eIntersect	= 2,	/*	Intersecting the frustum.*/
+		Out 		= 0,	/*	Outside the frustum.	*/
+		In 		= 1,	/*	Insode the frustum.	*/
+		Intersect	= 2,	/*	Intersecting the frustum.*/
 	};
 
 	/**
 	 *
 	 */
 	enum FrustumPlanes{
-		eTOP 	= 0,
-		eBOTTOM = 1,
-		eLEFT 	= 2,
-		eRIGHT 	= 3,
-		eNEARP 	= 4,
-		eFARP 	= 5
+		TOP 	= 0,
+		BOTTOM = 1,
+		LEFT 	= 2,
+		RIGHT 	= 3,
+		NEARP 	= 4,
+		FARP 	= 5
 	};
 
 

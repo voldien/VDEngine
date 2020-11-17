@@ -32,7 +32,7 @@ VDRenderTexture::VDRenderTexture(unsigned int width, unsigned int height, unsign
 	this->bind();
 	this->flag |= (mipMap & VDTexture::eMipMapping) != 0 ? VDTexture::eMipMapping : 0;
 
-	this->setTextureAttachment(surfaceFormat != VDTexture::eDepthComponent ? VDRenderTexture::eColorAttachment0 : VDRenderTexture::Attachment::DepthAttachment, (VDTexture2D*)this);
+	this->setTextureAttachment(surfaceFormat != VDTexture::eDepthComponent ? VDRenderTexture::ColorAttachment0 : VDRenderTexture::Attachment::DepthAttachment, (VDTexture2D*)this);
 }
 
 VDRenderTexture::~VDRenderTexture(void){
@@ -81,7 +81,7 @@ void VDRenderTexture::resize(unsigned int width, unsigned int height, unsigned i
 	/*	TODO fix issues when requesting to resize texture for attachements.	*/
 
 
-	this->getAttachemtIndices(eColorAttachment0, attachmentIndices);
+	this->getAttachemtIndices(ColorAttachment0, attachmentIndices);
 	this->write();
 
 	if(this->isVolume()){
@@ -182,7 +182,7 @@ void VDRenderTexture::setTextureAttachment(Attachment attachment, VDTexture* tex
 		}
 
 		/**/
-		if(attachment >= eColorAttachment0 && attachment <= GL_COLOR_ATTACHMENT15){
+		if(attachment >= ColorAttachment0 && attachment <= GL_COLOR_ATTACHMENT15){
 			int indices[16] = {0};
 			GLenum buffers[16] = {0};
 			unsigned int num = this->getAttachemtIndices(VDRenderTexture::eColorAttachment0, &indices[0]);

@@ -19,7 +19,6 @@
 #ifndef _VD_EVENT_H_
 #define _VD_EVENT_H_ 1
 #include"../Core/VDInput.h"
-#include"../DataStructure/VDVector.h"
 #include"../VDDef.h"
 
 /**
@@ -88,7 +87,7 @@ public:	/*	Static methods.	*/
 	/**
 	 *	Get list of all event handlers.
 	 */
-	static VDVector<VDEvent*>* VDAPIENTRY getEvents(void);
+	static vector<VDEvent*>* VDAPIENTRY getEvents(void);
 
 	/**
 	 *	Get event by index.

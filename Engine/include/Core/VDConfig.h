@@ -27,37 +27,37 @@
 class VDDECLSPEC VDConfigure : public fragcore::IConfig {
 public:
 
-	/**
-	 *
-	 */
-	typedef struct vd_config{
-		/*	*/
-		unsigned int ntaskcores;
-		unsigned int debug;
+	// /**
+	//  *
+	//  */
+	// typedef struct vd_config{
+	// 	/*	*/
+	// 	unsigned int ntaskcores;
+	// 	unsigned int debug;
 
-		/*	default screen.	*/
-		unsigned int width;
-		unsigned int height;
-		unsigned int dps;
-		unsigned int resizable;
-		unsigned int fullscreen;
+	// 	/*	default screen.	*/
+	// 	unsigned int width;
+	// 	unsigned int height;
+	// 	unsigned int dps;
+	// 	unsigned int resizable;
+	// 	unsigned int fullscreen;
 
 
-		/*	rendering.	*/
-		unsigned int glversion;
-		unsigned int glprofile;
-		unsigned int renderingapi;
+	// 	/*	rendering.	*/
+	// 	unsigned int glversion;
+	// 	unsigned int glprofile;
+	// 	unsigned int renderingapi;
 
-		/*	*/
-		unsigned int verbose;
-		unsigned int inotify;
+	// 	/*	*/
+	// 	unsigned int verbose;
+	// 	unsigned int inotify;
 
-		/*	graphic behavior.	*/
-		unsigned int graphicbackground;
+	// 	/*	graphic behavior.	*/
+	// 	unsigned int graphicbackground;
 
-		/*	input.	*/
-		unsigned int keyfetchbackground;
-	}VDConfig;
+	// 	/*	input.	*/
+	// 	unsigned int keyfetchbackground;
+	// }VDConfig;
 
 	/**
 	 *	Generate default config.

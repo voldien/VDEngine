@@ -6,14 +6,13 @@
 #include <Core/VDObject.h>
 #include <Core/VDTime.h>
 #include <DataStructure/VDIterator.h>
-#include <DataStructure/VDVector.h>
 #include <malloc.h>
 #include <Scene/VDScene.h>
 #include <cstring>
 #include <exception>
 
 using namespace std;
-
+typedef std::vector<VDCurve> VDCurveList;
 
 VDAnimation::VDAnimation(void) : VDBehavior(){
 	this->time = 0;
@@ -110,8 +109,8 @@ void VDAnimation::internalUpdate(void){
 	if(this->isPlaying()){
 		this->time += VDTime::deltaTimed();
 
-		VDCurveList::Iterator end = this->getClip(0)->getCurves()->end();
-		VDCurveList::Iterator x = this->getClip(0)->getCurves()->begin();
+		VDCurveList::iterator end = this->getClip(0)->getCurves()->end();
+		VDCurveList::iterator x = this->getClip(0)->getCurves()->begin();
 		for(; x != end; x++){
 			for(unsigned int y = 0; y < x->getLength(); y++){
 				if(this->time > x->getKey(y).getTime() && this->time < x->getKey(y + 1).getTime()){

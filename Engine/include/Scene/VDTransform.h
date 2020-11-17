@@ -26,7 +26,7 @@
  */
 class VDDECLSPEC VDTransform : public VDBehavior {
 
-	typedef struct vd_node_t{
+	typedef struct vd_node_t {
 		VDTransform* parent;
 		VDTransform* sibling;
 		VDTransform* child;

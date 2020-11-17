@@ -21,9 +21,6 @@
 #include"../Core/VDBehavior.h"
 #include"../Rendering/VDRender.h"
 #include"../Core/VDLayer.h"
-#include"../VDSystemInfo.h"
-#include"../DataStructure/VDPoolAllactor.h"
-#include"../DataStructure/VDVector.h"
 #include"VDTransform.h"
 
 /*
@@ -34,13 +31,11 @@ typedef std::list<VDGameObject*>::iterator VDGameObjectListIterator;
 typedef std::vector<VDBehavior*> VDGameObjectComponent;
 typedef std::vector<VDBehavior*>::iterator VDGameObjectComponentIterator;
 
-
 /**
  *
  */
 extern VDDECLSPEC VDGameObjectList gSerlizedGameObject; 		/*	GameObject List Of Game Level.	*/
-extern VDDECLSPEC VDPoolAllactor<VDBehavior> gComponents;
-
+//extern VDDECLSPEC fragcore::PoolAllactor<VDBehavior> gComponents;
 
 
 /**
@@ -215,9 +210,9 @@ public:
 	 *
 	 *	@Return
 	 */
-	template<class T> VDVector<T*> getComponents(void){
-		VDVector<T*> com(VDSystemInfo::getPageSize());
-		VDVector<T*> tmp;
+	template<class T> std::vector<T*> getComponents(void){
+		std::vector<T*> com(fragcore::SystemInfo::getPageSize());
+		std::vector<T *> tmp;
 		T* comp;
 		int x;
 

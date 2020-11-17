@@ -19,9 +19,44 @@
 #ifndef _VD_ENGINE_H_
 #define _VD_ENGINE_H_ 1
 #include "VDConfig.h"
-#include "../DataStructure/VDVector.h"
 #include "../VDDef.h"
 #include "../VDSimpleType.h"
+#include<Core/Singleton.h>
+#include<FragCore.h>
+
+
+namespace vdengine{
+	
+}
+
+/**
+ *	Sub system of the engine.
+ */
+enum SubSystem{
+	None 				= 0x0,
+	Debug 				= 0x4,
+	Audio 				= 0x8,
+	DefualtMaterialLowQuality 	= 0x200,
+	DefualtMaterialHighQuality 	= 0x400,
+	Physic 			= 0x1000,
+	Initialize 			= 0x2000,
+
+	Default = ( DefualtMaterialLowQuality | Physic ),
+	All = (Debug | DefualtMaterialLowQuality | DefualtMaterialHighQuality |
+			Physic | Initialize | Default)
+};
+
+/**
+ *	Engine subroutine.
+ */
+enum SubRoutine {
+	Update			= 0x1,	/*	Update every frame.	*/
+	FixedUpdate		= 0x2,	/*	Update with the same frequency intervale.	*/
+	Rendering		= 0x4,	/*	In rendering pipeline.	*/
+	ShadowRendering	= 0x8,	/*	In shadow rendering pipeline.	*/
+	Culling			= 0x10,	/*	In culling routine.	*/
+	GUI				= 0x20,	/*	In GUI rendering.	*/
+};
 
 /**
  *	Engine class is responsible for
@@ -29,37 +64,8 @@
  *	init method must be called before using
  *	the library.
  */
-class VDDECLSPEC VDEngine {
+class VDDECLSPEC VDEngine : public fragcore::Singleton<VDEngine>{
 public:
-
-	/**
-	 *	Sub system of the engine.
-	 */
-	enum SubSystem{
-		None 				= 0x0,
-		Debug 				= 0x4,
-		Audio 				= 0x8,
-		DefualtMaterialLowQuality 	= 0x200,
-		DefualtMaterialHighQuality 	= 0x400,
-		ePhysic 			= 0x1000,
-		Initialize 			= 0x2000,
-
-		Default = ( DefualtMaterialLowQuality | ePhysic ),
-		All = (Debug | DefualtMaterialLowQuality | DefualtMaterialHighQuality |
-				ePhysic | Initialize | Default)
-	};
-
-	/**
-	 *	Engine subroutine.
-	 */
-	enum SubRoutine{
-		Update 		= 0x1,	/*	Update every frame.	*/
-		FixedUpdate		= 0x2,	/*	Update with the same frequency intervale.	*/
-		Rendering		= 0x4,	/*	In rendering pipeline.	*/
-		ShadowRendering	= 0x8,	/*	In shadow rendering pipeline.	*/
-		Culling		= 0x10,	/*	In culling routine.	*/
-		GUI			= 0x20,	/*	In GUI rendering.	*/
-	};
 
 	/**
 	 *	Initialize the engine.
@@ -154,28 +160,28 @@ public:
 	/**
 	 *	Bind OpenGL context to current thread.
 	 */
-	static void VDAPIENTRY bindOpenGLContext(const VDGLContext glContext);
+	//static void VDAPIENTRY bindOpenGLContext(const VDGLContext glContext);
 	/**
 	 *	Get main OpenGL context.
 	 *	@Return non-null context pointer.
 	 */
-	static VDGLContext VDAPIENTRY getOpenGLContext(void);
+	//static VDGLContext VDAPIENTRY getOpenGLContext(void);
 	/**
 	 *	Query a new shared instance of OpenGL context.
 	 *
 	 *	@Return non-null if succesfully creating a shared context.
 	 */
-	static VDGLContext* VDAPIENTRY querySharedOpenGLContext(void);
+	//static VDGLContext* VDAPIENTRY querySharedOpenGLContext(void);
 
 	/**
 	 *	Release shared context and return pointer to the pool.
 	 */
-	static void VDAPIENTRY returnOpenGLContext(VDGLContext* context);
+	//static void VDAPIENTRY returnOpenGLContext(VDGLContext* context);
 
 	/**
 	 *	Set custom callback function.
 	 */
-	static void VDAPIENTRY setCallBack(SubRoutine enumCallBack, VDCustomCallBack callback);
+	static void VDAPIENTRY addCallBack(SubRoutine enumCallBack, VDCustomCallBack callback);
 
 	/**
 	 *	Remove callback.
@@ -185,23 +191,18 @@ public:
 	/**
 	 * Get list of all callback of specified subroutine.
 	 */
-	static VDVector<VDCustomCallBack>& VDAPIENTRY getCallBack(SubRoutine enumCallBack);
+	static std::vector<VDCustomCallBack>& VDAPIENTRY getCallBack(SubRoutine enumCallBack);
 
 	/**
 	 * Get task scheduler associated with the engine.
 	 */
-	//static VDTaskSchedule& VDAPIENTRY getTaskSchedule(void);
-
-	/**
-	 * Get debug object.
-	 */
-	static VDDebug* VDAPIFASTENTRY getDebug(void);
+	static fragcore::ITaskScheduler& VDAPIENTRY getTaskSchedule(void);
 
 	/**
 	 * Get configuration object, used for defining the execution
 	 * of the engine application.
 	 */
-	static VDConfigure::VDConfig* VDAPIENTRY getConfig(void);
+	static fragcore::IConfig* VDAPIENTRY getConfig(void);
 
 	/**
 	 *	Get engine binary build version.
@@ -224,6 +225,39 @@ private:	/*	Internal methods.	*/
 	static int VDAPIENTRY readArgument(int argc, const char** argv, unsigned int pre);
 
 private:	/*	Private	Constructor.	*/
+	/*
+	 *	Flag
+	 */
+	unsigned int flag;
+
+	unsigned int active;
+	VDGLContext glc;
+
+	fragcore::PoolAllactor<SDL_GLContext> glcontext;
+	fragcore::RendererWindow **window;
+	fragcore::RendererWindow **drawable;
+	unsigned int fullscreen;
+	unsigned int cursorVisible;
+	unsigned long int OpenGLEngineState;
+	VDPhysicEngine physic;
+	VDHANDLE audioContext;
+	VDEngineScene *scene;
+	VDDebug *debug;
+	VDRenderSetting renderSettings;
+
+	/*
+	 *	Task schedule for utilizing
+	 *	n number of cores evenly.
+	 */
+	fragcore::ITaskScheduler schedule;
+	/*
+	 *	Custom callback routine.
+	 */
+	map<unsigned int, vector<VDCustomCallBack>> routines;
+	vector<VDEvent *> events;
+	fragcore::Capability* cap;
+	fragocre::DeviceInfo* device;
+	VDConfigure *config;
 
 	VDEngine(void){}
 };

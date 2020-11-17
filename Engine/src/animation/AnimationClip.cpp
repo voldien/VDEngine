@@ -3,7 +3,6 @@
 #include <Asset/VDSmartReference.h>
 #include <Core/VDObject.h>
 #include <DataStructure/VDIterator.h>
-#include <DataStructure/VDVector.h>
 #include <Scene/VDTransform.h>
 #include <VDDef.h>
 #include <VDSimpleType.h>

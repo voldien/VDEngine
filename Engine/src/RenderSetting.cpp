@@ -210,7 +210,7 @@ void VDRenderSetting::setImageAmbient(VDCubeMap* cubemap, bool compute){
 
 
 	/*	bind image based ambient cubemap.	*/
-	VDScene::getScene()->ambientImageBased->bind(VDShaderConstant::eAmbientImageBased);
+	VDScene::getScene()->ambientImageBased->bind(VDShaderConstant::AmbientImageBased);
 }
 VDCubeMap* VDRenderSetting::getImageAmbient(void){
 	return VDScene::getScene()->ambientImageBased;

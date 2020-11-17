@@ -26,7 +26,7 @@
  *	providing debugging information
  *	about the excecution of the program.
  */
-class VDDECLSPEC VDDebug{
+class VDDECLSPEC VDDebug : fragcore::Singleton<VDDebug>{
 public:
 
 	VDDebug(void);
@@ -46,7 +46,7 @@ public:
 
 private:	/*	Attributes.	*/
 
-	VDVector<VDToolBase*> tools;	/*	*/
+	vector<VDToolBase*> tools;	/*	*/
 	int query[10];					/*	*/
 	unsigned int mode;				/*	*/
 
@@ -55,7 +55,7 @@ public:	/*	*/
 	/**
 	 *	Get tools.
 	 */
-	VDVector<VDToolBase*>& VDAPIENTRY getTools(void){
+	vector<VDToolBase*>& VDAPIENTRY getTools(void){
 		return this->tools;
 	}
 

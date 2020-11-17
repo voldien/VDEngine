@@ -18,14 +18,14 @@
 */
 #ifndef _VD_ANIMATION_CLIP_H_
 #define _VD_ANIMATION_CLIP_H_ 1
-#include"../DataStructure/VDVector.h"
 #include"../VDDef.h"
 #include"VDCurve.h"
+#include<vector>
 
 /**
  *
  */
-typedef VDVector<VDCurve> VDCurveList;
+typedef std::vector<VDCurve> VDCurveList;
 
 /**
  *	Animation clip. Containts curves.

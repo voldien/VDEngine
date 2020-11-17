@@ -23,7 +23,7 @@
 /**
  *	Rendering layer.
  */
-class VDDECLSPEC VDLayer{
+class VDDECLSPEC VDLayer {
 public:
 
 	VDLayer(void);

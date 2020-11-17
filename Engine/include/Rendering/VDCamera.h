@@ -20,7 +20,6 @@
 #define _VD_CAMERA_H_ 1
 #include "../Core/VDLayer.h"
 #include "../DataStructure/VDRect.h"
-#include "../DataStructure/VDVector.h"
 #include "Texture/VDRenderTexture.h"
 #include "VDPostEffect.h"
 #include "VDRenderSetting.h"
@@ -90,7 +89,7 @@ private: /*	Attributes.	*/
 	VDRect viewPort;						/*	Normalized viewport of camera.	*/
 	unsigned int flag;						/*	Camera flag states	*/
 	VDLayer cullingmask;					/*	Culling masking.	*/
-	VDVector<VDPostEffect*> postEffect;		/*	Post effects.	*/
+	std::vector<VDPostEffect*> postEffect;		/*	Post effects.	*/
 	VDRenderTexture* renderTexture;			/*	Rendertarget.	*/
 
 public:	/*	Public methods.	*/

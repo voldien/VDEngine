@@ -18,6 +18,7 @@
 */
 #ifndef _VD_TEXTURE2D_H_
 #define _VD_TEXTURE2D_H_ 1
+#include<FragCore.h>
 #include"../../VDSystem.h"
 #include"../../DataStructure/VDDataStructure.h"
 #include"./../VDColor32.h"
@@ -26,7 +27,7 @@
 /**
  *
  */
-class VDDECLSPEC VDTexture2D : public VDTexture{
+class VDDECLSPEC VDTexture2D : public fragcore::Texture {
 	friend class VDRenderTexture;
 public:
 	VDTexture2D(void);

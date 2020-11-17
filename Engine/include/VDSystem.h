@@ -37,13 +37,4 @@
 #include<string>
 #include<queue>
 
-#ifdef VD_UNIX
-	#include"VDLinuxSystem.h"
-#endif
-
-#ifdef VD_WINDOWS
-	#include"VDWinSystem.h"
-#endif
-
-
 #endif

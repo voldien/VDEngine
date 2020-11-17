@@ -151,13 +151,13 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 
 
 	/*	Initialize the engine once.	*/
-	if(engine.flag & VDEngine::eInitialize){
+	if(engine.flag & VDEngine::Initialize){
 		VDDebug::log("Engine has already been initialized.\n");
-		return VDEngine::eInitialize;
+		return VDEngine::Initialize;
 	}
 
 	/*	*/
-	engine.flag |= VDEngine::eInitialize;
+	engine.flag |= VDEngine::Initialize;
 	engine.flag |= subsystem;
 
 
@@ -397,7 +397,7 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 
 	/*	create default shader	*/
 	gDefaulMaterial = VDMaterial::createDefaultMaterial(
-		(engine.flag & VDEngine::eDefualtMaterialLowQuality) != 0 ? VDEngine::eDefualtMaterialLowQuality : VDEngine::eDefualtMaterialHighQuality);
+		(engine.flag & VDEngine::DefualtMaterialLowQuality) != 0 ? VDEngine::DefualtMaterialLowQuality : VDEngine::DefualtMaterialHighQuality);
 	if(VDMaterial::getDefaultMaterial()->getShader()->isValid() == false){
 
 	}
@@ -477,12 +477,12 @@ int VDEngine::initSubSystem(VDEngine::SubSystem subsystem){
 
 
 	/*	Initialize physic engine.	*/
-	if(subsystem & VDEngine::ePhysic){
+	if(subsystem & VDEngine::Physic){
 		VDPhysic::initialize();
 	}
 
 	/*	Audio */
-	if(subsystem & VDEngine::eAudio){
+	if(subsystem & VDEngine::Audio){
 		VDAudio::init();
 	}
 
@@ -502,12 +502,12 @@ int VDEngine::releaseSubSystem(SubSystem subsystem){
 	}
 
 	/*	*/
-	if( subsystem & VDEngine::ePhysic ){
+	if( subsystem & VDEngine::Physic ){
 		/*	Physic release.	*/
 		VDPhysic::release();
 	}
 
-	if(subsystem & VDEngine::eAudio){
+	if(subsystem & VDEngine::Audio){
 		VDAudio::release();
 	}
 
@@ -653,7 +653,7 @@ int VDEngine::readArgument(int argc, const char** argv, unsigned int pre){
 				}
 				}break;
 			case 'P':	/*	Physic engine.	*/
-					engine.flag |= VDEngine::ePhysic;
+					engine.flag |= VDEngine::Physic;
 				break;
 			case 't':{	/*	task schedule core count.	*/
 				if(optarg){
@@ -872,7 +872,7 @@ int VDEngine::run(void){
 		}
 
 		/*	*/
-		if( VDEngine::getSubSystemFlag() & VDEngine::eAudio){
+		if( VDEngine::getSubSystemFlag() & VDEngine::Audio){
 			VDAudioListener::updateAudioListener(&g_doubleFrameAllocator);
 		}
 	}
@@ -885,22 +885,26 @@ unsigned int VDEngine::getFlag(void){
 }
 
 VDEngine::SubSystem VDEngine::getSubSystemFlag(void){
-	return (VDEngine::SubSystem) ( engine.flag & VDEngine::SubSystem::eAll );
+	return (VDEngine::SubSystem) ( engine.flag & VDEngine::SubSystem::All );
 }
 
-VDWindow* VDEngine::getWindow(void){
+fragcore::RendererWindow *VDEngine::getWindow(void)
+{
 	return engine.window;
 }
 
-VDWindow* VDEngine::getDrawable(void){
+fragcore::RendererWindow *VDEngine::getDrawable(void)
+{
 	return engine.drawable;
 }
 
-void VDEngine::setWindow(VDWindow* window){
-	engine.window = window;
+void VDEngine::setWindow(fragcore::RendererWindow * window)
+{
+	//engine.window = window;
 }
-void VDEngine::setDrawable(VDWindow* window){
-	engine.drawable = window;
+void VDEngine::setDrawable(fragcore::RendererWindow *window)
+{
+	//engine.drawable = window;
 }
 
 void VDEngine::setWindowTitle(const char* title){
@@ -938,7 +942,7 @@ void VDEngine::returnOpenGLContext(SDL_GLContext* context){
 	engine.glcontext.Return(context);
 }
 
-void VDEngine::setCallBack(SubRoutine enumCallBack, VDCustomCallBack callback){
+void VDEngine::addCallBack(SubRoutine enumCallBack, VDCustomCallBack callback){
 	if(!callback){
 		VDDebug::warningLog("Invalid callback.\n");
 		return;
@@ -952,7 +956,7 @@ void VDEngine::removeCallBack(SubRoutine enumCallBack, VDCallBack callback){
 	engine.routines.erase(enumCallBack);
 }
 
-VDVector<VDCustomCallBack>& VDEngine::getCallBack(SubRoutine enumCallBack){
+vector<VDCustomCallBack>& VDEngine::getCallBack(SubRoutine enumCallBack){
 	return engine.routines[enumCallBack];
 }
 

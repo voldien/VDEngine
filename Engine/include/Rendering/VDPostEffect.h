@@ -28,15 +28,15 @@ class VDDECLSPEC VDPostEffect : public VDMaterial{
 public:
 
 	enum Requisity{
-		eColor 		= 0x1,	/*	*/
-		eDepth 		= 0x2,	/*	*/
-		eStencil 	= 0x4,	/*	*/
-		sIntensity 	= 0x8	/*	*/
+		Color 		= 0x1,	/*	*/
+		Depth 		= 0x2,	/*	*/
+		Stencil 	= 0x4,	/*	*/
+		Intensity 	= 0x8	/*	*/
 	};
 
 	enum BlendMode{
 		None		= 0x0,	/**/
-		eMultiply	= 0x1,	/*	*/
+		Multiply	= 0x1,	/*	*/
 	};
 
 	VDPostEffect(void);

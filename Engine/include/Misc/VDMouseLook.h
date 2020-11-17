@@ -28,10 +28,10 @@
 class VDDECLSPEC VDMouseLook : public VDCustomBehavior{
 public:
 	enum rotationState{
-		eX,
-		eY,
-		eXandY,
-		eFreeRotation,
+		X,
+		Y,
+		XandY,
+		FreeRotation,
 	};
 	VDMouseLook(void);
 	VDMouseLook(const VDMouseLook& look);

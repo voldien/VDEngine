@@ -94,7 +94,7 @@ extern VDDECLSPEC std::vector<VDPhysicMaterial*> gVDPhysicMaterialCollection;
 /**
  *
  */
-class VDDECLSPEC VDPhysic{
+class VDDECLSPEC VDPhysic : fragcore::Singleton<VDPhysic> {
 public:
 
 	/**
@@ -450,6 +450,6 @@ public:	/*	*/
 	static physx::PxTransform VDAPIENTRY createPxTransformInstance(const VDAABB& offset,const VDQuaternion& quaternion = VDQuaternion::identity());
 
 #endif
-
+	VDPhysicEngine *engine;
 };
 #endif

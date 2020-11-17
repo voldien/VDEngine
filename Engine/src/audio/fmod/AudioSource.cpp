@@ -5,7 +5,7 @@
 #include"VDAudioSource.h"
 using namespace std;
 
-VDVector<VDAudioSource*> audioSources;
+vector<VDAudioSource*> audioSources;
 
 VDAudioSource::VDAudioSource(void) : VDBehavior(){
 	this->Clip = NULL;
@@ -150,11 +150,11 @@ void VDAudioSource::AudioMechanicUpdate(VDDoubleBufferedAllocator* allocator){
 	VDTaskSchedule::VDTaskPackage pack = {0};
 	unsigned int num = audioSources.size();
 	const unsigned int packageSize = 32;
-	VDVector<VDAudioSource*>::Iterator begin = audioSources.begin();
-	VDVector<VDAudioSource*>::Iterator end = audioSources.end();
+	vector<VDAudioSource*>::Iterator begin = audioSources.begin();
+	vector<VDAudioSource*>::Iterator end = audioSources.end();
 	for(int x  = 0; x < num; x += packageSize){
-		pack.begin = allocator->fetch(sizeof(VDVector<VDAudioSource*>::Iterator));
-		pack.end = allocator->fetch(sizeof(VDVector<VDAudioSource*>::Iterator));
+		pack.begin = allocator->fetch(sizeof(vector<VDAudioSource*>::Iterator));
+		pack.end = allocator->fetch(sizeof(vector<VDAudioSource*>::Iterator));
 		//pack.begin = VDCASTP(void*, begin + x);
 		//pack.end  = VDCAST(void*, begin + x + packageSize);
 		pack.size = packageSize;

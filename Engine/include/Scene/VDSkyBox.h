@@ -26,7 +26,7 @@
  *	the camera view and creates the illusion
  *	of a sky.
  */
-class VDDECLSPEC VDSkyBox : public VDBehavior{
+class VDDECLSPEC VDSkyBox : public VDBehavior {
 public:
 	VDSkyBox(void);
 	VDSkyBox(const VDSkyBox& skybox);

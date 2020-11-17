@@ -18,7 +18,6 @@
 */
 #ifndef _VD_RENDERSETTING_H_
 #define _VD_RENDERSETTING_H_ 1
-#include "VDUniformBuffer.h"
 #include "../VDDef.h"
 
 /**
@@ -56,7 +55,7 @@ typedef struct vd_engine_rendersettings_t{
 	VDShader* toneMapping;
 
 	/*	*/
-	VDUniformBuffer particlebuffer;
+	//VDUniformBuffer particlebuffer;
 
 	/*	*/
 	VDRenderTexture* posttexture;

@@ -25,10 +25,11 @@
  *	Responsible for matrices used by
  *	the rendering pipeline.
  */
-class VDDECLSPEC VDMatrix{
+//TODO rename to stackMatrix or something.
+class VDDECLSPEC VDMatrix {
 public:
 
-	enum MatrixSpace{
+	enum MatrixSpace {
 		Model 			= 0x1,				/*	Model matrix, aka world matrix.	*/
 		View 			= 0x2,				/*	View matrix, aka camera matrix.	*/
 		ModelView 		= Model | View,	/*	ModelView Matrix,	*/
@@ -40,7 +41,7 @@ private:	/*	Attributes.	*/
 	static std::vector<VDMatrix4x4> viewMatrix;		/*	View space coordinate.	*/
 	static std::vector<VDMatrix4x4> modelMatrix;		/*	world space coordinate.	*/
 	static std::vector<VDMatrix4x4> projectionMatrix;	/*	projection space coordinate.	*/
-	static unsigned int mode;
+	static MatrixSpace mode;
 
 public:	/*	Public methods.	*/
 

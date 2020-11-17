@@ -25,24 +25,24 @@
 /**
  *	Responsible
  */
-class VDDECLSPEC VDRenderer : public VDBehavior{
+class VDDECLSPEC VDRenderer : public VDBehavior {
 public:
 	enum Shadows{
-		eCastShadow = (1 << 0),
-		eReciveShadow = (1 << 1),
+		CastShadow = (1 << 0),
+		ReciveShadow = (1 << 1),
 	};
 
 	enum RendererType{
 
 		/*	Default rendering type.	*/
-		eMesh = 0x40,
-		eTerrain = 0x80,
+		Mesh = 0x40,
+		Terrain = 0x80,
 		/*	Skinned	*/
-		eSkinned = 0x100,
-		eMorph = 0x200,
-		eTrail = 0x800,
-		eLine = 0x1000,
-		eStaticBatch = 0x400,	/*	Tree	*/
+		Skinned = 0x100,
+		Morph = 0x200,
+		Trail = 0x800,
+		Line = 0x1000,
+		StaticBatch = 0x400,	/*	Tree	*/
 
 		/*
 		 *	particle simulation
@@ -50,16 +50,16 @@ public:
 		 *	as it needs the depth buffer in order to achieve
 		 *	soft particle.
 		 */
-		eParticle = 0x2000,
+		Particle = 0x2000,
 
 		/*
 		 *	Lens flare will be rendered last
 		 */
-		eLensFlare = 0x4000,
+		LensFlare = 0x4000,
 
 
 		/*	*/
-		eNumRenderType = (eMesh | eParticle | eSkinned),
+		NumRenderType = (Mesh | Particle | Skinned),
 	};
 
 	VDRenderer(void);
@@ -140,7 +140,7 @@ public:
 	 *
 	 */
 	inline RendererType VDAPIENTRY getRenderType(void)const{
-		return (RendererType)(this->flag  & ( RendererType::eMesh | RendererType::eParticle | RendererType::eSkinned | RendererType::eStaticBatch | RendererType::eTrail | RendererType::eLine | RendererType::eMorph | RendererType::eLensFlare | RendererType::eTerrain) );
+		return (RendererType)(this->flag  & ( RendererType::Mesh | RendererType::Particle | RendererType::Skinned | RendererType::StaticBatch | RendererType::Trail | RendererType::Line | RendererType::Morph | RendererType::LensFlare | RendererType::Terrain) );
 	}
 
 	/*
@@ -208,13 +208,13 @@ public:
 	 *
 	 *	@Return
 	 */
-	inline bool VDAPIFASTENTRY isCastShadow(void)const{return this->flag & eCastShadow;}
+	inline bool VDAPIFASTENTRY isCastShadow(void)const{return this->flag & CastShadow;}
 
 	/*
 	 *
 	 *	@Return
 	 */
-	inline bool VDAPIFASTENTRY isReciveShadow(void)const{return this->flag & eReciveShadow;}
+	inline bool VDAPIFASTENTRY isReciveShadow(void)const{return this->flag & ReciveShadow;}
 
 	/*
 	 *	@Return

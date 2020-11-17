@@ -2,11 +2,9 @@
 #include <Asset/VDAssetObject.h>
 #include <Core/VDDebug.h>
 #include <Core/VDEngine.h>
-#include <Core/VDGUID.h>
 #include <Core/VDObject.h>
 #include <malloc.h>
 #include <unistd.h>
-#include <VDSystemInfo.h>
 #include <assert.h>
 #include <climits>
 #include <cstdio>
@@ -94,7 +92,7 @@ std::string VDAssetManager::getResourcePath(ResourceType type) {
 		case ResourceType::eTmpAssetDir:
 			/*					*/
 			sprintf(path, "/tmp/%s_%d",
-					VDSystemInfo::getAppliationName(),
+					fragcore::SystemInfo::getAppliationName(),
 					VDEngine::getBuildVersion(NULL, NULL, NULL));
 
 			break;

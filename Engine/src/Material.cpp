@@ -481,7 +481,7 @@ VDMaterial* VDMaterial::createDefaultMaterial(unsigned int preset){
 			material->setName("DefaultMaterial");
 			break;
 		}
-	case VDEngine::eDefualtMaterialHighQuality:{
+	case VDEngine::DefualtMaterialHighQuality:{
 			material = VDMaterial::createMaterial();
 			shader = VDShaderCreator::SpecularNormal();
 

@@ -23,7 +23,7 @@
 /**
  *
  */
-class VDDECLSPEC VDQualitySetting{
+class VDDECLSPEC VDQualitySetting {
 public:
 	enum ShadowFilter{
 		eSimple 	= (1 << 1),		/*	Normal hard shadows.	*/

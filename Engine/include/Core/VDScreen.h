@@ -18,14 +18,13 @@
 */
 #ifndef _VD_SCREEN_H_
 #define _VD_SCREEN_H_ 1
-#include"VDDisplay.h"
 #include"../VDDef.h"
 #include"../DataStructure/VDPoint.h"
 
 /**
  *	Get information of current visible screen.
  */
-class VDDECLSPEC VDScreen{
+class VDDECLSPEC VDScreen {
 public:
 
 
@@ -72,7 +71,7 @@ public:
 	/**
 	 *	Set screen resolution.
 	 */
-	static int VDAPIENTRY setResolution(VDDisplay::Resolution* resolution);
+	static int VDAPIENTRY setResolution(int width, int height, bool fullscreen);
 
 
 	/**

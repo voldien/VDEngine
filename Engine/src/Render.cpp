@@ -202,7 +202,7 @@ void VDRenderer::drawInstances(unsigned int elemetInstance, float* wmp){
 void VDRenderer::enableVertexPointer(void){
 	return;
 	if(this->meshFilter->getMeshFlag() & VDMesh::eVertex)
-		glVertexAttribPointer(VDShaderConstant::eVERTEX_LOCATION, 3, GL_FLOAT, GL_FALSE,this->meshFilter->getVertexStride(), (const void*)0); //			Vertex
+		glVertexAttribPointer(VDShaderConstant::VERTEX_LOCATION, 3, GL_FLOAT, GL_FALSE,this->meshFilter->getVertexStride(), (const void*)0); //			Vertex
 	
 	if(this->meshFilter->getMeshFlag() & VDMesh::eTextureCoord)
 		glVertexAttribPointer(VDShaderConstant::eTEXTURECOORD_LOCATION, 2, GL_FLOAT, GL_FALSE,this->meshFilter->getVertexStride(), (const void*)12);//	TexCoord	(3 VertexPosition * (4 as float))
@@ -343,11 +343,11 @@ void VDRenderer::internalShadowDraw(VDShader* Shadowpass, VDLight* light, VDMesh
 						/**/
 						if(render->getMaterial()->isTranslucent()){
 							/*	bind diffuse textures*/
-							render->getMaterial()->getTexture(VDShaderConstant::eDiffuseTexture)->bind(0);
+							render->getMaterial()->getTexture(VDShaderConstant::DiffuseTexture)->bind(0);
 						}
 
 
-						VDMatrix::identity(VDMatrix::eModel);
+						VDMatrix::identity(VDMatrix::Model);
 						VDMatrix::translate(render->transform()->getPosition());
 						VDMatrix::rotation(render->transform()->getRotation());
 						VDMatrix::scale(render->transform()->getScale());

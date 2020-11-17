@@ -24,7 +24,7 @@
 /**
  *
  */
-class VDDECLSPEC VDColor32{
+class VDDECLSPEC VDColor32 {
 public:
 	inline VDColor32(void){}
 	VDColor32(unsigned char r,unsigned char g,unsigned char b,unsigned char a);

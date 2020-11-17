@@ -146,7 +146,7 @@ class VDDECLSPEC VDAnimation : public VDBehavior {
    private:
 	/*	Attributes.	*/
 
-	VDVector<VDAnimationClip*> clips; /*	Array of animation clips.
+	std::vector<VDAnimationClip*> clips; /*	Array of animation clips.
 									   */
 	double time;                      /*	Current time of animation.	*/
 	AnimationState animationState;    /*	Animation state.	*/

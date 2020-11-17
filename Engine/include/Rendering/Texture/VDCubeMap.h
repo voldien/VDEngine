@@ -35,7 +35,6 @@ public:
 	VDCubeMap(const char* right, const char* left, const char* top, const char* bottom, const char* far, const char* near, unsigned int bitFlag = VDTexture::eCompressed | VDTexture::eMipMapping);
 	~VDCubeMap(void);
 
-
 	/**
 	 *	@Return
 	 */

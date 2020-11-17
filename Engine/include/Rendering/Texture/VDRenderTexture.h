@@ -20,28 +20,26 @@
 #define _VD_RENDER_TEXTURE_H_ 1
 #include "VDTexture.h"
 #include "VDTexture2D.h"
-#include "../../VDSystemInfo.h"
 
 /**
  *
  */
-class VDDECLSPEC VDRenderTexture : public VDTexture2D {
+class VDDECLSPEC VDRenderTexture : public fragcore::FrameBuffer {
 public:
 	enum Template{
 		Color 		= 0x1,
-		eLuminance 	= 0x2,
-		eShadowMapping 	= 0x3,
-		eStencil 	= 0x4,
-		eDetphStencil 	= 0x5,
+		Luminance 	= 0x2,
+		ShadowMapping 	= 0x3,
+		Stencil 	= 0x4,
+		DetphStencil 	= 0x5,
 	};
 
 	enum Attachment{
 		DepthAttachment 	= 0x8D00,
-		eStencilAttachment 	= 0x8D20,
-		eColorAttachment0 	= 0x8CE0,
-		eDepthStencilAttachment = 0x821A,	/*	GL_DEPTH_STENCIL_ATTACHMENT	*/
+		StencilAttachment 	= 0x8D20,
+		ColorAttachment0 	= 0x8CE0,
+		DepthStencilAttachment = 0x821A,	/*	GL_DEPTH_STENCIL_ATTACHMENT	*/
 	};
-
 	VDRenderTexture(void);
 	VDRenderTexture(const VDRenderTexture& renderTexture);
 	VDRenderTexture(unsigned int width, unsigned int height, unsigned int SurfaceFormat = VDTexture::eRGB, unsigned int SurfaceinternalFormat = VDTexture::eRGB, unsigned int SurfaceType = VDTexture::eUnsignedByte, unsigned int mipMap = 0);
@@ -125,20 +123,20 @@ public:	/*	Public methods.	*/
 	 *
 	 *	@Return
 	 */
-	VDTexture VDAPIENTRY getTextureAttachment(int index, Attachment attachment = eColorAttachment0);
+	VDTexture VDAPIENTRY getTextureAttachment(int index, Attachment attachment = ColorAttachment0);
 
 	/*
 	 *
 	 *	@Return
 	 */
-	unsigned int VDAPIENTRY getAttachmentNative(int index, unsigned int attachment = eColorAttachment0);
+	unsigned int VDAPIENTRY getAttachmentNative(int index, unsigned int attachment = ColorAttachment0);
 
 
 	/*
 	 *
 	 *	@Return
 	 */
-	VDRenderBuffer VDAPIENTRY getRenderBuffer(int index, Attachment attachment = eColorAttachment0);
+	VDRenderBuffer VDAPIENTRY getRenderBuffer(int index, Attachment attachment = ColorAttachment0);
 
 	/*
 	 *
@@ -206,7 +204,7 @@ public:	/*	Public methods.	*/
 	unsigned int VDAPIENTRY getNumOfAttachment(void);
 
 	/**/
-	bool VDAPIENTRY isColorAttached(Attachment attachment = Attachment::eColorAttachment0);
+	bool VDAPIENTRY isColorAttached(Attachment attachment = Attachment::ColorAttachment0);
 	bool VDAPIENTRY isDepthAttached(void);
 	bool VDAPIENTRY isStencilAttached(void);
 
@@ -223,9 +221,9 @@ public:	/*	Public methods.	*/
 	 */
 	static unsigned int VDAPIENTRY checkError(void);
 
-	static unsigned int VDAPIENTRY getMaxColorAttachment(void){
-		return VDRenderTexture::eColorAttachment0 + VDSystemInfo::getCompatibility()->sMaxColorAttachments;
-	}
+	// static unsigned int VDAPIENTRY getMaxColorAttachment(void){
+	// 	return VDRenderTexture::ColorAttachment0 + VDSystemInfo::getCompatibility()->sMaxColorAttachments;
+	// }
 
 public:	/*	Factory methods.	*/
 

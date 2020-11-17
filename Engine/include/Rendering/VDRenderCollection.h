@@ -22,7 +22,7 @@
 /**
  *
  */
-typedef VDVector<VDRenderer*> VDRendererArray;
+typedef vector<VDRenderer*> VDRendererArray;
 typedef struct render_Collection_index{
 
 	VDMaterial* index;			/*	material	*/

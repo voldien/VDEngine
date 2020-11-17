@@ -77,7 +77,7 @@ void* VDResources::load(const char* cfilename, const VDTypeInfo& info){
 
 
 void* VDResources::loadAll(const char* cfilename, const VDTypeInfo& info){
-	VDVector<VDAssetObject*> assetObjects;
+	vector<VDAssetObject*> assetObjects;
 	void* p;
 
 	/**/

@@ -56,7 +56,7 @@ unsigned int VDEvent::getNumEvents(void){
 	return VDEvent::getEvents()->size();
 }
 
-VDVector<VDEvent*>* VDEvent::getEvents(void){
+vector<VDEvent*>* VDEvent::getEvents(void){
 	return &engine.events;
 }
 

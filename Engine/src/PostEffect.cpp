@@ -126,7 +126,7 @@ VDPostEffect* VDPostEffect::DOF(float focusDistance, float focusLenght){
 		"shader/PostProcessing/dof.glsl"
 		);
 	DofEffect->sample = 1;
-	DofEffect->flag = Color | eDepth;
+	DofEffect->flag = Color | Depth;
 	DofEffect->setInt(VDShaderConstant::DepthTexture(), 1);
 
 	DofEffect->setfloat("FocusDistance",focusDistance);
@@ -148,7 +148,7 @@ VDPostEffect* VDPostEffect::DepthBuffer(void){
 		"shader/PostProcessing/BasicPostV.glsl" ,
 		"shader/PostProcessing/Depth.glsl"
 		);
-	depthEffect->flag = eDepth;
+	depthEffect->flag = Depth;
 	depthEffect->setInt(VDShaderConstant::DepthTexture(),1);
 	return depthEffect;
 }
@@ -188,7 +188,7 @@ VDPostEffect* VDPostEffect::LightShattering(void){
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/VolumetricLight.glsl");
 
-	LightshattPost->flag = Color | eDepth;
+	LightshattPost->flag = Color | Depth;
 	LightshattPost->setInt(VDShaderConstant::DepthTexture(),1);
 	LightshattPost->setInt("RadianSampler", 20);
 	LightshattPost->setVec3("lightPos", VDVector3(0.4,-0.4, 200));
@@ -200,7 +200,7 @@ VDPostEffect* VDPostEffect::Fog(const VDColor& fogColor, float start, float end,
 	VDPostEffect* fogPost = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/Fog.glsl");
-	fogPost->flag = Color | eDepth;
+	fogPost->flag = Color | Depth;
 	fogPost->setInt(VDShaderConstant::DepthTexture(),1);
 	fogPost->setInt("FogMode",mode);
 	fogPost->setColor(VDShaderConstant::DiffuseColor(), fogColor);
@@ -222,7 +222,7 @@ VDPostEffect* VDPostEffect::motionBlur(void){
 	motionBlur->setInt("DiffuseTexture4", 10);
 
 	motionBlur->sample = 1;
-	motionBlur->flag = (Color | eDepth);
+	motionBlur->flag = (Color | Depth);
 	return motionBlur;
 }
 
@@ -232,7 +232,7 @@ VDPostEffect* VDPostEffect::bloom(void){
 		"shader/PostProcessing/bloom.glsl"
 		);
 	BloomPost->sample = 1;
-	BloomPost->flag = Color | eDepth | sIntensity;
+	BloomPost->flag = Color | Depth | Intensity;
 	return BloomPost;
 }
 

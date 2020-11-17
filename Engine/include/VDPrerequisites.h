@@ -20,7 +20,6 @@
 #define _VD_PREREQUISITE_H_ 1
 #include"VDDef.h"
 
-class VDStackAllocator;
 
 class VDAnimation;
 class VDAnimationClip;
@@ -28,7 +27,6 @@ class VDApplication;
 class VDAssetManager;
 class VDMeshLoader;
 class VDAssetObject;
-class VDASync;
 class VDAudioClip;
 class VDAudioSetting;
 class VDAudioListener;
@@ -67,8 +65,6 @@ class VDFixedJoint;
 class VDFrustum;
 class VDFrustumPlane;
 class VDGameObject;
-class VDHash;
-class VDHashSet;
 class VCHashTable;
 class VDInput;
 class VDJoint;
@@ -128,11 +124,6 @@ class VDSpatial;
 class VDSphereCollider;
 class VDSpringJoint;
 class VDPhysicActor;
-
-class VDStack;
-class VDStaticAllactor;
-class VDSystem;
-class VDSystemInfo;
 
 class VDTime;
 class VDTrailRenderer;

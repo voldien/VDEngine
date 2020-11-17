@@ -28,7 +28,7 @@ void VDDebug::release(void){
 
 	/*	*/
 	glDeleteQueries(sizeof(query) / sizeof(query[0]), (GLuint*)query);
-	for(VDVector<VDToolBase*>::Iterator it = tools.begin(); it != tools.end(); it++){
+	for(vector<VDToolBase*>::Iterator it = tools.begin(); it != tools.end(); it++){
 		(*it)->release();
 	}
 }
@@ -75,7 +75,7 @@ void VDDebug::end(void){
 	VDDebug::log("Transform feedback primitives written: %d\n", res[3]);
 	VDDebug::log("Time elapsed : %d\n", res[4]);
 
-	for(VDVector<VDToolBase*>::Iterator it = tools.begin(); it != tools.end(); it++){
+	for(vector<VDToolBase*>::Iterator it = tools.begin(); it != tools.end(); it++){
 		(*it)->update();
 	}
 }

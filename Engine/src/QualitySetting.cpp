@@ -252,16 +252,16 @@ void VDQualitySetting::setAntaiAlisingSampling(unsigned int aaSample){
 			SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
 
 
-			/*	TODO resolved why it does not really work.	*/
-			SDL_GLContext glccurrent = VDEngine::getOpenGLContext();
-			SDL_GLContext* glc = VDEngine::querySharedOpenGLContext();
-			if(glc == NULL){
-				VDDebug::criticalLog("Failed to create shared OpenGL context revert back.\n");
-				return;
-			}
-			SDL_GL_DeleteContext(glccurrent);
-			VDEngine::bindOpenGLContext(*glc);
-			engine.glc = (VDOpenGLContext)*glc;
+			// /*	TODO resolved why it does not really work.	*/
+			// SDL_GLContext glccurrent = VDEngine::getOpenGLContext();
+			// SDL_GLContext* glc = VDEngine::querySharedOpenGLContext();
+			// if(glc == NULL){
+			// 	VDDebug::criticalLog("Failed to create shared OpenGL context revert back.\n");
+			// 	return;
+			// }
+			// SDL_GL_DeleteContext(glccurrent);
+			// VDEngine::bindOpenGLContext(*glc);
+			// engine.glc = (VDOpenGLContext)*glc;
 
 			/**/
 			//glHint(GL_MULTISAMPLE_FILTER_HINT_NV, GL_FASTEST);

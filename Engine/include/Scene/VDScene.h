@@ -18,13 +18,10 @@
 */
 #ifndef _VD_SCENE_H_
 #define _VD_SCENE_H_ 1
-
+#include<Core/dataStructure/PoolAllocator.h>
 #include"../Animation/VDAnimation.h"
 #include"../Animation/VDKeyFrame.h"
 #include"../Audio/VDAudio.h"
-#include"../DataStructure/VDPoolAllactor.h"
-#include"../DataStructure/VDStackAllactor.h"
-#include"../DataStructure/VDVector.h"
 #include"../Physic/VDPhysic.h"
 #include"../Rendering/VDRendering.h"
 #include"../Rendering/VDLight.h"
@@ -36,7 +33,7 @@
 /**
  *
  */
-typedef struct vd_engine_scene_t{
+typedef struct vd_engine_scene_t {
 
 	unsigned int version;	/*	Version of the engine scene asset.	*/
 	unsigned int flag;
@@ -60,7 +57,7 @@ typedef struct vd_engine_scene_t{
 	 */
 	VDCamera* mainCamera;
 	VDCamera* currentCamera;
-	VDPoolAllactor<VDCamera> cameras;
+	fragcore::PoolAllocator<VDCamera> cameras;
 	std::vector<VDCamera*> gCameraCollection;
 
 	/*
@@ -72,84 +69,82 @@ typedef struct vd_engine_scene_t{
 	/*
 	 *
 	 */
-	VDPoolAllactor<VDGameObject> gameobjects;
+	fragcore::PoolAllocator<VDGameObject> gameobjects;
 
 	/*
 	 *
 	 */
-	VDPoolAllactor<VDTransform> nodes;
+	fragcore::PoolAllocator<VDTransform> nodes;
 
 	/*
 	 *
 	 */
-	VDPoolAllactor<VDMaterial> materials;
-	VDVector<VDMaterial*> pmaterials;
+	fragcore::PoolAllocator<VDMaterial> materials;
+	vector<VDMaterial*> pmaterials;
 
 	/*
 	 *
 	 */
-	VDPoolAllactor<VDMesh> meshs;
+	fragcore::PoolAllocator<VDMesh> meshs;
 	std::map<const char*, VDMesh*> gMeshCollection;
 
 	/*
 	 *
 	 */
-	VDPoolAllactor<VDShader> shaders;
+	fragcore::PoolAllocator<VDShader> shaders;
 	ShaderCollection shaderCollection;
 
 	/*
 	 *
 	 */
-	typedef VDVector<VDLight*> VDLightCollection;
-	typedef VDLightCollection::Iterator VDLightCollectionIterator;
-	VDPoolAllactor<VDLight> lights;
-	VDLightCollection lightcollection;
+	fragcore::PoolAllocator<VDLight> lights;
+	vector<VDLight *> lightcollection;
 	std::map<int,VDLight*> gLightCollection;
 
 	/**
 	 *
 	 */
-	VDPoolAllactor<VDTexture> textures;
+	fragcore::PoolAllocator<VDTexture> textures;
 	std::map<const char*, VDTexture2D*> textureCollection;
 
 	/**
 	 *
 	 */
-	VDPoolAllactor<VDRenderTexture> rendertexture;
-	VDVector<VDRenderTexture*> rendertextures;
+	fragcore::PoolAllocator<VDRenderTexture> rendertexture;
+	vector<VDRenderTexture*> rendertextures;
 
 	/**
 	 *
 	 */
-	VDPoolAllactor<VDAudioClip> audios;
+	fragcore::PoolAllocator<VDAudioClip> audios;
 	std::map<const char*,VDAudioClip*> audioClipCollection;
 	VDAudioListener* gListener;
 
-	VDVector<VDAnimation*> AnimationCollection;
+	vector<VDAnimation*> AnimationCollection;
 
 	/**
 	 *
 	 */
-	VDPoolAllactor<VDAnimationClip> animationClips;
-	VDVector<VDAnimationClip*> panimationClips;
+	fragcore::PoolAllocator<VDAnimationClip> animationClips;
+	vector<VDAnimationClip*> panimationClips;
 
 	/**
 	 *
 	 */
-	VDPoolAllactor<VDCurve> curves;
-	VDVector<VDCurve*> pcurves;
+	fragcore::PoolAllocator<VDCurve> curves;
+	vector<VDCurve*> pcurves;
 
 	/**
 	 *
 	 */
-	VDVector<VDAudioSource*> audioSources; // list of all AudioSource.
+	vector<VDAudioSource*> audioSources; // list of all AudioSource.
 
 	/**
 	 *
 	 */
-	VDVector<VDRigidBody*> rigidBodyCollection;
-	VDPoolAllactor<VDKeyFrame> keys;	/**/
-	VDStackAllocator resouces;			/**/
+	vector<VDRigidBody*> rigidBodyCollection;
+	fragcore::PoolAllocator<VDKeyFrame> keys; /**/
+	fragcore::StackAllocator resouces; /**/
 
 	/**
 	 *	scene light info.
@@ -167,7 +162,7 @@ typedef struct vd_engine_scene_t{
 /**
  *
  */
-class VDDECLSPEC VDScene{
+class VDDECLSPEC VDScene {
 public:	/*	Static methods.	*/
 
 	/**

@@ -24,7 +24,7 @@
 /**
  *	Base texture class.
  */
-class VDTexture : public VDAssetObject {
+class VDTexture : public fragcore::Texture {
 	friend class VDRenderTexture;
 public:
 	enum TextureFlag{

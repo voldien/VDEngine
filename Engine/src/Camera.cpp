@@ -199,7 +199,7 @@ void VDCamera::removePostEffect(VDPostEffect* postEffect){
 		return;
 	}
 
-	for(VDVector<VDPostEffect*>::Iterator x = this->postEffect.begin(); x != this->postEffect.end(); x++){
+	for(vector<VDPostEffect*>::Iterator x = this->postEffect.begin(); x != this->postEffect.end(); x++){
 		if(postEffect == (*x)){
 			this->postEffect.erase(x);
 			/**/

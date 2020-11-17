@@ -19,8 +19,6 @@
 #ifndef _VD_LIGHT_H_
 #define _VD_LIGHT_H_ 1
 #include"../Scene/VDFrustum.h"
-#include"../DataStructure/VDVector.h"
-#include"../Rendering/VDUniformBuffer.h"
 
 /**
  *	Light gameobject components. Responsible for
@@ -34,27 +32,27 @@ public:
 	 */
 	enum LightType {
 		Point 		= 0x4,			/*	Point light, aka omni light.	*/
-		eSpot 		= 0x8,			/*	Spot light.	*/
-		eDirection 	= 0x10,			/*	Direction light.	*/
+		Spot 		= 0x8,			/*	Spot light.	*/
+		Direction 	= 0x10,			/*	Direction light.	*/
 	};
 
 	enum LightShadow{
-		enoShadow 		= 0x80,		/*	*/
-		eHardShadow 		= 0x100,	/*	*/
-		eSoftShadow 		= 0x200,	/*	*/
-		eLowShadowQuality 	= 0x200,	/*	*/
-		eMediumShadowQuality 	= 0x400,	/*	*/
-		eHighShadowQuality 	= 0x800,	/*	*/
-		eUltraShadowQuality 	= 0x1000,	/*	*/
-		eSuperShadowQuality 	= 0x2000,	/*	*/
-		eShadowEnable 		= 0x4000,	/*	*/
+		noShadow 		= 0x80,		/*	*/
+		HardShadow 		= 0x100,	/*	*/
+		SoftShadow 		= 0x200,	/*	*/
+		LowShadowQuality 	= 0x200,	/*	*/
+		MediumShadowQuality 	= 0x400,	/*	*/
+		HighShadowQuality 	= 0x800,	/*	*/
+		UltraShadowQuality 	= 0x1000,	/*	*/
+		SuperShadowQuality 	= 0x2000,	/*	*/
+		ShadowEnable 		= 0x4000,	/*	*/
 	};
 
 	enum Attenuation{
 		None 		= 0x8000,		/*	*/
-		eConstant 	= 0x10000,		/*	*/
-		eLinear 	= 0x20000,		/*	*/
-		eQuadratic 	= 0x40000,		/*	*/
+		Constant 	= 0x10000,		/*	*/
+		Linear 	= 0x20000,		/*	*/
+		Quadratic 	= 0x40000,		/*	*/
 	};
 
     VDLight(void);
@@ -294,30 +292,30 @@ public:	/*	Static methods.	*/
 typedef struct vd_engine_light_t{
 
 	/*	*/
-	VDVector<int> directIndices;
+	std::vector<int> directIndices;
 	/*	*/
-	VDVector<int> pointIndices;
+	std::vector<int> pointIndices;
 	/*	*/
-	VDVector<int> spotIndices;
+	std::vector<int> spotIndices;
 	/*	*/
-	VDVector<int> shadowPointIndices;
-	VDVector<int> shadowDirectionIndices;
-	VDVector<int> shadowSpotIndices;
+	std::vector<int> shadowPointIndices;
+	std::vector<int> shadowDirectionIndices;
+	std::vector<int> shadowSpotIndices;
 
 	/*
 	 *	light indices information.
 	 */
-	VDUniformBuffer lightIndices;
+	//VDUniformBuffer lightIndices;
 
 	/*
 	 *	light shadow information.
 	 */
-	VDUniformBuffer shadowbuffer;
+	//VDUniformBuffer shadowbuffer;
 
 	/*
 	 *	light information
 	 */
-	VDUniformBuffer lightbuffer;
+	//VDUniformBuffer lightbuffer;
 }VDEngineLight;
 
 /*

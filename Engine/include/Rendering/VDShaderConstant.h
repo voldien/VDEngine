@@ -94,10 +94,10 @@ public:
       	 */
 		AmbientImageBased = 10,
 
-		ShadowMapping = 11,
-		eShadowMappingCube = 31,
+		hadowMapping = 11,
+		ShadowMappingCube = 31,
 
-      	eMaxTextureUnit = 0xF /*	The least number of binded texture unit.*/
+      	MaxTextureUnit = 0xF /*	The least number of binded texture unit.*/
 
 	};
 
@@ -107,16 +107,16 @@ public:
 	 */
 	enum AttributeLocation{
 		VERTEX_LOCATION = 0x0,
-		eTEXTURECOORD_LOCATION = 0x1,
-		eNORMAL_LOCATION = 0x2,
-		eTANGENT_LOCATION = 0x3,
-		eBONE_ID_LOCATION = 0x5,
-		eBONE_WEIGHT_LOCATION = 0x6,
-		eVERTEXCOLOR_LOCATION = 0x7,
-		eBINORMAL_LOCATION  = 0x8,
-		eBITTANGENT_LOCATION = 0x9,
-		eWVP_LOCATION = 0xA,
-		eWORLD_LOCATION = 0xB,
+		TEXTURECOORD_LOCATION = 0x1,
+		NORMAL_LOCATION = 0x2,
+		TANGENT_LOCATION = 0x3,
+		BONE_ID_LOCATION = 0x5,
+		BONE_WEIGHT_LOCATION = 0x6,
+		VERTEXCOLOR_LOCATION = 0x7,
+		BINORMAL_LOCATION  = 0x8,
+		BITTANGENT_LOCATION = 0x9,
+		WVP_LOCATION = 0xA,
+		WORLD_LOCATION = 0xB,
 	};
 
   

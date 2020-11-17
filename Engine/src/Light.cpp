@@ -33,7 +33,7 @@
 
 using namespace std;
 
-typedef VDVector<VDLight*> VDLightCollection;
+typedef vector<VDLight*> VDLightCollection;
 typedef VDLightCollection::Iterator VDLightCollectionIterator;
 VDLightCollectionIterator nonshadowLight;
 VDLightCollectionIterator shadowLight;

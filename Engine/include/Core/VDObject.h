@@ -19,7 +19,7 @@
 #ifndef _VD_OBJECT_H_
 #define _VD_OBJECT_H_ 1
 #include"../VDDef.h"
-#include"../Core/VDGUID.h"
+#include<Core/UIDGenerator.h>
 #include<iostream>
 #include<malloc.h>
 #include<string.h>
@@ -31,25 +31,27 @@
  */
 class VDDECLSPEC VDObject{
 public:
-	enum ObjectState{
-		eNothing = 0x0,
+	static fragcore::UIDGenerator generator;
+	enum ObjectState
+	{
+		Nothing = 0x0,
 
 		/**
 		 *	Object has been modified.
 		 */
-		eModified = 0x1,
+		Modified = 0x1,
 
 		/**
 		 *	Object won't change.
 		 *	It will prevent VDAssetObject from
 		 *	releasing resources.
 		 */
-		eStatic = 0x2,
+		Static = 0x2,
 	};
 
 	inline VDObject(void){
 		this->mflag = 0;
-		this->muiID = VDGUID::getNextID();
+		this->muiID = generator.getNextUID();
 		this->mmame = NULL;
 	}
 

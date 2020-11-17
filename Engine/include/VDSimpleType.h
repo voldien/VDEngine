@@ -90,21 +90,32 @@ public:
 	float x,y;
 }VDVertex2D;
 
-
+/**
+ * 
+ */
 typedef struct _TexUV {
 	float u;	/*  x */
 	float v;	/*  y */
 }TexCoord, VertexUV;
+/**
+ * 
+ */
 typedef struct _VertexNormalF{
 	float x,y,z;
 }VertexNormal, VertexBiNormal;
+
+/**
+ * 
+ */
 typedef struct _VertexTangnetF{
 	float x;
 	float y;
 	float z;
 }VertexTangent, VertexBitTangent;
 
-
+/**
+ * 
+ */
 typedef struct UVCoordinationDescription{
 	VertexUV* vertexUV;
 	unsigned int  vertexCount;
