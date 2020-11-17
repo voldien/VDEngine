@@ -6,7 +6,6 @@
 #include <Core/VDLayer.h>
 #include <Core/VDObject.h>
 #include <Core/VDTypes.h>
-#include <DataStructure/VDPoolAllactor.h>
 #include <Physic/VDBoxCollider.h>
 #include <Physic/VDPlaneCollider.h>
 #include <Physic/VDRigidBody.h>
@@ -19,7 +18,6 @@
 #include <Scene/VDScene.h>
 #include <Scene/VDTransform.h>
 #include <SDL2/SDL_stdinc.h>
-#include <Utility/VDGeometryProcedure.h>
 #include <VDDef.h>
 #include <VDSimpleType.h>
 #include <cassert>
