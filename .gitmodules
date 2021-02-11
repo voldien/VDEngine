@@ -1,3 +1,6 @@
 [submodule "extern/hpmcpp"]
 	path = extern/hpmcpp
 	url = https://github.com/voldien/hpmcpp
+[submodule "extern/fragcore"]
+	path = extern/fragcore
+	url = https://github.com/voldien/fragcore
