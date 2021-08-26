@@ -20,8 +20,8 @@
 
 /*	*/
 #ifdef GL_ES
-precision mediump float;
-precision mediump int;
+	precision mediump float;
+	precision mediump int;
 #endif
 
 /*	Translate fragment location decleration based on what version.	*/
@@ -30,12 +30,12 @@ precision mediump int;
 #elif __VERSION__ == 130
 	#define FRAGLOCATION(x, vtype, name) out vtype name
 #else
-	#define FRAGLOCATION(x) 
+	#define FRAGLOCATION(x)
 #endif
 
 /*	Translate based on glsl version.	*/
 #if __VERSION__ > 130
-	#define ATTRIBUTE_IN(x) layout(location = x) in 
+	#define ATTRIBUTE_IN(x) layout(location = x) in
 	#define ATTRIBUTE_OUT(x) layout(location = x) out
 #else
 	#define ATTRIBUTE_IN(x) attribute
@@ -62,7 +62,7 @@ precision mediump int;
 /*	*/
 #ifndef VD_ENGINE
 	#define VD_ENGINE 1
-	
+
 	#ifdef GL_ES
 	precision mediump float;
 	#endif
@@ -104,11 +104,11 @@ struct shareinfo{
 };
 
 #if __VERSION__ > 130
-layout(std140, shared) uniform enginestate{
-	shareinfo info;
-};
+	layout(std140, shared) uniform enginestate {
+		shareinfo info;
+	};
 #else
-uniform global_uniform global;
+	uniform global_uniform global;
 #endif
 
 /**
@@ -122,7 +122,11 @@ float getExpToLinear(const in float start, const in float end, const in float ex
  *	Invert color.
  */
 vec3 invertColor(const in sampler2D texture,const in vec2 UV){
-	return (1.0f - texture2D(texture,UV).rgb);
+	return invertColor(texture2D(texture,UV).rgba));
+}
+
+vec4 invertColor(const in vec4 c1){
+	return 1.0 - c1;
 }
 
 /**
@@ -172,7 +176,6 @@ vec4 getChromaticReflection(const in samplerCube ReflectionTexture, const in vec
 |										|
 |=======================================|
 */
-
 
 uniform samplerCube ambientCube;		/*	Image based ambient lightning*/
 
@@ -245,7 +248,7 @@ vec2 getScreenUV(void){
 #if VD_FRAGMENT_SHADER
 	return gl_FragCoord.xy / getScreen();
 #else
-	return vec2(0);	
+	return vec2(0);
 #endif
 }
 
@@ -321,7 +324,7 @@ float getFogFactor(void){
 	#else
 	float z = 1.0;
 	#endif
-	
+
 	switch(fogtype){
 	case 1:
 		return 1.0 - clamp( (endFog - z) / (endFog - startFog), 0.0, 1.0 );
@@ -343,6 +346,6 @@ float getFogFactor(void){
  *	Compute fog.
  */
 vec4 internalFog(const in vec4 initColor){
-	vec4 fogColor = info.fogColor;	
+	vec4 fogColor = info.fogColor;
 	return  mix(initColor, fogColor, getFogFactor() ).rgba;
 }
