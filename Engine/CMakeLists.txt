@@ -3,8 +3,8 @@ IF((CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX) AND NOT CMAKE_COMPILER_
 	IF (BUILD_SHARED_LIBS AND CMAKE_SIZEOF_VOID_P EQUAL 8) # -fPIC is only required
 		SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 	ENDIF()
-	# 
-	ADD_DEFINITIONS(-Wall -w -fpermissive) 
+	#
+	ADD_DEFINITIONS(-Wall -w -fpermissive)
 	ADD_DEFINITIONS( -export-dynamic -rdynamic -std=c++17 )
 
 	IF (CMAKE_BUILD_TYPE STREQUAL "Release")
@@ -62,9 +62,10 @@ ENDIF()
 
 # Define all file lists.
 FILE(GLOB SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/src/audio/*.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/src/physic/*.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/src/tools/*.cpp)
+		#${CMAKE_CURRENT_SOURCE_DIR}/src/audio/*.cpp
+		#${CMAKE_CURRENT_SOURCE_DIR}/src/physic/*.cpp
+		#${CMAKE_CURRENT_SOURCE_DIR}/src/tools/*.cpp
+)
 FILE(GLOB HEADER_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h
 						${CMAKE_CURRENT_SOURCE_DIR}/include/Core/*.h
 						${CMAKE_CURRENT_SOURCE_DIR}/include/Asset/*.h
@@ -158,3 +159,7 @@ CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/vdengine.pc.in" "${PROJECT_BINARY_DI
 # 	# INSTALL( FILES ${SAMPLE_SPIRV_FILES} DESTINATION /usr/share/fragview/samples/spriv COMPONENT ${BINFRAGVIEW_COMPONENT})
 # 	# INSTALL( FILES ${SAMPLE_CLC_FILES} DESTINATION /usr/share/fragview/samples/clc COMPONENT ${BINFRAGVIEW_COMPONENT})
 # ENDIF()
+
+
+
+# Generate the shaders.
