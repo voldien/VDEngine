@@ -18,14 +18,14 @@
 using namespace std;
 std::vector<VDPostEffect*> VDPostEffect::gPostProcessingObject;
 
-VDPostEffect::VDPostEffect(void) : VDMaterial(){
+VDPostEffect::VDPostEffect() : VDMaterial(){
 	this->enable = SDL_TRUE;
 	this->sample = 1;
 	this->flag = 0;
 }
 
 VDPostEffect::VDPostEffect(const char* vertexShader, const char* fragmentShader) : VDMaterial() {
-	this->setShader(VDShaderCreator::createPostProcessingShader(vertexShader, fragmentShader, NULL));
+	this->setShader(VDShaderCreator::createPostProcessingShader(vertexShader, fragmentShader, nullptr));
 	this->enable = SDL_TRUE;
 	this->flag = Color;
 	this->sample = 1;
@@ -33,15 +33,15 @@ VDPostEffect::VDPostEffect(const char* vertexShader, const char* fragmentShader)
 	gPostProcessingObject.push_back(this);
 }
 
-VDPostEffect::~VDPostEffect(void){
+VDPostEffect::~VDPostEffect(){
 
 }
 
-bool VDPostEffect::isEnabled(void)const{
+bool VDPostEffect::isEnabled()const{
 	return this->enable != 0;
 }
 
-unsigned int VDPostEffect::getsNumSample(void)const{
+unsigned int VDPostEffect::getsNumSample()const{
 	return sample;
 }
 
@@ -50,25 +50,25 @@ void VDPostEffect::setNumSample(unsigned int sample){
 }
 
 
-void VDPostEffect::render(void){
+void VDPostEffect::render(){
 	VDRenderer::drawMesh(VDRenderSetting::getSettings()->quadDisplay);
 }
 
-VDPostEffect* VDPostEffect::grayScale(void){
+VDPostEffect* VDPostEffect::grayScale(){
 	VDPostEffect* grayScale = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/grayscale.glsl");
 	return grayScale;
 }
 
-VDPostEffect* VDPostEffect::sepia(void){
+VDPostEffect* VDPostEffect::sepia(){
 	VDPostEffect* sepia = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/sepia.glsl");
 	return sepia;
 }
 
-VDPostEffect* VDPostEffect::vineta(void){
+VDPostEffect* VDPostEffect::vineta(){
 	VDPostEffect* vineta = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/vignetting.glsl");
@@ -83,7 +83,7 @@ VDPostEffect* VDPostEffect::FSAA(unsigned int sampler){
 	return fsaa;
 }
 
-VDPostEffect* VDPostEffect::invert(void){
+VDPostEffect* VDPostEffect::invert(){
 	VDPostEffect* InvertPost = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/invert.glsl");
@@ -91,7 +91,7 @@ VDPostEffect* VDPostEffect::invert(void){
 }
 
 
-VDPostEffect* VDPostEffect::noise(void){
+VDPostEffect* VDPostEffect::noise(){
 	VDPostEffect* noise = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/noise.glsl");
@@ -134,7 +134,7 @@ VDPostEffect* VDPostEffect::DOF(float focusDistance, float focusLenght){
 	return DofEffect;
 }
 
-VDPostEffect* VDPostEffect::bokeh(void){
+VDPostEffect* VDPostEffect::bokeh(){
 	VDPostEffect* bokeh = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/bokeh.glsl"
@@ -143,7 +143,7 @@ VDPostEffect* VDPostEffect::bokeh(void){
 }
 
 
-VDPostEffect* VDPostEffect::DepthBuffer(void){
+VDPostEffect* VDPostEffect::DepthBuffer(){
 	VDPostEffect* depthEffect = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl" ,
 		"shader/PostProcessing/Depth.glsl"
@@ -153,7 +153,7 @@ VDPostEffect* VDPostEffect::DepthBuffer(void){
 	return depthEffect;
 }
 
-VDPostEffect* VDPostEffect::GammaCorrection(void){
+VDPostEffect* VDPostEffect::GammaCorrection(){
 	VDPostEffect* gamma = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl" ,
 		"shader/PostProcessing/gammecorrection.glsl" );
@@ -161,7 +161,7 @@ VDPostEffect* VDPostEffect::GammaCorrection(void){
 	return gamma;
 }
 
-VDPostEffect* VDPostEffect::SSAO(void){
+VDPostEffect* VDPostEffect::SSAO(){
 	VDPostEffect* postSAO = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/ssao.glsl");
@@ -176,14 +176,14 @@ VDPostEffect* VDPostEffect::SSAO(void){
 	return postSAO;
 }
 
-VDPostEffect* VDPostEffect::HBAO(void){
+VDPostEffect* VDPostEffect::HBAO(){
 	VDPostEffect* postHBAO = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/HBAmbientOcclusion.glsl");
-	return NULL;
+	return nullptr;
 }
 
-VDPostEffect* VDPostEffect::LightShattering(void){
+VDPostEffect* VDPostEffect::LightShattering(){
 	VDPostEffect* LightshattPost = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/VolumetricLight.glsl");
@@ -210,7 +210,7 @@ VDPostEffect* VDPostEffect::Fog(const VDColor& fogColor, float start, float end,
 	return fogPost;
 }
 
-VDPostEffect* VDPostEffect::motionBlur(void){
+VDPostEffect* VDPostEffect::motionBlur(){
 	VDPostEffect* motionBlur = new VDPostEffect(
 			"shader/PostProcessing/BasicPostVertexShader.glsl",
 			"shader/PostProcessing/motionblur.glsl");
@@ -226,7 +226,7 @@ VDPostEffect* VDPostEffect::motionBlur(void){
 	return motionBlur;
 }
 
-VDPostEffect* VDPostEffect::bloom(void){
+VDPostEffect* VDPostEffect::bloom(){
 	VDPostEffect* BloomPost = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/bloom.glsl"
@@ -248,7 +248,7 @@ VDPostEffect* VDPostEffect::glow(unsigned int samplerCount, float Radius){
 	return glowEffect;
 }
 
-VDPostEffect* VDPostEffect::HDR(void){
+VDPostEffect* VDPostEffect::HDR(){
 	VDPostEffect* hdr = new VDPostEffect(
 		"shader/PostProcessing/BasicPostV.glsl",
 		"shader/PostProcessing/HDR.glsl");

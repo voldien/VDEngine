@@ -1,6 +1,6 @@
 #include <Animation/VDKeyFrame.h>
 
-VDKeyFrame::VDKeyFrame(void){
+VDKeyFrame::VDKeyFrame(){
 	this->tangentIn = 0;
 	this->tangentOut = 0;
 	this->value = 0;

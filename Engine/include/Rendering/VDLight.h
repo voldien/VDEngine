@@ -55,7 +55,7 @@ public:
 		Quadratic 	= 0x40000,		/*	*/
 	};
 
-    VDLight(void);
+    VDLight();
     VDLight(const VDLight& light);
     VDLight(LightType lightType);
 
@@ -80,11 +80,11 @@ private:	/*	Attributes.	*/
 
 public:	/*	Public method.	*/
 
-	virtual void VDAPIENTRY instanceInitilize(void);
-	virtual void VDAPIENTRY initializeComponent(void);
-	virtual void VDAPIENTRY onEnable(void);
-	virtual void VDAPIENTRY onDisable(void);
-	virtual void VDAPIENTRY onDestroy(void);
+	virtual void VDAPIENTRY instanceInitilize();
+	virtual void VDAPIENTRY initializeComponent();
+	virtual void VDAPIENTRY onEnable();
+	virtual void VDAPIENTRY onDisable();
+	virtual void VDAPIENTRY onDestroy();
 	virtual VDBehavior* VDAPIENTRY copyComponent(unsigned int& dataSize);
 
 	/**
@@ -105,7 +105,7 @@ public:	/*	Public method.	*/
 	/**
 	 *	@Return
      	 */
-	inline unsigned int getType(void)const{
+	inline unsigned int getType()const{
 		return this->type;
 	}
 
@@ -118,7 +118,7 @@ public:	/*	Public method.	*/
 	/**
 	 *	@Return
      */
-	inline float getIntensity(void)const{
+	inline float getIntensity()const{
 		return this->intensity;
 	}
 
@@ -130,7 +130,7 @@ public:	/*	Public method.	*/
 	/**
 	 *	@Return
      */
-    inline VDColor VDAPIENTRY getColor(void)const{
+    inline VDColor VDAPIENTRY getColor()const{
 		return this->diffuseColor;
 	}
 
@@ -143,7 +143,7 @@ public:	/*	Public method.	*/
      *
 	 *	@Return
      */
-    inline float VDAPIENTRY getOuterCone(void)const{
+    inline float VDAPIENTRY getOuterCone()const{
 		return this->outerCone;
 	} 
   
@@ -156,7 +156,7 @@ public:	/*	Public method.	*/
      *
 	 *	@Return
      */
-    inline float VDAPIENTRY getInnerCone(void)const{
+    inline float VDAPIENTRY getInnerCone()const{
 		return this->innerCone;
 	} 
   
@@ -169,7 +169,7 @@ public:	/*	Public method.	*/
      *
 	 *	@Return
      */
-    inline float VDAPIENTRY getRange(void)const{
+    inline float VDAPIENTRY getRange()const{
 		return this->range;
 	}
   
@@ -183,7 +183,7 @@ public:	/*	Public method.	*/
      *
 	 *	@Return
      */
-    inline float VDAPIFASTENTRY getShadowStrenght(void)const{
+    inline float VDAPIFASTENTRY getShadowStrenght()const{
     	return this->shadowStrength;
     }
 
@@ -195,7 +195,7 @@ public:	/*	Public method.	*/
     /**
 	 *	@Return
      */
-    inline float VDAPIFASTENTRY getShadowBias(void)const{
+    inline float VDAPIFASTENTRY getShadowBias()const{
     	return this->shadowBias;
     }
 
@@ -219,14 +219,14 @@ public:	/*	Public method.	*/
 	/**
 	 *	@Return align size in pixels.
 	 */
-	int VDAPIENTRY getShadowSize(void)const;
+	int VDAPIENTRY getShadowSize()const;
 
 
 	/**
 	 *	Get Shadow Texture Attach to This Light.
 	 *	@Return
 	 */
-	inline VDRenderTexture* getShadowTexture(void)const{
+	inline VDRenderTexture* getShadowTexture()const{
 		return this->shadowBuffer;
 	}
 
@@ -246,8 +246,8 @@ public:	/*	Public method.	*/
      *	light component.
 	 *	@Return
      */
-	inline bool VDAPIFASTENTRY isShadowBufferAttached(void)const{
-		return (this->getShadowTexture() != NULL);
+	inline bool VDAPIFASTENTRY isShadowBufferAttached()const{
+		return (this->getShadowTexture() != nullptr);
 	}
 
 
@@ -262,7 +262,7 @@ protected:	/*	Internal method.	*/
 	/**
 	 *
 	 */
-	void VDAPIENTRY detachShadowComponent(void);
+	void VDAPIENTRY detachShadowComponent();
 
 
 public:	/*	Static methods.	*/
@@ -270,19 +270,19 @@ public:	/*	Static methods.	*/
 	/**
      *	Update all light uniform location to GLSL Shader.
      */
-    static void VDAPIENTRY updateLightUniformLocation(fragcore::StackAllocator* allocator = NULL);
+    static void VDAPIENTRY updateLightUniformLocation(fragcore::StackAllocator* allocator = nullptr);
   
 
 	/**
 	 *	Set Light Uniform Location of Current GameObject Shader.
 	 *	This Method will be called if Shader has been changed.
 	 */
-	static void VDAPIENTRY drawLightAccumulationShadow(VDCamera* camera = NULL);
+	static void VDAPIENTRY drawLightAccumulationShadow(VDCamera* camera = nullptr);
 
 	/**
 	 *	@Return
 	 */
-	static int VDAPIENTRY lightCount(void);
+	static int VDAPIENTRY lightCount();
 
 };
 

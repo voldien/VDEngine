@@ -14,18 +14,18 @@
 
 using namespace std;
 
-VDTransform::VDTransform(void) {
+VDTransform::VDTransform() {
 	this->postion = VDVector3::zero();
 	this->scale = VDVector3(1.0f, 1.0f, 1.0f);
 	this->rotation = VDQuaternion::identity();
 
 	this->childCount = 0;
-	this->sibling = NULL;
-	this->mchild = NULL;
-	this->parent = NULL;
+	this->sibling = nullptr;
+	this->mchild = nullptr;
+	this->parent = nullptr;
 
 	this->flag = 0;
-	this->base = NULL;
+	this->base = nullptr;
 }
 
 VDTransform::VDTransform(const VDTransform& transform){
@@ -37,36 +37,36 @@ VDTransform::VDTransform(const VDVector3& position, const VDQuaternion& rotation
 	this->rotation = rotation;
 	this->scale = scale;
 	this->flag = 0;
-	this->parent = NULL;
+	this->parent = nullptr;
 
 
 	this->childCount = 0;
-	this->sibling = NULL;
-	this->mchild = NULL;
+	this->sibling = nullptr;
+	this->mchild = nullptr;
 
 
-	this->base = NULL;
+	this->base = nullptr;
 }
 
-VDTransform::~VDTransform(void){
+VDTransform::~VDTransform(){
 	if(VDScene::getScene()->nodes.isValidItem(*this)){
 		VDScene::getScene()->nodes.Return(this);
 	}
 }
 
-void VDTransform::initializeComponent(void){
+void VDTransform::initializeComponent(){
 
 }
 
-void VDTransform::onEnable(void){
+void VDTransform::onEnable(){
 
 }
 
-void VDTransform::onDisable(void){
+void VDTransform::onDisable(){
 
 }
 
-void VDTransform::onDestroy(void){
+void VDTransform::onDestroy(){
 	if(this->getParent()){
 		this->getParent()->detachChild(this);
 	}
@@ -99,8 +99,8 @@ VDTransform& VDTransform::operator=(const VDTransform& transform){
 	return *this;
 }
 
-VDTransform* VDTransform::root(void)const{
-	if(this->getParent() == NULL)
+VDTransform* VDTransform::root()const{
+	if(this->getParent() == nullptr)
 		return this->getParent();
 	else
 		return this->getParent()->root();
@@ -139,8 +139,8 @@ void VDTransform::lookAt(const VDVector3& Target){
 
 VDTransform* VDTransform::findChild(const char* name){
 
-	if( name == NULL ){
-		return NULL;
+	if( name == nullptr ){
+		return nullptr;
 	}
 
 	VDTransform* sibl = this->mchild;
@@ -151,7 +151,7 @@ VDTransform* VDTransform::findChild(const char* name){
 		else
 			sibl = sibl->sibling;
 	}
-	return NULL;
+	return nullptr;
 }
 
 int VDTransform::isChildOf(const VDTransform* transform)const{
@@ -188,22 +188,22 @@ void VDTransform::addChild(VDTransform* pchild){
 }
 
 
-void VDTransform::detachChildren(void){
+void VDTransform::detachChildren(){
 	/* remove children references to parent	*/
 	for(unsigned int x = 0; x < this->getChildCount(); x++){
-		this->child(x)->setParent( NULL );
+		this->child(x)->setParent( nullptr );
 	}
 }
 
 
 void VDTransform::detachChild(VDTransform* transform){
 
-	VDTransform* next = NULL;
+	VDTransform* next = nullptr;
 
 	for(unsigned int x = 0; x < this->getChildCount(); x++){
 		if(transform == this->child(x)){
 			/* remove child parent*/
-			transform->setParent( NULL );
+			transform->setParent( nullptr );
 
 			/*	relink this node children */
 			this->child(x - 1)->sibling = transform->sibling;
@@ -234,7 +234,7 @@ void VDTransform::detachChild(const char* name){
 }
 
 
-void VDTransform::removeParent(void){
+void VDTransform::removeParent(){
 	if(!this->getParent()){
 		return;
 	}
@@ -247,7 +247,7 @@ void VDTransform::setParent(VDTransform* parent){
 	this->parent = parent;
 }
 
-VDTransform* VDTransform::getParent(void)const{
+VDTransform* VDTransform::getParent()const{
 	return this->parent;
 }
 
@@ -255,7 +255,7 @@ void VDTransform::translate(float x,float y,float z){
 	this->setPosition(VDVector3(x,y,z));
 }
 
-int VDTransform::getChildCount(void)const{return this->childCount;}
+int VDTransform::getChildCount()const{return this->childCount;}
 
 VDTransform* VDTransform::child(unsigned int index)const{
 	VDTransform* chi = this->mchild;
@@ -324,15 +324,15 @@ void VDTransform::setRotation(const VDQuaternion& setRotation){
 	this->rotation = setRotation;
 }
 
-VDVector3 VDTransform::getPosition(void)const{
+VDVector3 VDTransform::getPosition()const{
 	return this->postion;
 }
 
-VDVector3 VDTransform::getScale(void)const{
+VDVector3 VDTransform::getScale()const{
 	return this->scale;
 }
 
-VDQuaternion VDTransform::getRotation(void)const{
+VDQuaternion VDTransform::getRotation()const{
 	return this->rotation;
 }
 
@@ -357,7 +357,7 @@ void VDTransform::setLocalPosition(const VDVector3& setPosition){
 */
 }
 
-VDVector3 VDTransform::getLocalPosition(void)const{
+VDVector3 VDTransform::getLocalPosition()const{
 	if(this->getParent()){
 		return (this->postion - this->parent->postion); // TODO calclation.
 	}
@@ -390,7 +390,7 @@ void VDTransform::setLocalRotation(const VDQuaternion& setRotation){	// setRotat
 	}
 
 }
-VDQuaternion VDTransform::getLocalRotation(void)const{
+VDQuaternion VDTransform::getLocalRotation()const{
 	if(this->getParent())
 		return (this->parent->rotation * VDQuaternion(this->rotation).inverse() * this->rotation).normalize();
 	if(this->getParent())
@@ -415,7 +415,7 @@ void VDTransform::setLocalScale(const VDVector3& localScale){
 		this->scale = localScale;
 }
 
-VDVector3 VDTransform::getLocalScale(void)const{
+VDVector3 VDTransform::getLocalScale()const{
 	if(this->getParent())
 		return this->scale * this->parent->scale;
 	else
@@ -425,13 +425,13 @@ VDVector3 VDTransform::getLocalScale(void)const{
 
 /**/
 /*
-VDMatrix4x4 VDTransform::getMatrix(void)const{
+VDMatrix4x4 VDTransform::getMatrix()const{
 	return (VDMatrix4x4::translate(this->getPosition()) *
 			VDMatrix4x4::rotate(this->getRotation()) *
 			VDMatrix4x4::scale(this->getScale()));
 }
 
-VDMatrix4x4 VDTransform::getLocalMatrix(void)const{
+VDMatrix4x4 VDTransform::getLocalMatrix()const{
 	return (VDMatrix4x4)(VDMatrix4x4::translate(this->getLocalPosition()) *
 			VDMatrix4x4::rotate(this->getLocalRotation()) *
 			VDMatrix4x4::scale(this->getLocalScale()));
@@ -439,7 +439,7 @@ VDMatrix4x4 VDTransform::getLocalMatrix(void)const{
 */
 
 
-VDMatrix4x4 VDTransform::getViewMatrix(void)const{
+VDMatrix4x4 VDTransform::getViewMatrix()const{
 	return VDMatrix4x4();
 	/*
 	return (VDMatrix4x4::rotate(this->getRotation().conjugate()) *
@@ -447,7 +447,7 @@ VDMatrix4x4 VDTransform::getViewMatrix(void)const{
 	*/
 }
 
-VDMatrix4x4 VDTransform::getLocalViewMatrix(void)const{
+VDMatrix4x4 VDTransform::getLocalViewMatrix()const{
 	return VDMatrix4x4();
 	/*
 	return (VDMatrix4x4)(VDMatrix4x4::translate(-getLocalPosition()) *
@@ -501,7 +501,7 @@ void VDTransform::SetRigidBodyRotation(const VDQuaternion& rigidbodyRotation){
 }
 
 
-VDTransform* VDTransform::createTransform(void){
+VDTransform* VDTransform::createTransform(){
 	VDTransform* node =  VDScene::getScene()->nodes.obtain();
 	*node = VDTransform();
 	return node;

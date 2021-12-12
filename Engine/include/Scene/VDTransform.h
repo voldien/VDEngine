@@ -34,19 +34,19 @@ class VDDECLSPEC VDTransform : public VDBehavior {
 
 private:
 
-	VDTransform(void);
+	VDTransform();
 	VDTransform(const VDTransform& transform);
 	VDTransform(const VDVector3& position, const VDQuaternion& rotation, const VDVector3& scale); 
 public:
 
-	~VDTransform(void);
+	~VDTransform();
 
 public:	/**/
 
-	virtual void VDAPIENTRY initializeComponent(void);
-	virtual void VDAPIENTRY onEnable(void) override;
-	virtual void VDAPIENTRY onDisable(void) override;
-	virtual void VDAPIENTRY onDestroy(void) override;
+	virtual void VDAPIENTRY initializeComponent();
+	virtual void VDAPIENTRY onEnable() override;
+	virtual void VDAPIENTRY onDisable() override;
+	virtual void VDAPIENTRY onDestroy() override;
 	virtual VDBehavior* VDAPIENTRY copyComponent(unsigned int& dataSize) override;
 
 protected:	/*	Attributes.	*/
@@ -72,7 +72,7 @@ public:	/*	Public methods.	*/
 	 *	Get Heirical Root Node.
 	 *	@Return
 	 */
-	VDTransform* VDAPIFASTENTRY root(void)const;
+	VDTransform* VDAPIFASTENTRY root()const;
 
 	/**
 	 *	Rotate Transform Eular in Degree.
@@ -112,7 +112,7 @@ public:	/*	Public methods.	*/
 	/**
 	 *	Get number of children.
 	 */
-	int VDAPIFASTENTRY getChildCount(void)const;
+	int VDAPIFASTENTRY getChildCount()const;
 
 
 	/**
@@ -139,7 +139,7 @@ public:	/*	Public methods.	*/
 	/**
 	 *	Detach All Children from this transforms.
 	 */
-	void VDAPIFASTENTRY detachChildren(void);
+	void VDAPIFASTENTRY detachChildren();
 
 	/**
 	 *	Detach Transform from parent if found.
@@ -159,7 +159,7 @@ public:	/*	Public methods.	*/
 	/*Ä
 	 *	Remove Parent from this Transform.
 	 */
-	void VDAPIENTRY removeParent(void);
+	void VDAPIENTRY removeParent();
 
 	/**
 	 *
@@ -169,7 +169,7 @@ public:	/*	Public methods.	*/
 	/**
 	 *
 	 */
-	VDTransform* VDAPIFASTENTRY getParent(void)const;
+	VDTransform* VDAPIFASTENTRY getParent()const;
 
 	/**
 	 *	Get Node TransformationDirection Based On Direction
@@ -212,17 +212,17 @@ public:	/*	Public methods.	*/
 	/**
 	 *	Get global position.
 	 */
-	VDVector3 VDAPIENTRY getPosition(void)const;
+	VDVector3 VDAPIENTRY getPosition()const;
 
 	/**
 	 *	Get global scale.
 	 */
-	VDVector3 VDAPIENTRY getScale(void)const;
+	VDVector3 VDAPIENTRY getScale()const;
 
 	/**
 	 *	Get global rotation.
 	 */
-	VDQuaternion VDAPIENTRY getRotation(void)const;
+	VDQuaternion VDAPIENTRY getRotation()const;
 
 	/**
 	 *
@@ -243,43 +243,43 @@ public:	/*	Public methods.	*/
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY getLocalPosition(void)const;
+	VDVector3 VDAPIFASTENTRY getLocalPosition()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDQuaternion VDAPIFASTENTRY getLocalRotation(void)const;
+	VDQuaternion VDAPIFASTENTRY getLocalRotation()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY getLocalScale(void)const;
+	VDVector3 VDAPIFASTENTRY getLocalScale()const;
 
 	/**
 	 *	Transformation Matrix of worldSpace
 	 *	@Return
 	 */
-	//VDMatrix4x4 VDAPIFASTENTRY getMatrix(void)const;
+	//VDMatrix4x4 VDAPIFASTENTRY getMatrix()const;
 
 	/*
 	 *	Tranformation Matrix related to parent transformation Matrix
 	 *	@Return
 	 */
-	//VDMatrix4x4 VDAPIFASTENTRY getLocalMatrix(void)const;
+	//VDMatrix4x4 VDAPIFASTENTRY getLocalMatrix()const;
 
 	/**
 	 *	Get View Matrix.
 	 *	@Return
 	 */
-	VDMatrix4x4 VDAPIFASTENTRY getViewMatrix(void)const;
+	VDMatrix4x4 VDAPIFASTENTRY getViewMatrix()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDMatrix4x4 VDAPIFASTENTRY getLocalViewMatrix(void)const;
+	VDMatrix4x4 VDAPIFASTENTRY getLocalViewMatrix()const;
 
 	/**/
 	void VDAPIENTRY SetLocalRotationTransformation(const VDQuaternion& setRotation, const VDVector3& unitDelta);
@@ -337,7 +337,7 @@ public:	/*	Creator function.	*/
 	 *	Factory method for creating transform node.
 	 *	@Return non-null transform object.
 	 */
-	static VDTransform* VDAPIENTRY createTransform(void);
+	static VDTransform* VDAPIENTRY createTransform();
 
 };
 

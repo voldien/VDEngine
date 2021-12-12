@@ -6,7 +6,7 @@ uniform sampler2D DepthTexture;
 uniform vec3 Direction;
 in vec2 UV;
 
-vec3 BlurMotion(void){
+vec3 BlurMotion(){
 	int samplerCount = length(Direction.xy);
 	int samplerDepth = direction.z;
 	vec3 blurColor;
@@ -28,7 +28,7 @@ vec3 BlurMotion(void){
 	return blurColor;
 }
 
-void main (void){
+void main (){
 	fragColor = blurColor;
 	return;
 }

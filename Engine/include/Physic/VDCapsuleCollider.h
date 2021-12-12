@@ -25,15 +25,15 @@
  */
 class VDDECLSPEC VDCapsuleCollider : public VDCollider{
 public:
-	VDCapsuleCollider(void);
+	VDCapsuleCollider();
 	VDCapsuleCollider(const VDCapsuleCollider& collider);
 
 
-	virtual void VDAPIENTRY instanceInitilize(void);
-	virtual void VDAPIENTRY onEnable(void);
-	virtual void VDAPIENTRY onDisable(void);
-	virtual void VDAPIENTRY initializeComponent(void);
-	virtual void VDAPIENTRY onDestroy(void);
+	virtual void VDAPIENTRY instanceInitilize();
+	virtual void VDAPIENTRY onEnable();
+	virtual void VDAPIENTRY onDisable();
+	virtual void VDAPIENTRY initializeComponent();
+	virtual void VDAPIENTRY onDestroy();
 	virtual VDBehavior* VDAPIENTRY copyComponent(unsigned int& dataSize);
 
 	/**
@@ -44,7 +44,7 @@ public:
 	/**
 	 *	@Return
 	 */
-	float VDAPIFASTENTRY getRadius(void)const;
+	float VDAPIFASTENTRY getRadius()const;
 
 	/**
 	 *
@@ -54,7 +54,7 @@ public:
 	/**
 	 *
 	 */
-	float VDAPIFASTENTRY getHeight(void)const;
+	float VDAPIFASTENTRY getHeight()const;
 
 	/**
 	 *

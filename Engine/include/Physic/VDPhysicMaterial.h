@@ -34,26 +34,26 @@ public:
 		eStone,
 	};
 
-	VDPhysicMaterial(void);
+	VDPhysicMaterial();
 	VDPhysicMaterial(const VDPhysicMaterial& material);
 
 
 	/**
 	 *
 	 */
-	float VDAPIENTRY getStaticFriction(void);
+	float VDAPIENTRY getStaticFriction();
 	void VDAPIENTRY setStaticFriction(float staticfriction);
 
 	/**
 	 *
 	 */
-	float VDAPIENTRY getDynamicFriction(void);
+	float VDAPIENTRY getDynamicFriction();
 	void VDAPIENTRY setDynamicFriction(float dynamicfriction);
 
 	/**
 	 *
 	 */
-	float VDAPIENTRY getBounciness(void);
+	float VDAPIENTRY getBounciness();
 	void VDAPIENTRY setBounciness(float bounciness);
 
 	/*
@@ -66,15 +66,15 @@ public:
 	/*
 	 *
 	 */
-	void VDAPIENTRY enableFriction(void);
+	void VDAPIENTRY enableFriction();
 
 	/*
 	 *
 	 */
-	void VDAPIENTRY disableFriction(void);
+	void VDAPIENTRY disableFriction();
 
 	/**/
-	void* VDAPIENTRY  getMaterial(void)const{
+	void* VDAPIENTRY  getMaterial()const{
 		return this->m_material;
 	}
 
@@ -86,7 +86,7 @@ public:
 private:	/*	Attributes.	*/
 	void* m_material;
 
-	static int VDAPIFASTENTRY getCollectionSize(void);
+	static int VDAPIFASTENTRY getCollectionSize();
 };
 
 

@@ -41,7 +41,7 @@ int VDIntGenRandomTexture(unsigned char** pixelResult, unsigned int Width,
 			}
 			continue;
 		}
-		srand(time(NULL) * time(NULL) * y / x);
+		srand(time(nullptr) * time(nullptr) * y / x);
 		continue;
 	}
 	return SDL_TRUE;
@@ -416,7 +416,7 @@ int VDIntConvertToNormalMap(unsigned char** pixelResult,
 		const unsigned char* templateTexture, unsigned int Width,
 		unsigned int Height, unsigned int TextureType, float Slope,
 		float bumpiness) {
-	if (templateTexture == NULL)
+	if (templateTexture == nullptr)
 		return SDL_FALSE; // error,no pointer to pixel data!
 
 	if (!VDIntMallocTexture((void**) pixelResult, Width, Height, GL_RGB))
@@ -598,7 +598,7 @@ int VDIntConvertToNormalMap(unsigned char** pixelResult,
 int VDIntConvertToDisplaceMap(unsigned char** pixelResult,
 		const unsigned char* templateTexture, unsigned int Width,
 		unsigned int Height, unsigned int TextureType) {
-	if (templateTexture == NULL || pixelResult == NULL)
+	if (templateTexture == nullptr || pixelResult == nullptr)
 		return SDL_FALSE;
 
 	pixelResult[0] = (unsigned char*) malloc(
@@ -770,10 +770,10 @@ unsigned int GetTextureDataSize(unsigned int Width, unsigned int Height,
 
 int VDIntMallocTexture(void** data, unsigned int Width, unsigned int Height,
 		unsigned int TextureFormat) {
-	if (data == NULL)
+	if (data == nullptr)
 		return SDL_FALSE;
 
-	if (data[0] == NULL)
+	if (data[0] == nullptr)
 		data[0] = malloc(GetTextureDataSize(Width, Height, TextureFormat));
 	return SDL_TRUE;
 }

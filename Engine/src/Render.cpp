@@ -32,46 +32,46 @@ using namespace std;
 
 RenderCollection rendercollection;
 
-VDRenderer::VDRenderer(void) : VDBehavior(){
-	this->materials = NULL;
+VDRenderer::VDRenderer() : VDBehavior(){
+	this->materials = nullptr;
 	this->flag = (eCastShadow | eReciveShadow | eMesh);
 	this->setMaterial(gDefaulMaterial);
 	this->setRenderType(VDRenderer::eMesh);
-	this->meshFilter = NULL;
-	this->setMesh(NULL);
+	this->meshFilter = nullptr;
+	this->setMesh(nullptr);
 }
 
 VDRenderer::VDRenderer(RendererType type){
-	this->materials = NULL;
+	this->materials = nullptr;
 	this->flag = (eCastShadow | eReciveShadow | eMesh);
 	this->setMaterial(gDefaulMaterial);
 	this->setRenderType(type);
-	this->meshFilter = NULL;
-	this->setMesh(NULL);
+	this->meshFilter = nullptr;
+	this->setMesh(nullptr);
 }
 
 VDRenderer::VDRenderer(VDMaterial* material) : VDBehavior(){
-	this->materials = NULL;
+	this->materials = nullptr;
 	this->flag = (eCastShadow | eReciveShadow);
 	this->setRenderType(VDRenderer::eMesh);
 	this->setMaterial(material);
-	this->meshFilter = NULL;
-	this->setMesh(NULL);
+	this->meshFilter = nullptr;
+	this->setMesh(nullptr);
 }
 
 VDRenderer::VDRenderer(const VDRenderer& renderer){
 	*this = renderer;
 }
 
-void VDRenderer::instanceInitilize(void){
+void VDRenderer::instanceInitilize(){
 	//this->setMaterial(this->materials);
 }
 
-void VDRenderer::initializeComponent(void){
+void VDRenderer::initializeComponent(){
 
 }
 
-void VDRenderer::onEnable(void){
+void VDRenderer::onEnable(){
 	// if no broodBehavior, then we don't need to send information
 	if(!this->gameObject()->hasCustomBehavior()){
 		return;
@@ -83,7 +83,7 @@ void VDRenderer::onEnable(void){
 	}
 }
 
-void VDRenderer::onDisable(void){
+void VDRenderer::onDisable(){
 	// if no broodBehavior, then we don't need to send information
 	if(!this->gameObject()->hasCustomBehavior()){
 		return;
@@ -95,9 +95,9 @@ void VDRenderer::onDisable(void){
 	}
 }
 
-void VDRenderer::onDestroy(void){
+void VDRenderer::onDestroy(){
 	VDRenderCollection::removeObjectFromCollection(this, this->getMaterial());
-	this->setMesh(NULL);
+	this->setMesh(nullptr);
 }
 
 VDBehavior* VDRenderer::copyComponent(unsigned int& dataSize){
@@ -109,7 +109,7 @@ VDBehavior* VDRenderer::copyComponent(unsigned int& dataSize){
 
 
 void VDRenderer::setMaterial(VDMaterial* material){
-	if(material == NULL || material->getShader() == NULL){
+	if(material == nullptr || material->getShader() == nullptr){
 		VDDebug::criticalLog("Invalid material object\n");
 		return;
 	}
@@ -122,7 +122,7 @@ void VDRenderer::setMaterial(VDMaterial* material){
 
 
 	/*	check if current material is being replaced*/
-	if(this->getMaterial() != material && this->getMaterial() != NULL){
+	if(this->getMaterial() != material && this->getMaterial() != nullptr){
 		this->getMaterial()->deincrement();
 
 		/*	remove */
@@ -144,7 +144,7 @@ void VDRenderer::setMaterial(VDMaterial* material){
 }
 
 
-VDAABB VDRenderer::getRenderBounds(void)const{
+VDAABB VDRenderer::getRenderBounds()const{
 	if(getMesh()){
 		return VDAABB(getMesh()->getBound().aabb.getSize() * this->transform()->getScale() , this->transform()->getPosition()  + getMesh()->getBound().aabb.getCenter()  );
 	}
@@ -153,7 +153,7 @@ VDAABB VDRenderer::getRenderBounds(void)const{
 }
 
 void VDRenderer::setMesh(VDMesh* mesh){
-	if(!mesh && getMesh() != NULL){
+	if(!mesh && getMesh() != nullptr){
 		getMesh()->deincrement();
 	}
 
@@ -163,7 +163,7 @@ void VDRenderer::setMesh(VDMesh* mesh){
 	}
 }
 
-bool VDRenderer::isPartOfStaticBatch(void)const{
+bool VDRenderer::isPartOfStaticBatch()const{
 	return getRendererFlag() & VDMesh::eStaticBatch;
 }
 
@@ -199,7 +199,7 @@ void VDRenderer::drawInstances(unsigned int elemetInstance, float* wmp){
 	}
 }
 
-void VDRenderer::enableVertexPointer(void){
+void VDRenderer::enableVertexPointer(){
 	return;
 	if(this->meshFilter->getMeshFlag() & VDMesh::eVertex)
 		glVertexAttribPointer(VDShaderConstant::VERTEX_LOCATION, 3, GL_FLOAT, GL_FALSE,this->meshFilter->getVertexStride(), (const void*)0); //			Vertex
@@ -223,7 +223,7 @@ void VDRenderer::enableVertexPointer(void){
 		glVertexAttribPointer(VDShaderConstant::eVERTEXCOLOR_LOCATION, 4, GL_FLOAT, GL_FALSE, this->meshFilter->getVertexStride(), (const void*)12);
 }
 
-void VDRenderer::draw(void){
+void VDRenderer::draw(){
 	this->internalDraw();
 }
 
@@ -260,7 +260,7 @@ void VDRenderer::internalDraw(VDMesh::Primitive drawmode, unsigned int instances
 			/*BaseVertex*/
 			glDrawElementsInstanced(drawmode,
 				this->getMesh()->getPolygoneCount(),
-				getMesh()->getIndicesNFlag(), NULL, instances);
+				getMesh()->getIndicesNFlag(), nullptr, instances);
 			break;
 		}
 
@@ -331,7 +331,7 @@ void VDRenderer::internalShadowDraw(VDShader* Shadowpass, VDLight* light, VDMesh
 
 				for(int x = (*z).second.renderers.size() - 1; x >= 0; x--){
 					render = (*z).second.renderers[x];
-					if(render->getMesh() == NULL){
+					if(render->getMesh() == nullptr){
 						continue;
 					}
 
@@ -391,30 +391,30 @@ void VDRenderer::reciveShadow(int reciveShadow){
 	this->flag = (reciveShadow == SDL_TRUE) ? (getRendererFlag() | eReciveShadow) : ((~eReciveShadow) | this->getRendererFlag());
 }
 
-bool VDRenderer::isSkinned(void)const{
+bool VDRenderer::isSkinned()const{
 	return (this->getRenderType() & VDMesh::eSkinned) != 0 ? SDL_TRUE : SDL_FALSE;
 }
-bool VDRenderer::isParticle(void)const{ return (this->getRenderType()  & VDRenderer::eParticle); }
-bool VDRenderer::isMorph(void)const{ return (this->getRenderType()  & VDRenderer::eMorph);}
-bool VDRenderer::isLensFlare(void)const{ return (this->getRenderType()  & VDRenderer::eLensFlare);}
-bool VDRenderer::isTerrain(void)const{	return (this->getRenderType() & VDRenderer::eTerrain);}
+bool VDRenderer::isParticle()const{ return (this->getRenderType()  & VDRenderer::eParticle); }
+bool VDRenderer::isMorph()const{ return (this->getRenderType()  & VDRenderer::eMorph);}
+bool VDRenderer::isLensFlare()const{ return (this->getRenderType()  & VDRenderer::eLensFlare);}
+bool VDRenderer::isTerrain()const{	return (this->getRenderType() & VDRenderer::eTerrain);}
 
-bool VDRenderer::isVisiable(void)const{
+bool VDRenderer::isVisiable()const{
 	return this->isEnabled();
 }
 
 
 
 
-void VDRenderer::drawElementPatch(void){
-	glDrawElements(GL_PATCHES, this->meshFilter->getNumIndices(), this->meshFilter->getIndicesNFlag(), NULL);
+void VDRenderer::drawElementPatch(){
+	glDrawElements(GL_PATCHES, this->meshFilter->getNumIndices(), this->meshFilter->getIndicesNFlag(), nullptr);
 }
 
 void VDRenderer::drawMultiElementsPatch(unsigned int primcount, const unsigned int* count, const unsigned int* indices){
 	glMultiDrawElements(GL_PATCHES, (const GLsizei*)count, getMesh()->getIndicesNFlag(), (const GLvoid**)indices, primcount);
 }
 
-void VDRenderer::drawArrayPatch(void){
+void VDRenderer::drawArrayPatch(){
 	glDrawArrays(GL_PATCHES, 0, this->getMesh()->getVertexCount());
 }
 

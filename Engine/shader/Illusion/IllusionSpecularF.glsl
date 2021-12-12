@@ -16,7 +16,7 @@ uniform sampler2D DiffuseTexture;
 uniform sampler2D IllusionTexture;
 
 
-void main(void){
+void main(){
 	fragColor = texture2D(DiffuseTexture, UV).xyz *DiffuseColor.xyz * (AmbientColor + GetLight(normal).xyz) 
 	+ texture2D(IllusionTexture, UV).xyz + GetSpecularFactor(normal,Shininess) * SpecularColor;
 }

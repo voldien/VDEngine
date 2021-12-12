@@ -7,7 +7,7 @@
 #include <VDSystemInfo.h>
 #include<Core/Math.h>
 
-VDTexture::VDTexture(void) : VDAssetObject(){
+VDTexture::VDTexture() : VDAssetObject(){
 	this->setTextureTarget(VDTexture::eTexture1D);
 	glGenTextures(1, &this->texture);
 	this->texture = 0;
@@ -32,16 +32,16 @@ VDTexture::VDTexture(unsigned int width, unsigned int SurfaceinternalFormat, uns
 
 	glGenTextures(1,&this->texture);
 	this->bind();
-	glTexImage1D(this->getTarget(), 0, SurfaceinternalFormat, width, 0, SurFaceFormat,SurfaceType, NULL);
+	glTexImage1D(this->getTarget(), 0, SurfaceinternalFormat, width, 0, SurFaceFormat,SurfaceType, nullptr);
 
 	this->unBind();
 }
 
-VDTexture::~VDTexture(void){
+VDTexture::~VDTexture(){
 
 }
 
-void VDTexture::release(void){
+void VDTexture::release(){
 	if(this->isValid()){
 		glDeleteTextures(1, &this->texture);
 		this->setTextureID(0);
@@ -54,25 +54,25 @@ void VDTexture::setAnisoLevel(float aniostropic){
 	glTexParameterf(this->getTarget(), GL_TEXTURE_MAX_ANISOTROPY_EXT, aniostropic);
 }
 
-float VDTexture::getAnsioLevel(void)const{
+float VDTexture::getAnsioLevel()const{
 	this->bind();
 	float pvalue;
 	glGetTexParameterfv(this->getTarget(), GL_TEXTURE_MAX_ANISOTROPY_EXT, &pvalue);
 	return pvalue;
 }
 
-bool VDTexture::isValid(void)const{
+bool VDTexture::isValid()const{
 	return (glIsTexture(this->getTexture()) == GL_TRUE);
 }
 
-bool VDTexture::isCompressed(void)const{
+bool VDTexture::isCompressed()const{
 	this->bind();
 	int compressed;
 	glGetTexLevelParameteriv(this->getTarget(), 0, GL_TEXTURE_COMPRESSED_ARB, &compressed);
 	return (compressed != 0);
 }
 
-void VDTexture::copy(void){
+void VDTexture::copy(){
 	this->bind();
 	glCopyTexImage1D(getTarget(), 0, this->getInternalFormat(), 0, 0, this->width(), 0);
 }
@@ -82,7 +82,7 @@ void VDTexture::copy(unsigned int xoffset, unsigned int yoffset){
 	glCopyTexImage1D(getTarget(), 0, this->getInternalFormat(), xoffset, yoffset, this->width(), 0);
 }
 
-VDTexture::TextureFormat VDTexture::getInternalFormat(void)const{
+VDTexture::TextureFormat VDTexture::getInternalFormat()const{
 	VDTexture::TextureFormat internal;
 	this->bind();
 	glGetTexLevelParameteriv(this->getTarget(), 0, GL_TEXTURE_INTERNAL_FORMAT, (int*)&internal);
@@ -122,25 +122,25 @@ void VDTexture::setInternalFormat(VDTexture::TextureFormat format, unsigned int 
 	/*	*/
 	switch(this->getTarget()){
 	case VDTexture::TextureTarget::eTexture1D:
-		glTexImage1D(this->getTarget(), 0, internalformat, w, 0, format, type, NULL);
+		glTexImage1D(this->getTarget(), 0, internalformat, w, 0, format, type, nullptr);
 		break;
 	case VDTexture::TextureTarget::eTexture1DArray:
-		glTexImage2D(this->getTarget(), 0, internalformat, w, h, 0, format, type, NULL);
+		glTexImage2D(this->getTarget(), 0, internalformat, w, h, 0, format, type, nullptr);
 		break;
 	case VDTexture::TextureTarget::eTexture2D:
-		glTexImage2D(this->getTarget(), 0, internalformat, w, h, 0, format, type, NULL);
+		glTexImage2D(this->getTarget(), 0, internalformat, w, h, 0, format, type, nullptr);
 		break;
 	case VDTexture::TextureTarget::eTexture2DArray:
-		glTexImage3D(this->getTarget(), 0, internalformat, w, h, l, 0, format, type, NULL);
+		glTexImage3D(this->getTarget(), 0, internalformat, w, h, l, 0, format, type, nullptr);
 		break;
 	case VDTexture::TextureTarget::eTexture3D:
-		glTexImage3D(this->getTarget(), 0, internalformat, w, h, l, 0, format, type, NULL);
+		glTexImage3D(this->getTarget(), 0, internalformat, w, h, l, 0, format, type, nullptr);
 		break;
 	case VDTexture::TextureTarget::eCubeMap:
 		for(int x = 0; x < 6; x++){
 			glGetTexLevelParameteriv(GL_TEXTURE_CUBE_MAP_POSITIVE_X + x, 0, GL_TEXTURE_WIDTH, &w);
 			glGetTexLevelParameteriv(GL_TEXTURE_CUBE_MAP_POSITIVE_X + x, 0, GL_TEXTURE_HEIGHT, &h);
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + x, 0, internalformat, w, h, 0, format, type, NULL);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + x, 0, internalformat, w, h, 0, format, type, nullptr);
 		}
 		break;
 	default:
@@ -183,7 +183,7 @@ void VDTexture::compress(CompressionFormat format){
 	VDTexture::TextureFormat compress;
 	VDTexture::TextureDataType type = VDTexture::eUnsignedByte;
 	int w, h, l;
-	char* texel = NULL;
+	char* texel = nullptr;
 
 	if(this->isCompressed()){
 		return;
@@ -243,7 +243,7 @@ void VDTexture::compress(CompressionFormat format){
 	free(texel);
 }
 
-void VDTexture::bind(void)const{
+void VDTexture::bind()const{
 	/*	bind on a reserved active unit.	*/
 	VDRenderingAPICache::bindTexture(this->getTarget(), this->getTexture(), VDSystemInfo::getCompatibility()->sMaxTextureUnitActive - 1);
 }
@@ -252,7 +252,7 @@ void VDTexture::bind(unsigned int active){
 	VDRenderingAPICache::bindTexture(this->getTarget(), this->getTexture(), active);
 }
 
-void VDTexture::unBind(void)const{
+void VDTexture::unBind()const{
 	VDRenderingAPICache::bindTexture(target, 0, 0);
 }
 
@@ -278,7 +278,7 @@ void VDTexture::setWrapMode(VDTexture::WrapMode mode){
 	glTexParameteri(getTarget(), GL_TEXTURE_WRAP_T, wrap);
 	glTexParameteri(getTarget(), GL_TEXTURE_WRAP_R, wrap);
 }
-VDTexture::WrapMode VDTexture::getWrapMode(void)const{
+VDTexture::WrapMode VDTexture::getWrapMode()const{
 	int mode;
 	int modet;
 	int moder;
@@ -305,7 +305,7 @@ void VDTexture::setFilterMode(FilterMode mode){
 	glTexParameteri(getTarget(), GL_TEXTURE_MAG_FILTER, filterMode);
 	glTexParameteri(getTarget(), GL_TEXTURE_MIN_FILTER, filterMode);
 }
-VDTexture::FilterMode VDTexture::getFilterMode(void)const{
+VDTexture::FilterMode VDTexture::getFilterMode()const{
 	int filterMode;
 	this->bind();
 	glGetTexParameteriv(getTarget(), GL_TEXTURE_MAG_FILTER, &filterMode);
@@ -324,7 +324,7 @@ void VDTexture::setBaseLevel(unsigned int level){
 	this->bind();
 	glTexParameteri(this->target, GL_TEXTURE_BASE_LEVEL, level);
 }
-int VDTexture::getBaseLevel(void)const{
+int VDTexture::getBaseLevel()const{
 	int pvalue;
 	this->bind();
 	glGetTexParameteriv(this->getTarget(), GL_TEXTURE_BASE_LEVEL, &pvalue);
@@ -335,14 +335,14 @@ void VDTexture::setMaxMipMaps(int levels){
 	this->bind();
 	glTexParameteri(this->getTarget(), GL_TEXTURE_MAX_LEVEL, levels);	/*	TODO resolve the max level by its size */
 }
-int VDTexture::getMaxMipMaps(void){
+int VDTexture::getMaxMipMaps(){
 	int level;
 	this->bind();
 	glGetTexParameteriv(this->getTarget(), GL_TEXTURE_MAX_LEVEL, &level);
 	return level;
 }
 
-void VDTexture::updateMipMap(void){
+void VDTexture::updateMipMap(){
 	this->bind();
 	glGenerateMipmap(this->getTarget());
 }
@@ -351,7 +351,7 @@ void VDTexture::setMipMapBias(float bias){
 	this->bind();
 	glTexParameterf(this->getTarget(), GL_TEXTURE_LOD_BIAS, bias);
 }
-float VDTexture::getMipMapBias(void)const{
+float VDTexture::getMipMapBias()const{
 	float pvalue;
 	this->bind();
 	glGetTexParameterfv(this->getTarget(), GL_TEXTURE_LOD_BIAS, &pvalue);
@@ -467,7 +467,7 @@ void VDTexture::setTextureTarget(VDTexture::TextureTarget textureTarget){
 	target = textureTarget;
 }
 
-unsigned int VDTexture::getTarget(void)const{
+unsigned int VDTexture::getTarget()const{
 	return this->target;
 }
 
@@ -475,7 +475,7 @@ void VDTexture::setTextureID(unsigned int idTexture){
 	this->texture = idTexture;
 }
 
-unsigned int VDTexture::getTexture(void)const{
+unsigned int VDTexture::getTexture()const{
 	return this->texture;
 }
 

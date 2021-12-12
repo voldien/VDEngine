@@ -68,7 +68,7 @@ void VDRenderSetting::setRenderingPath(VDRenderSetting::RenderPipeline sRenderin
 			if(VDSystemInfo::getCompatibility()->sFramebuffer){
 
 				target = VDRenderSetting::getForwardFramebuffer();
-				if(target == NULL){
+				if(target == nullptr){
 					/**/
 					VDRenderSetting::getSettings()->forward = VDRenderTexture::colorTexture(VDScreen::width(), VDScreen::height(), VDTexture::eRGB, VDTexture::eRGB, VDTexture::eUnsignedByte,  0);
 					VDRenderSetting::getForwardFramebuffer()->setFlag(VDObject::eStatic | VDRenderSetting::getForwardFramebuffer()->getFlag());
@@ -83,7 +83,7 @@ void VDRenderSetting::setRenderingPath(VDRenderSetting::RenderPipeline sRenderin
 	settings->renderingflag = sRenderingPath;
 }
 
-VDRenderSetting::RenderPipeline VDRenderSetting::getRenderingPath(void){return (RenderPipeline)gRenderSettings.renderingflag;}
+VDRenderSetting::RenderPipeline VDRenderSetting::getRenderingPath(){return (RenderPipeline)gRenderSettings.renderingflag;}
 
 
 
@@ -101,14 +101,14 @@ void VDRenderSetting::setFrameBufferSize(int width, int height){
 	}
 }
 
-VDRenderTexture* VDRenderSetting::getForwardFramebuffer(void){return gRenderSettings.forward;}
+VDRenderTexture* VDRenderSetting::getForwardFramebuffer(){return gRenderSettings.forward;}
 
 VDRenderTexture* VDRenderSetting::getRenderingPathFrameBuffer(RenderPipeline sRenderingPath){
 	switch(VDRenderSetting::getRenderingPath()){
 	case VDRenderSetting::eForwardRendering:
 		return VDRenderSetting::getForwardFramebuffer();
 	default:
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -117,40 +117,40 @@ void VDRenderSetting::useFog(bool fog){	/*	TODO fix such that there is a seperat
 }
 
 
-bool VDRenderSetting::isFogEnable(void){return getFogType() != 0;}
+bool VDRenderSetting::isFogEnable(){return getFogType() != 0;}
 
 void VDRenderSetting::setFogType(FogFlag fogtype){
 	VDScene::getScene()->uniform.engineState.fogType = fogtype;
 }
-VDRenderSetting::FogFlag VDRenderSetting::getFogType(void){
+VDRenderSetting::FogFlag VDRenderSetting::getFogType(){
 	return (VDRenderSetting::FogFlag)VDScene::getScene()->uniform.engineState.fogType;
 }
 
 void VDRenderSetting::setFogMinDistance(float start){
 	VDScene::getScene()->uniform.engineState.fogStart = start;
 }
-float VDRenderSetting::getFogMinDistance(void){
+float VDRenderSetting::getFogMinDistance(){
 	return VDScene::getScene()->uniform.engineState.fogStart;
 }
 
 void VDRenderSetting::setFogMaxDistance(float end){
 	VDScene::getScene()->uniform.engineState.fogEnd = end;
 }
-float VDRenderSetting::getFogMaxDistance(void){
+float VDRenderSetting::getFogMaxDistance(){
 	return VDScene::getScene()->uniform.engineState.fogEnd;
 }
 
 void VDRenderSetting::setFogColor(const VDColor& color){
 	VDScene::getScene()->uniform.engineState.fogColor = color;
 }
-VDColor VDRenderSetting::getFogColor(void){
+VDColor VDRenderSetting::getFogColor(){
 	return VDScene::getScene()->uniform.engineState.fogColor;
 }
 
 void VDRenderSetting::setFogDensity(float density){
 	VDScene::getScene()->uniform.engineState.fogDensity = density;
 }
-float VDRenderSetting::getFogDensity(void){
+float VDRenderSetting::getFogDensity(){
 	return VDScene::getScene()->uniform.engineState.fogDensity;
 }
 
@@ -160,7 +160,7 @@ void VDRenderSetting::setAmbientColor(const VDColor& color){
 	VDScene::getScene()->ambientColor = color;
 	VDScene::getScene()->uniform.engineState.ambientColor = color;
 }
-VDColor VDRenderSetting::getAmbientColor(void){
+VDColor VDRenderSetting::getAmbientColor(){
 	return VDScene::getScene()->ambientColor;
 }
 
@@ -168,12 +168,12 @@ VDColor VDRenderSetting::getAmbientColor(void){
 void VDRenderSetting::setAmbientIntensity(float intensity){
 	VDScene::getScene()->uniform.engineState.ambientIntensity = intensity;
 }
-float VDRenderSetting::getAmbientIntensity(void){
+float VDRenderSetting::getAmbientIntensity(){
 	return VDScene::getScene()->uniform.engineState.ambientIntensity;
 }
 
 void VDRenderSetting::setImageAmbient(VDCubeMap* cubemap, bool compute){
-	if(VDScene::getScene()->ambientImageBased != NULL)
+	if(VDScene::getScene()->ambientImageBased != nullptr)
 		VDScene::getScene()->ambientImageBased->deincrement();
 
 	if(compute){
@@ -191,7 +191,7 @@ void VDRenderSetting::setImageAmbient(VDCubeMap* cubemap, bool compute){
 	//VDCubeMap* imagetex = engine.scene.ambientImageBased;
 	//VDCubeMap* tex = skybox->getCubeMap();
 	//for(int x = 0; x < 6; x++){
-	//	void* pixels = NULL;
+	//	void* pixels = nullptr;
 		//pixels = tex->getPixelData(0, tex->getinternalFormat(), tex->getType());
 		/*	downscale	*/
 
@@ -212,7 +212,7 @@ void VDRenderSetting::setImageAmbient(VDCubeMap* cubemap, bool compute){
 	/*	bind image based ambient cubemap.	*/
 	VDScene::getScene()->ambientImageBased->bind(VDShaderConstant::AmbientImageBased);
 }
-VDCubeMap* VDRenderSetting::getImageAmbient(void){
+VDCubeMap* VDRenderSetting::getImageAmbient(){
 	return VDScene::getScene()->ambientImageBased;
 }
 
@@ -227,7 +227,7 @@ void VDRenderSetting::setAmbientType(VDRenderSetting::AmbientType type){
 	}/*	*/
 
 }
-VDRenderSetting::AmbientType VDRenderSetting::getAmbientType(void){
+VDRenderSetting::AmbientType VDRenderSetting::getAmbientType(){
 	return (VDRenderSetting::AmbientType)VDScene::getScene()->ambientType;
 }
 
@@ -246,13 +246,13 @@ void VDRenderSetting::setSkyBox(VDSkyBox* skybox){
 	/*	update */
 	VDRenderSetting::setAmbientType(VDRenderSetting::getAmbientType());
 }
-VDSkyBox* VDRenderSetting::getSkyBox(void){
+VDSkyBox* VDRenderSetting::getSkyBox(){
 	return VDScene::getScene()->skybox;
 }
 
-unsigned int VDRenderSetting::getFlag(void){return gRenderSettings.flag;}
+unsigned int VDRenderSetting::getFlag(){return gRenderSettings.flag;}
 
-VDEngineRenderSettings* VDRenderSetting::getSettings(void){
+VDEngineRenderSettings* VDRenderSetting::getSettings(){
 	return &VDRenderSetting::gRenderSettings;
 }
 

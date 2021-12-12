@@ -26,23 +26,23 @@
 class VDDECLSPEC VDToolBase : public VDEvent{
 public:
 
-	VDToolBase(void){}
-	~VDToolBase(void){}
+	VDToolBase(){}
+	~VDToolBase(){}
 
 	/**
 	 *	Draw method call.
 	 */
-	virtual void VDAPIENTRY draw(void) = 0;
+	virtual void VDAPIENTRY draw() = 0;
 
 	/**
 	 *	Release resources call.
 	 */
-	virtual void VDAPIENTRY release(void) = 0;
+	virtual void VDAPIENTRY release() = 0;
 
 	/**
 	 *	Logic update call.
 	 */
-	virtual void VDAPIENTRY update(void) = 0;
+	virtual void VDAPIENTRY update() = 0;
 
 };
 

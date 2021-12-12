@@ -31,8 +31,8 @@ VDTexture2D* VDTextureProcedure::genMipmapLevelDebugger(unsigned int levels){
 
 
 VDTexture2D* VDTextureProcedure::genCheckTexture(unsigned int width, unsigned int height, unsigned int checkWith,unsigned int checkHeight, unsigned int SurfaceinternalFormat, unsigned int SurFaceFormat , unsigned int SurfaceType, unsigned int  MipMap){
-	unsigned char* pixelData = NULL;
-	VDTexture2D* chTexture = NULL;
+	unsigned char* pixelData = nullptr;
+	VDTexture2D* chTexture = nullptr;
 
 	if(VDIntGenChecker(&pixelData, width, height, checkWith, checkHeight, SurfaceinternalFormat)){
 		chTexture = new VDTexture2D(width, height, SurfaceinternalFormat, SurFaceFormat,SurfaceType, MipMap);
@@ -44,12 +44,12 @@ VDTexture2D* VDTextureProcedure::genCheckTexture(unsigned int width, unsigned in
 }
 
 VDTexture2D* VDTextureProcedure::genCheckerTexture2(unsigned int width, unsigned int height, unsigned int checkWidth, unsigned int checkerHeight, const VDColor32& foreColor, const VDColor32& backColor, unsigned int SurfaceinternalFormat, unsigned int SurFaceFormat, unsigned int SurfaceType, unsigned int mipmap){
-	unsigned char* pixelData = NULL;
-	VDTexture2D* ch_texture = NULL;
+	unsigned char* pixelData = nullptr;
+	VDTexture2D* ch_texture = nullptr;
 
 	if(VDIntGenChecker2(&pixelData, width, height, checkWidth, checkerHeight, foreColor, backColor, SurfaceinternalFormat)){
 		ch_texture = new VDTexture2D(width, height, SurfaceinternalFormat, SurFaceFormat, SurfaceType, mipmap);
-		//ch_texture->setData(0, NULL, pixelData);
+		//ch_texture->setData(0, nullptr, pixelData);
 		ch_texture->setName("CheckerTexture2_");
 		VDTexture2D::assignTexture(ch_texture, "CheckerTexture2");
 	}
@@ -60,11 +60,11 @@ VDTexture2D* VDTextureProcedure::genCheckerTexture2(unsigned int width, unsigned
 
 
 VDTexture2D* VDTextureProcedure::genLinearGridTexture(unsigned int width, unsigned int height, unsigned int linearX, unsigned int linearY, unsigned int thickness,const VDColor32& backColor,const VDColor32& foreColor, unsigned int SurfaceinternalFormat, unsigned int SurFaceFormat , unsigned int SurfaceType, unsigned int  MipMap){
-	unsigned char* pixelData = NULL;
-	VDTexture2D* lg_texture = NULL;
+	unsigned char* pixelData = nullptr;
+	VDTexture2D* lg_texture = nullptr;
 	if(VDIntGenGridTexture(&pixelData, width, height, linearX, linearY,thickness,(unsigned char*)&backColor,(unsigned char*)&foreColor, SurfaceinternalFormat)){
 		lg_texture = new VDTexture2D(width, height, SurfaceinternalFormat, SurFaceFormat,SurfaceType,MipMap);
-		//lg_texture->setData(0, NULL,pixelData);
+		//lg_texture->setData(0, nullptr,pixelData);
 		VDTexture2D::assignTexture(lg_texture, "LinearGridTexture");
 	}
 	free(pixelData);
@@ -72,12 +72,12 @@ VDTexture2D* VDTextureProcedure::genLinearGridTexture(unsigned int width, unsign
 }
 
 VDTexture2D* VDTextureProcedure::genColorTexture(unsigned int width, unsigned int height,const VDColor32& color, unsigned int SurfaceinternalFormat ,unsigned int SurFaceFormat ,unsigned int SurfaceType ,unsigned int mipmap){
-	unsigned char* colPix = NULL;
-	VDTexture2D* colTex = NULL;
+	unsigned char* colPix = nullptr;
+	VDTexture2D* colTex = nullptr;
 
 	if(VDIntGenColorTexture(&colPix,width, height,SurfaceinternalFormat, (unsigned char*)&color)){
 		colTex = new VDTexture2D(width, height, SurfaceinternalFormat, SurFaceFormat, SurfaceType, mipmap);
-		//colTex->setData(0,NULL, colPix);
+		//colTex->setData(0,nullptr, colPix);
 		//colTex->Name = "ColorTexture";
 		VDTexture2D::assignTexture(colTex, "ColorTexture");
 	}
@@ -87,11 +87,11 @@ VDTexture2D* VDTextureProcedure::genColorTexture(unsigned int width, unsigned in
 }
 
 VDTexture2D* VDTextureProcedure::RandomTexture(unsigned int width, unsigned int height, unsigned int SurfaceinternalFormat, unsigned int SurFaceFormat, unsigned int SurfaceType, unsigned int  MipMap){
-	unsigned char* randomPix = NULL;
-	VDTexture2D* randomTex = NULL;
+	unsigned char* randomPix = nullptr;
+	VDTexture2D* randomTex = nullptr;
 	if(VDIntGenRandomTexture(&randomPix,width, height,SurfaceinternalFormat)){
 		randomTex = new VDTexture2D(width,height, SurfaceinternalFormat, SurFaceFormat, SurfaceType,MipMap);
-		//randomTex->setData(0,NULL, randomPix);
+		//randomTex->setData(0,nullptr, randomPix);
 		//colTex->Name = "ColorTexture";
 		VDTexture2D::assignTexture(randomTex, "RandomTexture");
 	}
@@ -100,25 +100,25 @@ VDTexture2D* VDTextureProcedure::RandomTexture(unsigned int width, unsigned int 
 }
 
 VDTexture2D* VDTextureProcedure::LinearTexture(unsigned int width, unsigned int height,unsigned int start, unsigned int end, VDColor32 color, unsigned int SurfaceinternalFormat, unsigned int SurFaceFormat, unsigned int SurfaceType, unsigned int  MipMap ){
-	unsigned char* linPix = NULL;
-	VDTexture2D* lintex = NULL;
+	unsigned char* linPix = nullptr;
+	VDTexture2D* lintex = nullptr;
 	if(VDIntGenLinearTexture(&linPix, width ,height, SurfaceinternalFormat,(unsigned char*)&color, start, end)){
 		lintex = new VDTexture2D(width, height,SurfaceinternalFormat, SurFaceFormat, SurfaceType);
-		//lintex->setData(0, NULL,linPix);
+		//lintex->setData(0, nullptr,linPix);
 	}
 	free(linPix);
 	return lintex;
 }
 
 VDTexture2D* VDTextureProcedure::genErrorTexture(unsigned int width, unsigned int height, unsigned int SurfaceinternalFormat, unsigned int SurFaceFormat, unsigned int SurfaceType , unsigned int  textureFlag){
-	if(VDTexture2D::findTexture("ErrorTexture.exEngine") != NULL)// check if texture exists
+	if(VDTexture2D::findTexture("ErrorTexture.exEngine") != nullptr)// check if texture exists
 		return VDTexture2D::findTexture("ErrorTexture.exEngine");
 	else{
-		//unsigned char* errPix = NULL;
-		//Texture2D* errTex = NULL;
+		//unsigned char* errPix = nullptr;
+		//Texture2D* errTex = nullptr;
 		//if(ExProcChecker2(&errPix, width, height, width / 8, height / 8, Color32::Black(), Color32::Purple() * 1.24f, SurfaceinternalFormat)){
 		//	errTex = new Texture2D(width, height, SurfaceinternalFormat, SurFaceFormat,SurfaceType,textureFlag);
-		//	errTex->setData(0, NULL,errPix);
+		//	errTex->setData(0, nullptr,errPix);
 		//	errTex->Name = EX_TEXT("ErrorTexture.exEngine");
 		//	Texture2D::assignTexture(errTex, "ErrorTexture.exEngine");
 		//}
@@ -128,10 +128,10 @@ VDTexture2D* VDTextureProcedure::genErrorTexture(unsigned int width, unsigned in
 }
 
 
-VDTexture2D* VDTextureProcedure::blackTexture(void){
+VDTexture2D* VDTextureProcedure::blackTexture(){
 	return VDTextureProcedure::genColorTexture(1, 1, VDColor32::Black(), VDTexture::eRed, VDTexture::eRed, VDTexture::eUnsignedByte, 0);
 }
 
-VDTexture2D* VDTextureProcedure::whiteTexture(void){
+VDTexture2D* VDTextureProcedure::whiteTexture(){
 	return VDTextureProcedure::genColorTexture(1, 1, VDColor32::White(), VDTexture::eRed, VDTexture::eRed, VDTexture::eUnsignedByte, 0);
 }

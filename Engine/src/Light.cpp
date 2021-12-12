@@ -1,10 +1,6 @@
 #include <Core/VDBehavior.h>
 #include <Core/VDDebug.h>
-#include <Core/VDEngineCore.h>
 #include <Core/VDQualitySetting.h>
-#include <DataStructure/VDStackAllactor.h>
-#include <DataStructure/VDVector.h>
-#include <GL/glew.h>
 #include<Core/Math.h>
 #include <HCQuaternion.h>
 #include <HCVector3.h>
@@ -19,7 +15,6 @@
 #include <Rendering/VDRenderingAPICache.h>
 #include <Rendering/VDRenderSetting.h>
 #include <Rendering/VDShader.h>
-#include <Rendering/VDUniformBuffer.h>
 #include <stdlib.h>
 #include <Scene/VDFrustum.h>
 #include <Scene/VDScene.h>
@@ -28,31 +23,30 @@
 #include <Rendering/VDRenderSetting.h>
 #include <Rendering/VDShader.h>
 #include <VDSimpleType.h>
-#include <VDSystemInfo.h>
 #include <cstring>
 
 using namespace std;
 
 typedef vector<VDLight*> VDLightCollection;
-typedef VDLightCollection::Iterator VDLightCollectionIterator;
-VDLightCollectionIterator nonshadowLight;
-VDLightCollectionIterator shadowLight;
+//typedef VDLightCollection::Iterator VDLightCollectionIterator;
+// VDLightCollectionIterator nonshadowLight;
+// VDLightCollectionIterator shadowLight;
 /*	TODO check if it's possible to use*/
 
-VDLight::VDLight(void) : VDFrustum(-5.0f, 5.0f, -5.0f, 5.0f, -5.0f, 5.0f){
+VDLight::VDLight() : VDFrustum(-5.0f, 5.0f, -5.0f, 5.0f, -5.0f, 5.0f){
 	this->setColor(VDColor(1.0f));
 	this->setIntensity(1.0f);
 	this->type = 0;
 	this->range = 10.0f;
 	this->outerCone = 0.90f;
 	this->innerCone = 0.80f;
-	this->flag = VDLight::eMediumShadowQuality | VDLight::Point;
+	this->flag = VDLight::MediumShadowQuality | VDLight::Point;
 	this->setShadowStrength(1.0);
-	this->setShadowTexture(NULL);
+	this->setShadowTexture(nullptr);
 	this->setType(VDLight::Point);
-	this->setAttenuation(VDLight::Attenuation::eConstant, 1.0);
-	this->setAttenuation(VDLight::Attenuation::eLinear, 0.1);
-	this->setAttenuation(VDLight::Attenuation::eQuadratic, 0.025);
+	this->setAttenuation(VDLight::Attenuation::Constant, 1.0);
+	this->setAttenuation(VDLight::Attenuation::Linear, 0.1);
+	this->setAttenuation(VDLight::Attenuation::Quadratic, 0.025);
 	this->setShadowBias(0.005f);
 
 	this->quadraticAtteuation = 0.0075f;
@@ -71,9 +65,9 @@ VDLight::VDLight(LightType lightType) : VDFrustum(-5.0f, 5.0f, -5.0f, 5.0f, -5.0
 	this->outerCone = 0.80f;
 	this->innerCone = 0.90f;
 	this->shadowStrength = 1.0f;
-	this->flag = eMediumShadowQuality | VDLight::Point;
+	this->flag = MediumShadowQuality | VDLight::Point;
 
-	this->setShadowTexture(NULL);
+	this->setShadowTexture(nullptr);
 	this->setType(lightType);
 	this->setShadowBias(0.005f);
 
@@ -82,12 +76,12 @@ VDLight::VDLight(LightType lightType) : VDFrustum(-5.0f, 5.0f, -5.0f, 5.0f, -5.0
 	this->constAtteuation = 1.0f;
 }
 
-void VDLight::instanceInitilize(void){
+void VDLight::instanceInitilize(){
 
 }
 
 
-void VDLight::initializeComponent(void){
+void VDLight::initializeComponent(){
 	//gLightCollection.push_back(this); // apply componet
 	VDScene::getScene()->uniform.engineState.numLights++;
 
@@ -102,17 +96,17 @@ void VDLight::initializeComponent(void){
 	}
 }
 
-void VDLight::onEnable(void){
+void VDLight::onEnable(){
 	/*	inform the uniform buffer its to be rendered */
 
 }
 
-void VDLight::onDisable(void){
+void VDLight::onDisable(){
 	/*	inform the uniform buffer its not to be rendered */
 
 }
 
-void VDLight::onDestroy(void){
+void VDLight::onDestroy(){
 
 	this->detachShadowComponent();
 	VDScene::getScene()->uniform.engineState.numLights;
@@ -128,13 +122,13 @@ VDBehavior* VDLight::copyComponent(unsigned int& dataSize){
 
 void VDLight::setAttenuation(VDLight::Attenuation lightAttenuation, float attenuation){
 	switch(lightAttenuation){
-	case eConstant:
+	case Constant:
 		this->constAtteuation = attenuation;
 		break;
-	case eLinear:
+	case Linear:
 		this->linearAtteuation = attenuation;
 		break;
-	case eQuadratic:
+	case Quadratic:
 		this->quadraticAtteuation = attenuation;
 		break;
 	default:
@@ -144,11 +138,11 @@ void VDLight::setAttenuation(VDLight::Attenuation lightAttenuation, float attenu
 
 float VDLight::getAtteuation(VDLight::Attenuation lightAttenuation){
 	switch(lightAttenuation){
-	case eConstant:
+	case Constant:
 		return this->constAtteuation;
-	case eLinear:
+	case Linear:
 		return this->linearAtteuation;
-	case eQuadratic:
+	case Quadratic:
 		return this->quadraticAtteuation;
 	default:
 		return 0.0f;
@@ -165,13 +159,13 @@ void VDLight::setType(VDLight::LightType lighType){
 	}
 
 	switch(this->getType()){
-	case VDLight::eDirection:
+	case VDLight::Direction:
 		VDScene::getScene()->uniform.engineState.numDirection = fragcore::Math::clamp<int>(VDScene::getScene()->uniform.engineState.numDirection - 1, 0 , 0xfffffff);
 		break;
 	case VDLight::Point:
 		VDScene::getScene()->uniform.engineState.numPoint = fragcore::Math::clamp<int>(VDScene::getScene()->uniform.engineState.numPoint - 1, 0 , 0xfffffff);
 		break;
-	case VDLight::eSpot:
+	case VDLight::Spot:
 		VDScene::getScene()->uniform.engineState.numSpot = fragcore::Math::clamp<int>(VDScene::getScene()->uniform.engineState.numSpot - 1, 0 , 0xfffffff);
 		break;
 	}
@@ -179,7 +173,7 @@ void VDLight::setType(VDLight::LightType lighType){
 
 	/**/
 	switch(lighType){
-	case VDLight::eDirection:
+	case VDLight::Direction:
 		VDScene::getScene()->uniform.engineState.numDirection += 1;
 		this->setOrth(fragcore::Math::Infinite, -fragcore::Math::Infinite, fragcore::Math::Infinite, -fragcore::Math::Infinite, fragcore::Math::Infinite, -fragcore::Math::Infinite);
 		break;
@@ -187,7 +181,7 @@ void VDLight::setType(VDLight::LightType lighType){
 		VDScene::getScene()->uniform.engineState.numPoint += 1;
 		this->setOrth(getRange(),-getRange(),getRange(),-getRange(),getRange(),-getRange());
 		break;
-	case VDLight::eSpot:
+	case VDLight::Spot:
 		VDScene::getScene()->uniform.engineState.numPoint += 1;
 		this->setPerspective( fragcore::Math::deg2Rad(getOuterCone() * 90.0f ), 1, 0.5, getRange());
 		break;
@@ -237,25 +231,25 @@ void VDLight::setShadowBias(float bias){
 
 void VDLight::enableShadow(bool enabled){
 
-	if(enabled && VDSystemInfo::getCompatibility()->sShadow){
-		if(!this->isShadowBufferAttached()){
-			this->attachShadowComponent(eMediumShadowQuality);
-		}
+	// if(enabled && VDSystemInfo::getCompatibility()->sShadow){
+	// 	if(!this->isShadowBufferAttached()){
+	// 		this->attachShadowComponent(MediumShadowQuality);
+	// 	}
 
 
-	}
-	else{
-		this->detachShadowComponent();
-		VDScene::getScene()->lightcollection.push_front(this);
-	}
+	// }
+	// else{
+	// 	this->detachShadowComponent();
+	// 	VDScene::getScene()->lightcollection.push_front(this);
+	// }
 
 	/*	TODO relocate.	*/
 	if(enabled){
 		switch(this->getType()){
-		case eDirection:
+		case Direction:
 			VDScene::getScene()->uniform.engineState.numShadowDirection++;
 			break;
-		case eSpot:
+		case Spot:
 			VDScene::getScene()->uniform.engineState.numShadowSpot++;
 			break;
 		case Point:
@@ -268,16 +262,16 @@ void VDLight::enableShadow(bool enabled){
 }
 
 void VDLight::setShadow(unsigned int shadowFlag){
-	if((shadowFlag & eHardShadow) != 0 || (shadowFlag & eSoftShadow) != 0){
+	if((shadowFlag & HardShadow) != 0 || (shadowFlag & SoftShadow) != 0){
 		// there is a need a shadow mapping.
 		this->attachShadowComponent(shadowFlag);
-		this->flag |= eShadowEnable;
+		this->flag |= ShadowEnable;
 	}
 	else{
 		this->detachShadowComponent();
 		//attachShadowComponent(ShadowFlag);
 		// shadow not applyed.
-		this->flag = (~eShadowEnable & this->flag);
+		this->flag = (~ShadowEnable & this->flag);
 	}
 	this->flag |= shadowFlag;
 
@@ -285,12 +279,12 @@ void VDLight::setShadow(unsigned int shadowFlag){
 
 void VDLight::setShadowSize(unsigned int size){
 	if(this->getShadowTexture()){
-		size = fragcore::Math::min<int>(VDSystemInfo::getCompatibility()->sMaxTextureSize, size);
-		this->getShadowTexture()->resize(size, size);
+		//size = fragcore::Math::min<int>(SystemInfo::getCompatibility()->sMaxTextureSize, size);
+		//this->getShadowTexture()->resize(size, size);
 	}
 }
 
-int VDLight::getShadowSize(void)const{
+int VDLight::getShadowSize()const{
 	if(this->getShadowTexture()){
 		return this->getShadowTexture()->width();
 	}
@@ -307,7 +301,7 @@ VDMatrix4x4 VDLight::getShadowMatrix(unsigned int pointLightIndex)const{
 
 	float shadowDist = VDQualitySetting::getShadowDistance();
 	switch(this->getType()){
-	case VDLight::eDirection:
+	case VDLight::Direction:
 
 		lightprojectM = HCMatrix4x4::rotate(transform->getRotation().conjugate());
 
@@ -336,7 +330,7 @@ VDMatrix4x4 VDLight::getShadowMatrix(unsigned int pointLightIndex)const{
 		lightprojectM = (VDMatrix4x4::perspective(fragcore::Math::deg2Rad( 90.0f ), 1.0f, 0.15f, 0.15f + this->getRange()) * lightprojectM);
 
 	}break;
-	case VDLight::eSpot:
+	case VDLight::Spot:
 		lightprojectM = VDMatrix4x4::rotate(transform->getRotation().conjugate());
 
 		lightprojectM *= VDMatrix4x4::translate(-transform->getPosition());
@@ -359,272 +353,272 @@ int VDLight::attachShadowComponent(unsigned int shadowFlag){
 		return SDL_FALSE;
 	}
 
-	if( shadowFlag & eLowShadowQuality ){size = 256;}
-	else if( shadowFlag & eMediumShadowQuality ){size = 512;}
-	else if( shadowFlag & eHighShadowQuality ){size = 1024;}
-	else if( shadowFlag & eUltraShadowQuality ){size = 2048;}
-	else if( shadowFlag & eSuperShadowQuality ){size = 4096;}
+	// if( shadowFlag & eLowShadowQuality ){size = 256;}
+	// else if( shadowFlag & eMediumShadowQuality ){size = 512;}
+	// else if( shadowFlag & eHighShadowQuality ){size = 1024;}
+	// else if( shadowFlag & eUltraShadowQuality ){size = 2048;}
+	// else if( shadowFlag & eSuperShadowQuality ){size = 4096;}
 
-	/*	get the minium value in order to fix max texture size.	*/
-	size = fragcore::Math::min<int>(VDSystemInfo::getCompatibility()->sMaxTextureSize, size);
+	// /*	get the minium value in order to fix max texture size.	*/
+	// size = fragcore::Math::min<int>(VDSystemInfo::getCompatibility()->sMaxTextureSize, size);
 
-	if( !(this->getType() & VDLight::Point) ){
+	// if( !(this->getType() & VDLight::Point) ){
 
-		if(!this->getShadowTexture()){
-			this->shadowBuffer = VDRenderTexture::ShadowMap(size, size, VDTexture::eDepthComponent, VDTexture::eDepthComponent32, VDTexture::eFloat);
-		}
-		else{
-			this->getShadowTexture()->resize(size, size);
-		}
-	}
-	else
-		this->shadowBuffer = VDRenderTexture::ShadowCubeMap(size, size);
+	// 	if(!this->getShadowTexture()){
+	// 		this->shadowBuffer = VDRenderTexture::ShadowMap(size, size, VDTexture::eDepthComponent, VDTexture::eDepthComponent32, VDTexture::eFloat);
+	// 	}
+	// 	else{
+	// 		this->getShadowTexture()->resize(size, size);
+	// 	}
+	// }
+	// else
+	// 	this->shadowBuffer = VDRenderTexture::ShadowCubeMap(size, size);
 
-	if(this->getShadowTexture()->isValid()){
+	// if(this->getShadowTexture()->isValid()){
 
-	}
+	// }
 
 	return SDL_TRUE;
 }
 
 
-void VDLight::detachShadowComponent(void){
+void VDLight::detachShadowComponent(){
 	if(this->isShadowBufferAttached()){
-		this->shadowBuffer->deincrement();
+		//this->shadowBuffer->deincrement();
 		delete this->shadowBuffer;
-		this->shadowBuffer = NULL;
+		this->shadowBuffer = nullptr;
 	}
 }
 
-void VDLight::updateLightUniformLocation(VDStackAllocator* allocator){
+//void VDLight::updateLightUniformLocation(StackAllocator* allocator){
 	//allocator = (VDStackAllocator*)((VDTaskSchedule::VDTaskPackage*)allocator)->begin;
-	UniformLight* uniformLight = (UniformLight*)allocator->fetch(VDScene::getScene()->uniform.engineState.numLights * sizeof(UniformLight));
-	register VDLight* light;
+	// UniformLight* uniformLight = (UniformLight*)allocator->fetch(VDScene::getScene()->uniform.engineState.numLights * sizeof(UniformLight));
+	// register VDLight* light;
 
-	const unsigned int shadowOffset = 128;
-	const unsigned int DirectionLightOffset = 128 * 4;
-	const unsigned int PointLightOffset = 1024 + DirectionLightOffset;
-	const unsigned int SpotLightOffset = 1024 + PointLightOffset;
+	// const unsigned int shadowOffset = 128;
+	// const unsigned int DirectionLightOffset = 128 * 4;
+	// const unsigned int PointLightOffset = 1024 + DirectionLightOffset;
+	// const unsigned int SpotLightOffset = 1024 + PointLightOffset;
 
-	unsigned int lightIndex = 0;
+	// unsigned int lightIndex = 0;
 
-	VDScene::getScene()->lightinfo.directIndices.clear();
-	VDScene::getScene()->lightinfo.pointIndices.clear();
-	VDScene::getScene()->lightinfo.spotIndices.clear();
-
-
-
-	VDScene::getScene()->lightinfo.lightbuffer.bind();
-	for(int x = 0; x < VDScene::getScene()->lightcollection.size(); x ++){
-		light = VDScene::getScene()->lightcollection[x];
-
-		/**/
-		if(light->getType() != VDLight::Point){
-			uniformLight[x].direction = light->transform()->getRotation().forward().normalize();
-		}
-		uniformLight[x].angle = light->getOuterCone();
-		uniformLight[x].color = light->getColor();
-		uniformLight[x].intensity = light->getIntensity();
-		uniformLight[x].range = light->getRange();
-		uniformLight[x].shadowStrength = light->getShadowStrenght();
-		uniformLight[x].type = light->isEnabled() ? light->getType() : 0;
-		uniformLight[x].position = light->transform()->getPosition();
-		uniformLight[x].shadowIndex = lightIndex;
-		/**/
-		uniformLight[x].shadowBias = light->getShadowBias();
+	// VDScene::getScene()->lightinfo.directIndices.clear();
+	// VDScene::getScene()->lightinfo.pointIndices.clear();
+	// VDScene::getScene()->lightinfo.spotIndices.clear();
 
 
-		/*	update transform.	*/
-		light->calcFrustumPlanes(light->transform()->getPosition(),
-				light->transform()->transformDirection(VDVector3::forward()),
-				light->transform()->transformDirection(VDVector3::up()),
-				light->transform()->transformDirection(VDVector3::right()) );
+
+	// VDScene::getScene()->lightinfo.lightbuffer.bind();
+	// for(int x = 0; x < VDScene::getScene()->lightcollection.size(); x ++){
+	// 	light = VDScene::getScene()->lightcollection[x];
+
+	// 	/**/
+	// 	if(light->getType() != VDLight::Point){
+	// 		uniformLight[x].direction = light->transform()->getRotation().forward().normalize();
+	// 	}
+	// 	uniformLight[x].angle = light->getOuterCone();
+	// 	uniformLight[x].color = light->getColor();
+	// 	uniformLight[x].intensity = light->getIntensity();
+	// 	uniformLight[x].range = light->getRange();
+	// 	uniformLight[x].shadowStrength = light->getShadowStrenght();
+	// 	uniformLight[x].type = light->isEnabled() ? light->getType() : 0;
+	// 	uniformLight[x].position = light->transform()->getPosition();
+	// 	uniformLight[x].shadowIndex = lightIndex;
+	// 	/**/
+	// 	uniformLight[x].shadowBias = light->getShadowBias();
 
 
-		/*	compute indices.	*/
-		if(light->isShadowBufferAttached() && VDQualitySetting::isShadowEnable()){
-			lightIndex++;
-			continue;
-		}
-		switch(light->getType()){
-		case VDLight::Point:
-			VDScene::getScene()->lightinfo.pointIndices.push(x);
-			break;
-		case VDLight::eDirection:
-			VDScene::getScene()->lightinfo.directIndices.push(x);
-			break;
-		case VDLight::eSpot:
-			VDScene::getScene()->lightinfo.spotIndices.push(x);
-			break;
-		default:
-			break;
-		}
+	// 	/*	update transform.	*/
+	// 	light->calcFrustumPlanes(light->transform()->getPosition(),
+	// 			light->transform()->transformDirection(VDVector3::forward()),
+	// 			light->transform()->transformDirection(VDVector3::up()),
+	// 			light->transform()->transformDirection(VDVector3::right()) );
 
-	}
 
-	/*	update light buffer.	*/
-	VDScene::getScene()->lightinfo.lightbuffer.write(uniformLight, 0 ,
-			VDScene::getScene()->uniform.engineState.numLights * sizeof(UniformLight));
+	// 	/*	compute indices.	*/
+	// 	if(light->isShadowBufferAttached() && VDQualitySetting::isShadowEnable()){
+	// 		lightIndex++;
+	// 		continue;
+	// 	}
+	// 	switch(light->getType()){
+	// 	case VDLight::Point:
+	// 		VDScene::getScene()->lightinfo.pointIndices.push(x);
+	// 		break;
+	// 	case VDLight::eDirection:
+	// 		VDScene::getScene()->lightinfo.directIndices.push(x);
+	// 		break;
+	// 	case VDLight::eSpot:
+	// 		VDScene::getScene()->lightinfo.spotIndices.push(x);
+	// 		break;
+	// 	default:
+	// 		break;
+	// 	}
 
-	/*	update light indices.	*/
-	VDScene::getScene()->lightinfo.lightIndices.write(&VDScene::getScene()->lightinfo.directIndices[0],
-			DirectionLightOffset * sizeof(GLint),
-			VDScene::getScene()->lightinfo.directIndices.size() * sizeof(GLint));
-	VDScene::getScene()->lightinfo.lightIndices.write(&VDScene::getScene()->lightinfo.pointIndices[0],
-			PointLightOffset * sizeof(GLint),
-			VDScene::getScene()->lightinfo.pointIndices.size() * sizeof(GLint));
-	VDScene::getScene()->lightinfo.lightIndices.write(&VDScene::getScene()->lightinfo.spotIndices[0],
-			SpotLightOffset * sizeof(GLint),
-			VDScene::getScene()->lightinfo.spotIndices.size() * sizeof(GLint));
+	// }
 
-}
+	// /*	update light buffer.	*/
+	// VDScene::getScene()->lightinfo.lightbuffer.write(uniformLight, 0 ,
+	// 		VDScene::getScene()->uniform.engineState.numLights * sizeof(UniformLight));
+
+	// /*	update light indices.	*/
+	// VDScene::getScene()->lightinfo.lightIndices.write(&VDScene::getScene()->lightinfo.directIndices[0],
+	// 		DirectionLightOffset * sizeof(GLint),
+	// 		VDScene::getScene()->lightinfo.directIndices.size() * sizeof(GLint));
+	// VDScene::getScene()->lightinfo.lightIndices.write(&VDScene::getScene()->lightinfo.pointIndices[0],
+	// 		PointLightOffset * sizeof(GLint),
+	// 		VDScene::getScene()->lightinfo.pointIndices.size() * sizeof(GLint));
+	// VDScene::getScene()->lightinfo.lightIndices.write(&VDScene::getScene()->lightinfo.spotIndices[0],
+	// 		SpotLightOffset * sizeof(GLint),
+	// 		VDScene::getScene()->lightinfo.spotIndices.size() * sizeof(GLint));
+
+//}
 
 
 void VDLight::drawLightAccumulationShadow(VDCamera* camera){
-	unsigned int numShadow = 0;
-	unsigned int samplerCount = 0;
-	unsigned int cubeSamplerCount = 0;
-	int x,y;
-	VDMesh::Primitive drawmode = VDMesh::eTriangles;
-	register VDLight* light;
-	register VDShader* shadowShader;
-	register VDShader* shadowCubeShader;
-	register VDShader* shadowCascade;
-	VDEngineLightShadow shadowUniform[32];
+	// unsigned int numShadow = 0;
+	// unsigned int samplerCount = 0;
+	// unsigned int cubeSamplerCount = 0;
+	// int x,y;
+	// VDMesh::Primitive drawmode = VDMesh::eTriangles;
+	// register VDLight* light;
+	// register VDShader* shadowShader;
+	// register VDShader* shadowCubeShader;
+	// register VDShader* shadowCascade;
+	// VDEngineLightShadow shadowUniform[32];
 
-	const VDMatrix4x4 biasMatrix = VDMatrix4x4::biasMatrix();
+	// const VDMatrix4x4 biasMatrix = VDMatrix4x4::biasMatrix();
 
-	/*	clear indices buffer.	*/
-	VDScene::getScene()->lightinfo.shadowDirectionIndices.clear();
-	VDScene::getScene()->lightinfo.shadowSpotIndices.clear();
-	VDScene::getScene()->lightinfo.shadowPointIndices.clear();
+	// /*	clear indices buffer.	*/
+	// VDScene::getScene()->lightinfo.shadowDirectionIndices.clear();
+	// VDScene::getScene()->lightinfo.shadowSpotIndices.clear();
+	// VDScene::getScene()->lightinfo.shadowPointIndices.clear();
 
-	/*	*/
-	switch(VDQualitySetting::getShadowFilter()){
-		case VDQualitySetting::ShadowFilter::eSimple:
-		case VDQualitySetting::ShadowFilter::ePCF:
-			shadowShader = VDRenderSetting::getSettings()->lightShadowFirstPass;
-			shadowCubeShader = VDRenderSetting::getSettings()->lightShadowCubeMap;
-			break;
-	}
+	// /*	*/
+	// switch(VDQualitySetting::getShadowFilter()){
+	// 	case VDQualitySetting::ShadowFilter::eSimple:
+	// 	case VDQualitySetting::ShadowFilter::ePCF:
+	// 		shadowShader = VDRenderSetting::getSettings()->lightShadowFirstPass;
+	// 		shadowCubeShader = VDRenderSetting::getSettings()->lightShadowCubeMap;
+	// 		break;
+	// }
 
-	/*	*/
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_FRONT);
-	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+	// /*	*/
+	// glEnable(GL_DEPTH_TEST);
+	// glEnable(GL_CULL_FACE);
+	// glCullFace(GL_FRONT);
+	// glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 
-	/**/
-	for(x = 0; x < VDScene::getScene()->lightcollection.size(); x++){
-		light = VDScene::getScene()->lightcollection[x];
-		if(light->isDisabled() || light->isShadowBufferAttached() == false){
-			continue;
-		}
-
-
-		/*	check if light frustum is visiable in camera frustum.*/
-		/*
-		if(camera->isFrustumCulling()){
-			if(light->intersectionFrustum(*camera) == VDFrustum::eOut){
-				continue;
-			}
-		}
-		*/
+	// /**/
+	// for(x = 0; x < VDScene::getScene()->lightcollection.size(); x++){
+	// 	light = VDScene::getScene()->lightcollection[x];
+	// 	if(light->isDisabled() || light->isShadowBufferAttached() == false){
+	// 		continue;
+	// 	}
 
 
-		/*	add to shadow buffer.	*/
-		switch(light->getType()){
-		case VDLight::Point:
-			VDScene::getScene()->lightinfo.shadowPointIndices.push(x);
-			break;
-		case VDLight::eDirection:
-			VDScene::getScene()->lightinfo.shadowDirectionIndices.push(x);
-			break;
-		case VDLight::eSpot:
-			VDScene::getScene()->lightinfo.shadowSpotIndices.push(x);
-			break;
-		default:
-			break;
-		}
+	// 	/*	check if light frustum is visiable in camera frustum.*/
+	// 	/*
+	// 	if(camera->isFrustumCulling()){
+	// 		if(light->intersectionFrustum(*camera) == VDFrustum::eOut){
+	// 			continue;
+	// 		}
+	// 	}
+	// 	*/
 
 
-		/*	bind shadow framebuffer.	*/
-		light->getShadowTexture()->write();
-		VDRenderingAPICache::setViewport(0, 0, light->getShadowTexture()->width(), light->getShadowTexture()->height());
-		glClear(GL_DEPTH_BUFFER_BIT);
-
-		/*	light sources except the point light.	*/
-		if(light->getType() != VDLight::Point){
-			memcpy(&shadowUniform[numShadow].shadow[0][0], &( biasMatrix * light->getShadowMatrix(0) )[0][0], sizeof(VDMatrix4x4) );
-			samplerCount++;
-			shadowShader->bind();
-			VDRenderer::internalShadowDraw(shadowShader, light, drawmode);
-		}
-		else{
-			memcpy(&shadowUniform[numShadow].shadow[0][0], (&( biasMatrix * light->getShadowMatrix(0) )[0][0]), sizeof(VDMatrix4x4) );
-			cubeSamplerCount++;
-
-			shadowCubeShader->bind();
-			VDMatrix4x4 proj[6];
-			VDMatrix4x4 glproj[6];
-			for(int x = 0; x < 6; x++){
-				glproj[x] =  light->getShadowMatrix(x);
-			}
-			glProgramUniformMatrix4fv(shadowCubeShader->getProgram(), shadowCubeShader->getMatrinxInfo()->viewprojection, 6, GL_FALSE, &glproj[0][0][0]);
-			VDRenderer::internalShadowDraw(shadowCubeShader , light, drawmode);
+	// 	/*	add to shadow buffer.	*/
+	// 	switch(light->getType()){
+	// 	case VDLight::Point:
+	// 		VDScene::getScene()->lightinfo.shadowPointIndices.push(x);
+	// 		break;
+	// 	case VDLight::eDirection:
+	// 		VDScene::getScene()->lightinfo.shadowDirectionIndices.push(x);
+	// 		break;
+	// 	case VDLight::eSpot:
+	// 		VDScene::getScene()->lightinfo.shadowSpotIndices.push(x);
+	// 		break;
+	// 	default:
+	// 		break;
+	// 	}
 
 
-		}
+	// 	/*	bind shadow framebuffer.	*/
+	// 	light->getShadowTexture()->write();
+	// 	VDRenderingAPICache::setViewport(0, 0, light->getShadowTexture()->width(), light->getShadowTexture()->height());
+	// 	glClear(GL_DEPTH_BUFFER_BIT);
 
-		/*	Unbind framebuffer.	*/
-		light->getShadowTexture()->unBind();
+	// 	/*	light sources except the point light.	*/
+	// 	if(light->getType() != VDLight::Point){
+	// 		memcpy(&shadowUniform[numShadow].shadow[0][0], &( biasMatrix * light->getShadowMatrix(0) )[0][0], sizeof(VDMatrix4x4) );
+	// 		samplerCount++;
+	// 		shadowShader->bind();
+	// 		VDRenderer::internalShadowDraw(shadowShader, light, drawmode);
+	// 	}
+	// 	else{
+	// 		memcpy(&shadowUniform[numShadow].shadow[0][0], (&( biasMatrix * light->getShadowMatrix(0) )[0][0]), sizeof(VDMatrix4x4) );
+	// 		cubeSamplerCount++;
 
-		/*	perform guassian blur if shadow filter is Variance.	*/
-		if( VDQualitySetting::getShadowFilter() == VDQualitySetting::ShadowFilter::eVariance ){
-
-
-		}else{
-
-
-		}
-
-		/*	Increment shadow.	*/
-		numShadow++;
-	}/*	light sources*/
-
-	const unsigned int shadowDirectionOffset = 128;
-	const unsigned int shadowSpotOffset = 128 * 2;
-	const unsigned int shadowPointOffset = 128 * 3;
-
-	/*	update light indices.*/
-	VDScene::getScene()->uniform.engineState.numShadows = numShadow;
-	VDScene::getScene()->lightinfo.lightIndices.write(VDScene::getScene()->lightinfo.shadowDirectionIndices.getData(),
-			shadowDirectionOffset * sizeof(GLint),
-			VDScene::getScene()->lightinfo.shadowDirectionIndices.size() * sizeof(GLint));
-
-	VDScene::getScene()->lightinfo.lightIndices.write(VDScene::getScene()->lightinfo.shadowSpotIndices.getData(),
-			shadowSpotOffset * sizeof(GLint),
-			VDScene::getScene()->lightinfo.shadowSpotIndices.size() * sizeof(GLint));
-
-	VDScene::getScene()->lightinfo.lightIndices.write(VDScene::getScene()->lightinfo.shadowPointIndices.getData(),
-			shadowPointOffset * sizeof(GLint),
-			VDScene::getScene()->lightinfo.shadowPointIndices.size() * sizeof(GLint));
+	// 		shadowCubeShader->bind();
+	// 		VDMatrix4x4 proj[6];
+	// 		VDMatrix4x4 glproj[6];
+	// 		for(int x = 0; x < 6; x++){
+	// 			glproj[x] =  light->getShadowMatrix(x);
+	// 		}
+	// 		glProgramUniformMatrix4fv(shadowCubeShader->getProgram(), shadowCubeShader->getMatrinxInfo()->viewprojection, 6, GL_FALSE, &glproj[0][0][0]);
+	// 		VDRenderer::internalShadowDraw(shadowCubeShader , light, drawmode);
 
 
-	/*	Update shadow buffer.	*/
-	VDScene::getScene()->lightinfo.shadowbuffer.write(&shadowUniform[0],  sizeof(shadowUniform[0]) * numShadow);
+	// 	}
+
+	// 	/*	Unbind framebuffer.	*/
+	// 	light->getShadowTexture()->unBind();
+
+	// 	/*	perform guassian blur if shadow filter is Variance.	*/
+	// 	if( VDQualitySetting::getShadowFilter() == VDQualitySetting::ShadowFilter::eVariance ){
+
+
+	// 	}else{
+
+
+	// 	}
+
+	// 	/*	Increment shadow.	*/
+	// 	numShadow++;
+	// }/*	light sources*/
+
+	// const unsigned int shadowDirectionOffset = 128;
+	// const unsigned int shadowSpotOffset = 128 * 2;
+	// const unsigned int shadowPointOffset = 128 * 3;
+
+	// /*	update light indices.*/
+	// VDScene::getScene()->uniform.engineState.numShadows = numShadow;
+	// VDScene::getScene()->lightinfo.lightIndices.write(VDScene::getScene()->lightinfo.shadowDirectionIndices.getData(),
+	// 		shadowDirectionOffset * sizeof(GLint),
+	// 		VDScene::getScene()->lightinfo.shadowDirectionIndices.size() * sizeof(GLint));
+
+	// VDScene::getScene()->lightinfo.lightIndices.write(VDScene::getScene()->lightinfo.shadowSpotIndices.getData(),
+	// 		shadowSpotOffset * sizeof(GLint),
+	// 		VDScene::getScene()->lightinfo.shadowSpotIndices.size() * sizeof(GLint));
+
+	// VDScene::getScene()->lightinfo.lightIndices.write(VDScene::getScene()->lightinfo.shadowPointIndices.getData(),
+	// 		shadowPointOffset * sizeof(GLint),
+	// 		VDScene::getScene()->lightinfo.shadowPointIndices.size() * sizeof(GLint));
+
+
+	// /*	Update shadow buffer.	*/
+	// VDScene::getScene()->lightinfo.shadowbuffer.write(&shadowUniform[0],  sizeof(shadowUniform[0]) * numShadow);
 
 
 	/*	reset framebuffer states.*/
-	VDRenderingAPICache::bindFramebuffer(GL_FRAMEBUFFER, 0);
+	//VDRenderingAPICache::bindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
 	/*	reset statements.	*/
-	glCullFace(GL_BACK);
-	glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
-}
+// 	glCullFace(GL_BACK);
+// 	glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+// }
 
 
-int VDLight::lightCount(void){
-	return VDScene::getScene()->lightcollection.size();
+// int VDLight::lightCount(){
+// 	return VDScene::getScene()->lightcollection.size();
 }

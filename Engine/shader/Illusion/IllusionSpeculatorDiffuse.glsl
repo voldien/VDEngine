@@ -42,6 +42,6 @@ uniform int _SpotLightCount;
 
 
 
-void main(void){
+void main(){
 	gl_FragColor = vec4(0,0,0,0);
 }

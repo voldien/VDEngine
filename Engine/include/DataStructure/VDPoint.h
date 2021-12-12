@@ -25,7 +25,7 @@
  */
 class VDDECLSPEC VDPoint{
 public:
-	VDPoint(void);
+	VDPoint();
 	VDPoint(const VDPoint& point);
 	VDPoint(int x, int y);
 	VDPoint(int v){this->setX(v); this->setY(v);}
@@ -33,12 +33,12 @@ public:
 	/**
 	 *	@Return
 	 */
-	inline int x(void)const{return this->m[0];}
+	inline int x()const{return this->m[0];}
 
 	/**
 	 *	@Return
 	 */
-	inline int y(void)const{return this->m[1];}
+	inline int y()const{return this->m[1];}
 
 	/**
 	 *
@@ -91,7 +91,7 @@ private:	/*	Attributes.	*/
 	};
 };
 
-inline VDPoint::VDPoint(void){}
+inline VDPoint::VDPoint(){}
 
 inline VDPoint::VDPoint(const VDPoint& point){
 	*this = point;

@@ -8,11 +8,11 @@
 
 VDMesh* VDGeometryProcedure::createQuad(float Width, float Height, unsigned int SubDivision, bool PivotPoint){
 
-	unsigned char* vertexData = NULL;
-	unsigned char* indicesData = NULL;
+	unsigned char* vertexData = nullptr;
+	unsigned char* indicesData = nullptr;
 	unsigned int vertexSize = 0;
 	unsigned int indicesSize = 0;
-	VDMesh* quadMesh = NULL;
+	VDMesh* quadMesh = nullptr;
 
 	float g_vertex_buffer_data[] = {
 				/**/
@@ -72,7 +72,7 @@ VDMesh* VDGeometryProcedure::createCube(float size, unsigned int subDivision){
 	unsigned char* vertexData;
 	unsigned char* indicesData;
 	unsigned int vertexSize, indicesSize;
-	VDMesh* cubeMesh = NULL;
+	VDMesh* cubeMesh = nullptr;
 
 
 	/*	TODO make it use draw elements instead, with GL_TRIANGLE_STRIP*/
@@ -128,10 +128,10 @@ VDMesh* VDGeometryProcedure::createCube(float size, unsigned int subDivision){
 }
 
 
-VDMesh* VDGeometryProcedure::createBoundingBox(void){
-	unsigned char* vdata = NULL;
-	unsigned char* idata = NULL;
-	VDMesh* boundingBox = NULL;
+VDMesh* VDGeometryProcedure::createBoundingBox(){
+	unsigned char* vdata = nullptr;
+	unsigned char* idata = nullptr;
+	VDMesh* boundingBox = nullptr;
 
 	return boundingBox;
 }

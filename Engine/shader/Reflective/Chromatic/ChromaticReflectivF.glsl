@@ -20,7 +20,7 @@ uniform vec4 DiffuseColor;
 uniform vec4 ReflectionColor;
 
 
-void main(void){
+void main(){
 	vec4 cColor = getChromaticReflection( ReflectionTexture, normalize(VertexPosition - info.cameraPos),  Reflect, TRed, TGreen, TBlue, refFactor);
 	fragColor = texture2D(DiffuseTexture, UV) * DiffuseColor * (getAmbientColor() + getLight(normal)) + (cColor * ReflectionColor);
 

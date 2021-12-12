@@ -6,6 +6,6 @@ uniform sampler2D DepthTexture;
 uniform vec3 CameraVelocity;
 
 
-void main(void){
+void main(){
 	fragColor = vec4(1,1,1,0);
 }

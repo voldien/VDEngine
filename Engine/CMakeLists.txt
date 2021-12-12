@@ -62,9 +62,9 @@ ENDIF()
 
 # Define all file lists.
 FILE(GLOB SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
-		#${CMAKE_CURRENT_SOURCE_DIR}/src/audio/*.cpp
-		#${CMAKE_CURRENT_SOURCE_DIR}/src/physic/*.cpp
-		#${CMAKE_CURRENT_SOURCE_DIR}/src/tools/*.cpp
+					${CMAKE_CURRENT_SOURCE_DIR}/src/audio/*.cpp
+					${CMAKE_CURRENT_SOURCE_DIR}/src/physic/*.cpp
+					${CMAKE_CURRENT_SOURCE_DIR}/src/tools/*.cpp
 )
 FILE(GLOB HEADER_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h
 						${CMAKE_CURRENT_SOURCE_DIR}/include/Core/*.h
@@ -99,10 +99,10 @@ SET_TARGET_PROPERTIES(vdengine PROPERTIES
 		COMPILE_FLAGS "")
 #SET_TARGET_PROPERTIES(TARGET vdengine PROPERTY CXX_STANDARD 20)
 target_compile_features(vdengine PUBLIC cxx_std_20)
-TARGET_LINK_LIBRARIES(vdengine m fragcore ${ASSIMP_LIBRARIES}) #${ASSIMP_LIBRARIES} TODO relocate
+TARGET_LINK_LIBRARIES(vdengine m fragcore fragcore-render-interface fragcore-physic-interface fragcore-audio-interface fragcore-pbu  ${ASSIMP_LIBRARIES}) #${ASSIMP_LIBRARIES} TODO relocate
 ADD_DEPENDENCIES(vdengine fragcore)
 TARGET_COMPILE_DEFINITIONS(vdengine PRIVATE VDENGINE_INTERNAL_IMP=1)	#TODO possible to be remove and handled by the source files completly.
-TARGET_INCLUDE_DIRECTORIES (vdengine PRIVATE ${LIBFRAGCORE_INCLUDES} ${HPMCPP_INCLUDE_DIRS} ${HPM_INCLUDE_DIRS} PUBLIC
+TARGET_INCLUDE_DIRECTORIES (vdengine PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
 	$<INSTALL_INTERFACE:include>

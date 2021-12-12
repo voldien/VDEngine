@@ -25,15 +25,15 @@
  */
 class VDDECLSPEC VDSpringJoint : public VDJoint{
 public:
-	VDSpringJoint(void);
+	VDSpringJoint();
 	VDSpringJoint(const VDSpringJoint& springjoint);
 	VDSpringJoint(VDRigidBody* rigidbody);
 
-	virtual void instanceInitilize(void);
-	virtual void onEnable(void);
-	virtual void onDisable(void);
-	virtual void initializeComponent(void);
-	virtual void onDestroy(void);
+	virtual void instanceInitilize();
+	virtual void onEnable();
+	virtual void onDisable();
+	virtual void initializeComponent();
+	virtual void onDestroy();
 	virtual VDBehavior* copyComponent(unsigned int& dataSize);
 
 	/**

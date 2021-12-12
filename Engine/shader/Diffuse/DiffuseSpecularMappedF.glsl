@@ -17,7 +17,7 @@ uniform float Shininess = 5.0f;
 
 
 
-void main(void){
+void main(){
 	fragColor = (DiffuseColor.rgb * texture2D(DiffuseTexture, UV).rgb) * 
 	(AmbientColor +  getLight(normal).rgb) + getSpecularFactor(normal,Shininess) * SpecularColor;
 	Worldfrag = VertexPosition;

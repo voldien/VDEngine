@@ -10,7 +10,7 @@ uniform vec4 DiffuseColor;
 uniform mat4 ModelViewProjection;
 uniform mat4 ModelMatrix;
 
-void main(void) {
+void main() {
 	gl_Position = ModelViewProjection * vec4(vertex, 1.0);
 	vVertex = (ModelMatrix * vec4(vertex, 1.0)).xyz;
 

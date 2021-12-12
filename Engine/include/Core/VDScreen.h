@@ -1,60 +1,58 @@
 /*
-    VDEngine virtual dimension game engine.
-    Copyright (C) 2014  Valdemar Lindberg
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-*/
+ *	VDEngine virtual dimension game engine.
+ *	Copyright (C) 2014  Valdemar Lindberg
+ *
+ *	This program is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	This program is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 #ifndef _VD_SCREEN_H_
 #define _VD_SCREEN_H_ 1
-#include"../VDDef.h"
-#include"../DataStructure/VDPoint.h"
+#include "../DataStructure/VDPoint.h"
+#include "../VDDef.h"
 
 /**
  *	Get information of current visible screen.
  */
 class VDDECLSPEC VDScreen {
-public:
-
-
+  public:
 	/**
 	 *	Get screen size in width.
 	 *
 	 *	@Return window width in pixel units.
 	 */
-	static int VDAPIFASTENTRY width(void);
+	static int VDAPIFASTENTRY width();
 
 	/**
 	 *	Get screen size in height.
 	 *
 	 *	@Return window height in pixel units.
 	 */
-	static int VDAPIFASTENTRY height(void);
+	static int VDAPIFASTENTRY height();
 
 	/**
 	 *	Get screen aspect.
 	 *
 	 *	@Return ratio.
 	 */
-	static float VDAPIENTRY aspect(void);
+	static float VDAPIENTRY aspect();
 
 	/**
 	 *	Return if application is fullscreen.
 	 *
 	 *	@Return true if fullscreen. Otherwise not.
 	 */
-	static bool VDAPIFASTENTRY isFullScreen(void);
+	static bool VDAPIFASTENTRY isFullScreen();
 
 	/**
 	 *	Set resolution.
@@ -72,8 +70,7 @@ public:
 	 *
 	 *	@Return
 	 */
-	static VDRect VDAPIENTRY getViewRect(void);
-
+	static VDRect VDAPIENTRY getViewRect();
 
 	/**
 	 *	Set window screen index.
@@ -82,13 +79,12 @@ public:
 	 */
 	static int VDAPIENTRY setScreen(int index);
 
-
 	/**
 	 *	Get screen index.
 	 *
 	 *	@Return
 	 */
-	static int VDAPIENTRY getScreenIndex(void);
+	static int VDAPIENTRY getScreenIndex();
 
 	/**
 	 *	Set window position
@@ -98,29 +94,25 @@ public:
 	/**
 	 *	Set window position
 	 */
-	static void VDAPIENTRY setLocation(const VDPoint& point);
-
+	static void VDAPIENTRY setLocation(const VDPoint &point);
 
 	/**
 	 *	Get window location.
 	 *
 	 *	@Return
 	 */
-	static VDPoint VDAPIENTRY getLocation(void);
-
+	static VDPoint VDAPIENTRY getLocation();
 
 	/**
 	 *
 	 */
 	static void VDAPIENTRY setCursorVisability(bool visable);
 
-
 	/**
 	 *
 	 *	@Return true if cursoir is visable.
 	 */
-	static bool VDAPIENTRY isCursorVisible(void);
-
+	static bool VDAPIENTRY isCursorVisible();
 };
 
 #endif

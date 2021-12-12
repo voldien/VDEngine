@@ -39,7 +39,7 @@ VDShader* VDShaderCreator::ComponentGeometryOutPut(unsigned int componet){
 	return componentGeometry;
 }
 
-VDShader* VDShaderCreator::SingleColorShader(void){
+VDShader* VDShaderCreator::SingleColorShader(){
 
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Legacy/SingleColorV.glsl" ).c_str(),
@@ -47,21 +47,21 @@ VDShader* VDShaderCreator::SingleColorShader(void){
 		"",
 		"SingleColor");
 }
-VDShader* VDShaderCreator::VertexColor(void){
+VDShader* VDShaderCreator::VertexColor(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath("Legacy/VertexColorV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath("Legacy/VertexColorF.glsl" ).c_str(),
 		"",
 		"VertexColor");
 }
-VDShader* VDShaderCreator::VertexLit(void){
+VDShader* VDShaderCreator::VertexLit(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "VertexLit/VertexLitV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "VertexLit/VertexLitF.glsl" ).c_str(),
 		"",
 		"VertexLit");
 }
-VDShader* VDShaderCreator::Unlit(void){
+VDShader* VDShaderCreator::Unlit(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Legacy/UnlitV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Legacy/UnliteF.glsl" ).c_str(),
@@ -69,28 +69,28 @@ VDShader* VDShaderCreator::Unlit(void){
 		"unlit");
 }
 
-VDShader* VDShaderCreator::Diffuse(void){
+VDShader* VDShaderCreator::Diffuse(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Diffuse/DiffuseV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Diffuse/DiffuseF.glsl" ).c_str(),
 		"",
 		"Diffuse");
 }
-VDShader* VDShaderCreator::NormalDiffuse(void){
+VDShader* VDShaderCreator::NormalDiffuse(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Diffuse/DiffuseNormalV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Diffuse/DiffuseNormalF.glsl" ).c_str(),
 		"",
 		"NormalDiffuse");
 }
-VDShader* VDShaderCreator::SpecularNormal(void){
+VDShader* VDShaderCreator::SpecularNormal(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Diffuse/DiffuseSpecularNormalV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Diffuse/DiffuseSpecularNormalF.glsl" ).c_str(),
 		"",
 		"SpecularNormal");
 }
-VDShader* VDShaderCreator::Specular(void){
+VDShader* VDShaderCreator::Specular(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Diffuse/SpecularDiffuseV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Diffuse/SpecularDiffuseF.glsl" ).c_str(),
@@ -98,7 +98,7 @@ VDShader* VDShaderCreator::Specular(void){
 		"Specular");
 }
 
-VDShader* VDShaderCreator::SpecularMapped(void){	// specular with specular map on diffuse materail
+VDShader* VDShaderCreator::SpecularMapped(){	// specular with specular map on diffuse materail
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Diffuse/DiffuseSpecularMappedV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Diffuse/DiffuseSpecularMappedF.glsl" ).c_str(),
@@ -106,7 +106,7 @@ VDShader* VDShaderCreator::SpecularMapped(void){	// specular with specular map o
 		"DiffuseSpecularMapped");
 }
 
-VDShader* VDShaderCreator::SpecularNormalMapped(void){	// specular with specular map on DiffuseNormal material.
+VDShader* VDShaderCreator::SpecularNormalMapped(){	// specular with specular map on DiffuseNormal material.
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Diffuse/DiffuseNormalSpecularMappedV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Diffuse/DiffuseNormalSpecularMappedF.glsl" ).c_str(),
@@ -114,7 +114,7 @@ VDShader* VDShaderCreator::SpecularNormalMapped(void){	// specular with specular
 		"DiffuseSpecularNormalMapped");
 }
 
-VDShader* VDShaderCreator::ParallaxDiffuse(void){
+VDShader* VDShaderCreator::ParallaxDiffuse(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Parallax/ParallaxDiffuseV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Parallax/ParallaxDiffuseF.glsl" ).c_str(),
@@ -122,21 +122,21 @@ VDShader* VDShaderCreator::ParallaxDiffuse(void){
 		"parallaxDiffuse");
 }
 
-VDShader* VDShaderCreator::ParallaxNormal(void){
+VDShader* VDShaderCreator::ParallaxNormal(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Parallax/ParallaxNormalV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Parallax/ParallaxNormalF.glsl" ).c_str(),
 		"",
 		"parallaxNormal");
 }
-VDShader* VDShaderCreator::ParallaxNormalSpecular(void){
+VDShader* VDShaderCreator::ParallaxNormalSpecular(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Parallax/ParallaxSpecularNormalV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Parallax/ParallaxSpecularNormalF.glsl" ).c_str(),
 		"",
 		"parallaxNormalSpecular");
 }
-VDShader* VDShaderCreator::ParallaxSpecular(void){
+VDShader* VDShaderCreator::ParallaxSpecular(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Parallax/ParallaxSpecularV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Parallax/ParallaxSpecularF.glsl" ).c_str(),
@@ -144,7 +144,7 @@ VDShader* VDShaderCreator::ParallaxSpecular(void){
 		"ParallaxSpecular");
 }
 
-VDShader* VDShaderCreator::ChromaticReflectiv(void){
+VDShader* VDShaderCreator::ChromaticReflectiv(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Reflective/Chromatic/ChromaticReflectivV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Reflective/Chromatic/ChromaticReflectivF.glsl" ).c_str(),
@@ -154,81 +154,81 @@ VDShader* VDShaderCreator::ChromaticReflectiv(void){
 
 
 
-VDShader* VDShaderCreator::RefractionDiffuse(void){
+VDShader* VDShaderCreator::RefractionDiffuse(){
 	return VDShader::createShader();
 }
-VDShader* VDShaderCreator::RefractionNormal(void){
+VDShader* VDShaderCreator::RefractionNormal(){
 	return VDShader::createShader();
 }
-VDShader* VDShaderCreator::RefractionSpecular(void){
+VDShader* VDShaderCreator::RefractionSpecular(){
 	return VDShader::createShader();
 }
-VDShader* VDShaderCreator::RefractionNormalSpecular(void){
+VDShader* VDShaderCreator::RefractionNormalSpecular(){
 	return VDShader::createShader();
 }
-VDShader* VDShaderCreator::RefractionMapped(void){
+VDShader* VDShaderCreator::RefractionMapped(){
 	return VDShader::createShader();
 }
 
 
 
 
-VDShader* VDShaderCreator::ReflectiveDiffuse(void){
+VDShader* VDShaderCreator::ReflectiveDiffuse(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Reflective/ReflectiveDiffuseV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Reflective/ReflectiveDiffuseF.glsl" ).c_str(),
 		"",
 		"ReflectiveDiffuse");
 }
-VDShader* VDShaderCreator::ReflectiveNormal(void){
+VDShader* VDShaderCreator::ReflectiveNormal(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Reflective/ReflectiveNormalV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Reflective/ReflectiveNormalF.glsl" ).c_str(),
 		"",
 		"ReflectiveNormal");
 }
-VDShader* VDShaderCreator::ReflectiveSpecular(void){
+VDShader* VDShaderCreator::ReflectiveSpecular(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Reflective/ReflectiveSpecularV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Reflective/ReflectiveSpecularF.glsl" ).c_str(),
 		"",
 		"ReflectiveSpecular");
 }
-VDShader* VDShaderCreator::ReflectiveNormalSpecular(void){
+VDShader* VDShaderCreator::ReflectiveNormalSpecular(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Reflective/ReflectiveNormalSpecularV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Reflective/ReflectiveNormalSpecularF.glsl" ).c_str(),
 		"",
 		"ReflectiveNormalSpecular");
 }
-VDShader* VDShaderCreator::ReflectiveMapped(void){
+VDShader* VDShaderCreator::ReflectiveMapped(){
 	return VDShader::createShader();
 }
 
 
 
-VDShader* VDShaderCreator::TranslucentDiffuse(void){
+VDShader* VDShaderCreator::TranslucentDiffuse(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Transparent/TransparentDiffuseV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Transparent/TransparentDiffuseF.glsl" ).c_str(),
 		"",
 		"TransparentDiffuse");
 }
-VDShader* VDShaderCreator::TranslucentSpecular(void){
+VDShader* VDShaderCreator::TranslucentSpecular(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Transparent/TransparentSpecularV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Transparent/TransparentSpecularF.glsl" ).c_str(),
 		"",
 		"TransparentSpecular");
 }
-VDShader* VDShaderCreator::TranslucentNormal(void){
+VDShader* VDShaderCreator::TranslucentNormal(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Transparent/TransparentNormalV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Transparent/TransparentNormalF.glsl" ).c_str(),
 		"",
 		"TransparentNormal");
 }
-VDShader* VDShaderCreator::TranslucentSpecularNormal(void){
+VDShader* VDShaderCreator::TranslucentSpecularNormal(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Transparent/TransparentNormalSpecularV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Transparent/TransparentNormalSpecularF.glsl" ).c_str(),
@@ -236,28 +236,28 @@ VDShader* VDShaderCreator::TranslucentSpecularNormal(void){
 		"TransparentNormalSpecular");
 }
 
-VDShader* VDShaderCreator::IllusionDiffuse(void){
+VDShader* VDShaderCreator::IllusionDiffuse(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Illusion/IllusionDiffuseV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Illusion/IllusionDiffuseF.glsl" ).c_str(),
 		"",
 		"IllusionDiffuse");
 }
-VDShader* VDShaderCreator::IllusionNormal(void){
+VDShader* VDShaderCreator::IllusionNormal(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Illusion/IllusionNormalV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Illusion/IllusionNormalF.glsl" ).c_str(),
 		"",
 		"IllusionNormal");
 }
-VDShader* VDShaderCreator::IllusionSpecular(void){
+VDShader* VDShaderCreator::IllusionSpecular(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Illusion/IllusionSpecularV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Illusion/IllusionSpecularF.glsl" ).c_str(),
 		"",
 		"IllusionSpecular");
 }
-VDShader* VDShaderCreator::IllusionNormalSpecular(void){
+VDShader* VDShaderCreator::IllusionNormalSpecular(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Illusion/IllusionNormalSpecularV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Illusion/IllusionNormalSpecularF.glsl" ).c_str(),
@@ -265,7 +265,7 @@ VDShader* VDShaderCreator::IllusionNormalSpecular(void){
 		"IllusionNormalSpecular");
 }
 
-VDShader* VDShaderCreator::SkyBox(void){
+VDShader* VDShaderCreator::SkyBox(){
 	VDShader* SkyBox = VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "SkyBox/skyboxV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "SkyBox/skyboxF.glsl" ).c_str(),
@@ -281,7 +281,7 @@ VDShader* VDShaderCreator::SkyBox(void){
 	return SkyBox;
 }
 
-VDShader* VDShaderCreator::PostOutShader(void){
+VDShader* VDShaderCreator::PostOutShader(){
 	VDShader* shader = VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "PostProcessing/BasicPostVertexShader.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "PostProcessing/PostColorOutPut.glsl" ).c_str(),
@@ -292,7 +292,7 @@ VDShader* VDShaderCreator::PostOutShader(void){
 	return shader;
 }
 
-VDShader* VDShaderCreator::SimpleBillboard(void){
+VDShader* VDShaderCreator::SimpleBillboard(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath("Billbording/BillbordingV.glsl").c_str(),
 		VDShaderCreator::getAbsolutePath("Billbording/BillbordingF.glsl").c_str(),
@@ -300,23 +300,23 @@ VDShader* VDShaderCreator::SimpleBillboard(void){
 		"SimpleBillboard");
 }
 
-VDShader* VDShaderCreator::Subsurface(void){
+VDShader* VDShaderCreator::Subsurface(){
 	return VDShader::createShader();
 }
-VDShader* VDShaderCreator::SubsurfaceNormal(void){
+VDShader* VDShaderCreator::SubsurfaceNormal(){
 	return VDShader::createShader();
 }
-VDShader* VDShaderCreator::SubsurfaceSpecular(void){
+VDShader* VDShaderCreator::SubsurfaceSpecular(){
 	return VDShader::createShader();
 }
-VDShader* VDShaderCreator::SubsurfaceNormalSpecular(void){
+VDShader* VDShaderCreator::SubsurfaceNormalSpecular(){
 	return VDShader::createShader();
 }
-VDShader* VDShaderCreator::SubsurfaceMapped(void){
+VDShader* VDShaderCreator::SubsurfaceMapped(){
 	return VDShader::createShader();
 }
 
-VDShader* VDShaderCreator::ForwardFirstPassShadow(void){
+VDShader* VDShaderCreator::ForwardFirstPassShadow(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Shadow/shadowV.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Shadow/shadowF.glsl" ).c_str(),
@@ -324,7 +324,7 @@ VDShader* VDShaderCreator::ForwardFirstPassShadow(void){
 		"simpleShadow");
 }
 
-VDShader* VDShaderCreator::CubeMapShadow(void){
+VDShader* VDShaderCreator::CubeMapShadow(){
 	return VDShader::createShader(
 		VDShaderCreator::getAbsolutePath( "Shadow/shadowcubemapV.glsl.glsl" ).c_str(),
 		VDShaderCreator::getAbsolutePath( "Shadow/shadowcubemapF.glsl.glsl" ).c_str(),
@@ -346,11 +346,11 @@ VDShader* VDShaderCreator::createPostProcessingShader(const char* cVertexShader,
 long int VDShaderCreator::loadShaderString(const char* cfilename, void** data){
 	long int nbytes;
 
-	if(cfilename == NULL){
+	if(cfilename == nullptr){
 		return -1;
 	}
 
-	// if(strstr(cfilename, "glsl.gz") != NULL){
+	// if(strstr(cfilename, "glsl.gz") != nullptr){
 	// 	nbytes = VDGZFile::loadString(cfilename, (char**)data);
 	// 	if(nbytes <= 0){
 
@@ -370,11 +370,11 @@ long int VDShaderCreator::loadBuiltInShaderSource(const char* cfilename, void** 
 	/*	TODO add support for gzip.	*/
 	long int nbytes;
 
-	if(cfilename == NULL){
+	if(cfilename == nullptr){
 		return -1;
 	}
 
-	// if(strstr(cfilename, "glsl.gz") != NULL){
+	// if(strstr(cfilename, "glsl.gz") != nullptr){
 	// 	nbytes = VDGZFile::loadString(cfilename, (char**)pbuffer);
 	// 	if(nbytes <= 0){
 

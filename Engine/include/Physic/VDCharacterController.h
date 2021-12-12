@@ -43,14 +43,14 @@ public:
 		eCapsuleCharacter = 0x1,
 		eBoxCharacter = 0x2,
 	};
-	VDCharacterController(void);
+	VDCharacterController();
 	VDCharacterController(VDCharacterController& controller);
 
-	virtual void VDAPIENTRY instanceInitilize(void);
-	virtual void VDAPIENTRY onEnable(void);
-	virtual void VDAPIENTRY onDisable(void);
-	virtual void VDAPIENTRY initializeComponent(void);
-	virtual void VDAPIENTRY onDestroy(void);
+	virtual void VDAPIENTRY instanceInitilize();
+	virtual void VDAPIENTRY onEnable();
+	virtual void VDAPIENTRY onDisable();
+	virtual void VDAPIENTRY initializeComponent();
+	virtual void VDAPIENTRY onDestroy();
 	virtual VDBehavior* VDAPIENTRY copyComponent(unsigned int& dataSize);
 
 	/**
@@ -63,13 +63,13 @@ public:
 	 *
 	 *	@Return
 	 */
-	CharacterType VDAPIENTRY getShapeType(void)const;
+	CharacterType VDAPIENTRY getShapeType()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	unsigned int VDAPIENTRY getCollisionFlag(void)const;
+	unsigned int VDAPIENTRY getCollisionFlag()const;
 
 	/*
 	 *
@@ -87,7 +87,7 @@ public:
 	 *
 	 *	@Return
 	 */
-	float VDAPIFASTENTRY getMinMove(void)const;
+	float VDAPIFASTENTRY getMinMove()const;
 
 
 	/*
@@ -98,12 +98,12 @@ public:
 	/*
 	 *
 	 */
-	float VDAPIFASTENTRY getRadius(void)const;
+	float VDAPIFASTENTRY getRadius()const;
 
 	/*
 	 *
 	 */
-	float VDAPIFASTENTRY getHeight(void)const;
+	float VDAPIFASTENTRY getHeight()const;
 
 	/*
 	 *

@@ -41,114 +41,114 @@ public:
 	 *
 	 *	@Return non-null object if created successfully.
 	 */
-	static VDShader* VDAPIENTRY SingleColorShader(void);
-	static VDShader* VDAPIENTRY VertexColor(void);
-	static VDShader* VDAPIENTRY VertexLit(void);
-	static VDShader* VDAPIENTRY Unlit(void);
+	static VDShader* VDAPIENTRY SingleColorShader();
+	static VDShader* VDAPIENTRY VertexColor();
+	static VDShader* VDAPIENTRY VertexLit();
+	static VDShader* VDAPIENTRY Unlit();
 
 	/**
 	 *
 	 *	@Return non-null object if created successfully.
 	 */
-	static VDShader* VDAPIFASTENTRY Diffuse(void);
-	static VDShader* VDAPIFASTENTRY NormalDiffuse(void);
-	static VDShader* VDAPIFASTENTRY Specular(void);
-	static VDShader* VDAPIFASTENTRY SpecularNormal(void);
-	static VDShader* VDAPIFASTENTRY SpecularMapped(void);
-	static VDShader* VDAPIFASTENTRY SpecularNormalMapped(void);
+	static VDShader* VDAPIFASTENTRY Diffuse();
+	static VDShader* VDAPIFASTENTRY NormalDiffuse();
+	static VDShader* VDAPIFASTENTRY Specular();
+	static VDShader* VDAPIFASTENTRY SpecularNormal();
+	static VDShader* VDAPIFASTENTRY SpecularMapped();
+	static VDShader* VDAPIFASTENTRY SpecularNormalMapped();
 
 	/**
 	 *	Create parallax diffuse.
 	 *
 	 *	@Return non-null object if created successfully.
 	 */
-	static VDShader* VDAPIFASTENTRY ParallaxDiffuse(void);
-	static VDShader* VDAPIFASTENTRY ParallaxNormal(void);
-	static VDShader* VDAPIFASTENTRY ParallaxNormalSpecular(void);
-	static VDShader* VDAPIFASTENTRY ParallaxSpecular(void);
-	static VDShader* VDAPIFASTENTRY ParallaxSpecularMapped(void);
+	static VDShader* VDAPIFASTENTRY ParallaxDiffuse();
+	static VDShader* VDAPIFASTENTRY ParallaxNormal();
+	static VDShader* VDAPIFASTENTRY ParallaxNormalSpecular();
+	static VDShader* VDAPIFASTENTRY ParallaxSpecular();
+	static VDShader* VDAPIFASTENTRY ParallaxSpecularMapped();
 
 	/**
 	 *	@Return non-null object if created successfully.
 	 */
-	static VDShader* VDAPIFASTENTRY RefractionDiffuse(void);
-	static VDShader* VDAPIFASTENTRY RefractionNormal(void);
-	static VDShader* VDAPIFASTENTRY RefractionSpecular(void);
-	static VDShader* VDAPIFASTENTRY RefractionNormalSpecular(void);
-	static VDShader* VDAPIFASTENTRY RefractionMapped(void);
-
-	/**
-	 *
-	 *	@Return non-null object if created successfully.
-	 */
-	static VDShader* VDAPIFASTENTRY ReflectiveDiffuse(void);
-	static VDShader* VDAPIFASTENTRY ReflectiveNormal(void);
-	static VDShader* VDAPIFASTENTRY ReflectiveSpecular(void);
-	static VDShader* VDAPIFASTENTRY ReflectiveNormalSpecular(void);
-	static VDShader* VDAPIFASTENTRY ReflectiveMapped(void);
+	static VDShader* VDAPIFASTENTRY RefractionDiffuse();
+	static VDShader* VDAPIFASTENTRY RefractionNormal();
+	static VDShader* VDAPIFASTENTRY RefractionSpecular();
+	static VDShader* VDAPIFASTENTRY RefractionNormalSpecular();
+	static VDShader* VDAPIFASTENTRY RefractionMapped();
 
 	/**
 	 *
 	 *	@Return non-null object if created successfully.
 	 */
-	static VDShader* VDAPIFASTENTRY TranslucentDiffuse(void);
-	static VDShader* VDAPIFASTENTRY TranslucentSpecular(void);
-	static VDShader* VDAPIFASTENTRY TranslucentSpecularMapped(void);
-	static VDShader* VDAPIFASTENTRY TranslucentNormal(void);
-	static VDShader* VDAPIFASTENTRY TranslucentSpecularNormal(void);
+	static VDShader* VDAPIFASTENTRY ReflectiveDiffuse();
+	static VDShader* VDAPIFASTENTRY ReflectiveNormal();
+	static VDShader* VDAPIFASTENTRY ReflectiveSpecular();
+	static VDShader* VDAPIFASTENTRY ReflectiveNormalSpecular();
+	static VDShader* VDAPIFASTENTRY ReflectiveMapped();
 
 	/**
 	 *
 	 *	@Return non-null object if created successfully.
 	 */
-	static VDShader* VDAPIFASTENTRY IllusionDiffuse(void);
-	static VDShader* VDAPIFASTENTRY IllusionNormal(void);
-	static VDShader* VDAPIFASTENTRY IllusionSpecular(void);
-	static VDShader* VDAPIFASTENTRY IllusionNormalSpecular(void);
-	static VDShader* VDAPIFASTENTRY IllusionReflective(void);
+	static VDShader* VDAPIFASTENTRY TranslucentDiffuse();
+	static VDShader* VDAPIFASTENTRY TranslucentSpecular();
+	static VDShader* VDAPIFASTENTRY TranslucentSpecularMapped();
+	static VDShader* VDAPIFASTENTRY TranslucentNormal();
+	static VDShader* VDAPIFASTENTRY TranslucentSpecularNormal();
 
-	static VDShader* VDAPIFASTENTRY PostOutShader(void);
+	/**
+	 *
+	 *	@Return non-null object if created successfully.
+	 */
+	static VDShader* VDAPIFASTENTRY IllusionDiffuse();
+	static VDShader* VDAPIFASTENTRY IllusionNormal();
+	static VDShader* VDAPIFASTENTRY IllusionSpecular();
+	static VDShader* VDAPIFASTENTRY IllusionNormalSpecular();
+	static VDShader* VDAPIFASTENTRY IllusionReflective();
+
+	static VDShader* VDAPIFASTENTRY PostOutShader();
 
 	/**
 	 *	create Skybox shader.
 	 *	@Return non-null object if created successfully.
 	 */
-	static VDShader* VDAPIFASTENTRY SkyBox(void);
+	static VDShader* VDAPIFASTENTRY SkyBox();
 
 	/**
 	 *	Billboarding
 	 *	@Return non-null object if created successfully.
 	 */
-	static VDShader* VDAPIFASTENTRY SimpleBillboard(void);
-	static VDShader* VDAPIFASTENTRY Billboard(void);
+	static VDShader* VDAPIFASTENTRY SimpleBillboard();
+	static VDShader* VDAPIFASTENTRY Billboard();
 
 	/**
 	 *	@Return non-null object if created successfully.
 	 */
-	static VDShader* VDAPIFASTENTRY LightScattering(void);
+	static VDShader* VDAPIFASTENTRY LightScattering();
 
 	/**
 	 *	Create approximated sub scattering surface.
 	 *	@Return non-null object if created successfully.
 	 */
-	static VDShader* VDAPIFASTENTRY Subsurface(void);
-	static VDShader* VDAPIFASTENTRY SubsurfaceNormal(void);
-	static VDShader* VDAPIFASTENTRY SubsurfaceSpecular(void);
-	static VDShader* VDAPIFASTENTRY SubsurfaceNormalSpecular(void);
-	static VDShader* VDAPIFASTENTRY SubsurfaceMapped(void);
+	static VDShader* VDAPIFASTENTRY Subsurface();
+	static VDShader* VDAPIFASTENTRY SubsurfaceNormal();
+	static VDShader* VDAPIFASTENTRY SubsurfaceSpecular();
+	static VDShader* VDAPIFASTENTRY SubsurfaceNormalSpecular();
+	static VDShader* VDAPIFASTENTRY SubsurfaceMapped();
 
 	/**
 	 *
 	 *	@Return non-null object if created successfully.
 	 */
-	static VDShader* VDAPIFASTENTRY ChromaticReflectiv(void);
+	static VDShader* VDAPIFASTENTRY ChromaticReflectiv();
 
 	/**
 	 *
 	 *	@Return non-null object if created successfully.
 	 */
-	static VDShader* VDAPIFASTENTRY ForwardFirstPassShadow(void);
-	static VDShader* VDAPIFASTENTRY CubeMapShadow(void);
+	static VDShader* VDAPIFASTENTRY ForwardFirstPassShadow();
+	static VDShader* VDAPIFASTENTRY CubeMapShadow();
 
 	/**
 	 *

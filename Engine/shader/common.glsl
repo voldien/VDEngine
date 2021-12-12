@@ -185,7 +185,7 @@ uniform samplerCube ambientCube;		/*	Image based ambient lightning*/
 /**
  *	Get ambient color.
  */
-vec4 getAmbientColor(void){
+vec4 getAmbientColor(){
 	return info.ambientColor;
 }
 
@@ -221,14 +221,14 @@ vec4 getAmbient(const in vec3 inputNormal){
 /**
  *	Get current time.
  */
-float getTime(void){
+float getTime(){
 	return info.time;
 }
 
 /**
  *	Get delta time.
  */
-float getDeltaTime(void){
+float getDeltaTime(){
 	return info.deltaTime;
 }
 
@@ -236,7 +236,7 @@ float getDeltaTime(void){
  *	Get screen resolution in
  *	pixels.
  */
-vec2 getScreen(void){
+vec2 getScreen(){
 	return info.screenRes;
 }
 
@@ -244,7 +244,7 @@ vec2 getScreen(void){
  *	Get UV coordinate of
  *	the screen.
  */
-vec2 getScreenUV(void){
+vec2 getScreenUV(){
 #if VD_FRAGMENT_SHADER
 	return gl_FragCoord.xy / getScreen();
 #else
@@ -256,14 +256,14 @@ vec2 getScreenUV(void){
  * Get current camera position
  * in world space.
  */
-vec3 getCameraPosition(void){
+vec3 getCameraPosition(){
 	return info.cameraPos.xyz;
 }
 
 /**
  *	Get current camera forward direction.
  */
-vec3 getCameraDirection(void){
+vec3 getCameraDirection(){
 	return info.cameraDir.xyz;
 }
 
@@ -271,7 +271,7 @@ vec3 getCameraDirection(void){
  *	Get current camera's
  *	near distance.
  */
-float getCameraNear(void){
+float getCameraNear(){
 	return info.cameraNear;
 }
 
@@ -279,28 +279,28 @@ float getCameraNear(void){
  *	Get current camera's
  *	far distance.
  */
-float getCameraFar(void){
+float getCameraFar(){
 	return info.cameraFar;
 }
 
 /**
  *
  */
-mat4 getViewMatrix(void){
+mat4 getViewMatrix(){
 	return info.viewMatrix;
 }
 
 /**
  *
  */
-mat4 getProjectionMatrix(void){
+mat4 getProjectionMatrix(){
 	return info.projection;
 }
 
 /**
  *
  */
-mat4 getViewProjectionMatrix(void){
+mat4 getViewProjectionMatrix(){
 	return info.viewProjection;
 }
 
@@ -310,7 +310,7 @@ mat4 getViewProjectionMatrix(void){
 #define FOGEXP2		0x3	/*	*/
 #define FOGHEIGHT	0x4	/*	*/
 
-float getFogFactor(void){
+float getFogFactor(){
 
 	float near = getCameraNear();
 	float far = getCameraFar();

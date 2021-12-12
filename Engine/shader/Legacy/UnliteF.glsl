@@ -6,7 +6,7 @@ IN vec2 vUV;
 IN vec3 vNormal;
 
 
-void main(void){
+void main(){
 	const vec4 color = DiffuseColor * texture2D(DiffuseTexture, vUV) * getAmbient(vNormal);
 	fragColor = internalFog(color);
 }

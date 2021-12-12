@@ -12,7 +12,7 @@ uniform mat4 ModelMatrix;
 uniform float refraction;
 uniform vec3 CameraPos;
 
-void main(void){
+void main(){
 	gl_Position = ModelViewProjection * vec4(Vertex,1.0);
 	VertexPosition = (ModelMatrix * vec4(Vertex,1.0)).xyz;
 	UV = TextureCoord;

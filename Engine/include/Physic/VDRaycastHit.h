@@ -28,49 +28,49 @@
  */
 class VDDECLSPEC VDRaycastHit{
 public:
-	VDRaycastHit(void);
+	VDRaycastHit();
 	VDRaycastHit(const VDRaycastHit& hit);
 
 	/**
 	 *	Get collider if hitted any.
 	 */
-	VDCollider* VDAPIFASTENTRY collider(void)const;
+	VDCollider* VDAPIFASTENTRY collider()const;
 
 	/**
 	 *	Get rigidbody if hitted any.
 	 */
-	VDRigidBody* VDAPIFASTENTRY rigidBody(void)const;
+	VDRigidBody* VDAPIFASTENTRY rigidBody()const;
 
 	/**
 	 *	Get gameobject if hitted any.
 	 */
-	VDGameObject* VDAPIFASTENTRY gameObject(void)const;
+	VDGameObject* VDAPIFASTENTRY gameObject()const;
 
 	/**
 	 *	Get gameobjects transform if hitted any.
 	 */
-	VDTransform* VDAPIFASTENTRY transform(void)const;
+	VDTransform* VDAPIFASTENTRY transform()const;
 
 	/**
 	 *	Get point in worldspace of the hit.
 	 */
-	VDVector3 VDAPIFASTENTRY point(void)const;
+	VDVector3 VDAPIFASTENTRY point()const;
 
 	/*
 	 *	Get normal surface the ray hit.
 	 */
-	VDVector3 VDAPIFASTENTRY normal(void)const;
+	VDVector3 VDAPIFASTENTRY normal()const;
 
 	/**
 	 *	Get distance between the ray caster and point
 	 *	hitted.
 	 */
-	float VDAPIFASTENTRY distance(void)const;
+	float VDAPIFASTENTRY distance()const;
 
 	/**
 	 *	Get barycentric coordinate of the triangle hitted.
 	 */
-	VDVector2 VDAPIFASTENTRY barycentric(void)const;
+	VDVector2 VDAPIFASTENTRY barycentric()const;
 
 
 #if defined(VD_INTERNAL) && defined(USE_PHYSX)

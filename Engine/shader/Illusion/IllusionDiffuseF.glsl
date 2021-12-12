@@ -16,7 +16,7 @@ uniform sampler2D DiffuseTexture;
 uniform sampler2D IllusionTexture;
 
 
-void main(void){
+void main(){
 	fragColor = texture2D(DiffuseTexture, UV).rgb * Diffuse.rgb * (AmbientColor + GetLight(normal).rgb)
 	+ texture2D(IllusionTexture, UV).rgb);
 	illusionColor = texture2D(IllusionTexture, UV).rgba;

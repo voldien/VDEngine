@@ -20,7 +20,7 @@ uniform vec3 CameraPos;
 uniform float Shininess;
 
 
-void main(void){
+void main(){
 	vec3 surfaceNormal = GetTBN(normal, tangent, NormalTexture, UV);
 	fragColor = (texture2D(DiffuseTexture , UV)  * DiffuseColor) * (vec4(AmbientColor,0.0f) + GetLight(surfaceNormal).rgba) + vec4(GetSpecularFactor(surfaceNormal,Shininess) * vec4(SpecularColor, 1.0f)) ;
 	Worldfrag = VertexPosition;

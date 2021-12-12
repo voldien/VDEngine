@@ -26,7 +26,7 @@
  */
 class VDDECLSPEC VDTriangle : public VDShape{
 public:
-	VDTriangle(void);
+	VDTriangle();
 	VDTriangle(const VDTriangle& triangle);
 	VDTriangle(const VDTriangle& p1, const VDTriangle& p2, const VDTriangle& p3);
 
@@ -35,25 +35,25 @@ public:
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIENTRY getNormal(void)const;
+	VDVector3 VDAPIENTRY getNormal()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIENTRY getEdge0(void)const;
+	VDVector3 VDAPIENTRY getEdge0()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIENTRY getEdge1(void)const;
+	VDVector3 VDAPIENTRY getEdge1()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIENTRY getEdge3(void)const;
+	VDVector3 VDAPIENTRY getEdge3()const;
 
 
 	/**/
@@ -79,7 +79,7 @@ private:	/*	Attributes.	*/
 };
 
 
-inline VDTriangle::VDTriangle(void){
+inline VDTriangle::VDTriangle(){
 	p0 = VDVector3::zero();
 	p1 = VDVector3::zero();
 	p2 = VDVector3::zero();
@@ -97,19 +97,19 @@ inline VDTriangle::VDTriangle(const VDTriangle& p1, const VDTriangle& p2, const 
 	this->p2 = p3;
 }
 
-inline VDVector3 VDTriangle::getEdge0(void)const{
+inline VDVector3 VDTriangle::getEdge0()const{
 	return ( p0 - p1 );
 }
 
-inline VDVector3 VDTriangle::getEdge1(void)const{
+inline VDVector3 VDTriangle::getEdge1()const{
 	return ( p0 - p2 );
 }
 
-inline VDVector3 VDTriangle::getEdge3(void)const{
+inline VDVector3 VDTriangle::getEdge3()const{
 	return ( p2 - p1 );
 }
 
-inline VDVector3 VDTriangle::getNormal(void)const{
+inline VDVector3 VDTriangle::getNormal()const{
 	return cross(p0 - p1, p0 - p2) / dot(p0 - p1, p0 -p2);
 }
 

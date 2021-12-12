@@ -32,7 +32,7 @@ uniform vec4 boundingBoxColor;
 
 
 
-void main(void){
+void main(){
 	if((componentFlag & worldPos) != 0){
 		fragColor = vec4(VertexPosition,1.0);		
 	}

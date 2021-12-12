@@ -8,7 +8,7 @@ uniform float GammaCutoff = 0.5f;
 uniform float InvGamma = 0.45f;
 
 
-void main(void){
+void main(){
 	vec4 colour = texture2D(DiffuseTexture, UV);
 	colour.xyz = colour.xyz + Brightness;
 	

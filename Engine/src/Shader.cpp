@@ -36,7 +36,7 @@ map<unsigned int, VDShader*> shaderCollection;
 
 
 
-VDShader::VDShader(void) : VDAssetObject(){
+VDShader::VDShader() : VDAssetObject(){
 	memset(&this->common, 0, sizeof(this->common));
 	memset(&this->matrixInfo, 0, sizeof(this->matrixInfo));
 	memset(&this->subroutines, 0, sizeof(this->subroutines));
@@ -50,7 +50,7 @@ VDShader::VDShader(const VDShader& shader) : VDAssetObject(){
 
 VDShader::VDShader(const char* cVertexFileName, const char* fragmentPath, const char* geometryPath, const char* name, const char* tessC, const char* tessE, unsigned int  flag) : VDAssetObject(){
 	char* v_source,*f_source,*g_source,*tc_source,*te_source;
-	v_source = f_source = g_source = tc_source = te_source = NULL;
+	v_source = f_source = g_source = tc_source = te_source = nullptr;
 
 	this->flag  = 0;
 	memset(&this->common, 0, sizeof(this->common));
@@ -132,7 +132,7 @@ VDShader::VDShader(const char* cVertexFileName, const char* fragmentPath, const 
 			fragmentPath,
 			geometryPath,
 			tessC,
-			tessE, NULL);
+			tessE, nullptr);
 
 
 	/*	free memory	*/
@@ -143,17 +143,17 @@ VDShader::VDShader(const char* cVertexFileName, const char* fragmentPath, const 
 	free(te_source);
 }
 
-VDShader::~VDShader(void){
+VDShader::~VDShader(){
 
 }
 
-unsigned int VDShader::getProgram(void)const{
+unsigned int VDShader::getProgram()const{
 	return this->program;
 }
 
-void VDShader::release(void){
+void VDShader::release(){
 
-	if(shaderCollection[getInstanceID()] != NULL){
+	if(shaderCollection[getInstanceID()] != nullptr){
 		ShaderCollection::iterator it = shaderCollection.find(getInstanceID());
 		shaderCollection.erase(it);
 	}
@@ -177,7 +177,7 @@ void VDShader::release(unsigned int pflag){
 
 
 
-bool VDShader::isValid(void)const{
+bool VDShader::isValid()const{
 	int validate;
 	glValidateProgram(this->getProgram());
 	glGetProgramiv(this->getProgram(), GL_VALIDATE_STATUS, &validate);
@@ -220,7 +220,7 @@ unsigned int VDShader::getUniformBlockIndex(const char* uniformBlockName)const{
 
 int VDShader::getUniformSize(const char* uniformName)const{
 	int size; GLenum type;
-	glGetActiveUniform(this->getProgram(), this->getUniformLocation(uniformName), NULL, NULL, &size, &type, NULL);
+	glGetActiveUniform(this->getProgram(), this->getUniformLocation(uniformName), nullptr, nullptr, &size, &type, nullptr);
 	return size;
 }
 
@@ -284,11 +284,11 @@ void VDShader::setSubRoutineTmp(ShaderType shaderType, const char* funcname, con
 	this->subroutines.indices[location] = getSubRoutineIndex(shaderType, routineName);
 }
 
-unsigned int VDShader::getNumSubRoutines(void)const{
+unsigned int VDShader::getNumSubRoutines()const{
 	return this->subroutines.numActive;
 }
 
-const unsigned int* VDShader::getActiveRoutinesIndices(void)const{
+const unsigned int* VDShader::getActiveRoutinesIndices()const{
 	return this->subroutines.indices;
 }
 
@@ -331,7 +331,7 @@ void VDShader::flagReference(const char* cVertexFileName, const char* fragmentPa
 			source = tessE;
 
 		/**/
-		if(source == NULL){
+		if(source == nullptr){
 			continue;
 		}
 		if( strlen(source) == 0){
@@ -401,7 +401,7 @@ void VDShader::flagReference(const char* cVertexFileName, const char* fragmentPa
 
 
 
-void VDShader::initFlagData(void){
+void VDShader::initFlagData(){
 	VDColor color = VDColor(0.7,0.7,0.7,1.0);
 
 	/*	*/
@@ -492,12 +492,12 @@ void VDShader::getUniformMatrixLocation(VDShader* shader){
 
 void VDShader::setShader(VDShader* shader){
 
-	if( shader == NULL ){
-		VDDebug::warningLog("Can't add (NULL) Shader.\n");
+	if( shader == nullptr ){
+		VDDebug::warningLog("Can't add (nullptr) Shader.\n");
 		return;
 	}
 
-	if(shaderCollection[shader->getInstanceID()] == NULL){
+	if(shaderCollection[shader->getInstanceID()] == nullptr){
 		shaderCollection.insert(pair<unsigned int, VDShader*>(shader->getInstanceID(), shader));
 		shaderCollection[shader->getInstanceID()] = shader;
 	}
@@ -601,7 +601,7 @@ int VDShader::compileShader(const char* vertex, const char* fragment, const char
 
 	if(vertex){
 		vshad = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vshad , arrindex, vsources, NULL);
+		glShaderSource(vshad , arrindex, vsources, nullptr);
 		glCompileShader(vshad );
 		glGetShaderiv(vshad , GL_COMPILE_STATUS, &cshad_status);
 		glAttachShader(this->program, vshad);
@@ -609,7 +609,7 @@ int VDShader::compileShader(const char* vertex, const char* fragment, const char
 
 	if(fragment){
 		fshad = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fshad , arrindex, fsources, NULL);
+		glShaderSource(fshad , arrindex, fsources, nullptr);
 		glCompileShader(fshad );
 		glGetShaderiv(fshad , GL_COMPILE_STATUS, &cshad_status);
 		glAttachShader(this->program, fshad);
@@ -617,21 +617,21 @@ int VDShader::compileShader(const char* vertex, const char* fragment, const char
 
 	if(geomtry){
 		gshad = glCreateShader(GL_GEOMETRY_SHADER);
-		glShaderSource(gshad , arrindex, gsources, NULL);
+		glShaderSource(gshad , arrindex, gsources, nullptr);
 		glCompileShader(gshad);
 		glGetShaderiv(gshad , GL_COMPILE_STATUS, &cshad_status);
 		glAttachShader(program, gshad);
 	}
 	if(control){
 		int shad = glCreateShader(GL_GEOMETRY_SHADER);
-		glShaderSource(shad , arrindex, gsources, NULL);
+		glShaderSource(shad , arrindex, gsources, nullptr);
 		glCompileShader(shad );
 		glGetShaderiv(shad , GL_COMPILE_STATUS, &cshad_status);
 		glAttachShader(program, shad);
 	}
 	if(evolution){
 		int shad = glCreateShader(GL_GEOMETRY_SHADER);
-		glShaderSource(shad , arrindex, gsources, NULL);
+		glShaderSource(shad , arrindex, gsources, nullptr);
 		glCompileShader(shad );
 		glGetShaderiv(shad , GL_COMPILE_STATUS, &cshad_status);
 		glAttachShader(program, shad);
@@ -686,11 +686,11 @@ unsigned int VDShader::validateShader(const VDShader* shader){
 		}
 
 		if (status == GL_FALSE) {
-			glGetProgramInfoLog(shader->getProgram(), sizeof(log), NULL, log);
+			glGetProgramInfoLog(shader->getProgram(), sizeof(log), nullptr, log);
 			printf("\x1B[31m" "Failed to compile shader\n%s\n", log);
 		}
 		if (validate == GL_FALSE) {
-			glGetProgramInfoLog(shader->getProgram(), sizeof(log), NULL, log);
+			glGetProgramInfoLog(shader->getProgram(), sizeof(log), nullptr, log);
 			printf("\x1B[31m" "Invalid shader\n%s\n", log);
 		}
 
@@ -719,12 +719,12 @@ void VDShader::getCompileLog(GLint obj, unsigned int type, char* infoLog){
 
 char* VDShader::getShaderSource(VDShader* shader, unsigned int shad){
 	if( !shader->isValid() ){
-		return NULL;
+		return nullptr;
 	}
 
-	char* source = NULL;
+	char* source = nullptr;
 	//if(!ExGetShaderSource(shad, &source)){
-	//	return NULL;
+	//	return nullptr;
 	//}
 
 	return source;
@@ -737,7 +737,7 @@ VDShader* VDShader::findShader(const char* cname){
 				return x->second;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 
@@ -764,7 +764,7 @@ unsigned int VDShader::getFileShaderVersion(const string& source)const{
 }
 
 
-VDShader* VDShader::createShader(void){
+VDShader* VDShader::createShader(){
 	VDShader* shader = VDScene::getScene()->shaders.obtain();
 	//VDShader* shader = engine.gshaders.obtain();
 	VDShader tmp = VDShader();

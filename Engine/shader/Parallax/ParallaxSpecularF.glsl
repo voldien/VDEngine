@@ -20,7 +20,7 @@ uniform vec3 CameraPos;
 uniform vec2 DisplacementHeight;
 
 
-void main(void){
+void main(){
 	vec2 ParallaxCoord = GetParallax(DisplacementTexture, UV, normalize(eyeDirection), DisplacementHeight);
 	vec3 surfaceNormal = GetTBN(normal, tangent, NormalTexture,ParallaxCoord);
 	fragColor = texture2D(DiffuseTexture, ParallaxCoord).rgb * DiffuseColor.rgb *

@@ -18,7 +18,7 @@
 using namespace std;
 
 
-VDTexture2D::VDTexture2D(void) : VDTexture(){
+VDTexture2D::VDTexture2D() : VDTexture(){
 	this->mWidth = 0;
 	this->mHeight = 0;
 	this->format = 0;
@@ -62,13 +62,13 @@ VDTexture2D::VDTexture2D(unsigned int width, unsigned int height, unsigned int S
 	*/
 
 	if( this->flag & eSrgb ){
-		glTexImage2D(this->target, 0, this->getSRGBFormat(this->internalFormat), this->mWidth, this->mHeight, 0, format, this->type, (GLvoid*)NULL);
+		glTexImage2D(this->target, 0, this->getSRGBFormat(this->internalFormat), this->mWidth, this->mHeight, 0, format, this->type, (GLvoid*)nullptr);
 	}
 	else{
 		if(this->flag & eCompressed){
 			this->internalFormat = getCompressType(this->internalFormat);
 		}
-		glTexImage2D(this->getTarget(), 0, this->internalFormat, this->mWidth, this->mHeight, 0, format, this->type, (GLvoid*)NULL);
+		glTexImage2D(this->getTarget(), 0, this->internalFormat, this->mWidth, this->mHeight, 0, format, this->type, (GLvoid*)nullptr);
 	}
 
 	if(glGetError() != GL_NO_ERROR){
@@ -82,10 +82,10 @@ VDTexture2D::VDTexture2D(const char* path, unsigned int textureFlag) : VDTexture
 	this->loadTexture(path, textureFlag);
 }
 
-VDTexture2D::~VDTexture2D(void){
+VDTexture2D::~VDTexture2D(){
 }
 
-void VDTexture2D::release(void){
+void VDTexture2D::release(){
 	VDTexture::release();
 
 	//remove from texture holder
@@ -103,7 +103,7 @@ void VDTexture2D::release(void){
 	}
 }
 
-unsigned int VDTexture2D::bpp(void)const{
+unsigned int VDTexture2D::bpp()const{
 	return 24;//ExGetTextureBpp(this->format);
 }
 
@@ -125,7 +125,7 @@ void* VDTexture2D::pixels(unsigned int level, VDTexture::TextureFormat intformat
 	unsigned char* pixels;
 
 	if(!this->isValid()){
-		return NULL;
+		return nullptr;
 	}
 
 	/**/
@@ -142,7 +142,7 @@ void* VDTexture2D::pixels(unsigned int level, VDTexture::TextureFormat intformat
 }
 
 
-void VDTexture2D::update(void){
+void VDTexture2D::update(){
 	this->release();
 	this->loadTexture(this->getName(), this->flag);
 }
@@ -153,13 +153,13 @@ unsigned int VDTexture2D::loadTexture(const char* path, unsigned int supportFlag
 	}
 
 	unsigned int _width = 0, _height = 0, _bpp = 0;
-	unsigned char* pixels = NULL;
+	unsigned char* pixels = nullptr;
 	this->setName(path);
 
 
 	/*	Check if Image already Exists!	*/
 	VDTexture2D* existTexture = VDTexture2D::existTexture(path);
-	if(existTexture != NULL){
+	if(existTexture != nullptr){
 		*this = *existTexture;
 		//Texture2D::assignTexture(this,
 		return SDL_TRUE;
@@ -205,7 +205,7 @@ unsigned int VDTexture2D::loadTexture(const char* path, unsigned int supportFlag
 	this->mWidth = (unsigned short)_width;
 	this->mHeight = (unsigned short)_height;
 
-	char* textureName = NULL;
+	char* textureName = nullptr;
 	std::string _converted = path;
 	//memcpy(&textureName,(char*)_converted.c_str(),strlen(_converted.c_str()) + 1);
 	//VDTexture2D::assignTexture(this,textureName);
@@ -226,7 +226,7 @@ unsigned int VDTexture2D::loadTextureContent(const char* path, unsigned char** p
 	FreeImage_Initialise(0);
 	FREE_IMAGE_FORMAT format = FreeImage_GetFileType(path, 0);
 	image = FreeImage_Load(format, path, 0);
-	if(image == NULL){
+	if(image == nullptr){
 		VDDebug::criticalLog("Failed to load %s\n", path);
 		return 0;
 	}
@@ -274,18 +274,18 @@ void VDTexture2D::assignTexture(VDTexture2D* texture, const char* pathName){
 
 VDTexture2D* VDTexture2D::existTexture(const char* path){
 
-	return NULL;
+	return nullptr;
 	for(std::map<const char*, VDTexture2D*>::iterator x = VDScene::getScene()->textureCollection.begin(); x != VDScene::getScene()->textureCollection.end(); x++){
-		if(x->second->getName() == NULL)
+		if(x->second->getName() == nullptr)
 			continue; // name is null. can't check.
 		if(strcmp(path, x->second->getName()) == 0)
 			return x->second;
 	}
-	return NULL;
+	return nullptr;
 }
 
 unsigned int VDTexture2D::saveTextureContent(const char* path, VDTexture2D* texture, unsigned int TextureFormat){
-	if(texture == NULL || path == NULL){
+	if(texture == nullptr || path == nullptr){
 		return SDL_FALSE;
 	}
 	unsigned int success;
@@ -298,7 +298,7 @@ unsigned int VDTexture2D::saveTextureContent(const char* path, VDTexture2D* text
 
 unsigned int VDTexture2D::saveTextureContent(const char* path, unsigned char* PixelBuffer,unsigned int Width,unsigned int Height, unsigned int TextureinternalFormat, unsigned int TextureType, unsigned int saveFormat ){
 
-	if(path == NULL || PixelBuffer == NULL){
+	if(path == nullptr || PixelBuffer == nullptr){
 		return SDL_FALSE;
 	}
 

@@ -25,14 +25,14 @@
  */
 class VDDECLSPEC VDBoxCollider : public VDCollider {
 public:
-	VDBoxCollider(void);
+	VDBoxCollider();
 	VDBoxCollider(const VDBoxCollider& collider);
 
-	virtual void VDAPIENTRY instanceInitilize(void);
-	virtual void VDAPIENTRY onEnable(void);
-	virtual void VDAPIENTRY onDisable(void);
-	virtual void VDAPIENTRY initializeComponent(void);
-	virtual void VDAPIENTRY onDestroy(void);
+	virtual void VDAPIENTRY instanceInitilize();
+	virtual void VDAPIENTRY onEnable();
+	virtual void VDAPIENTRY onDisable();
+	virtual void VDAPIENTRY initializeComponent();
+	virtual void VDAPIENTRY onDestroy();
 	virtual VDBehavior* VDAPIENTRY copyComponent(unsigned int& dataSize);
 
 	/**
@@ -45,7 +45,7 @@ public:
 	/**
 	 *	Get box size.
 	 */
-	VDVector3 VDAPIFASTENTRY getSize(void)const;
+	VDVector3 VDAPIFASTENTRY getSize()const;
 
 	/**
 	 *	Perform a ray intersects the box.

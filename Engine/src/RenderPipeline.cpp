@@ -56,7 +56,7 @@ void VDRenderPipeLine::render(VDDoubleBufferedAllocator* allocator){
 	}
 
 	/*	render main camera last.	*/
-	if(cam != NULL){
+	if(cam != nullptr){
 		VDRenderPipeLine::drawCamera( VDCamera::getMainCamera(), allocator );
 	}
 }
@@ -129,7 +129,7 @@ void VDRenderPipeLine::renderPostEffect(VDCamera* camera, VDRenderSetting::Rende
 	glBlendFunc(GL_SRC_COLOR, GL_DST_COLOR);
 
 	/*	Accuire rendertexture.	*/
-	if(camera->getRenderTexture() == NULL){
+	if(camera->getRenderTexture() == nullptr){
 		rendertarget = VDRenderSetting::getRenderingPathFrameBuffer(path);
 	}
 	else{
@@ -181,7 +181,7 @@ void VDRenderPipeLine::renderPostEffect(VDCamera* camera, VDRenderSetting::Rende
 
 	if(camera->isMainCamera()){
 		VDRenderTexture::blit(tmp, rendertarget);
-		VDRenderTexture::blit(tmp, NULL);
+		VDRenderTexture::blit(tmp, nullptr);
 	}
 	else{
 		VDRenderTexture::blit(tmp, rendertarget);
@@ -363,13 +363,13 @@ void VDRenderPipeLine::occlude(VDFrustum* camera, VDDoubleBufferedAllocator* all
 // 	for(VDRenderer** y = (VDRenderer**)package->begin; y != (VDRenderer**)package->end; y++){
 // 		VDRenderer*rend = *y;
 // 		/*	Check if renderer exists or if layer is valid.	*/
-// 		if(rend == NULL || !(layer & rend->gameObject()->getLayer()) ){
+// 		if(rend == nullptr || !(layer & rend->gameObject()->getLayer()) ){
 // 			continue;
 // 		}
 
 
 // 		/*	discard if object is not enabled or no mesh.	*/
-// 		if(!rend->isVisiable() || rend->getMesh() == NULL){
+// 		if(!rend->isVisiable() || rend->getMesh() == nullptr){
 // 			continue;
 // 		}
 

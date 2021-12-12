@@ -39,7 +39,7 @@ float SamplePixels (in vec3 srcPosition, in vec3 srcNormal, in vec2 uv){
 	return intensity * attenuation;
 }
 
-void main(void){
+void main(){
 	vec3 srcPosition = texture2D(WorldTexture,UV).rgb;
 	vec3 srcNormal = normalize(texture2D(NormalTexture,UV).rgb);
 	vec2 randVec = normalize(texture2D(NormalRandomize,UV).xy * 2.0f - 1.0f);

@@ -11,7 +11,7 @@ struct cmp_str{
 std::map<char*, unsigned int, cmp_str> layer_names;
 
 
-VDLayer::VDLayer(void){
+VDLayer::VDLayer(){
 	this->index = 0;
 }
 
@@ -23,7 +23,7 @@ VDLayer::VDLayer(unsigned int index){
 	this->index = index;
 }
 
-unsigned int VDLayer::getIndex(void)const{
+unsigned int VDLayer::getIndex()const{
 	return this->index;
 }
 
@@ -45,7 +45,7 @@ VDLayer VDLayer::operator&(const VDLayer& layer)const{
 	return VDLayer(getIndex() & layer.getIndex());
 }
 
-unsigned int VDLayer::operator!(void)const{
+unsigned int VDLayer::operator!()const{
 	return !this->index;
 }
 

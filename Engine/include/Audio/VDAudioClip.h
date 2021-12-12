@@ -42,17 +42,17 @@ public:
 		eStreamSource = 	0x10,	/*	*/
 	};
 
-	VDAudioClip(void);
+	VDAudioClip();
 	VDAudioClip(const VDAudioClip& audio);
 	VDAudioClip(const char* path, Format bitFlag = (Format)(eIs2D | eCompressed) );
-	~VDAudioClip(void);
+	~VDAudioClip();
 
 
 	/**
 	 *	Method responsible for releasing
 	 *	resources associate with this object.
 	 */
-	virtual void VDAPIENTRY release(void);
+	virtual void VDAPIENTRY release();
 
 	/**
 	 *	Set type of audio clip.
@@ -64,13 +64,13 @@ public:
 	 *	Check if audio is a 3D audio clip.
 	 *	@Return true if 3D, false otherwise.
 	 */
-	bool VDAPIFASTENTRY is3D(void);
+	bool VDAPIFASTENTRY is3D();
 
 	/**
 	 *	Check if audio is 2D.
 	 *	@Return true if 2D, otherwise false.
 	 */
-	bool VDAPIFASTENTRY is2D(void);
+	bool VDAPIFASTENTRY is2D();
 
 	/**
 	 *
@@ -82,7 +82,7 @@ public:
 	 *
 	 *	@Return
 	 */
-	void* getSoundTrack(void)const{return soundTrack;}
+	void* getSoundTrack()const{return soundTrack;}
 
 
 	/**

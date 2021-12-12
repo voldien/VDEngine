@@ -32,7 +32,7 @@ public:
 	/**
 	 *	@Return
 	 */
-	VDIterator& operator++(void);
+	VDIterator& operator++();
 
 	/**
 	 *	@Return
@@ -43,7 +43,7 @@ public:
 	/**
 	 *	@Return
 	 */
-	VDIterator& operator--(void);
+	VDIterator& operator--();
 
 
 	/**
@@ -76,21 +76,21 @@ public:
 	/**
 	 *	@Return
 	 */
-	T& operator->(void)const{
+	T& operator->()const{
 		return (T)*this->iterator;
 	}
 
 	/**
 	 *	@Return
 	 */
-	T& operator*(void)const{
+	T& operator*()const{
 		return *this->iterator;
 	}
 
 	/**
 	 *	@Return
 	 */
-	T& operator*(void){
+	T& operator*(){
 		return *this->iterator;
 	}
 

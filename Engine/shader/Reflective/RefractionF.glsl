@@ -17,6 +17,6 @@ uniform vec3 CameraPos;
 uniform float refraction;
 
 
-void main(void){
+void main(){
 	fragColor = (GetLight(normal) + texture(ReflectionTexture ,refractionVector) * ReflectionColor).rgb;
 }

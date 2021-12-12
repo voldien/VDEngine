@@ -29,7 +29,7 @@ unsigned int VDMatrix::mode = VDMatrix::Model;
 
 
 
-void VDMatrix::init(void){
+void VDMatrix::init(){
 	const int reservedsize = 16;
 
 	VDMatrix::mode = VDMatrix::Model;
@@ -43,7 +43,7 @@ void VDMatrix::init(void){
 }
 
 
-void VDMatrix::pushMatrix(void){
+void VDMatrix::pushMatrix(){
 	switch(VDMatrix::mode){
 	case VDMatrix::Model:
 		VDMatrix::modelMatrix.push_back(VDMatrix::modelMatrix[VDMatrix::modelMatrix.size() -1]);
@@ -59,7 +59,7 @@ void VDMatrix::pushMatrix(void){
 	}
 }
 
-void VDMatrix::popMatrix(void){
+void VDMatrix::popMatrix(){
 	switch(VDMatrix::mode){
 	case VDMatrix::Model:
 		if(VDMatrix::modelMatrix.size() > 1)
@@ -99,7 +99,7 @@ void VDMatrix::matrixMode(unsigned int matrixMode){
 }
 
 
-void VDMatrix::identity(void){
+void VDMatrix::identity(){
 	if(VDMatrix::mode == VDMatrix::View){
 		VDMatrix::modelMatrix[VDMatrix::modelMatrix.size() -1] = VDMatrix4x4::identity();
 	}
@@ -230,39 +230,39 @@ int VDMatrix::getIndex(unsigned int mode){
 	}
 }
 
-int VDMatrix::getProjectIndex(void){
+int VDMatrix::getProjectIndex(){
 	return VDMatrix::projectionMatrix.size() -1;
 }
 
-int VDMatrix::getViewIndex(void){
+int VDMatrix::getViewIndex(){
 	return VDMatrix::viewMatrix.size() -1;
 }
 
-int VDMatrix::getModelIndex(void){
+int VDMatrix::getModelIndex(){
 	return VDMatrix::modelMatrix.size() -1;
 }
 
-VDMatrix4x4 VDMatrix::getModelView(void){
+VDMatrix4x4 VDMatrix::getModelView(){
 	return (VDMatrix::viewMatrix[VDMatrix::viewMatrix.size() -1] * VDMatrix::modelMatrix[VDMatrix::modelMatrix.size() -1]);
 }
 
-VDMatrix4x4 VDMatrix::getModel(void){
+VDMatrix4x4 VDMatrix::getModel(){
 	return VDMatrix::modelMatrix[VDMatrix::modelMatrix.size() -1];
 }
 
-VDMatrix4x4 VDMatrix::getView(void){
+VDMatrix4x4 VDMatrix::getView(){
 	return VDMatrix::viewMatrix[VDMatrix::viewMatrix.size() -1];
 }
 
-VDMatrix4x4 VDMatrix::getProjection(void){
+VDMatrix4x4 VDMatrix::getProjection(){
 	return VDMatrix::projectionMatrix[VDMatrix::projectionMatrix.size() -1];
 }
 
-VDMatrix4x4 VDMatrix::getViewProjection(void){
+VDMatrix4x4 VDMatrix::getViewProjection(){
 	return VDMatrix4x4(VDMatrix::projectionMatrix[VDMatrix::projectionMatrix.size() -1] *
 		VDMatrix::viewMatrix[VDMatrix::viewMatrix.size() -1]);
 }
-VDMatrix4x4 VDMatrix::getModelViewProjection(void){
+VDMatrix4x4 VDMatrix::getModelViewProjection(){
 	return VDMatrix4x4(VDMatrix::projectionMatrix[VDMatrix::projectionMatrix.size() -1] *
 		VDMatrix::viewMatrix[VDMatrix::viewMatrix.size() -1] *
 		VDMatrix::modelMatrix[VDMatrix::modelMatrix.size() -1]);
@@ -270,7 +270,7 @@ VDMatrix4x4 VDMatrix::getModelViewProjection(void){
 
 
 void VDMatrix::uniformLocation(const VDShader* shader){
-	if(shader == NULL){
+	if(shader == nullptr){
 		return;
 	}
 		

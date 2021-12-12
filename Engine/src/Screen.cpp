@@ -9,26 +9,26 @@
 #include <SDL2/SDL_video.h>
 
 
-int VDScreen::width(void){
+int VDScreen::width(){
 	int w,h;
 	SDL_GetWindowSize((SDL_Window*)VDEngine::getWindow(), &w, &h);
 	return w;
 }
 
-int VDScreen::height(void){
+int VDScreen::height(){
 	int w,h;
 	SDL_GetWindowSize((SDL_Window*)VDEngine::getWindow(), &w, &h);
 	return h;
 }
 
-float VDScreen::aspect(void){
+float VDScreen::aspect(){
 	int w,h;
 	SDL_GetWindowSize((SDL_Window*)VDEngine::getWindow(), &w, &h);
 	return (float)w / (float)h;
 }
 
 
-bool VDScreen::isFullScreen(void){
+bool VDScreen::isFullScreen(){
 	return engine.fullscreen != SDL_FALSE;
 }
 
@@ -66,7 +66,7 @@ int VDScreen::setScreen(int index){
 	SDL_SetWindowPosition((SDL_Window*)VDEngine::getWindow(), rect.x, rect.y);
 }
 
-int VDScreen::getScreenIndex(void){
+int VDScreen::getScreenIndex(){
 	return private_displayIndex;
 }
 
@@ -80,7 +80,7 @@ void VDScreen::setLocation(const VDPoint& point){
 	VDScreen::setLocation(point.x(), point.y());
 }
 
-VDPoint VDScreen::getLocation(void){
+VDPoint VDScreen::getLocation(){
 	VDPoint point;
 	SDL_GetWindowPosition((SDL_Window*)VDEngine::getWindow(), &point[0], &point[1]);
 	return point;
@@ -91,6 +91,6 @@ void VDScreen::setCursorVisability(bool visable){
 	engine.cursorVisible = visable;
 }
 
-bool VDScreen::isCursorVisible(void){
+bool VDScreen::isCursorVisible(){
 	return engine.cursorVisible;
 }

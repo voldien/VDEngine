@@ -14,7 +14,7 @@ uniform vec2 Screen;
 uniform vec2 Camera;
 
 
-void main (void){
+void main (){
 	//float f = Camera.x;
 	//float n = Camera.y;
 	float z = ((2.0 * Camera.y) / (Camera.x + Camera.y - texture2D(DepthTexture,UV).x * (Camera.x - Camera.y)));

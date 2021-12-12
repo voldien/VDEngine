@@ -6,7 +6,7 @@
 #include <cassert>
 #include <cstring>
 
-int VDDisplay::getNumDisplays(void){
+int VDDisplay::getNumDisplays(){
 	return SDL_GetNumVideoDisplays();
 }
 
@@ -47,7 +47,7 @@ void VDDisplay::getScreenResolutions(int index, int* num, Resolution** resolutio
 
 }
 
-VDSize VDDisplay::getPrimaryScreenSize(void){
+VDSize VDDisplay::getPrimaryScreenSize(){
 
 	VDSize size = VDSize(0, 0);
 	SDL_DisplayMode mode = { 0 };

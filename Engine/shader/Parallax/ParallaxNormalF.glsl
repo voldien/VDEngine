@@ -16,7 +16,7 @@ uniform sampler2D NormalTexture;
 uniform sampler2D DisplacementTexture;
 uniform vec4 DiffuseColor;
 
-void main(void){
+void main(){
 
 	vec2 ParallaxCoord = GetParallax(DisplacementTexture,UV ,normalize(CameraEye), DisplacementHeight);
 	vec2 newNormal = getTBN(normal, tangent, NormalTexture, ParallaxCoord);

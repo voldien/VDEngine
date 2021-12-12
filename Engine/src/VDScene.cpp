@@ -8,7 +8,7 @@
 #include <list>
 
 
-void VDScene::init(void){
+void VDScene::init(){
 
 	/*	setup scene data */
 	VDScene::getScene()->version = 0;//VD_ENGINE_VERSION;
@@ -28,8 +28,8 @@ void VDScene::init(void){
 	VDScene::getScene()->shaders.resize(64);
 	VDScene::getScene()->curves.resize(64);
 	VDScene::getScene()->cameras.resize(16);
-	VDScene::getScene()->mainCamera = NULL;
-	VDScene::getScene()->currentCamera = NULL;
+	VDScene::getScene()->mainCamera = nullptr;
+	VDScene::getScene()->currentCamera = nullptr;
 
 	/*	*/
 	VDScene::getScene()->uniform.engineState.numSpot = 0;
@@ -73,7 +73,7 @@ void VDScene::removeStaticObject(VDGameObject* obj, bool wasStatic){
 
 }
 
-void VDScene::clear(void){
+void VDScene::clear(){
 
 	gSerlizedGameObject.clear();
 
@@ -89,7 +89,7 @@ void VDScene::clear(void){
 }
 
 
-VDEngineScene* VDScene::getScene(void){
+VDEngineScene* VDScene::getScene(){
 	return engine.scene;
 }
 

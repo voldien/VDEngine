@@ -70,13 +70,13 @@ float VDInput::getAxis(unsigned int AxisFlag){
 	return 0.0f;
 }
 
-VDPoint VDInput::location(void){
+VDPoint VDInput::location(){
 	VDPoint p;
 	SDL_GetMouseState(&p[0],&p[1]);
 	return p;
 }
 
-VDPoint VDInput::mousePosition(void){
+VDPoint VDInput::mousePosition(){
 	VDPoint p;
 
 	// if(VDEngine::getWindow() != SDL_GetKeyboardFocus()){
@@ -88,7 +88,7 @@ VDPoint VDInput::mousePosition(void){
 	return p;
 }
 
-int VDInput::x(void){
+int VDInput::x(){
 	int x,y;
 	/**/
 	// if(VDEngine::getWindow() != SDL_GetKeyboardFocus()){
@@ -99,7 +99,7 @@ int VDInput::x(void){
 	return x;
 }
 
-int VDInput::y(void){
+int VDInput::y(){
 	int x,y;
 	// if(VDEngine::getWindow() != SDL_GetKeyboardFocus()){
 	// 	return 0;
@@ -109,19 +109,19 @@ int VDInput::y(void){
 	return y;
 }
 
-int VDInput::deltaX(void){
+int VDInput::deltaX(){
 	return mdelta.x();
 }
-int VDInput::deltaY(void){
+int VDInput::deltaY(){
 	return mdelta.y();
 }
 
-VDVector2 VDInput::getMotion(void){
+VDVector2 VDInput::getMotion(){
 	return VDVector2(mdelta.x(), mdelta.y());
 }
 
 int VDInput::isKeyDown(SDL_Keycode keyCode){
-	SDL_GetKeyboardState(NULL)[keyCode];
+	SDL_GetKeyboardState(nullptr)[keyCode];
 
 	return 0; //return ExIsKeyDown(keyCode) && (VDEngine::getWindow() == SDL_GetKeyboardFocus());
 }
@@ -135,7 +135,7 @@ int VDInput::isKey(SDL_Keycode keyCode){
 }
 
 int VDInput::getButton(VDInput::Button button){
-	return SDL_GetMouseState(NULL,NULL);
+	return SDL_GetMouseState(nullptr,nullptr);
 }
 
 int VDInput::getButtonDown(VDInput::Button button){
@@ -151,7 +151,7 @@ int VDInput::getButtonUp(VDInput::Button button){
 
 
 
-void VDInput::internal_update(void){
+void VDInput::internal_update(){
 	mdelta = VDInput::mousePosition() - pmdelta;
 	pmdelta = VDInput::mousePosition();
 

@@ -7,7 +7,7 @@ uniform float inRadius = 0.42;
 uniform float intensity = 0.6;
 
 
-void main(void){
+void main(){
 	vec2 UV = (gl_FragCoord / getScreen().xy );
 	vec2 relativePos = UV - 0.5;
 	float len = length(relativePos);

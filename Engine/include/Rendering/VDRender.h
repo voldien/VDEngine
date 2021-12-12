@@ -62,7 +62,7 @@ public:
 		NumRenderType = (Mesh | Particle | Skinned),
 	};
 
-	VDRenderer(void);
+	VDRenderer();
 	VDRenderer(RendererType type);	/*	TODO perhaps make it private or protected..*/
 	VDRenderer(const VDRenderer& renderer);
 	VDRenderer(VDMaterial* material);
@@ -75,11 +75,11 @@ private:	/*	Attributes.	*/
 
 public:
 
-	virtual void VDAPIENTRY instanceInitilize(void);
-	virtual void VDAPIENTRY initializeComponent(void);
-	virtual void VDAPIENTRY onEnable(void);
-	virtual void VDAPIENTRY onDisable(void);
-	virtual void VDAPIENTRY onDestroy(void);
+	virtual void VDAPIENTRY instanceInitilize();
+	virtual void VDAPIENTRY initializeComponent();
+	virtual void VDAPIENTRY onEnable();
+	virtual void VDAPIENTRY onDisable();
+	virtual void VDAPIENTRY onDestroy();
 	virtual VDBehavior* VDAPIENTRY copyComponent(unsigned int& dataSize);
 
 
@@ -95,16 +95,16 @@ public:
 	 *
 	 *  @Return
 	 */
-	VDMaterial* getMaterial(void)const{return this->materials;}
+	VDMaterial* getMaterial()const{return this->materials;}
 
 	/*
 	 * 	Get Renderer Bounds of Mesh & Transformation.
 	 *  @Return
 	 */
-	VDAABB VDAPIFASTENTRY getRenderBounds(void)const;
+	VDAABB VDAPIFASTENTRY getRenderBounds()const;
 
 
-	inline const VDBound& VDAPIFASTENTRY getVolumeBounds(void)const{
+	inline const VDBound& VDAPIFASTENTRY getVolumeBounds()const{
 		return this->getMesh()->getBound();
 	}
 
@@ -118,28 +118,28 @@ public:
 	 *
 	 *  @Return
 	 */
-	inline VDMesh* VDAPIFASTENTRY getMesh(void)const{
+	inline VDMesh* VDAPIFASTENTRY getMesh()const{
 		return this->meshFilter;
 	}
 
 	/*
 	 *
 	 */
-	bool isPartOfStaticBatch(void)const;
+	bool isPartOfStaticBatch()const;
 
 
 	/*
 	 *
 	 *  @Return
 	 */
-	inline unsigned int VDAPIFASTENTRY getRendererFlag(void)const{
+	inline unsigned int VDAPIFASTENTRY getRendererFlag()const{
 		return this->flag;
 	}
 
 	/*
 	 *
 	 */
-	inline RendererType VDAPIENTRY getRenderType(void)const{
+	inline RendererType VDAPIENTRY getRenderType()const{
 		return (RendererType)(this->flag  & ( RendererType::Mesh | RendererType::Particle | RendererType::Skinned | RendererType::StaticBatch | RendererType::Trail | RendererType::Line | RendererType::Morph | RendererType::LensFlare | RendererType::Terrain) );
 	}
 
@@ -151,7 +151,7 @@ public:
 	/*
 	 *
 	 */
-	virtual void VDAPIENTRY draw(void);
+	virtual void VDAPIENTRY draw();
 
 
 
@@ -165,7 +165,7 @@ public:
 	/*
 	 *	TODO remove
 	 */
-	void VDAPIFASTENTRY enableVertexPointer(void);
+	void VDAPIFASTENTRY enableVertexPointer();
 
 	/*
 	 *	Renderer Cast Shadow. [means it will never be called in
@@ -182,51 +182,51 @@ public:
 	/*
 	 *	@Return
 	 */
-	bool VDAPIFASTENTRY isSkinned(void)const;
+	bool VDAPIFASTENTRY isSkinned()const;
 	/*
 	 *	@Return
 	 */
-	bool VDAPIFASTENTRY isParticle(void)const;
+	bool VDAPIFASTENTRY isParticle()const;
 	/*
 	 *	@Return
 	 */
-	bool VDAPIFASTENTRY isMorph(void)const;
+	bool VDAPIFASTENTRY isMorph()const;
 	/*
 	 *	@Return
 	 */
-	bool VDAPIFASTENTRY isLensFlare(void)const;
+	bool VDAPIFASTENTRY isLensFlare()const;
 	/*
 	 *	@Return
 	 */
-	bool VDAPIFASTENTRY isTerrain(void)const;
+	bool VDAPIFASTENTRY isTerrain()const;
 	/*
 	 *	@Return
 	 */
-	bool VDAPIFASTENTRY isStaticBatch(void);
+	bool VDAPIFASTENTRY isStaticBatch();
 
 	/*
 	 *
 	 *	@Return
 	 */
-	inline bool VDAPIFASTENTRY isCastShadow(void)const{return this->flag & CastShadow;}
+	inline bool VDAPIFASTENTRY isCastShadow()const{return this->flag & CastShadow;}
 
 	/*
 	 *
 	 *	@Return
 	 */
-	inline bool VDAPIFASTENTRY isReciveShadow(void)const{return this->flag & ReciveShadow;}
+	inline bool VDAPIFASTENTRY isReciveShadow()const{return this->flag & ReciveShadow;}
 
 	/*
 	 *	@Return
 	 */
-	bool VDAPIFASTENTRY isVisiable(void)const;
+	bool VDAPIFASTENTRY isVisiable()const;
 
 
 	/*
 	 *
 	 */
-	void VDAPIFASTENTRY drawElementPatch(void);
-	void VDAPIFASTENTRY drawArrayPatch(void);
+	void VDAPIFASTENTRY drawElementPatch();
+	void VDAPIFASTENTRY drawArrayPatch();
 
 	void VDAPIFASTENTRY drawMultiArrayPatch(unsigned int primcount, const unsigned int* count, const unsigned int* indices);
 	void VDAPIFASTENTRY drawMultiElementsPatch(unsigned int primcount, const unsigned int* count, const unsigned int* indices);
@@ -234,8 +234,8 @@ public:
 	void VDAPIFASTENTRY drawMultiIndirectElementsPatch(unsigned int primcount, const unsigned int* count, const unsigned int* indices);
 	void VDAPIFASTENTRY drawMultiIndirectArrayPatch(unsigned int primcount, const unsigned int* count, const unsigned int* indices);
 
-	void VDAPIFASTENTRY drawIndirectArrayPatch(void);
-	void VDAPIFASTENTRY drawIndirectElementPatch(void);
+	void VDAPIFASTENTRY drawIndirectArrayPatch();
+	void VDAPIFASTENTRY drawIndirectElementPatch();
 
 public:
 
@@ -252,7 +252,7 @@ public:
 	/*
 	 *
 	 */
-	void VDAPIENTRY externalDraw(VDShader* shader = NULL);
+	void VDAPIENTRY externalDraw(VDShader* shader = nullptr);
 
 
 public:	/*	static methods.	*/
@@ -270,7 +270,7 @@ public:	/*	static methods.	*/
 	/**
 	 *	Draw
 	 */
-	static void VDAPIENTRY internalShadowDraw(VDShader* firstPassShadow = NULL, VDLight* light = NULL, VDMesh::Primitive drawmode = VDMesh::eTriangles);
+	static void VDAPIENTRY internalShadowDraw(VDShader* firstPassShadow = nullptr, VDLight* light = nullptr, VDMesh::Primitive drawmode = VDMesh::eTriangles);
 
 	/**
 	 *

@@ -29,7 +29,7 @@ public:
 
 	class Iterator : public VDIterator<T>{
 	public:
-		Iterator& operator++(void){
+		Iterator& operator++(){
 			pointer++;
 			pointer = it->mdata + (pointer - it->mdata) % it->getReserved();
 			return *this;
@@ -41,17 +41,17 @@ public:
 			return *this;
 		}
 
-		Iterator& operator--(void){
+		Iterator& operator--(){
 			pointer--;
 			pointer = it->mdata + (pointer - it->mdata) % it->getReserved();
 			return *this;
 		}
 
-		T& operator->(void)const{
+		T& operator->()const{
 			return *this->pointer;
 		}
 
-		T& operator*(void)const{
+		T& operator*()const{
 			return *this->pointer;
 		}
 
@@ -70,17 +70,17 @@ public:
 	};
 
 
-	VDQueue(void){
-		this->mback = NULL;
-		this->mfront = NULL;
-		this->mdata = NULL;
+	VDQueue(){
+		this->mback = nullptr;
+		this->mfront = nullptr;
+		this->mdata = nullptr;
 		this->reserved = 0;
 	}
 
 	VDQueue(unsigned int nrOfElements){
-		this->mback = NULL;
-		this->mfront = NULL;
-		this->mdata = NULL;
+		this->mback = nullptr;
+		this->mfront = nullptr;
+		this->mdata = nullptr;
 		this->reserved = 0;
 		this->resize(nrOfElements);
 	}
@@ -89,21 +89,21 @@ public:
 		*this = queue;
 	}
 	
-	~VDQueue(void){
+	~VDQueue(){
 		free(this->mdata);
 	}
 
 	/**
 	 *	get front without changing the queue.
 	 */
-	T& front(void)const{
+	T& front()const{
 		return *this->mfront;
 	}
 
 	/**
 	 *	get front without changing the queue.
 	 */
-	T& back(void)const{
+	T& back()const{
 		return *this->mback;
 	}
 
@@ -111,7 +111,7 @@ public:
 	/**
 	 *	@Return
 	 */
-	T& dequeue(void){
+	T& dequeue(){
 		this->mfront = this->mdata + (this->mfront - this->mdata) % this->getReserved();	/*solution for x mod nrOfElements*/
 		this->mfront++;
 		return *(this->mfront -1);
@@ -135,7 +135,7 @@ public:
 	/**
 	 *	Clear the queue.
 	 */
-	inline void clear(void){
+	inline void clear(){
 		this->mfront = this->mdata;
 		this->mback = this->mdata;
 	}
@@ -143,14 +143,14 @@ public:
 	/**
 	 *	@Return true if queue is empty.
 	 */
-	inline bool isEmpty(void)const{
+	inline bool isEmpty()const{
 		return (this->mfront == this->mback);
 	}
 
 	/**
 	 *	@Return true if queue is full.
 	 */
-	bool isFull(void)const{
+	bool isFull()const{
 		return (this->front() - this->back()) == -(sizeof(T)) ? true : false;
 	}
 
@@ -192,21 +192,21 @@ public:
 	/**
 	 *	@Return
 	 */
-	int getSize(void)const{
+	int getSize()const{
 		return (mback - mfront);
 	}
 
 	/**
 	 *	@Return number of elements reserved.
 	 */
-	inline unsigned int getReserved(void)const{
+	inline unsigned int getReserved()const{
 		return this->reserved;
 	}
 
 	/**
 	 *	Get size of each element.
 	 */
-	int getTypeSize(void)const{
+	int getTypeSize()const{
 		return sizeof(T);
 	}
 

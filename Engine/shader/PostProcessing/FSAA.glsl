@@ -5,7 +5,7 @@ uniform sampler2D DiffuseTexture;
 uniform int AAsamplerCount = 2;
 uniform float dx = (1.0f / 1920.0f),dy = (1.0f / 1080.0f);
 
-void main(void){
+void main(){
 	vec3 ScreenColor = vec3(0.0f);
 	for(int y = 0; y < AAsamplerCount; y++){
 		for(int x = 0; x < AAsamplerCount; x++){

@@ -15,7 +15,7 @@
 using namespace std;
 
 
-VDRenderTexture::VDRenderTexture(void) : VDTexture2D(){
+VDRenderTexture::VDRenderTexture() : VDTexture2D(){
 	glGenFramebuffers(1, &this->framebuffer);
 	this->bind();
 	this->unBind();
@@ -35,11 +35,11 @@ VDRenderTexture::VDRenderTexture(unsigned int width, unsigned int height, unsign
 	this->setTextureAttachment(surfaceFormat != VDTexture::eDepthComponent ? VDRenderTexture::ColorAttachment0 : VDRenderTexture::Attachment::DepthAttachment, (VDTexture2D*)this);
 }
 
-VDRenderTexture::~VDRenderTexture(void){
+VDRenderTexture::~VDRenderTexture(){
 
 }
 
-void VDRenderTexture::release(void){
+void VDRenderTexture::release(){
 	if(this->isValid()){
 		unsigned int numAttach = this->getNumOfAttachment();
 		unsigned int numRend = this->getNumOfRenderBuffer();
@@ -52,7 +52,7 @@ void VDRenderTexture::release(void){
 	VDTexture::release();
 }
 
-bool VDRenderTexture::isValid(void)const{
+bool VDRenderTexture::isValid()const{
 	return ( glIsFramebuffer(this->framebuffer) == GL_TRUE );
 }
 
@@ -91,7 +91,7 @@ void VDRenderTexture::resize(unsigned int width, unsigned int height, unsigned i
 	}
 	if(this->isCubemap()){
 		for(int x = 0; x < 6; x++){
-			glTexImage2D(VDTexture::eCubeMapPositiveX + x, 0, this->internalFormat, width, height, 0, this->format, this->type, NULL);
+			glTexImage2D(VDTexture::eCubeMapPositiveX + x, 0, this->internalFormat, width, height, 0, this->format, this->type, nullptr);
 		}
 	}
 	else{
@@ -106,7 +106,7 @@ void VDRenderTexture::resize(unsigned int width, unsigned int height, unsigned i
 			texture = getTextureAttachment(x, VDRenderTexture::eColorAttachment0);
 			if(texture.isValid()){
 				glBindTexture(texture.getTarget(), this->getTexture());
-				glTexImage2D(texture.getTarget(), 0, texture.getInternalFormat(), width, height, 0, texture.getInternalFormat(), VDTexture::eUnsignedByte, NULL);
+				glTexImage2D(texture.getTarget(), 0, texture.getInternalFormat(), width, height, 0, texture.getInternalFormat(), VDTexture::eUnsignedByte, nullptr);
 			}
 		}
 
@@ -114,7 +114,7 @@ void VDRenderTexture::resize(unsigned int width, unsigned int height, unsigned i
 		texture = getTextureAttachment(0, VDRenderTexture::DepthAttachment);
 		if(texture.isValid()){
 			glBindTexture(texture.getTarget(), this->getTexture());
-			glTexImage2D(texture.getTarget(), 0, texture.getInternalFormat(), width, height, 0, texture.getInternalFormat(), VDTexture::eUnsignedByte, NULL);
+			glTexImage2D(texture.getTarget(), 0, texture.getInternalFormat(), width, height, 0, texture.getInternalFormat(), VDTexture::eUnsignedByte, nullptr);
 			//this->setAttachment(VDRenderTexture::DepthAttachment, &texture);
 		}
 
@@ -122,7 +122,7 @@ void VDRenderTexture::resize(unsigned int width, unsigned int height, unsigned i
 		texture = getTextureAttachment(0, VDRenderTexture::eStencilAttachment);
 		if(texture.isValid()){
 			glBindTexture(texture.getTarget(), this->getTexture());
-			glTexImage2D(texture.getTarget(), 0, texture.getInternalFormat(), width, height, 0, texture.getInternalFormat(), VDTexture::eUnsignedByte, NULL);
+			glTexImage2D(texture.getTarget(), 0, texture.getInternalFormat(), width, height, 0, texture.getInternalFormat(), VDTexture::eUnsignedByte, nullptr);
 
 		}
 
@@ -166,7 +166,7 @@ void VDRenderTexture::setTextureAttachment(Attachment attachment, VDTexture* tex
 	this->write();
 
 	/*	*/
-	if(texture != NULL){
+	if(texture != nullptr){
 		if(texture != this){
 			texture->increment();
 		}
@@ -314,14 +314,14 @@ void VDRenderTexture::setSamples(unsigned int sample){
 	}
 }
 
-int VDRenderTexture::getSamples(void){
+int VDRenderTexture::getSamples(){
 	int samples;
 	this->bind();
 	glGetFramebufferParameteriv(GL_FRAMEBUFFER, GL_SAMPLES, &samples);
 	return samples;
 }
 
-VDRenderBuffer VDRenderTexture::colorBuffer(void){
+VDRenderBuffer VDRenderTexture::colorBuffer(){
 	VDRenderBuffer buffer;
 	int type;
 	this->bind();
@@ -333,7 +333,7 @@ VDRenderBuffer VDRenderTexture::colorBuffer(void){
 	return buffer;
 }
 
-VDRenderBuffer VDRenderTexture::depth(void){
+VDRenderBuffer VDRenderTexture::depth(){
 	VDRenderBuffer buffer;
 	int type;
 	this->bind();
@@ -345,7 +345,7 @@ VDRenderBuffer VDRenderTexture::depth(void){
 	return buffer;
 }
 
-VDRenderBuffer VDRenderTexture::stencil(void){
+VDRenderBuffer VDRenderTexture::stencil(){
 	VDRenderBuffer buffer;
 	int type;
 	this->bind();
@@ -358,11 +358,11 @@ VDRenderBuffer VDRenderTexture::stencil(void){
 }
 
 
-void VDRenderTexture::bind(void){
+void VDRenderTexture::bind(){
 	VDRenderingAPICache::bindFramebuffer(GL_FRAMEBUFFER, this->framebuffer);
 }
 
-void VDRenderTexture::unBind(void){
+void VDRenderTexture::unBind(){
 	VDRenderingAPICache::bindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -390,24 +390,24 @@ void VDRenderTexture::blitTo(VDRenderTexture* framebuffer){
 				GL_COLOR_BUFFER_BIT, GL_NEAREST);
 }
 
-void VDRenderTexture::read(void){
+void VDRenderTexture::read(){
 	VDRenderingAPICache::bindFramebuffer(GL_READ_FRAMEBUFFER, this->framebuffer);
 }
 
-void VDRenderTexture::write(void){
+void VDRenderTexture::write(){
 	VDRenderingAPICache::bindFramebuffer(GL_DRAW_FRAMEBUFFER, this->framebuffer);
 }
 
-void VDRenderTexture::clear(void){
+void VDRenderTexture::clear(){
 	this->write();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
 
-bool VDRenderTexture::isCubemap(void){
+bool VDRenderTexture::isCubemap(){
 	return this->getTarget() == VDTexture::eCubeMap;
 }
 
-bool VDRenderTexture::isVolume(void){
+bool VDRenderTexture::isVolume(){
 	return 	this->getTarget() == VDTexture::eTexture2DArray ||
 			this->getTarget() == VDTexture::eTexture3D ||
 			this->getTarget() == VDTexture::eTexture2DArrayMultiSample ||
@@ -432,7 +432,7 @@ unsigned int VDRenderTexture::getAttachemtIndices(Attachment attachment, int* in
 	return num;
 }
 
-unsigned int VDRenderTexture::getNumOfAttachment(void){
+unsigned int VDRenderTexture::getNumOfAttachment(){
 	int type;
 	int num = 0;
 
@@ -455,14 +455,14 @@ bool VDRenderTexture::isColorAttached(Attachment attachment){
 	return ( type == GL_RENDERBUFFER || type == GL_TEXTURE );
 }
 
-bool VDRenderTexture::isDepthAttached(void){
+bool VDRenderTexture::isDepthAttached(){
 	int type;
 	VDRenderTexture::bind();
 	glGetFramebufferAttachmentParameteriv(GL_FRAMEBUFFER, VDRenderTexture::DepthAttachment , GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE, &type);
 	return ( type == GL_RENDERBUFFER || type == GL_TEXTURE );
 }
 
-bool VDRenderTexture::isStencilAttached(void){
+bool VDRenderTexture::isStencilAttached(){
 	int type;
 	VDRenderTexture::bind();
 	glGetFramebufferAttachmentParameteriv(GL_FRAMEBUFFER, VDRenderTexture::eStencilAttachment, GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE, &type);
@@ -470,7 +470,7 @@ bool VDRenderTexture::isStencilAttached(void){
 }
 
 
-unsigned int VDRenderTexture::getNumOfRenderBuffer(void){
+unsigned int VDRenderTexture::getNumOfRenderBuffer(){
 	int type;
 	int num = 0;
 
@@ -484,7 +484,7 @@ unsigned int VDRenderTexture::getNumOfRenderBuffer(void){
 	return num;
 }
 
-unsigned int VDRenderTexture::checkError(void){
+unsigned int VDRenderTexture::checkError(){
 	unsigned int status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 
 	switch(status){
@@ -590,12 +590,12 @@ VDRenderTexture* VDRenderTexture::colorCubeMap(unsigned int width, unsigned int 
 	glTexParameteri(rendTex->getTarget(), GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	/**/
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, 0, surfaceInternalFormat , rendTex->width(), rendTex->height(), 0, surfaceFormat, surfaceType, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, surfaceInternalFormat , rendTex->width(), rendTex->height(), 0, surfaceFormat, surfaceType, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, surfaceInternalFormat , rendTex->width(), rendTex->height(), 0, surfaceFormat, surfaceType, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, surfaceInternalFormat , rendTex->width(), rendTex->height(), 0, surfaceFormat, surfaceType, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, surfaceInternalFormat , rendTex->width(), rendTex->height(), 0, surfaceFormat, surfaceType, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, surfaceInternalFormat , rendTex->width(), rendTex->height(), 0, surfaceFormat, surfaceType, NULL);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, 0, surfaceInternalFormat , rendTex->width(), rendTex->height(), 0, surfaceFormat, surfaceType, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, surfaceInternalFormat , rendTex->width(), rendTex->height(), 0, surfaceFormat, surfaceType, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, surfaceInternalFormat , rendTex->width(), rendTex->height(), 0, surfaceFormat, surfaceType, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, surfaceInternalFormat , rendTex->width(), rendTex->height(), 0, surfaceFormat, surfaceType, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, surfaceInternalFormat , rendTex->width(), rendTex->height(), 0, surfaceFormat, surfaceType, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, surfaceInternalFormat , rendTex->width(), rendTex->height(), 0, surfaceFormat, surfaceType, nullptr);
 
 	/**/
 	glFramebufferTexture(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, rendTex->getTexture(), 0);
@@ -655,12 +655,12 @@ VDRenderTexture* VDRenderTexture::ShadowCubeMap(unsigned int Width, unsigned int
 	glTexParameteri(render->getTarget(), GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, 0, SurfaceinternalFormat , render->width(), render->height(), 0, SurfaceFormat, surfaceType, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, SurfaceinternalFormat , render->width(), render->height(), 0, SurfaceFormat, surfaceType, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, SurfaceinternalFormat , render->width(), render->height(), 0, SurfaceFormat, surfaceType, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, SurfaceinternalFormat , render->width(), render->height(), 0, SurfaceFormat, surfaceType, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, SurfaceinternalFormat , render->width(), render->height(), 0, SurfaceFormat, surfaceType, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, SurfaceinternalFormat , render->width(), render->height(), 0, SurfaceFormat, surfaceType, NULL);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, 0, SurfaceinternalFormat , render->width(), render->height(), 0, SurfaceFormat, surfaceType, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, SurfaceinternalFormat , render->width(), render->height(), 0, SurfaceFormat, surfaceType, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, SurfaceinternalFormat , render->width(), render->height(), 0, SurfaceFormat, surfaceType, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, SurfaceinternalFormat , render->width(), render->height(), 0, SurfaceFormat, surfaceType, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, SurfaceinternalFormat , render->width(), render->height(), 0, SurfaceFormat, surfaceType, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, SurfaceinternalFormat , render->width(), render->height(), 0, SurfaceFormat, surfaceType, nullptr);
 
 	float bordercolor[] = {1.0, 1.0, 1.0, 1.0};
 	glTexParameterfv(render->getTarget(), GL_TEXTURE_BORDER_COLOR, bordercolor);
@@ -689,7 +689,7 @@ VDRenderTexture* VDRenderTexture::createRenderTexture(const VDSize& size, unsign
 		case eLuminance: return VDRenderTexture::LuminanceTexture(size.width(), size.height());
 		case eStencil: return VDRenderTexture::StencilTexture(size.width(), size.height());
 		case eShadowMapping: return VDRenderTexture::ShadowMap(size.width(), size.height());
-		default: return NULL;
+		default: return nullptr;
 	}
 }
 

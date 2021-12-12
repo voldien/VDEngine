@@ -67,8 +67,8 @@ public:
 	};
 
 	/**/
-	static bool VDAPIFASTENTRY isEnable(void);
-	static bool VDAPIFASTENTRY isDisable(void);
+	static bool VDAPIFASTENTRY isEnable();
+	static bool VDAPIFASTENTRY isDisable();
 
 
 	/**
@@ -81,7 +81,7 @@ public:
 	 *
 	 *	@Return
 	 */
-	static float VDAPIENTRY getMasterVolume(void);
+	static float VDAPIENTRY getMasterVolume();
 
 	/*
 	 *	Set speaker mode of the application.
@@ -93,14 +93,14 @@ public:
 	 *
 	 *	@Return
 	 */
-	static SpeakerMode VDAPIENTRY getSpeakerMode(void);
+	static SpeakerMode VDAPIENTRY getSpeakerMode();
 
 	/**
 	 *	Get output sample rate.
 	 *
 	 *	@Return
 	 */
-	static int VDAPIENTRY getSampleRate(void);
+	static int VDAPIENTRY getSampleRate();
 
 	/**
 	 *	Set output sample rate.
@@ -112,7 +112,7 @@ public:
 	 *
 	 *	@Return
 	 */
-	static Format VDAPIENTRY getFormat(void);
+	static Format VDAPIENTRY getFormat();
 
 	/*'
 	 *	Set audio data format.
@@ -124,7 +124,7 @@ public:
 	 *
 	 *	@Return
 	 */
-	static int VDAPIENTRY getVolumeSpeed(void);
+	static int VDAPIENTRY getVolumeSpeed();
 
 	/**
 	 *	set volume speed.

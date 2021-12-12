@@ -26,7 +26,7 @@
  */
 class VDDECLSPEC VDCharacterControllerHit{
 public:
-	VDCharacterControllerHit(void);
+	VDCharacterControllerHit();
 	VDCharacterControllerHit(const VDCharacterControllerHit& hit);
 	VDCharacterControllerHit(const void* hit);
 
@@ -34,55 +34,55 @@ public:
 	 *
 	 *	@Return
 	 */
-	VDCollider* VDAPIFASTENTRY collider(void);
+	VDCollider* VDAPIFASTENTRY collider();
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDRigidBody* VDAPIFASTENTRY rigidBody(void);
+	VDRigidBody* VDAPIFASTENTRY rigidBody();
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDTransform* VDAPIFASTENTRY transform(void);
+	VDTransform* VDAPIFASTENTRY transform();
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDGameObject* VDAPIFASTENTRY gameObject(void);
+	VDGameObject* VDAPIFASTENTRY gameObject();
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDCharacterController* VDAPIFASTENTRY controller(void);
+	VDCharacterController* VDAPIFASTENTRY controller();
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY point(void)const;
+	VDVector3 VDAPIFASTENTRY point()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY normal(void)const;
+	VDVector3 VDAPIFASTENTRY normal()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY moveDirection(void)const;
+	VDVector3 VDAPIFASTENTRY moveDirection()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY moveLength(void)const;
+	VDVector3 VDAPIFASTENTRY moveLength()const;
 
 private:	/*	Attributes.	*/
 

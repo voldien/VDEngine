@@ -25,16 +25,16 @@
  */
 class VDDECLSPEC VDFixedJoint : public VDJoint{
 public:
-	VDFixedJoint(void);
+	VDFixedJoint();
 	VDFixedJoint(const VDFixedJoint& joint);
 	VDFixedJoint(VDRigidBody* rigidbody);
 
 
-	virtual void VDAPIENTRY instanceInitilize(void);
-	virtual void VDAPIENTRY initializeComponent(void);
-	virtual void VDAPIENTRY onEnable(void);
-	virtual void VDAPIENTRY onDisable(void);
-	virtual void VDAPIENTRY onDestroy(void);
+	virtual void VDAPIENTRY instanceInitilize();
+	virtual void VDAPIENTRY initializeComponent();
+	virtual void VDAPIENTRY onEnable();
+	virtual void VDAPIENTRY onDisable();
+	virtual void VDAPIENTRY onDestroy();
 	virtual VDBehavior* VDAPIENTRY copyComponent(unsigned int& dataSize);
 
 	/*

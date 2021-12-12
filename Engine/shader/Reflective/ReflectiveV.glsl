@@ -10,7 +10,7 @@ out vec3 reflection;
 uniform mat4 ModelViewProjection;
 uniform mat4 ModelMatrix;
 uniform vec3 CameraPos;
-void main(void){
+void main(){
 	gl_Position = ModelViewProjection * vec4(Vertex,1.0);
 	VertexPosition = (ModelMatrix * vec4(Vertex,1.0)).xyz;
 	UV = TextureCoord;

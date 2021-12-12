@@ -11,7 +11,7 @@ const float blur[9] = {
 	0.2,0.15,0.11,0.09, 0.05
 };
 
-vec3 BlurColor(void){
+vec3 BlurColor(){
 	vec3 color = vec3(0,0,0);
 	vec2 blurPos  = vec2(UV.x - 0.0045, UV.y);
 
@@ -32,7 +32,7 @@ vec3 BlurColor(void){
 
 
 
-void main(void){
+void main(){
 	vec3 texColor = texture2D(DiffuseTexture, UV).rgb;
 	vec3 glowColor = BlurColor();
 	const vec3 LumCoeff = vec3(0.2125, 0.7154, 0.0721);

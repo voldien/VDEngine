@@ -35,17 +35,17 @@ namespace fragengine {
 
 		virtual void setRenderer(Ref<IRenderer> &renderer) = 0;
 
-		virtual const Ref<IRenderer> &getRenderer(void) const = 0;
+		virtual const Ref<IRenderer> &getRenderer() const = 0;
 
-		virtual Ref<IRenderer> getRenderer(void) = 0;
+		virtual Ref<IRenderer> getRenderer() = 0;
 
 //	virtual void setSettings(Ref<RenderPipelineSettings> settings);
-//	virtual Ref<RenderPipelineSettings>& getSettings(void) const;
-//	virtual Ref<RenderPipelineSettings> getSettings(void);
+//	virtual Ref<RenderPipelineSettings>& getSettings() const;
+//	virtual Ref<RenderPipelineSettings> getSettings();
 
 		virtual void setViewport(int width, int height, IRenderer *render) = 0;
 
-		virtual RenderQueue getSupportedQueue(void) const = 0;
+		virtual RenderQueue getSupportedQueue() const = 0;
 
 	protected:
 

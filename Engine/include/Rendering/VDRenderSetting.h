@@ -97,7 +97,7 @@ public:
 		eForwardRendering 	= (1 << 5),		/*	*/
 	};
 
-	VDRenderSetting(void){}
+	VDRenderSetting(){}
 	VDRenderSetting(unsigned int sRenderingPath);
 	
 protected:	/*	Attributes.	*/
@@ -118,7 +118,7 @@ public:
 	 *
 	 *	@Return
 	 */
-	static RenderPipeline VDAPIENTRY getRenderingPath(void);
+	static RenderPipeline VDAPIENTRY getRenderingPath();
 
 	/**
 	 *
@@ -128,12 +128,12 @@ public:
 	/**
 	 *	@Return
 	 */
-	static VDRenderTexture* getForwardFramebuffer(void);
+	static VDRenderTexture* getForwardFramebuffer();
 
 	/**
 	 *
 	 */
-	static bool VDAPIENTRY needFrameBuffer(void);
+	static bool VDAPIENTRY needFrameBuffer();
 
 	/**
 	 *
@@ -151,25 +151,25 @@ public:	/*	*/
 	/**
 	 *	@Return
 	 */
-	static bool VDAPIENTRY isFogEnable(void);
+	static bool VDAPIENTRY isFogEnable();
 
 	/**
 	 *
 	 */
 	static void VDAPIENTRY setFogType(FogFlag fogtype);
-	static FogFlag VDAPIENTRY getFogType(void);
+	static FogFlag VDAPIENTRY getFogType();
 
 	/**
 	 *	Set fog minimum distance.
 	 */
 	static void VDAPIENTRY setFogMinDistance(float fdis);
-	static float VDAPIENTRY getFogMinDistance(void);
+	static float VDAPIENTRY getFogMinDistance();
 
 	/**
 	 *
 	 */
 	static void VDAPIENTRY setFogMaxDistance(float fdis);
-	static float VDAPIENTRY getFogMaxDistance(void);
+	static float VDAPIENTRY getFogMaxDistance();
 
 	/**
 	 *
@@ -179,7 +179,7 @@ public:	/*	*/
 	/**
 	 *	@Return
 	 */
-	static VDColor VDAPIENTRY getFogColor(void);
+	static VDColor VDAPIENTRY getFogColor();
 
 	/**
 	 *
@@ -189,7 +189,7 @@ public:	/*	*/
 	/**
 	 *	@Return
 	 */
-	static float VDAPIENTRY getFogDensity(void);
+	static float VDAPIENTRY getFogDensity();
 
 	/**
 	 *
@@ -199,13 +199,13 @@ public:	/*	*/
 	/**
 	 *	@Return
 	 */
-	static VDColor VDAPIENTRY getAmbientColor(void);
+	static VDColor VDAPIENTRY getAmbientColor();
 
 	/**
 	 *
 	 */
 	static void VDAPIENTRY setAmbientIntensity(float intensity);
-	static float VDAPIENTRY getAmbientIntensity(void);
+	static float VDAPIENTRY getAmbientIntensity();
 
 	/**
 	 *
@@ -216,7 +216,7 @@ public:	/*	*/
 	 *
 	 *	@Return
 	 */
-	static VDCubeMap* VDAPIENTRY getImageAmbient(void);
+	static VDCubeMap* VDAPIENTRY getImageAmbient();
 
 	/**
 	 *	Set ambient light type.
@@ -226,7 +226,7 @@ public:	/*	*/
 	/**
 	 *	@Return
 	 */
-	static AmbientType VDAPIENTRY getAmbientType(void);
+	static AmbientType VDAPIENTRY getAmbientType();
 
 
 	/**
@@ -239,19 +239,19 @@ public:	/*	*/
 	 *
 	 *	@Return
 	 */
-	static VDSkyBox* VDAPIFASTENTRY getSkyBox(void);
+	static VDSkyBox* VDAPIFASTENTRY getSkyBox();
 
 	/**
 	 *
 	 *	@Return
 	 */
-	static unsigned int VDAPIENTRY getFlag(void);
+	static unsigned int VDAPIENTRY getFlag();
 
 	/**
 	 *
 	 *	@Return
 	 */
-	static VDEngineRenderSettings* VDAPIFASTENTRY getSettings(void);
+	static VDEngineRenderSettings* VDAPIFASTENTRY getSettings();
 
 };
 

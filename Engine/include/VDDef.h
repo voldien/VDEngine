@@ -1,35 +1,33 @@
 /*
-    VDEngine virtual dimension game engine.
-    Copyright (C) 2014  Valdemar Lindberg
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-*/
-#ifndef _VD_DEF_H_
-#define _VD_DEF_H_ 1
-
-#include<stddef.h>
-#include<stdint.h>
-#include<typeinfo>
-#include<errno.h>
+ *	VDEngine virtual dimension game engine.
+ *	Copyright (C) 2014 - Valdemar Lindberg
+ *
+ *	This program is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	This program is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+#ifndef _VD_ENGINE_DEF_H_
+#define _VD_ENGINE_DEF_H_ 1
+#include <Def.h>
+#include <cerrno>
+#include <typeinfo>
 
 #ifdef __cplusplus
-	#include<cstdio>
-	#include<climits>
+#include <cstdio>
+#include <climits>
 #else
-	#include<stdio.h>
-	#include<limits.h>
+#include <stdio.h>
+#include <limits.h>
 #endif
 
 #define VD_ENGINE_VERSION ( (MAJOR_VERSION  << 24) | (MINOR_VERSION  << 16) | (PATCH_VERSION  << 8) )

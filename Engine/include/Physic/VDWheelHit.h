@@ -27,7 +27,7 @@
  */
 class VDDECLSPEC VDWheelHit{
 public:
-	VDWheelHit(void);
+	VDWheelHit();
 	VDWheelHit(const VDWheelHit& hit);
 
 	/**
@@ -35,49 +35,49 @@ public:
 	 *
 	 *	@Return
 	 */
-	VDCollider* VDAPIFASTENTRY collider(void);
+	VDCollider* VDAPIFASTENTRY collider();
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY force(void)const;
+	VDVector3 VDAPIFASTENTRY force()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY forwardDir(void)const;
+	VDVector3 VDAPIFASTENTRY forwardDir()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY forwardSlip(void)const;
+	VDVector3 VDAPIFASTENTRY forwardSlip()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY normal(void)const;
+	VDVector3 VDAPIFASTENTRY normal()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY point(void)const;
+	VDVector3 VDAPIFASTENTRY point()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY sidewaysDir(void)const;
+	VDVector3 VDAPIFASTENTRY sidewaysDir()const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY sidewaysSlip(void)const;
+	VDVector3 VDAPIFASTENTRY sidewaysSlip()const;
 
 };
 

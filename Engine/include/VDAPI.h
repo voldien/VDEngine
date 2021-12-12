@@ -18,6 +18,11 @@
 */
 #ifndef _VD_API_H_
 #define _VD_API_H_ 1
+
+/*	*/
+#include"VDPrerequisites.h"
+
+
 #include"Physic/VDPhysic.h"
 #include"VDSystem.h"
 #include"Audio/VDAudio.h"

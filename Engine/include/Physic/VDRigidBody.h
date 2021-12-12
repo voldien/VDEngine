@@ -33,14 +33,14 @@ public:
 	};
 	fragcore::RigidBody* m_rigidBody;
 
-	VDRigidBody(void);
+	VDRigidBody();
 	VDRigidBody(const VDRigidBody& rigidbody);
 
-	virtual void VDAPIENTRY instanceInitilize(void);
-	virtual void VDAPIENTRY onEnable(void);
-	virtual void VDAPIENTRY onDisable(void);
-	virtual void VDAPIENTRY initializeComponent(void);
-	virtual void VDAPIENTRY onDestroy(void);
+	virtual void VDAPIENTRY instanceInitilize();
+	virtual void VDAPIENTRY onEnable();
+	virtual void VDAPIENTRY onDisable();
+	virtual void VDAPIENTRY initializeComponent();
+	virtual void VDAPIENTRY onDestroy();
 	virtual VDBehavior* VDAPIENTRY copyComponent(unsigned int& dataSize);
 
 	/**
@@ -110,7 +110,7 @@ public:
 	/**
 	 *
 	 */
-	float VDAPIFASTENTRY getMass(void)const{
+	float VDAPIFASTENTRY getMass()const{
 		return this->m_rigidBody->getMass();
 	}
 
@@ -124,7 +124,7 @@ public:
 	/**
 	 *
 	 */
-	float VDAPIFASTENTRY getDrag(void)const{
+	float VDAPIFASTENTRY getDrag()const{
 		this->m_rigidBody->getDrag();
 	}
 
@@ -138,28 +138,28 @@ public:
 	/**
 	 *
 	 */
-	float VDAPIFASTENTRY getAngularDrag(void)const{
+	float VDAPIFASTENTRY getAngularDrag()const{
 		this->m_rigidBody->getAngularDrag();
 	}
 
 	/**
 	 *
 	 */
-	int VDAPIENTRY isSleeping(void)const{
+	int VDAPIENTRY isSleeping()const{
 
 	}
 
 	/**
 	 *
 	 */
-	void VDAPIFASTENTRY sleep(void){
+	void VDAPIFASTENTRY sleep(){
 
 	}
 
 	/**
 	 *
 	 */
-	void VDAPIFASTENTRY wake(void){
+	void VDAPIFASTENTRY wake(){
 
 	}
 
@@ -180,14 +180,14 @@ public:
 	/**
 	 *
 	 */
-	void VDAPIFASTENTRY enableCCD(void){
+	void VDAPIFASTENTRY enableCCD(){
 
 	}
 
 	/**
 	 *
 	 */
-	void VDAPIFASTENTRY disableCCD(void){
+	void VDAPIFASTENTRY disableCCD(){
 		
 	}
 

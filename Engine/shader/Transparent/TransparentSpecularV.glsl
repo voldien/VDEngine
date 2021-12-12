@@ -15,7 +15,7 @@ uniform mat4 ModelMatrix;
 uniform vec3 CameraPos;
 uniform float Time;
 
-void main(void){
+void main(){
 	gl_Position = ModelViewProjection * vec4(Vertex,1.0);
 	VertexPosition = vec3(ModelMatrix * vec4(Vertex,1.0)).xyz;
 	UV = TextureCoord;

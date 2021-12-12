@@ -20,6 +20,6 @@ uniform vec3 CameraPos;
 uniform vec2 DisplacementHeight;
 
 
-void main(void){
+void main(){
 
 }

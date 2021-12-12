@@ -12,7 +12,7 @@ smooth out vec3 VertexPosition;
 uniform mat4 ModelMatrix[32];
 uniform mat4 ModelViewProjection[32];
 
-void main(void){
+void main(){
 	
 	gl_Position = ModelViewProjection[gl_InstanceID] * vec4(Vertex,1.0);
 	VertexPosition = (ModelMatrix[gl_InstanceID] * vec4(Vertex,1.0) ).xyz;

@@ -11,7 +11,7 @@ out vec3 VertexPosition;
 uniform mat4 ModelViewProjection;
 uniform mat4 ModelMatrix;
 
-void main(void){
+void main(){
 	gl_Position = ModelViewProjection * vec4(Vertex,1.0);
 	VertexPosition = (ModelMatrix * vec4(Vertex,1.0)).xyz;
 	normal = (ModelMatrix * vec4(Normal,0.0)).xyz;

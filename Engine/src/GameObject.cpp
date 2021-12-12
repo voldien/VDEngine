@@ -13,7 +13,9 @@
 #include <Rendering/VDLight.h>
 #include <Rendering/VDRender.h>
 #include <stdlib.h>
-#include <Scene/VDCameraController.h>
+#include<Utility/VDGeometryProcedure.h>
+#include<Core/VDCustomBehavior.h>
+//#include <Scene/VDCameraController.h>
 #include <Scene/VDGameObject.h>
 #include <Scene/VDScene.h>
 #include <Scene/VDTransform.h>
@@ -67,7 +69,7 @@ void VDGameObject::initialize(bool serialize){
 	}
 }	
 
-VDGameObject::~VDGameObject(void){
+VDGameObject::~VDGameObject(){
 
 } 
 
@@ -92,31 +94,31 @@ VDGameObject& VDGameObject::operator=(const VDGameObject& object){
 }
 
 
-VDAnimation* VDGameObject::animation(void)const{
+VDAnimation* VDGameObject::animation()const{
 	return this->getComponent<VDAnimation>();
 }
 
-VDCamera* VDGameObject::camera(void){
+VDCamera* VDGameObject::camera(){
 	return this->getComponent<VDCamera>();
 }
 
-VDRenderer* VDGameObject::renderer(void)const{
+VDRenderer* VDGameObject::renderer()const{
 	return this->getComponent<VDRenderer>();
 }
 
-VDAudioSource* VDGameObject::audio(void)const{
+VDAudioSource* VDGameObject::audio()const{
 	return this->getComponent<VDAudioSource>();
 }
 
-VDLight* VDGameObject::light(void)const{
+VDLight* VDGameObject::light()const{
 	return this->getComponent<VDLight>();
 }
 
-VDRigidBody* VDGameObject::rigidBody(void)const{
+VDRigidBody* VDGameObject::rigidBody()const{
 	return this->getComponent<VDRigidBody>();
 }
 
-VDCollider* VDGameObject::collider(void)const{
+VDCollider* VDGameObject::collider()const{
 	return this->getComponent<VDCollider>();
 }
 
@@ -183,7 +185,7 @@ void VDGameObject::removeComponent(VDBehavior* behavior){
 
 VDBehavior* VDGameObject::detachComponent(VDBehavior* behavior){
 	/*	is behavior part of the gameobject */
-	VDBehavior* beh = NULL;
+	VDBehavior* beh = nullptr;
 	for(vector<VDBehavior*>::iterator x = this->componets.begin(); x != this->componets.end(); x++){
 		if((*x) == behavior){
 			beh = (*x);
@@ -194,12 +196,12 @@ VDBehavior* VDGameObject::detachComponent(VDBehavior* behavior){
 	return beh;
 }
 
-unsigned int VDGameObject::hasCustomBehavior(void)const{
+unsigned int VDGameObject::hasCustomBehavior()const{
 	return (this->active & VDCustomBehavior::CustomBehavior);
 }
 
 
-void VDGameObject::destroy(void){
+void VDGameObject::destroy(){
 	VDGameObject::removeGameObject(this);
 }
 
@@ -214,7 +216,7 @@ VDGameObject* VDGameObject::instantiate(VDGameObject* parent){
 	rootInstance->transform()->setLocalPosition(transform()->getLocalPosition());
 	rootInstance->transform()->setLocalRotation(transform()->getLocalRotation());
 	if(!parent)
-		rootInstance->transform()->setParent( NULL);
+		rootInstance->transform()->setParent( nullptr);
 	else
 		rootInstance->transform()->setParent( parent->transform() );
 
@@ -259,7 +261,7 @@ VDGameObject* VDGameObject::find(const char* name){
 		if(strcmp((*iterator)->getName(), name) == 0)
 			return (VDGameObject*)(*iterator);
 	}
-	return NULL;
+	return nullptr;
 }
 
 void VDGameObject::addGameObject(VDGameObject* g_Object){
@@ -335,7 +337,7 @@ int VDGameObject::existComponet(const VDTypeInfo& info)const{
 
 // 		g++;
 // 	}
-// 	return NULL;
+// 	return nullptr;
 // }
 
 
@@ -423,7 +425,7 @@ VDGameObject* VDGameObject::createPrimitive(VDGameObject::Primitive primitive, b
 
 
 	/**/
-	VDMesh* mesh = NULL;
+	VDMesh* mesh = nullptr;
 	switch(primitive){
 	case eCube:
 		mesh = VDGeometryProcedure::createCube(2.5f,0);
@@ -450,7 +452,7 @@ VDGameObject* VDGameObject::createPrimitive(VDGameObject::Primitive primitive, b
 	}// end switch Primitiv Desc
 
 	/**/
-	if(mesh == NULL){
+	if(mesh == nullptr){
 		VDDebug::log("Primitive %d couldn't be created.\n", primitive);
 	}else{
 		primitivObject->getComponent<VDRenderer>()->setMesh( mesh );
@@ -459,16 +461,16 @@ VDGameObject* VDGameObject::createPrimitive(VDGameObject::Primitive primitive, b
 	return primitivObject;
 }
 
-VDGameObject* VDGameObject::createCameraController(void){
+VDGameObject* VDGameObject::createCameraController(){
 	VDGameObject* camerController = VDGameObject::createGameObject(); // create new GameObject .
 	camerController->setName("Camera Controller");
-	camerController->addComponet(new VDCameraController()); // new custom componets.
+	//camerController->addComponet(new VDCameraController()); // new custom componets.
 	return camerController;
 }
 
-VDGameObject* VDGameObject::createGameObject(void){
+VDGameObject* VDGameObject::createGameObject(){
 	VDGameObject* obj = VDScene::getScene()->gameobjects.obtain();
-	memset(obj, NULL, sizeof(VDGameObject));
+	memset(obj, nullptr, sizeof(VDGameObject));
 
 	/**/
 	*obj = VDGameObject(SDL_FALSE);

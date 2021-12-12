@@ -7,7 +7,7 @@
 #include<Core/Math.h>
 
 
-VDMouseLook::VDMouseLook(void) : VDCustomBehavior(){
+VDMouseLook::VDMouseLook() : VDCustomBehavior(){
 	this->state = eFreeRotation;
 }
 
@@ -15,11 +15,11 @@ VDMouseLook::VDMouseLook(const VDMouseLook& look){
 	*this = look;
 }
 
-VDMouseLook::~VDMouseLook(void){
+VDMouseLook::~VDMouseLook(){
 
 }
 
-void VDMouseLook::onAwake(void){
+void VDMouseLook::onAwake(){
 	this->sensitivityX = 30.5f;
 	this->sensitivityY = 30.5f;
 
@@ -35,7 +35,7 @@ void VDMouseLook::onAwake(void){
 
 }
 
-void VDMouseLook::lateUpdate(void){
+void VDMouseLook::lateUpdate(){
 	float delta = VDTime::deltaTime();
 	this->mousedelta = this->mousepos - VDInput::mousePosition();
 
@@ -84,6 +84,6 @@ void VDMouseLook::setRotationMode(rotationState state){
 	this->state = state;
 }
 
-VDMouseLook::rotationState VDMouseLook::getRotationMode(void)const{
+VDMouseLook::rotationState VDMouseLook::getRotationMode()const{
 	return this->state;
 }

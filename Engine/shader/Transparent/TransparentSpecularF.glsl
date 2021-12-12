@@ -19,7 +19,7 @@ uniform vec3 CameraPos;
 uniform float Shininess;
 
 
-void main(void){
+void main(){
 	fragColor = DiffuseColor * texture2D(DiffuseTexture, UV) * 
 	vec4((AmbientColor +  GetLight(normal).rgb) + GetSpecularFactor(normal, Shininess) * SpecularColor,1.0f);
 	Worldfrag = VertexPosition;

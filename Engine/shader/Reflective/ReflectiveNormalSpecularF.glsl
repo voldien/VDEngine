@@ -22,7 +22,7 @@ uniform vec4 ReflectionColor;
 uniform float Shininess;
 
 
-void main(void){
+void main(){
 	vec3 surfaceNormal = GetTangentNormal(normal,tangent, NormalTexture, UV);
 	vec3 _reflect = reflect(normalize(VertexPosition - CameraPos), normalize(surfaceNormal)); 
 	fragColor = texture2D(DiffuseTexture, UV).rgb * DiffuseColor.rgb * (AmbientColor + GetLight(surfaceNormal).rgb) + GetSpecularFactor(surfaceNormal, Shininess) * SpecularColor.rgb

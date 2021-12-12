@@ -18,7 +18,7 @@ uniform sampler2D DiffuseTexture;
 uniform sampler2D NormalTexture; 
 
 
-void main(void){
+void main(){
 	fragColor = GetLight(GetTangentNormal(normal,tangent,NormalTexture,UV) ) * DiffuseColor * texture2D(DiffuseTexture, UV);
 	Worldfrag = vec4(VertexPosition,1.0f);
 	Normalfrag = vec4(normal,1.0f);	

@@ -16,7 +16,7 @@ uniform vec3 SpecularColor;
 uniform float Shininess;
 
 
-void main(void){
+void main(){
 	vec3 newNormal = getTBN( normal, tangent, NormalTexture, UV );
 	fragColor = (DiffuseColor.rgb * texture2D(DiffuseTexture, UV).rgb) * 
 	(AmbientColor +  getLight(newNormal).rgb) + getSpecularFactor(newNormal,VertexPosition,Shininess) * SpecularColor * texture2D(SpecularTexture,UV).rgb;

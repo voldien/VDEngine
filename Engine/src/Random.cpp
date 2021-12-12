@@ -14,16 +14,16 @@ void VDRandom::setSeed(unsigned long long seed){
 	this->seed = seed;
 }
 
-unsigned int VDRandom::rand(void){
+unsigned int VDRandom::rand(){
 	seed = mult * seed;
 	return seed % llong_max;
 }
 
-float VDRandom::randfNormalize(void){
+float VDRandom::randfNormalize(){
 	seed = mult * seed;
 	return (seed % llong_max) / float_max;
 }
 
-float VDRandom::randf(void)const{
+float VDRandom::randf()const{
 	return ((float)::rand() / (float)RAND_MAX);
 }

@@ -18,6 +18,6 @@ uniform sampler2D DiffuseTexture;
 uniform float frontWeight;
 uniform float backWeight;
 
-void main(void){
+void main(){
 	fragColor = ((getLightSubSurface(normal,VertexPosition) + getAmbientColor()) * DiffuseColor * texture2D(DiffuseTexture, UV)).rgb;	
 }

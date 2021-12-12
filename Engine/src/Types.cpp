@@ -4,8 +4,8 @@
 
 using namespace std;
 
-VDTypeInfo::VDTypeInfo(void){
-	this->type = NULL;
+VDTypeInfo::VDTypeInfo(){
+	this->type = nullptr;
 	this->typeSize = 0;
 
 }
@@ -47,15 +47,15 @@ bool VDTypeInfo::operator!=(unsigned int  rh){
 	return (this->type->hash_code() != rh);
 }
 
-bool VDTypeInfo::isPointer(void)const{
+bool VDTypeInfo::isPointer()const{
 	return type->__is_pointer_p();
 }
 
-bool VDTypeInfo::isFunction(void)const{
+bool VDTypeInfo::isFunction()const{
 	return type->__is_function_p();
 }
 
-const char* VDTypeInfo::getName(void)const{
+const char* VDTypeInfo::getName()const{
 	return type->name();
 }
 

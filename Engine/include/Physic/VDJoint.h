@@ -26,15 +26,15 @@
  */
 class VDDECLSPEC VDJoint : public VDPhysicActor{
 public:
-	VDJoint(void);
+	VDJoint();
 	VDJoint(const VDJoint& joint);
 	VDJoint(VDRigidBody* rigidbody);
 
-	virtual void instanceInitilize(void);
-	virtual void onEnable(void);
-	virtual void onDisable(void);
-	virtual void initializeComponent(void);
-	virtual void onDestroy(void);
+	virtual void instanceInitilize();
+	virtual void onEnable();
+	virtual void onDisable();
+	virtual void initializeComponent();
+	virtual void onDestroy();
 	virtual VDBehavior* copyComponent(unsigned int& dataSize);
 
 	/**
@@ -45,17 +45,17 @@ public:
 	/**
 	 *
 	 */
-	void VDAPIENTRY Break(void);
+	void VDAPIENTRY Break();
 
 	/**
 	 *
 	 */
-	VDVector3 VDAPIENTRY getRelativeAngularVelocity(void)const;
+	VDVector3 VDAPIENTRY getRelativeAngularVelocity()const;
 
 	/**
 	 *
 	 */
-	VDVector3 VDAPIENTRY getRelativeLinearVelocity(void)const;
+	VDVector3 VDAPIENTRY getRelativeLinearVelocity()const;
 
 
 	/**
@@ -71,7 +71,7 @@ public:
 	/**
 	 *	@Return
 	 */
-	VDRigidBody* VDAPIENTRY getAttachedRigidBody(void)const;
+	VDRigidBody* VDAPIENTRY getAttachedRigidBody()const;
 
 protected:
 
@@ -84,23 +84,23 @@ protected:
 	};
 
 #if defined(VD_INTERNAL) && defined(USE_PHYSX)
-	inline physx::PxDistanceJoint* VDAPIENTRY pxGetDistanceJoint(void){return VDCASTP(physx::PxDistanceJoint*,this->joint);}
-	inline physx::PxFixedJoint* VDAPIENTRY pxGetFixedJoint(void){return VDCASTP(physx::PxFixedJoint*, this->joint);}
-	//INLINE physx::PxDistanceJoint* VDAPIENTRY pxGetDistanceJoint(void){return CASTP(physx::PxDistanceJoint*,this->joint);}
+	inline physx::PxDistanceJoint* VDAPIENTRY pxGetDistanceJoint(){return VDCASTP(physx::PxDistanceJoint*,this->joint);}
+	inline physx::PxFixedJoint* VDAPIENTRY pxGetFixedJoint(){return VDCASTP(physx::PxFixedJoint*, this->joint);}
+	//INLINE physx::PxDistanceJoint* VDAPIENTRY pxGetDistanceJoint(){return CASTP(physx::PxDistanceJoint*,this->joint);}
 #endif
 
 	/**
 	 *
 	 */
-	VDFixedJoint* isFixedJoint(void);
+	VDFixedJoint* isFixedJoint();
 	/**
 	 *
 	 */
-	VDSpringJoint* isSpringJoint(void);
+	VDSpringJoint* isSpringJoint();
 	/**
 	 *
 	 */
-	VDRevoluteJoint* isRevoluteJoint(void);
+	VDRevoluteJoint* isRevoluteJoint();
 
 };
 #endif

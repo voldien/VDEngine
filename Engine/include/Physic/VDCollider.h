@@ -20,6 +20,7 @@
 #define _VD_COLLIDER_H_ 1
 #include"../Core/VDShape.h"
 #include"VDPhysicActorBase.h"
+#include<vector>
 /**
  *	Base class for Collider object.
  */
@@ -47,16 +48,16 @@ public:
 		eIsShape = 0x200,				/*	*/
 	};
 
-	VDCollider(void);
+	VDCollider();
 	VDCollider(const VDCollider& collider);
 	VDCollider(CollisionType collisionType);
 
 
-	virtual void VDAPIENTRY instanceInitilize(void);
-	virtual void VDAPIENTRY onEnable(void);
-	virtual void VDAPIENTRY onDisable(void);
-	virtual void VDAPIENTRY initializeComponent(void);
-	virtual void VDAPIENTRY onDestroy(void);
+	virtual void VDAPIENTRY instanceInitilize();
+	virtual void VDAPIENTRY onEnable();
+	virtual void VDAPIENTRY onDisable();
+	virtual void VDAPIENTRY initializeComponent();
+	virtual void VDAPIENTRY onDestroy();
 	virtual VDBehavior* VDAPIENTRY copyComponent(unsigned int& dataSize);
 
 	/**
@@ -76,14 +77,14 @@ public:
 	 *
 	 *	@Return
 	 */
-	VDPhysicMaterial VDAPIFASTENTRY getMaterial(void)const;
+	VDPhysicMaterial VDAPIFASTENTRY getMaterial()const;
 
 	/**
 	 *	Get collider type.
 	 *
 	 *	@Return
 	 */
-	CollisionType VDAPIFASTENTRY getColliderType(void)const;
+	CollisionType VDAPIFASTENTRY getColliderType()const;
 
 
 	/**
@@ -91,7 +92,7 @@ public:
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY getCenter(void)const;
+	VDVector3 VDAPIFASTENTRY getCenter()const;
 
 	/**
 	 *	Set Center Value of the Shape.
@@ -110,8 +111,8 @@ private:
 	 *	Set reference of this in Collider
 	 *	return true if shape was found and assign
 	 */
-	int VDAPIENTRY setReferenceOnActor(void);
-	void VDAPIENTRY initCollision(void);
+	int VDAPIENTRY setReferenceOnActor();
+	void VDAPIENTRY initCollision();
 
 };
 

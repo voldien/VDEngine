@@ -33,10 +33,10 @@ public:
 		XandY,
 		FreeRotation,
 	};
-	VDMouseLook(void);
+	VDMouseLook();
 	VDMouseLook(const VDMouseLook& look);
 	VDMouseLook(rotationState state);
-	~VDMouseLook(void);
+	~VDMouseLook();
 
 private:	/*	Attributes.	*/
 
@@ -61,12 +61,12 @@ public:	/*	public methods.	*/
 	/**
 	 *
 	 */
-	virtual void lateUpdate(void);
+	virtual void lateUpdate();
 
 	/**
 	 *
 	 */
-	virtual void onAwake(void);
+	virtual void onAwake();
 
 	/**
 	 *
@@ -76,7 +76,7 @@ public:	/*	public methods.	*/
 	/**
 	 *
 	 */
-	float getXSensitivity(void)const;
+	float getXSensitivity()const;
 
 	/**
 	 *
@@ -86,7 +86,7 @@ public:	/*	public methods.	*/
 	/**
 	 *
 	 */
-	rotationState getRotationMode(void)const;
+	rotationState getRotationMode()const;
 };
 
 #endif

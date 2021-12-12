@@ -18,7 +18,7 @@ uniform sampler2D NormalTexture;
 uniform sampler2D IllusionTexture;
 
 
-void main(void){
+void main(){
 	vec3 surfaceNormal = GetTBN(normal,tangent,NormalTexture,UV);
 	fragColor = texture2D(DiffuseTexture, UV).xyz *DiffuseColor.xyz * (AmbientColor + GetLight(surfaceNormal).xyz) 
 	+ texture2D(IllusionTexture, UV).xyz + GetSpecularFactor(surfaceNormal,Shininess) * SpecularColor;

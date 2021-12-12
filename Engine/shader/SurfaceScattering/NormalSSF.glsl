@@ -21,6 +21,6 @@ uniform float backWeight;
 uniform vec3 CameraPos;
 
 
-void main(void){
+void main(){
 	fragColor = ((GetLightSurfaceScattering(GetTBNnormal(normal,tangent, NormalTexture,UV)) + vec4(VertexLitColor,0.0f)) * DiffuseColor * texture2D(DiffuseTexture, UV)).rgb;	
 }

@@ -26,7 +26,7 @@
  */
 class VDDECLSPEC VDKeyFrame {
 public:
-	VDKeyFrame(void);
+	VDKeyFrame();
 	VDKeyFrame(const VDKeyFrame& key);
 	VDKeyFrame(float value, float time);
 	VDKeyFrame(float value, float time, float tangentIn, float tangentOut);
@@ -34,14 +34,14 @@ public:
 	/**
 	 *	@Return
 	 */
-	inline float getTime(void) const {
+	inline float getTime() const {
 		return this->time;
 	}
 
 	/**
 	 *	@Return
 	 */
-	inline float getValue(void) const {
+	inline float getValue() const {
 		return this->value;
 	}
 

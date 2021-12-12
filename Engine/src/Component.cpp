@@ -1,27 +1,20 @@
-#include <Animation/VDAnimation.h>
-#include <Audio/VDAudioSource.h>
-#include <Core/VDComponent.h>
-#include <Core/VDObject.h>
-#include <Core/VDTypes.h>
-#include <Physic/VDCollider.h>
-#include <Physic/VDRigidBody.h>
-#include <Rendering/VDCamera.h>
-#include <Rendering/VDLight.h>
-#include <stddef.h>
-#include <Scene/VDGameObject.h>
-#include <Scene/VDTransform.h>
-#include <VDSimpleType.h>
+
+#include "Core/VDComponent.h"
+#include "Core/VDObject.h"
+#include "Core/VDTypes.h"
+#include "VDPrerequisites.h"
+#include "Scene/VDGameObject.h"
+#include "VDSimpleType.h"
 #include <cassert>
 #include <typeinfo>
 #include <vector>
 
-// VDComponent::VDComponent(void) : VDObject(){
-// 	this->pgameObject = NULL;
+
+// VDComponent::VDComponent() : VDObject(){
+// 	this->pgameObject = nullptr;
 // }
 
-VDComponent::~VDComponent(void) {
-
-}
+VDComponent::~VDComponent() {}
 
 // VDComponent& VDComponent::operator=(const VDComponent& rh){
 // 	VDObject::operator=(rh);
@@ -29,53 +22,31 @@ VDComponent::~VDComponent(void) {
 // 	return *this;
 // }
 
-bool VDComponent::operator==(const VDComponent* lh)const{
-	return ( this == lh);
-}
+bool VDComponent::operator==(const VDComponent *lh) const { return (this == lh); }
 
-bool VDComponent::operator!=(const VDComponent* lh)const{
-	return (this != lh);
-}
+bool VDComponent::operator!=(const VDComponent *lh) const { return (this != lh); }
 
-VDAnimation* VDComponent::animation(void){
-	return this->pgameObject->getComponent<VDAnimation>();	
-}
+VDAnimation *VDComponent::animation() { return this->pgameObject->getComponent<VDAnimation>(); }
 
-VDCamera* VDComponent::camera(void){
-	return this->pgameObject->getComponent<VDCamera>();
-}
+VDCamera *VDComponent::camera() { return this->pgameObject->getComponent<VDCamera>(); }
 
-VDTransform* VDComponent::transform(void)const{
-	return (VDTransform*)this->pgameObject->componets[0];
-}
+VDTransform *VDComponent::transform() const { return (VDTransform *)this->pgameObject->componets[0]; }
 
-VDRenderer* VDComponent::renderer(void){
-	return this->pgameObject->getComponent<VDRenderer>();
-}
+VDRenderer *VDComponent::renderer() { return this->pgameObject->getComponent<VDRenderer>(); }
 
-VDGameObject* VDComponent::gameObject(void)const{
-	return this->pgameObject;
-}
+VDGameObject *VDComponent::gameObject() const { return this->pgameObject; }
 
-VDAudioSource* VDComponent::audio(void){
-	return this->pgameObject->getComponent<VDAudioSource>();
-}
+VDAudioSource *VDComponent::audio() { return this->pgameObject->getComponent<VDAudioSource>(); }
 
-VDLight* VDComponent::light(void){
-	return this->pgameObject->getComponent<VDLight>();
-}
+VDLight *VDComponent::light() { return this->pgameObject->getComponent<VDLight>(); }
 
-VDCollider* VDComponent::collider(void){
-	return this->pgameObject->getComponent<VDCollider>();	
-}
+VDCollider *VDComponent::collider() { return this->pgameObject->getComponent<VDCollider>(); }
 
-VDRigidBody* VDComponent::rigidBody(void){
-	return this->pgameObject->getComponent<VDRigidBody>();	
-}
+VDRigidBody *VDComponent::rigidBody() { return this->pgameObject->getComponent<VDRigidBody>(); }
 
-bool VDComponent::existComponet(const VDTypeInfo& info){
-	for(int x = this->pgameObject->componets.size() - 1; x >= 0; x--){
-		if(info == typeid(*this->pgameObject->componets[x]))
+bool VDComponent::existComponet(const VDTypeInfo &info) {
+	for (int x = this->pgameObject->componets.size() - 1; x >= 0; x--) {
+		if (info == typeid(*this->pgameObject->componets[x]))
 			return true;
 	}
 	/*for(int x = this->gameObjectPointer->Componets.size() - 1; x >= 0; x--){
@@ -90,42 +61,37 @@ bool VDComponent::existComponet(const VDTypeInfo& info){
 		}
 		else{
 			continue;
-		}	
+		}
 	}*/
 
 	return false;
 }
 
-VDGameObject* VDComponent::instantiate(void){
-	return this->gameObject()->instantiate();
-}
+VDGameObject *VDComponent::instantiate() { return this->gameObject()->instantiate(); }
 
-VDGameObject* VDComponent::instantiate(const VDVector3& position, const VDQuaternion& rotation){
+VDGameObject *VDComponent::instantiate(const VDVector3 &position, const VDQuaternion &rotation) {
 	return this->gameObject()->instantiate(position, rotation);
 }
 
-void* VDComponent::getComponent(const VDTypeInfo& typeinfo){
+void *VDComponent::getComponent(const VDTypeInfo &typeinfo) {
 
 	/**/
-	for(int x = gameObject()->componets.size() - 1; x >= 0; x--){
-		if( typeid(*gameObject()->componets[x]) == *typeinfo.getType())
-			return  gameObject()->componets[x];
-	}
-
-	/**/
-	for(int x = gameObject()->componets.size() - 1; x >= 0; x--){
-		if(typeid(VDBehavior).before(typeid(*gameObject()->componets[x])) >= 1)
+	for (int x = gameObject()->componets.size() - 1; x >= 0; x--) {
+		if (typeid(*gameObject()->componets[x]) == *typeinfo.getType())
 			return gameObject()->componets[x];
 	}
-	return NULL;
+
+	/**/
+	for (int x = gameObject()->componets.size() - 1; x >= 0; x--) {
+		if (typeid(VDBehavior).before(typeid(*gameObject()->componets[x])) >= 1)
+			return gameObject()->componets[x];
+	}
+	return nullptr;
 }
 
-void VDComponent::setGameObject(VDGameObject* gameobject){
+void VDComponent::setGameObject(VDGameObject *gameobject) {
 	assert(gameobject);
 	this->pgameObject = gameobject;
 }
 
-
-void VDComponent::destroy(VDGameObject* gameObject){
-	VDGameObject::removeGameObject(gameObject);
-}
+void VDComponent::destroy(VDGameObject *gameObject) { VDGameObject::removeGameObject(gameObject); }

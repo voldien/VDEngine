@@ -49,14 +49,14 @@ public:
 		eTransformScaZ
 	};
 
-	VDCurve(void);
+	VDCurve();
 	VDCurve(const VDCurve& curve);
 	VDCurve(int keyCount);
 
 	/**
 	 *	release the data and free the allocated curve data.
 	 */
-	virtual void VDAPIENTRY release(void);
+	virtual void VDAPIENTRY release();
 
 	/**
 	 *
@@ -71,7 +71,7 @@ public:
 	/**
 	 *
 	 */
-	int getKeyCount(void) const;
+	int getKeyCount() const;
 
 	/**
 	 *
@@ -92,11 +92,11 @@ public:
 	 */
 	float VDAPIENTRY tangentInterpolation(unsigned int index, float time);
 
-	inline unsigned int getLength(void) const {
+	inline unsigned int getLength() const {
 		return this->length;
 	}
 
-	inline unsigned int getCurveFlag(void) const {
+	inline unsigned int getCurveFlag() const {
 		return this->cFlag;
 	}
 
@@ -104,7 +104,7 @@ public:
 		this->cFlag = flag;
 	}
 
-	inline void* getPointer(void) const {
+	inline void* getPointer() const {
 		return this->pointer;
 	}
 
@@ -114,7 +114,7 @@ public:
 
 	void setMethodSetCallBack(VDSetClassMethod method);
 
-	VDSetClassMethod getMethodSetCallBack(void) const;
+	VDSetClassMethod getMethodSetCallBack() const;
 
 	template<class T>
 	void setCurveValue(T value) {
@@ -131,13 +131,13 @@ protected:
 	unsigned short cFlag; /**/
 	VDSetClassMethod set; /**/
 
-	inline VDTransform* transform(void) const {
+	inline VDTransform* transform() const {
 		return VDCASTP(VDTransform*, this->pointer);
 	}
 
 	/**/
 	template<class T>
-	inline T* getPointerType(void) const {
+	inline T* getPointerType() const {
 		return VDCASTP(T*, this->pointer);
 	}
 };

@@ -53,12 +53,12 @@ void VDGeometryUtility::computeAABB(const VDVertex* vertices, unsigned int strid
 
 
 	}
-	if(size != NULL){
+	if(size != nullptr){
 		size[0] = (float)(MaxX - MinX);
 		size[1] = (float)(MaxY - MinY);
 		size[2] = (float)(MaxZ - MinZ);
 	}
-	if(center != NULL){
+	if(center != nullptr){
 		center[0] = (MinX + MaxX) / 2.0f;
 		center[1] = (MinY + MaxY) / 2.0f;
 		center[2] = (MinZ + MaxZ) / 2.0f;
@@ -87,7 +87,7 @@ unsigned int VDGeometryUtility::getindexBufferSize(unsigned int IndicesCount){
 	else if(IndicesCount < ULLONG_MAX)
 		return sizeof(unsigned long long int);
 	else
-		return NULL;
+		return nullptr;
 }
 
 unsigned int VDGeometryUtility::getIndicesSize(unsigned int IndicesCount){
@@ -102,5 +102,5 @@ unsigned int VDGeometryUtility::getIndicesSize(unsigned int IndicesCount){
 	else if(IndicesCount < ULLONG_MAX)
 		return sizeof(unsigned long long int);
 	else
-		return NULL;
+		return nullptr;
 }

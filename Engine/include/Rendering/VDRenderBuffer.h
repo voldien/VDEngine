@@ -27,7 +27,7 @@
 class VDDECLSPEC VDRenderBuffer : public VDAssetObject{
 	friend class VDRenderTexture;
 public:
-	VDRenderBuffer(void);
+	VDRenderBuffer();
 	explicit VDRenderBuffer(unsigned int buffer);
 	VDRenderBuffer(const VDRenderBuffer& buffer);
 
@@ -35,22 +35,22 @@ public:
 	 *	Release resources assoicated with the
 	 *	object.
 	 */
-	virtual void VDAPIENTRY release(void);
+	virtual void VDAPIENTRY release();
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY bind(void);
+	void VDAPIENTRY bind();
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY unbind(void);
+	void VDAPIENTRY unbind();
 
 	/**
 	 *	@Return true if renderbuffer is valid.
 	 */
-	bool VDAPIENTRY isValid(void)const;
+	bool VDAPIENTRY isValid()const;
 
 	/**
 	 *
@@ -66,10 +66,10 @@ public:
 	/**
 	 *	@Return
 	 */
-	VDTexture::TextureFormat VDAPIENTRY getInternalFormat(void);
+	VDTexture::TextureFormat VDAPIENTRY getInternalFormat();
 
 
-	inline unsigned int getRendererID(void)const{
+	inline unsigned int getRendererID()const{
 		return this->renderer;
 	}
 

@@ -8,7 +8,7 @@
 #include <cstring>
 
 
-VDSystemInfo::OperatingSystem VDSystemInfo::operatingSystem(void){
+VDSystemInfo::OperatingSystem VDSystemInfo::operatingSystem(){
 
 	const char* os = SDL_GetPlatform();
 
@@ -28,30 +28,30 @@ VDSystemInfo::OperatingSystem VDSystemInfo::operatingSystem(void){
 	return VDSystemInfo::eUnknown;
 }
 
-const char* VDSystemInfo::getAppliationName(void){
+const char* VDSystemInfo::getAppliationName(){
 #   if defined(VD_GNUC) || defined(VD_UNIX)
 	extern char* __progname;
 	return __progname;
 #else
-	return NULL;
+	return nullptr;
 #endif
 }
 
-unsigned int VDSystemInfo::getPageSize(void){
+unsigned int VDSystemInfo::getPageSize(){
 	return 1024;
 }
 
-unsigned int VDSystemInfo::getCPUCoreCount(void){
+unsigned int VDSystemInfo::getCPUCoreCount(){
 	return SDL_GetCPUCount();
 }
 
 
-bool VDSystemInfo::supportsVibration(void){
+bool VDSystemInfo::supportsVibration(){
 	return false;
 }
 
 
-unsigned long int VDSystemInfo::systemMemorySize(void){
+unsigned long int VDSystemInfo::systemMemorySize(){
 
 	return SDL_GetSystemRAM();
 }
@@ -59,7 +59,7 @@ unsigned long int VDSystemInfo::systemMemorySize(void){
 
 
 
-bool VDSystemInfo::supportRenderTargetCount(void){
+bool VDSystemInfo::supportRenderTargetCount(){
 	if(VDSystemInfo::supportFrameBuffer()){
 		int num;
 		glGetIntegerv(GL_MAX_DRAW_BUFFERS, &num);
@@ -68,78 +68,78 @@ bool VDSystemInfo::supportRenderTargetCount(void){
 	return false;
 }
 
-bool VDSystemInfo::supportFrameBuffer(void){
+bool VDSystemInfo::supportFrameBuffer(){
 	return ( SDL_GL_ExtensionSupported("GL_ARB_framebuffer_object") || SDL_GL_ExtensionSupported("EXT_framebuffer_object") ) != 0 ? true : false;
 }
 
-bool VDSystemInfo::supportFrameBufferMultiSample(void){
+bool VDSystemInfo::supportFrameBufferMultiSample(){
 	return ( SDL_GL_ExtensionSupported("EXT_framebuffer_multisample") | SDL_GL_ExtensionSupported("EXT_framebuffer_object") ) != 0 ? true : false;
 
 }
 
-bool VDSystemInfo::supportsImageEffects(void){
+bool VDSystemInfo::supportsImageEffects(){
 	return VDSystemInfo::supportFrameBuffer();
 }
 
-bool VDSystemInfo::supportsInstancing(void){
+bool VDSystemInfo::supportsInstancing(){
 	return (SDL_GL_ExtensionSupported("GL_ARB_draw_instanced") | SDL_GL_ExtensionSupported("GL_EXT_draw_instanced") )!= 0 ? true : false;
 }
 
-bool VDSystemInfo::supportsRenderTextures(void){
+bool VDSystemInfo::supportsRenderTextures(){
 	return SDL_GL_ExtensionSupported("GL_ARB_framebuffer_object");
 }
 
-bool VDSystemInfo::supportsRenderToCubemap(void){
+bool VDSystemInfo::supportsRenderToCubemap(){
 	int support;
 	glGetIntegerv(GL_MAX_3D_TEXTURE_SIZE, &support);
 	return support >= 16;
 }
 
-bool VDSystemInfo::supportCubeMap(void){
+bool VDSystemInfo::supportCubeMap(){
 	return SDL_GL_ExtensionSupported("GL_ARB_texture_cube_map") || SDL_GL_ExtensionSupported("GL_EXT_texture_cube_map");
 }
 
-bool VDSystemInfo::supportSeamLessCubeMap(void){
+bool VDSystemInfo::supportSeamLessCubeMap(){
 	return SDL_GL_ExtensionSupported("GL_ARB_seamless_cube_map,");
 }
 
-bool VDSystemInfo::supportCubeMapArray(void){
+bool VDSystemInfo::supportCubeMapArray(){
 	return SDL_GL_ExtensionSupported("ARB_texture_cube_map_array");
 }
 
-bool VDSystemInfo::supportLayerFragment(void){
+bool VDSystemInfo::supportLayerFragment(){
 	return SDL_GL_ExtensionSupported("GL_ARB_fragment_layer_viewport");
 }
 
-bool VDSystemInfo::supportShaderImageLoadStorage(void){
+bool VDSystemInfo::supportShaderImageLoadStorage(){
 	return SDL_GL_ExtensionSupported("GL_EXT_shader_image_load_store") || SDL_GL_ExtensionSupported("GL_ARB_shader_image_load_store");
 }
 
-bool VDSystemInfo::supportQueryOcclusion(void){
+bool VDSystemInfo::supportQueryOcclusion(){
 	return SDL_GL_ExtensionSupported("GL_ARB_occlusion_query") | SDL_GL_ExtensionSupported("GL_NV_occlusion_query");
 }
 
-bool VDSystemInfo::supportsShadows(void){
+bool VDSystemInfo::supportsShadows(){
 	return supportFrameBuffer() || SDL_GL_ExtensionSupported("GL_ARB_fragment_program_shadow") || SDL_GL_ExtensionSupported("");
 }
 
-bool VDSystemInfo::supportSpritePoint(void){
+bool VDSystemInfo::supportSpritePoint(){
 	return SDL_GL_ExtensionSupported("GL_ARB_point_sprite") || SDL_GL_ExtensionSupported("GL_NV_point_sprite");
 }
 
-bool VDSystemInfo::supportsSparseTextures(void){
+bool VDSystemInfo::supportsSparseTextures(){
 	return SDL_GL_ExtensionSupported("ARB_sparse_texture");
 }
 
-bool VDSystemInfo::supportsStencil(void){
+bool VDSystemInfo::supportsStencil(){
 	return SDL_GL_ExtensionSupported("GL_ARB_stencil_texturing");
 }
 
-bool VDSystemInfo::supportDepthStencil(void){
+bool VDSystemInfo::supportDepthStencil(){
 	return SDL_GL_ExtensionSupported("GL_EXT_packed_depth_stencil") || SDL_GL_ExtensionSupported("GL_NV_packed_depth_stencil");
 }
 
-bool VDSystemInfo::supportMSAA(void){
+bool VDSystemInfo::supportMSAA(){
 	return SDL_GL_ExtensionSupported("GL_ARB_multisample") ||
 			SDL_GL_ExtensionSupported("GL_EXT_multisample") ||
 			SDL_GL_ExtensionSupported("WGL_EXT_multisample") ||
@@ -147,29 +147,29 @@ bool VDSystemInfo::supportMSAA(void){
 			SDL_GL_ExtensionSupported("WGL_ARB_multisample");
 }
 
-int VDSystemInfo::numMSAASampling(void){
+int VDSystemInfo::numMSAASampling(){
 	int size;
 	glGetIntegerv(GL_MAX_INTEGER_SAMPLES, &size);
 	return size;
 }
 
-bool VDSystemInfo::supportShaderSubRoutine(void){
+bool VDSystemInfo::supportShaderSubRoutine(){
 	return SDL_GL_ExtensionSupported("GL_ARB_shader_subroutine");
 }
 
-bool VDSystemInfo::supportGeomtry(void){
+bool VDSystemInfo::supportGeomtry(){
 	return SDL_GL_ExtensionSupported("GL_ARB_geometry_shader4") || SDL_GL_ExtensionSupported("GL_EXT_geometry_shader4") || SDL_GL_ExtensionSupported("GL_NV_geometry_shader4");
 }
 
-bool VDSystemInfo::supportTessellation(void){
+bool VDSystemInfo::supportTessellation(){
 	return SDL_GL_ExtensionSupported("GL_ARB_tessellation_shader") || SDL_GL_ExtensionSupported("GL_NV_tessellation_program5");
 }
 
-bool VDSystemInfo::supportVertexArrayObject(void){
+bool VDSystemInfo::supportVertexArrayObject(){
 	return SDL_GL_ExtensionSupported("GL_ARB_vertex_array_object");
 }
 
-bool VDSystemInfo::supportTransformFeedBack(void){
+bool VDSystemInfo::supportTransformFeedBack(){
 	return  SDL_GL_ExtensionSupported("GL_ARB_transform_feedback2") || SDL_GL_ExtensionSupported("GL_NV_transform_feedback2") ||
 			SDL_GL_ExtensionSupported("GL_NV_transform_feedback") || SDL_GL_ExtensionSupported("EXT_transform_feedback") ||
 			SDL_GL_ExtensionSupported("GL_ARB_transform_feedback3");
@@ -188,7 +188,7 @@ bool VDSystemInfo::SupportsTextureFormat(VDTexture::TextureFormat format){
 	return false;
 }
 
-bool VDSystemInfo::supportTextureCompression(void){
+bool VDSystemInfo::supportTextureCompression(){
 	return 	SDL_GL_ExtensionSupported("GL_ARB_texture_compression") ||
 			SDL_GL_ExtensionSupported("GL_ARB_texture_compression_bptc") ||
 			SDL_GL_ExtensionSupported("GL_ARB_texture_compression_rgtc") ||
@@ -216,20 +216,20 @@ bool VDSystemInfo::supportTextureCompression(VDTexture::CompressionFormat compre
 	}
 }
 
-bool VDSystemInfo::supportBufferBase(void){
-	return glBindBufferBase != NULL;
+bool VDSystemInfo::supportBufferBase(){
+	return glBindBufferBase != nullptr;
 }
 
-bool VDSystemInfo::supportMultiBind(void){
+bool VDSystemInfo::supportMultiBind(){
 	return SDL_GL_ExtensionSupported("GL_ARB_multi_bind") != 0 ? true : false;
 }
 
-bool VDSystemInfo::supportShaderStorageBuffer(void){
+bool VDSystemInfo::supportShaderStorageBuffer(){
 
 	return SDL_GL_ExtensionSupported("GL_ARB_shader_storage_buffer_object") || SDL_GL_ExtensionSupported("GL_NV_shader_storage_buffer_object");
 }
 
-unsigned int VDSystemInfo::openglVersion(void){
+unsigned int VDSystemInfo::openglVersion(){
 
 	unsigned int version;
 	char glstring[128] = {0};
@@ -241,12 +241,12 @@ unsigned int VDSystemInfo::openglVersion(void){
 	if(wspac){
 		*wspac = '\0';
 	}
-	version = strtof(glstring, NULL) * 100;
+	version = strtof(glstring, nullptr) * 100;
 
 	return version;
 }
 
-unsigned int VDSystemInfo::openglshadingVersion(void){
+unsigned int VDSystemInfo::openglshadingVersion(){
 
 	unsigned int version;
 	char glstring[128] = {0};
@@ -258,18 +258,18 @@ unsigned int VDSystemInfo::openglshadingVersion(void){
 	if(wspac){
 		*wspac = '\0';
 	}
-	version = strtof(glstring, NULL) * 100;
+	version = strtof(glstring, nullptr) * 100;
 
 	return version;
 }
 
-bool VDSystemInfo::isOpenGLCoreProfile(void){
+bool VDSystemInfo::isOpenGLCoreProfile(){
 	int value;
 	glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &value);
 	return ( value == SDL_GL_CONTEXT_PROFILE_CORE );
 }
 
-bool VDSystemInfo::isOpenGLCompatibility(void){
+bool VDSystemInfo::isOpenGLCompatibility(){
 	int value;
 	glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &value);
 	return ( value == SDL_GL_CONTEXT_PROFILE_COMPATIBILITY );
@@ -344,6 +344,6 @@ void VDSystemInfo::determineCompatibility(VDCompatibility* compatibility){
 
 }
 
-VDSystemInfo::VDCompatibility* VDSystemInfo::getCompatibility(void){
+VDSystemInfo::VDCompatibility* VDSystemInfo::getCompatibility(){
 	return engine.compadability;
 }

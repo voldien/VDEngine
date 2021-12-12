@@ -24,7 +24,7 @@
  */
 class VDDECLSPEC VDRect{
 public:
-	VDRect(void);
+	VDRect();
 	VDRect(float x, float y, float width, float height);
 	VDRect(const VDRect& rect);
 
@@ -51,30 +51,30 @@ public:
 	/**
 	 *
 	 */
-	inline float x(void)const{return m[0];}
+	inline float x()const{return m[0];}
 
 	/**
 	 *
 	 */
-	inline float y(void)const{return m[1];}
+	inline float y()const{return m[1];}
 
 	/*
 	 *
 	 */
-	inline float width(void)const{return m[2];}
+	inline float width()const{return m[2];}
 
 	/*
 	 *
 	 */
-	inline float height(void)const{return m[3];}
+	inline float height()const{return m[3];}
 
 
-	inline float bottom(void)const{return this->y() + this->height();}
-	inline float center(void)const;
-	inline float left(void)const;
-	inline float location(void)const;
-	inline float right(void)const{return this->x() + this->width();}
-	inline float top(void)const;
+	inline float bottom()const{return this->y() + this->height();}
+	inline float center()const;
+	inline float left()const;
+	inline float location()const;
+	inline float right()const{return this->x() + this->width();}
+	inline float top()const;
 
 
 	/**
@@ -135,7 +135,7 @@ public:
 	};
 };
 
-inline VDRect::VDRect(void){
+inline VDRect::VDRect(){
 
 }
 

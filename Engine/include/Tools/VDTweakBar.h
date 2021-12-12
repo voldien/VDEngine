@@ -45,18 +45,18 @@ public:
 		};
 	}VDTweakCallbackAttribute;
 
-	VDTweakBar(void);
-	~VDTweakBar(void);
+	VDTweakBar();
+	~VDTweakBar();
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY init(void);
+	void VDAPIENTRY init();
 
 	/**
 	 *
 	 */
-	virtual void release(void);
+	virtual void release();
 
 	/**
 	 *
@@ -66,17 +66,17 @@ public:
 	/**
 	 *
 	 */
-	VDPoolAllactor<VDTweakCallbackAttribute>& VDAPIENTRY getCallBackPool(void)const;
+	VDPoolAllactor<VDTweakCallbackAttribute>& VDAPIENTRY getCallBackPool()const;
 
 	/**
 	 *
 	 */
-	virtual void draw(void);
+	virtual void draw();
 
 	/**
 	 *
 	 */
-	virtual void VDAPIENTRY update(void);
+	virtual void VDAPIENTRY update();
 
 	/**
 	 *

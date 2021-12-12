@@ -11,7 +11,7 @@ uniform vec4 DiffuseColor;
 uniform sampler2D DiffuseTexture;
 uniform sampler2D NormalTexture;
 
-void main (void){
+void main (){
 	vec3 newNormal = getTBN( vNormal, vTangent, NormalTexture, vUV );
 
 	fragColor = vec4( (DiffuseColor.rgb * texture2D(DiffuseTexture, vUV).rgb) *

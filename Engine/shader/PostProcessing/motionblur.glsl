@@ -8,7 +8,7 @@ uniform sampler2D DiffuseTexture2;
 uniform sampler2D DiffuseTexture3;
 uniform sampler2D DiffuseTexture4;
 
-void main(void){
+void main(){
 	fragcolor = texture(DiffuseTexture0,UV) + 
 	texture(DiffuseTexture1,UV) + 
 	texture(DiffuseTexture2,UV) + 

@@ -6,7 +6,7 @@ SMOOTH_OUT vec2 vUV;
 uniform mat4 ModelViewProjection;
 
 
-void main (void){
+void main (){
 	gl_Position = ModelViewProjection * vec4(vertex, 1.0);
 	vUV = uv;
 }

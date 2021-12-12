@@ -18,15 +18,15 @@
 // #include <SDL2/SDL_keycode.h>
 // #include <VDSimpleType.h>
 
-// VDCameraController::VDCameraController(void) : VDCustomBehavior(){
+// VDCameraController::VDCameraController() : VDCustomBehavior(){
 // 	this->sensityX = 0.15f;
 // 	this->sensityY = 0.4f;
 // 	this->speed = 9.5f;
 // 	this->maxSpeed = 10.0f;
 // 	this->gravity = 9.82f;
-// 	this->characterController = NULL;
+// 	this->characterController = nullptr;
 // 	this->gravity = 1;
-// 	this->camera = NULL;
+// 	this->camera = nullptr;
 // 	this->flag = 0;
 // }
 
@@ -34,11 +34,11 @@
 // 	*this = controller;
 // }
 
-// VDCameraController::~VDCameraController(void){
+// VDCameraController::~VDCameraController(){
 
 // }
 
-// void VDCameraController::onAwake(void){
+// void VDCameraController::onAwake(){
 
 // 	VDGameObject* cameraObject = VDGameObject::createGameObject();
 // 	this->camera = cameraObject->addComponet<VDCamera>();
@@ -64,7 +64,7 @@
 // }
 
 
-// void VDCameraController::fixedUpdate(void){
+// void VDCameraController::fixedUpdate(){
 // 	VDRaycastHit hit;
 // 	VDVector3 deltaMotion = VDVector3(0.0f);
 

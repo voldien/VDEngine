@@ -15,7 +15,7 @@ uniform float bloomFactor = 1.0f;
 #define HorizontalBlur 0x4
 #define VerticalBlur 0x8
 
-vec3 BlurColor(void){
+vec3 BlurColor(){
 	vec3 color = vec3(0,0,0);
 	float deviation = (float(BlurAmount) * 0.5f) * 0.35;
 	deviation *= deviation;
@@ -34,7 +34,7 @@ vec3 BlurColor(void){
 	return clamp(color,0.0f, 1.0f);
 }
 
-void main(void){
+void main(){
 	vec4 color = texture2D(DiffuseTexture, UV);
 	vec3 bloom = BlurColor();
 	//color += vec4(bloom,1.0f) * bloomFactor;

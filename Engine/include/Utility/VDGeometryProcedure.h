@@ -20,7 +20,7 @@
 #define _VD_GEOMETRY_PROCEDURE_H_ 1
 #include"../VDSystem.h"
 #include"../Rendering/VDMesh.h"
-#include"../DataStructure/VDVector.h"
+#include<vector>
 
 
 /**
@@ -70,7 +70,7 @@ public:
 	 *
 	 *	@Return
 	 */
-	static VDMesh* VDAPIENTRY createBoundingBox(void);
+	static VDMesh* VDAPIENTRY createBoundingBox();
 
 
 };

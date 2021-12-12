@@ -13,49 +13,49 @@ float delta_data[5];
 unsigned int nDeltaTime = sizeof(delta_data) / sizeof(delta_data[0]);
 unsigned int idelta = 0;
 
-float VDTime::internal_delta_timef(void){
+float VDTime::internal_delta_timef(){
 	double ttime = (double)(SDL_GetPerformanceCounter() - VDTime::ticks) / (double)VDTime::getTimeResolution();
 	return (float)ttime *  VDTime::getTimeScale();
 }
 
-float VDTime::internal_delta_timed(void){
+float VDTime::internal_delta_timed(){
 	double ttime = (double)(SDL_GetPerformanceCounter() - VDTime::ticks) / (double)VDTime::getTimeResolution();
 	return ttime *  VDTime::getTimeScale();
 }
 
-float VDTime::deltaTime(void){
+float VDTime::deltaTime(){
 	return theDelta;
 }
 
-double VDTime::deltaTimed(void){
+double VDTime::deltaTimed(){
 	double ttime = (double)(SDL_GetPerformanceCounter() - VDTime::ticks) / (double)timeResolution;
 	return ttime *  VDTime::getTimeScale();
 }
 
 
-float VDTime::smoothDeltaTime(void){
+float VDTime::smoothDeltaTime(){
 	double ttime = delta_data[0] + delta_data[1] + delta_data[2] + delta_data[3] + delta_data[4];
 	return (ttime / (double)nDeltaTime) *  VDTime::getTimeScale();
 }
 
-unsigned int VDTime::time(void){
+unsigned int VDTime::time(){
 	return SDL_GetTicks();
 }
 
 static long int _private_startup = SDL_GetPerformanceCounter();
-float VDTime::timef(void){
+float VDTime::timef(){
 	return (double)(SDL_GetPerformanceCounter() - _private_startup) / (double)timeResolution;
 }
 
-double VDTime::timed(void){
+double VDTime::timed(){
 	return (double)SDL_GetPerformanceCounter() / (double)timeResolution;
 }
 
-long int VDTime::getUnixTime(void){
-	return ::time(NULL);
+long int VDTime::getUnixTime(){
+	return ::time(nullptr);
 }
 
-float VDTime::getTimeScale(void){
+float VDTime::getTimeScale(){
 	return VDTime::scale;
 }
 
@@ -65,15 +65,15 @@ void VDTime::setTimeScale(float scale){
 }
 
 static long int _private_level_startup = SDL_GetPerformanceCounter();
-float VDTime::timeSinceLevelLoad(void){
+float VDTime::timeSinceLevelLoad(){
 	return (double)(SDL_GetPerformanceCounter() - _private_level_startup) / (double)timeResolution;
 }
 
-float VDTime::fixedTime(void){
+float VDTime::fixedTime(){
 	return fixed / getTimeScale();
 }
 
-long int VDTime::getTimeResolution(void){
+long int VDTime::getTimeResolution(){
 	return SDL_GetPerformanceFrequency();
 }
 
@@ -81,7 +81,7 @@ void VDTime::sleep(long int msec){
 	SDL_Delay(msec);
 }
 
-void VDTime::internal_update(void){
+void VDTime::internal_update(){
 	theDelta = internal_delta_timef();
 	delta_data[idelta] = VDTime::deltaTime();
 	++idelta %= nDeltaTime;

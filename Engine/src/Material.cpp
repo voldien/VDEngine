@@ -2,7 +2,6 @@
 #include <Core/VDDebug.h>
 #include <Core/VDEngine.h>
 #include <Core/VDObject.h>
-#include <DataStructure/VDPoolAllactor.h>
 #include <GL/glew.h>
 #include <Rendering/Texture/VDTexture.h>
 #include <Rendering/Texture/VDTexture2D.h>
@@ -16,7 +15,6 @@
 #include <Utility/VDTextureProcedure.h>
 #include <Utility/VDTextureUtility.h>
 #include <VDSimpleType.h>
-#include <VDSystemInfo.h>
 #include <cstdlib>
 #include <cstring>
 #include <vector>
@@ -24,14 +22,14 @@
 using namespace std;
 
 /**/
-VDMaterial* gDefaulMaterial = NULL;
-VDTexture2D* resourceErrorTexture = NULL;
+VDMaterial* gDefaulMaterial = nullptr;
+VDTexture2D* resourceErrorTexture = nullptr;
 
 
-VDMaterial::VDMaterial(void) : VDAssetObject(){
+VDMaterial::VDMaterial() : VDAssetObject(){
 
-	this->shader = NULL;
-	memset(this->textures, NULL, sizeof(this->textures));
+	this->shader = nullptr;
+	memset(this->textures, nullptr, sizeof(this->textures));
 	this->setTexture(VDShaderConstant::eDiffuseTexture, resourceErrorTexture);
 
 	/*	Assign default texture.	*/
@@ -41,9 +39,9 @@ VDMaterial::VDMaterial(void) : VDAssetObject(){
 }
 
 VDMaterial::VDMaterial(VDShader* shader) : VDAssetObject() {
-	this->shader = NULL;
+	this->shader = nullptr;
 	this->setShader(shader);
-	memset(this->textures,NULL,sizeof(this->textures));
+	memset(this->textures,nullptr,sizeof(this->textures));
 	// assigned  the default texture, to be able render anything 
 	if(this->getDefaultMaterial()){
 		this->setTexture(VDShaderConstant::eDiffuseTexture, this->getDefaultMaterial()->getTexture(VDShaderConstant::eDiffuseTexture));
@@ -55,7 +53,7 @@ VDMaterial::VDMaterial(const VDMaterial& material){
 }
 
 
-VDMaterial::~VDMaterial(void){
+VDMaterial::~VDMaterial(){
 	if(VDScene::getScene()->materials.isValidItem(*this))
 		VDScene::getScene()->materials.Return(this);
 }
@@ -67,14 +65,14 @@ VDMaterial& VDMaterial::operator=(const VDMaterial& materail){
 	return *this;
 }
 
-void VDMaterial::release(void){
+void VDMaterial::release(){
 	int x;
 	if(this->getShader()){
 		this->getShader()->deincrement();
 	}
 	/*	deincrement all texture associated.	*/
 	for(x = 0; x < sizeof(textures) / sizeof(textures[0]); x++){
-		if(this->getTexture(x) != NULL){
+		if(this->getTexture(x) != nullptr){
 			this->getTexture(x)->deincrement();
 		}
 	}
@@ -106,11 +104,11 @@ void VDMaterial::setShader(VDShader* shader){
 	}
 }
 
-VDShader* VDMaterial::getShader(void)const{
+VDShader* VDMaterial::getShader()const{
 	return this->shader;
 }
 
-void VDMaterial::bindProperties(void){
+void VDMaterial::bindProperties(){
 
 	int index = 0;
 
@@ -118,7 +116,7 @@ void VDMaterial::bindProperties(void){
 	if(!VDSystemInfo::getCompatibility()->sMultiBind){
 		int tex[16];
 		for(int x = 0; x < sizeof(this->textures) / sizeof(this->textures[0]); x++){
-			tex[x] = ( this->getTexture(x) != NULL ) ? this->getTexture(x)->getTexture() : NULL;
+			tex[x] = ( this->getTexture(x) != nullptr ) ? this->getTexture(x)->getTexture() : nullptr;
 		}
 
 		VDRenderingAPICache::bindTextures(0, sizeof(this->textures) / sizeof(this->textures[0]), tex);
@@ -131,7 +129,7 @@ void VDMaterial::bindProperties(void){
 	}
 }
 
-void VDMaterial::bind(void){
+void VDMaterial::bind(){
 	if(!getShader()){
 		return;
 	}
@@ -144,11 +142,11 @@ void VDMaterial::bind(void){
 }
 
 void VDMaterial::setTexture(int index, VDTexture* texture){
-	if(texture == NULL || index >= (sizeof(this->textures) / sizeof(this->textures[0])) -1){
+	if(texture == nullptr || index >= (sizeof(this->textures) / sizeof(this->textures[0])) -1){
 		return;
 	}
 
-	if(this->textures[index] != NULL && texture == NULL){
+	if(this->textures[index] != nullptr && texture == nullptr){
 		this->textures[index]->deincrement();
 		this->textures[index] = texture;
 	}
@@ -229,7 +227,7 @@ VDVector2 VDMaterial::getVec2(const char* uniformName){
 }
 VDVector2* VDMaterial::getVec2v(const char* uniformName, unsigned int IndexOffset, unsigned int Count){
 	if(!this->getShader())
-		return NULL;
+		return nullptr;
 
 	VDVector2* pvalue = (VDVector2*)malloc(this->getShader()->getUniformSize(uniformName) * sizeof(VDVector2));
 	for(unsigned int x = 0; x < Count; x++){
@@ -266,7 +264,7 @@ VDVector3 VDMaterial::getVec3(const char* uniformName){
 	return v;
 }
 VDVector3* VDMaterial::getVec3v(const char* uniformName, unsigned int IndexOffset, unsigned int Count){
-	if(!this->getShader())return NULL;
+	if(!this->getShader())return nullptr;
 	VDVector3* pvalue = (VDVector3*)malloc(sizeof(VDVector3) * this->getShader()->getUniformSize(uniformName));
 	return pvalue;
 }
@@ -295,7 +293,7 @@ VDVector4 VDMaterial::getVec4(const char* uniformName){
 	return v;
 }
 VDVector4* VDMaterial::getVec4v(const char* uniformName, unsigned int IndexOffset, unsigned int Count){
-	if(!this->getShader()) return NULL;
+	if(!this->getShader()) return nullptr;
 	VDVector4* pvalue = (VDVector4*)malloc(sizeof(VDVector4) * this->getShader()->getUniformSize(uniformName));
 	return pvalue;
 }
@@ -343,7 +341,7 @@ float VDMaterial::getfloat(const char* uniformName){
 
 float* VDMaterial::getfloatv(const char* uniformName, unsigned int indexOffset, unsigned int count){
 	if(!this->getShader())
-		return NULL;
+		return nullptr;
 
 	float* pvalue = (float*)malloc(sizeof(float) * shader->getUniformSize(uniformName));
 	for(unsigned int x = 0; x < count; x++){
@@ -375,7 +373,7 @@ int VDMaterial::getInt(const char* uniformName){
 
 int* VDMaterial::getInt(const char* uniformName, unsigned int indexOffset, unsigned int count){
 	if(!this->getShader()){
-		return NULL;
+		return nullptr;
 	}
 
 	int* p_int = (int*)malloc(this->getShader()->getUniformSize(uniformName) * sizeof(int));
@@ -424,12 +422,12 @@ vector<VDMatrix4x4> VDMaterial::getMatrix4v(const char* uniformName, unsigned in
 
 
 
-void VDMaterial::setOpaque(void){
+void VDMaterial::setOpaque(){
 	if(this->getShader()){
 		this->getShader()->setFlagSet( ( this->getShader()->getFlagSet() & ~VDShader::eShaderTranslucent)  | VDShader::eShaderOpaque);
 	}
 }
-void VDMaterial::setTranslucent(void){
+void VDMaterial::setTranslucent(){
 	if(this->getShader()){
 		this->getShader()->setFlagSet( ( this->getShader()->getFlagSet() & ~VDShader::eShaderOpaque)  | VDShader::eShaderTranslucent);
 	}
@@ -437,10 +435,10 @@ void VDMaterial::setTranslucent(void){
 
 
 
-VDMaterial* VDMaterial::createMaterial(void){
+VDMaterial* VDMaterial::createMaterial(){
 	VDMaterial* material = VDScene::getScene()->materials.obtain();
 	*material = VDMaterial();
-	material->mmame = NULL;	/*TODO remove later when C++ compiler bug has been resolved.*/
+	material->mmame = nullptr;	/*TODO remove later when C++ compiler bug has been resolved.*/
 	return material;
 }
 
@@ -452,86 +450,86 @@ VDMaterial* VDMaterial::createMaterial(VDShader* shader){
 
 
 VDMaterial* VDMaterial::createDefaultMaterial(unsigned int preset){
-	VDMaterial* material = NULL;
+	VDMaterial* material = nullptr;
 	VDShader* shader;
 
 	switch(preset){
-	case VDEngine::DefualtMaterialLowQuality:{
-			material = VDMaterial::createMaterial();
-			shader = VDShaderCreator::Diffuse();
+	// case VDEngine::DefualtMaterialLowQuality:{
+	// 		material = VDMaterial::createMaterial();
+	// 		shader = VDShaderCreator::Diffuse();
 
-			/*	Determine if shader is valid.	*/
-			if(!shader->isValid()){
-				VDDebug::log("Default low quality shader is invalid. Loading legacy shader.\n");
-				shader = VDShaderCreator::Unlit();
+	// 		/*	Determine if shader is valid.	*/
+	// 		if(!shader->isValid()){
+	// 			VDDebug::log("Default low quality shader is invalid. Loading legacy shader.\n");
+	// 			shader = VDShaderCreator::Unlit();
 
-				if(shader == NULL || !shader->isValid()){
-					VDDebug::criticalLog("Engine panic.\n");
-					VDApplication::quit(EXIT_FAILURE);
-				}
+	// 			if(shader == nullptr || !shader->isValid()){
+	// 				VDDebug::criticalLog("Engine panic.\n");
+	// 				VDApplication::quit(EXIT_FAILURE);
+	// 			}
 
-				material->setShader(shader);
-			}
-			material->setShader(shader);
+	// 			material->setShader(shader);
+	// 		}
+	// 		material->setShader(shader);
 
-			/*	*/
-			VDTexture2D* defaulTexture =  VDTextureProcedure::whiteTexture();
-			material->setTexture(VDShaderConstant::eDiffuseTexture, defaulTexture);
+	// 		/*	*/
+	// 		VDTexture2D* defaulTexture =  VDTextureProcedure::whiteTexture();
+	// 		material->setTexture(VDShaderConstant::eDiffuseTexture, defaulTexture);
 
-			material->setName("DefaultMaterial");
-			break;
-		}
-	case VDEngine::DefualtMaterialHighQuality:{
-			material = VDMaterial::createMaterial();
-			shader = VDShaderCreator::SpecularNormal();
+	// 		material->setName("DefaultMaterial");
+	// 		break;
+	// 	}
+	// case VDEngine::DefualtMaterialHighQuality:{
+	// 		material = VDMaterial::createMaterial();
+	// 		shader = VDShaderCreator::SpecularNormal();
 
-			/*	Determine if shader is valid.	*/
-			if(!shader->isValid()){
-				VDDebug::log("Default high quality shader is invalid. Loading legacy shader.\n");
-				shader = VDShaderCreator::Unlit();
+	// 		/*	Determine if shader is valid.	*/
+	// 		if(!shader->isValid()){
+	// 			VDDebug::log("Default high quality shader is invalid. Loading legacy shader.\n");
+	// 			shader = VDShaderCreator::Unlit();
 
-				if(shader == NULL || !shader->isValid()){
-					VDDebug::criticalLog("Engine panic.\n");
-					VDApplication::quit(EXIT_FAILURE);
-				}
+	// 			if(shader == nullptr || !shader->isValid()){
+	// 				VDDebug::criticalLog("Engine panic.\n");
+	// 				VDApplication::quit(EXIT_FAILURE);
+	// 			}
 
-				material->setShader(shader);
-			}
-			material->setShader(shader);
+	// 			material->setShader(shader);
+	// 		}
+	// 		material->setShader(shader);
 
 
-			VDTexture2D* defaulTexture = VDTextureProcedure::genCheckerTexture2(1024, 1024, 128, 128, VDColor32::White(), VDColor32::Red(), VDTexture::eRGB, VDTexture::eRGB, VDTexture::eUnsignedByte, VDTexture::eMipMapping);
-			VDTexture2D* defaultNormal = VDTextureUtility::genNormal(defaulTexture);
-			if(defaulTexture != NULL){
-				defaulTexture->compress();
-			}
-			if(defaultNormal){
-				defaultNormal->compress();
-			}
+	// 		VDTexture2D* defaulTexture = VDTextureProcedure::genCheckerTexture2(1024, 1024, 128, 128, VDColor32::White(), VDColor32::Red(), VDTexture::eRGB, VDTexture::eRGB, VDTexture::eUnsignedByte, VDTexture::eMipMapping);
+	// 		VDTexture2D* defaultNormal = VDTextureUtility::genNormal(defaulTexture);
+	// 		// if(defaulTexture != nullptr){
+	// 		// 	defaulTexture->compress();
+	// 		// }
+	// 		// if(defaultNormal){
+	// 		// 	defaultNormal->compress();
+	// 		// }
 
-			material->setTexture(VDShaderConstant::eDiffuseTexture, defaulTexture);
-			material->setTexture(VDShaderConstant::eNormalTexture, defaultNormal);
+	// 		// material->setTexture(VDShaderConstant::eDiffuseTexture, defaulTexture);
+	// 		// material->setTexture(VDShaderConstant::eNormalTexture, defaultNormal);
 
-			material->setName("DefaultMaterial");
-			break;
-		}
+	// 		material->setName("DefaultMaterial");
+	// 		break;
+	// 	}
 	default:
 		break;
 	}
 
 	/*	set object in a non auto release by the asset manager.	*/
-	material->setFlag(material->getFlag() | VDObject::eStatic);
-	material->getShader()->setFlag(material->getShader()->getFlag() | VDObject::eStatic);
-	material->getTexture(0)->setFlag(material->getTexture(0)->getFlag() | VDObject::eStatic);
+	// material->setFlag(material->getFlag() | VDObject::Static);
+	// material->getShader()->setFlag(material->getShader()->getFlag() | VDObject::Static);
+	// material->getTexture(0)->setFlag(material->getTexture(0)->getFlag() | VDObject::Static);
 
 
 	return material;
 }
 
-VDMaterial* VDMaterial::getDefaultMaterial(void){
+VDMaterial* VDMaterial::getDefaultMaterial(){
 	return gDefaulMaterial;
 }
 
-VDTexture2D* VDMaterial::getDefaultTexture(void){
-	return (VDMaterial::getDefaultMaterial() != NULL) ? gDefaulMaterial->getTexture(0) : NULL;
+VDTexture2D* VDMaterial::getDefaultTexture(){
+	return (VDMaterial::getDefaultMaterial() != nullptr) ? gDefaulMaterial->getTexture(0) : nullptr;
 }

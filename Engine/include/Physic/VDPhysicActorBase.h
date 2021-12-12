@@ -30,40 +30,40 @@
  */
 class VDDECLSPEC VDPhysicActor : public VDBehavior{
 public:
-	VDPhysicActor(void);
+	VDPhysicActor();
 	VDPhysicActor(const VDPhysicActor& actor);
 
 
-	virtual void VDAPIENTRY onEnable(void);
-	virtual void VDAPIENTRY onDisable(void);
-	virtual void VDAPIENTRY initializeComponent(void);
-	virtual void VDAPIENTRY onDestroy(void);
+	virtual void VDAPIENTRY onEnable();
+	virtual void VDAPIENTRY onDisable();
+	virtual void VDAPIENTRY initializeComponent();
+	virtual void VDAPIENTRY onDestroy();
 
 	/*
 	 *	is RigidBody Attached to this Gameobject.
 	 *
 	 *	@Return
 	 */
-	bool VDAPIFASTENTRY isRigidBodyAttached(void)const;
+	bool VDAPIFASTENTRY isRigidBodyAttached()const;
 
 	/*
 	 *	is Collider Attached to this Gameobject.
 	 *	@Return
 	 */
-	bool VDAPIFASTENTRY isColliderAttached(void)const;
+	bool VDAPIFASTENTRY isColliderAttached()const;
 
 
 	/*
 	 *	Get if Actor Connected to this Collider is a Dynamic Actor.
 	 *	@Return
 	 */
-	bool VDAPIFASTENTRY isDynamicRigid(void);
+	bool VDAPIFASTENTRY isDynamicRigid();
 
 	/*
 	 *	Get if Actor Connected to this Collider is a Dynamic Actor.
 	 *	@Return
 	 */
-	bool VDAPIFASTENTRY isStaticRigid(void);
+	bool VDAPIFASTENTRY isStaticRigid();
 
 	/*
 	 *	initialize the physic Actor.
@@ -77,7 +77,7 @@ public:
 	 *	at Collider & Rigidbody Component.
 	 *	@Return
 	 */
-	void* VDAPIFASTENTRY getActor(void)const;
+	void* VDAPIFASTENTRY getActor()const;
 
 	/*
 	 *
@@ -90,34 +90,34 @@ public:
 	/*
 	 *	actor pointer.
 	 */
-	physx::PxCloth* VDAPIFASTENTRY getClothActor(void);
+	physx::PxCloth* VDAPIFASTENTRY getClothActor();
 
 
-	physx::PxParticleBase* VDAPIFASTENTRY GetParticleBaseActor(void);
-	physx::PxRigidDynamic* VDAPIFASTENTRY GetDynamicActor(void);
-	physx::PxRigidStatic* VDAPIFASTENTRY GetStaticActor(void);
+	physx::PxParticleBase* VDAPIFASTENTRY GetParticleBaseActor();
+	physx::PxRigidDynamic* VDAPIFASTENTRY GetDynamicActor();
+	physx::PxRigidStatic* VDAPIFASTENTRY GetStaticActor();
 
 	/*
 	 *	Get PxActor as RigidActor.
 	 */
-	physx::PxRigidActor* VDAPIFASTENTRY GetRigidActor(void);
+	physx::PxRigidActor* VDAPIFASTENTRY GetRigidActor();
 	physx::PxShape* VDAPIFASTENTRY getShape(unsigned int index = 0);
- 	int VDAPIFASTENTRY getShapeCount(void);
+ 	int VDAPIFASTENTRY getShapeCount();
 	void VDAPIFASTENTRY DetachShape(int index = 0);
 
 
-	physx::PxGeometryHolder VDAPIFASTENTRY PxGetGeometry(void); 
-	physx::PxBoxGeometry VDAPIFASTENTRY PxGetBoxGeometry(void);
-	physx::PxCapsuleGeometry VDAPIFASTENTRY PxGetCapsuleGeometry(void);
-	physx::PxSphereGeometry VDAPIFASTENTRY PxGetSphereGeometry(void);
-	physx::PxGeometryType::unsigned int VDAPIFASTENTRY PxGetGeometryType(void);
+	physx::PxGeometryHolder VDAPIFASTENTRY PxGetGeometry(); 
+	physx::PxBoxGeometry VDAPIFASTENTRY PxGetBoxGeometry();
+	physx::PxCapsuleGeometry VDAPIFASTENTRY PxGetCapsuleGeometry();
+	physx::PxSphereGeometry VDAPIFASTENTRY PxGetSphereGeometry();
+	physx::PxGeometryType::unsigned int VDAPIFASTENTRY PxGetGeometryType();
 
 
 
-	void VDAPIFASTENTRY PxReleaseActor(void);
+	void VDAPIFASTENTRY PxReleaseActor();
 
 	void VDAPIENTRY PxShapeVisualization(bool Visualization);
-	int VDAPIFASTENTRY PxIsShapeVisualization(void);
+	int VDAPIFASTENTRY PxIsShapeVisualization();
 
 	void VDAPIENTRY PxSimulate(bool simulate);
 
@@ -130,11 +130,11 @@ public:
 
 	void VDAPIENTRY PxSetGlobalPosition(const VDVector3& position);
 
-	VDVector3 VDAPIFASTENTRY PxGetGlobalPosition(void)const;
+	VDVector3 VDAPIFASTENTRY PxGetGlobalPosition()const;
 
 	void VDAPIENTRY PxSetGlobalRotation(const VDQuaternion& rotation);
 
-	VDQuaternion VDAPIFASTENTRY PxGetGlobalRotation(void)const;
+	VDQuaternion VDAPIFASTENTRY PxGetGlobalRotation()const;
 
 
 	void VDAPIENTRY PxSetGlobalTransform(VDTransform* transform);

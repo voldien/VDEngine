@@ -73,7 +73,7 @@ void VDQualitySetting::useShadow(bool shadow){
 	}
 }
 
-VDQualitySetting::ShadowFilter VDQualitySetting::getShadowFilter(void){
+VDQualitySetting::ShadowFilter VDQualitySetting::getShadowFilter(){
 	return (VDQualitySetting::ShadowFilter)gQualitySettings.shadowsFilter;
 }
 
@@ -88,7 +88,7 @@ void VDQualitySetting::setShadowFilter(ShadowFilter filter){
 
 	if(VDSystemInfo::supportShaderSubRoutine()){
 		for(ShaderCollection::iterator it = shaderCollection.begin(); it != shaderCollection.end(); it++){
-			if(it->second == NULL){
+			if(it->second == nullptr){
 				continue;
 			}
 
@@ -153,7 +153,7 @@ void VDQualitySetting::setShadowFilter(ShadowFilter filter){
 				continue;
 
 			texture = VDScene::getScene()->lightcollection[x]->getShadowTexture()->getTextureAttachment(0, VDRenderTexture::DepthAttachment);
-			VDScene::getScene()->lightcollection[x]->getShadowTexture()->setTextureAttachment(VDRenderTexture::DepthAttachment, (VDTexture*)NULL);
+			VDScene::getScene()->lightcollection[x]->getShadowTexture()->setTextureAttachment(VDRenderTexture::DepthAttachment, (VDTexture*)nullptr);
 
 			if(light->getType() != VDLight::Point){
 			VDRenderBuffer depthbuffer = VDRenderBuffer();
@@ -184,7 +184,7 @@ void VDQualitySetting::setShadowDistance(float distance){
 	gQualitySettings.shadowdistance = fragcore::Math::clamp<float>(distance, 0.1, FLT_MAX);
 }
 
-float VDQualitySetting::getShadowDistance(void){
+float VDQualitySetting::getShadowDistance(){
 	return gQualitySettings.shadowdistance;
 }
 
@@ -210,7 +210,7 @@ void VDQualitySetting::setSamplerMode(SampleType mode){
 	}
 }
 
-VDQualitySetting::SampleType VDQualitySetting::getSampleMode(void){
+VDQualitySetting::SampleType VDQualitySetting::getSampleMode(){
 	return (SampleType)gQualitySettings.sampleMode;
 }
 
@@ -255,7 +255,7 @@ void VDQualitySetting::setAntaiAlisingSampling(unsigned int aaSample){
 			// /*	TODO resolved why it does not really work.	*/
 			// SDL_GLContext glccurrent = VDEngine::getOpenGLContext();
 			// SDL_GLContext* glc = VDEngine::querySharedOpenGLContext();
-			// if(glc == NULL){
+			// if(glc == nullptr){
 			// 	VDDebug::criticalLog("Failed to create shared OpenGL context revert back.\n");
 			// 	return;
 			// }
@@ -280,7 +280,7 @@ void VDQualitySetting::setAntaiAlisingSampling(unsigned int aaSample){
 	gQualitySettings.sampleCount = aaSample;
 }
 
-unsigned int VDQualitySetting::getAntaiAlisingSampling(void){
+unsigned int VDQualitySetting::getAntaiAlisingSampling(){
 	return gQualitySettings.sampleCount;
 }
 
@@ -298,7 +298,7 @@ void VDQualitySetting::setCulling(Culling culling){
 	gQualitySettings.culling = culling;
 }
 
-VDQualitySetting::Culling VDQualitySetting::getCulling(void){
+VDQualitySetting::Culling VDQualitySetting::getCulling(){
 	return (VDQualitySetting::Culling)gQualitySettings.culling;
 }
 void VDQualitySetting::setTextureLod(unsigned int lodLevel){
@@ -314,7 +314,7 @@ void VDQualitySetting::setTextureLod(unsigned int lodLevel){
 	gQualitySettings.textureLod = lodLevel;
 }
 
-int VDQualitySetting::getTextureLod(void){
+int VDQualitySetting::getTextureLod(){
 	return gQualitySettings.textureLod;
 }
 
@@ -327,7 +327,7 @@ void VDQualitySetting::setTextureAnisotropy(float anisotropylevel){
 	gQualitySettings.anisotropic = anisotropylevel;
 }
 
-float VDQualitySetting::getTextureAnisotropy(void){
+float VDQualitySetting::getTextureAnisotropy(){
 	return gQualitySettings.anisotropic;
 }
 
@@ -351,7 +351,7 @@ void VDQualitySetting::setColorSpace(ColorSpace colorspace){
 	gQualitySettings.colorspace = colorspace;
 }
 
-VDQualitySetting::ColorSpace VDQualitySetting::getColorSpace(void){
+VDQualitySetting::ColorSpace VDQualitySetting::getColorSpace(){
 	return (VDQualitySetting::ColorSpace)gQualitySettings.colorspace;
 }
 
@@ -360,10 +360,10 @@ void VDQualitySetting::setVSync(bool enable){
 	gQualitySettings.vsync = enable;
 }
 
-bool VDQualitySetting::getVSync(void){
+bool VDQualitySetting::getVSync(){
 	return gQualitySettings.vsync;
 }
 
-static inline bool VDQualitySetting::isShadowEnable(void){return gQualitySettings.useShadow;}
+static inline bool VDQualitySetting::isShadowEnable(){return gQualitySettings.useShadow;}
 
-static bool VDQualitySetting::isAntiAliasingEnable(void){ return gQualitySettings.useAntiAliasing;}
+static bool VDQualitySetting::isAntiAliasingEnable(){ return gQualitySettings.useAntiAliasing;}

@@ -17,7 +17,7 @@ uniform vec4 ReflectionColor;
 uniform vec3 CameraPos;
 
 
-void main(void){ 
+void main(){ 
 	fragColor.rgb = (getAmbientColor().rgba +  getLight(normal,VertexPosition).rgba).rgb * DiffuseColor.rgb + texture(ReflectionTexture , reflection).rgb * ReflectionColor.rgb;
 	fragColor.a =  1.0;
 }

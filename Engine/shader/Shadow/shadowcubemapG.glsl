@@ -6,7 +6,7 @@ SMOOTH_IN vec2 vUV;
 uniform mat4 ViewProjection[6];
 uniform mat4 ModelMatrix;
 
-void main(void){
+void main(){
 
 
 	/*	first texture	*/

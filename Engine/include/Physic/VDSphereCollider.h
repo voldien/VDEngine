@@ -26,14 +26,14 @@
  */
 class VDDECLSPEC VDSphereCollider : public VDCollider{
 public:
-	VDSphereCollider(void);
+	VDSphereCollider();
 	VDSphereCollider(const VDSphereCollider& collider);
 
-	virtual void instanceInitilize(void);
-	virtual void onEnable(void);
-	virtual void onDisable(void);	
-	virtual void initializeComponent(void);
-	virtual void onDestroy(void);
+	virtual void instanceInitilize();
+	virtual void onEnable();
+	virtual void onDisable();	
+	virtual void initializeComponent();
+	virtual void onDestroy();
 	virtual VDBehavior* copyComponent(unsigned int& dataSize);
 
 	/**
@@ -48,7 +48,7 @@ public:
 	 *
 	 *	@Return
 	 */
-	float VDAPIENTRY getRadius(void)const;
+	float VDAPIENTRY getRadius()const;
 
 	/**
 	 *

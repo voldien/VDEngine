@@ -20,42 +20,42 @@
 /**
  *
  */
-int getNumDirectionLight(void){
+int getNumDirectionLight(){
 	return info.numDirection;
 }
 
 /**
  *
  */
-int getNumShadowDirectionLight(void){
+int getNumShadowDirectionLight(){
 	return info.numShadowDirection;
 }
 
 /**
  *
  */
-int getNumSpotLight(void){
+int getNumSpotLight(){
 	return info.numSpot;
 }
 
 /**
  *
  */
-int getNumShadowSpotLight(void){
+int getNumShadowSpotLight(){
 	return info.numShadowSpot;
 }
 
 /**
  *
  */
-int getNumPointLight(void){
+int getNumPointLight(){
 	return info.numPoint;
 }
 
 /**
  *
  */
-int getNumShadowPointLight(void){
+int getNumShadowPointLight(){
 	return info.numShadowPoint;
 }
 

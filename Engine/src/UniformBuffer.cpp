@@ -6,7 +6,7 @@
 #include <stddef.h>
 
 
-VDUniformBuffer::VDUniformBuffer(void){
+VDUniformBuffer::VDUniformBuffer(){
 	this->mUniBuffer = 0;
 	this->setTarget(eUniform);
 }
@@ -21,21 +21,21 @@ VDUniformBuffer::VDUniformBuffer(const VDUniformBuffer& buffer){
 	this->mUniBuffer = buffer.mUniBuffer;
 }
 
-VDUniformBuffer::~VDUniformBuffer(void){
+VDUniformBuffer::~VDUniformBuffer(){
 
 }
 
-void VDUniformBuffer::release(void){
+void VDUniformBuffer::release(){
 	if(this->isValid()){
 		glDeleteBuffers(1, (const GLuint*)&this->mUniBuffer);
 	}
 }
 
-bool VDUniformBuffer::isValid(void)const{
+bool VDUniformBuffer::isValid()const{
 	return glIsBuffer(this->mUniBuffer) == GL_TRUE;
 }
 
-int VDUniformBuffer::getSize(void){
+int VDUniformBuffer::getSize(){
 	int nBufferSize;
 	this->bind();
 	glGetBufferParameteriv(this->getTarget(), GL_BUFFER_SIZE, &nBufferSize);
@@ -48,7 +48,7 @@ void VDUniformBuffer::setSize(int size){
 		glGenBuffers(1, (GLuint*)&this->mUniBuffer);
 	}
 	this->bind();
-	glBufferData(this->getTarget(), size, NULL, GL_DYNAMIC_DRAW);
+	glBufferData(this->getTarget(), size, nullptr, GL_DYNAMIC_DRAW);
 	glBindBuffer(this->getTarget(), 0);
 }
 
@@ -78,7 +78,7 @@ void* VDUniformBuffer::read(int rSize){
 	return data;
 }
 
-void VDUniformBuffer::bind(void){
+void VDUniformBuffer::bind(){
 	VDRenderingAPICache::bindBuffer(this->getTarget(), this->mUniBuffer);
 }
 
@@ -87,4 +87,4 @@ void VDUniformBuffer::bindBase(unsigned int index){
 	VDRenderingAPICache::bindBufferBase(this->getTarget(), index, this->mUniBuffer);
 }
 
-int VDUniformBuffer::getUniformBuffer(void)const{return this->mUniBuffer;}
+int VDUniformBuffer::getUniformBuffer()const{return this->mUniBuffer;}

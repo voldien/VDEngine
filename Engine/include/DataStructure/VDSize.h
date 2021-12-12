@@ -26,7 +26,7 @@
 class VDDECLSPEC VDSize{
 public:
 
-	VDSize(void);
+	VDSize();
 	VDSize(int width, int height);
 	VDSize(const VDSize& size);
 
@@ -34,13 +34,13 @@ public:
 	 *
 	 *	@Return
 	 */
-	inline int width(void)const{return this->m[0];}
+	inline int width()const{return this->m[0];}
 
 	/**
 	 *
 	 *	@Return
 	 */
-	inline int height(void)const{return this->m[1];}
+	inline int height()const{return this->m[1];}
 
 
 	/***/
@@ -92,7 +92,7 @@ private:	/*	Attributes.	*/
 	};
 };
 
-inline VDSize::VDSize(void){
+inline VDSize::VDSize(){
 
 }
 

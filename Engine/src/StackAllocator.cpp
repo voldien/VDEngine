@@ -4,9 +4,9 @@
 #include <cstring>
 
 
-VDStackAllocator::VDStackAllocator(void){
-	this->mData = NULL;
-	this->mMarker = NULL;
+VDStackAllocator::VDStackAllocator(){
+	this->mData = nullptr;
+	this->mMarker = nullptr;
 	this->mSize = 0;
 }
 
@@ -17,12 +17,12 @@ VDStackAllocator::VDStackAllocator(const VDStackAllocator& stack){
 
 VDStackAllocator::VDStackAllocator(unsigned int stackSizeBytes){
 	this->mMarker = 0;
-	this->mData = NULL;
+	this->mData = nullptr;
 	this->mSize = 0;
 	this->alloc(stackSizeBytes);
 }
 
-VDStackAllocator::~VDStackAllocator(void){
+VDStackAllocator::~VDStackAllocator(){
 	free(this->mData);
 }
 
@@ -35,7 +35,7 @@ void* VDStackAllocator::alloc(unsigned int sizeBytes){
 	return mData;
 }
 
-unsigned int VDStackAllocator::getSize(void)const{
+unsigned int VDStackAllocator::getSize()const{
 	return this->mSize;
 }
 
@@ -44,11 +44,11 @@ void* VDStackAllocator::allocateAligned(unsigned int sizeBytes, int alignment){
 	return this->alloc(sizeBytes);
 }
 
-void VDStackAllocator::clear(void){
+void VDStackAllocator::clear(){
 	this->mMarker = 0;
 }
 
-unsigned int VDStackAllocator::getMarker(void)const{
+unsigned int VDStackAllocator::getMarker()const{
 	return this->mMarker;
 }
 

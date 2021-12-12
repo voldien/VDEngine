@@ -7,7 +7,7 @@ SMOOTH_IN vec3 vNormal;
 uniform vec4 DiffuseColor;
 uniform sampler2D DiffuseTexture;
 
-void main (void){
+void main (){
 	const vec2 constantList = vec2(1.0,0.0);
 	fragColor = (DiffuseColor * texture2D(DiffuseTexture, vUV) * constantList.xxxy) * (getAmbient(vNormal) +  getLight(vNormal,vVertex) * constantList.xxxy ) ;
 	fragColor = internalFog(fragColor);

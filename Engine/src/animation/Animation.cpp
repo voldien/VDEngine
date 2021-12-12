@@ -14,7 +14,7 @@
 using namespace std;
 typedef std::vector<VDCurve> VDCurveList;
 
-VDAnimation::VDAnimation(void) : VDBehavior(){
+VDAnimation::VDAnimation() : VDBehavior(){
 	this->time = 0;
 	this->animationState = VDAnimation::None;
 }
@@ -23,26 +23,26 @@ VDAnimation::VDAnimation(const VDAnimation& animation) : VDBehavior(){
 	*this = animation;
 }
 
-void VDAnimation::instanceInitilize(void){
+void VDAnimation::instanceInitilize(){
 	unsigned int x;
 	for(x = 0; x < this->getNumClips(); x++){
 		this->getClip(x)->findNodeDataPointer(this->transform());
 	}
 }
 
-void VDAnimation::onEnable(void){
+void VDAnimation::onEnable(){
 
 }
 
-void VDAnimation::onDisable(void){
+void VDAnimation::onDisable(){
 
 }
 
-void VDAnimation::initializeComponent(void){
+void VDAnimation::initializeComponent(){
 	VDScene::getScene()->AnimationCollection.push_back(this);
 }
 
-void VDAnimation::onDestroy(void){
+void VDAnimation::onDestroy(){
 	// find the references
 	for(int x = 0; x < this->getNumClips(); x++){
 		this->getClip(x)->deincrement();
@@ -56,7 +56,7 @@ VDBehavior* VDAnimation::copyComponent(unsigned int& dataSize){
 	return (VDBehavior*)animation;
 }
 
-bool VDAnimation::isPlaying(void)const{
+bool VDAnimation::isPlaying()const{
 	return (VDAnimation::getState() & VDAnimation::IsPlaying);
 }
 
@@ -75,7 +75,7 @@ void VDAnimation::play(const char* animationClip){
 	}
 }
 
-void VDAnimation::stop(void){
+void VDAnimation::stop(){
 	/*	Reset timer.	*/
 	this->time = 0.0f;
 	this->animationState = (~VDAnimation::IsPlaying & (int)this->animationState);
@@ -83,7 +83,7 @@ void VDAnimation::stop(void){
 
 void VDAnimation::addClip(VDAnimationClip* animationClip){
 
-	if(animationClip == NULL){
+	if(animationClip == nullptr){
 		throw new exception();
 	}
 
@@ -95,15 +95,15 @@ VDAnimationClip* VDAnimation::getClip(int index)const{
 	return this->clips[index];
 }
 
-unsigned int VDAnimation::getNumClips(void)const{
+unsigned int VDAnimation::getNumClips()const{
 	return this->clips.size();
 }
 
-VDAnimationClip* VDAnimation::getCurrentPlayingClip(void){
+VDAnimationClip* VDAnimation::getCurrentPlayingClip(){
 	return this->getClip(0);
 }
 
-void VDAnimation::internalUpdate(void){
+void VDAnimation::internalUpdate(){
 
 
 	if(this->isPlaying()){

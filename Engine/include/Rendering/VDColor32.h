@@ -26,7 +26,7 @@
  */
 class VDDECLSPEC VDColor32 {
 public:
-	inline VDColor32(void){}
+	inline VDColor32(){}
 	VDColor32(unsigned char r,unsigned char g,unsigned char b,unsigned char a);
 	VDColor32(unsigned int c);
 	VDColor32(const VDColor32& color){*this = color;}
@@ -40,19 +40,19 @@ public:
 	/**
 	 *
 	 */
-	inline unsigned char r(void)const{return m[0];}
-	inline unsigned char g(void)const{return m[1];}
-	inline unsigned char b(void)const{return m[2];}
-	inline unsigned char a(void)const{return m[3];}
+	inline unsigned char r()const{return m[0];}
+	inline unsigned char g()const{return m[1];}
+	inline unsigned char b()const{return m[2];}
+	inline unsigned char a()const{return m[3];}
 
 	/**
 	 *
 	 */
-	unsigned int getColor(void)const;
-	unsigned int HexRGB(void)const;
-	unsigned int HexRGBA(void)const;
-	unsigned int HexBGR(void)const;
-	unsigned int HexBGRA(void)const;
+	unsigned int getColor()const;
+	unsigned int HexRGB()const;
+	unsigned int HexRGBA()const;
+	unsigned int HexBGR()const;
+	unsigned int HexBGRA()const;
 	void setColor(unsigned int hexa);
 
 	/**
@@ -66,15 +66,15 @@ public:
 	/**
 	 *
 	 */
-	VDColor32 grayScale(void)const;
+	VDColor32 grayScale()const;
 
 	/**
 	 *
 	 */
 	bool isEqualColor(const VDColor32& Color)const;			//  is RGBA Equal.
 	bool isEqualColorOnly(const VDColor32& Color)const;		//	is RGB Equal.
-	bool isBlack(void)const;								//	is RGB == 0
-	bool isTransparent(void)const;							//	is A Channel == 0
+	bool isBlack()const;								//	is RGB == 0
+	bool isTransparent()const;							//	is A Channel == 0
 
 	/**/
 	friend bool operator==(const VDColor32& v1, const VDColor32& v2);
@@ -108,11 +108,11 @@ private:	/*	Attributes.	*/
 
 
 public:	/* Copy Right XNA	*/
-    static inline VDColor32 Black(void){return  VDColor32(4278190080U);}
-    static inline VDColor32 Gray(void) {return  VDColor32(4286611584);}
-    static inline VDColor32 Pink(void){return  VDColor32(4291543295);}
-    static inline VDColor32 Red(void){return  VDColor32(4278190335);}
-    static inline VDColor32 White(void){return  VDColor32(0xffffffff);}
+    static inline VDColor32 Black(){return  VDColor32(4278190080U);}
+    static inline VDColor32 Gray() {return  VDColor32(4286611584);}
+    static inline VDColor32 Pink(){return  VDColor32(4291543295);}
+    static inline VDColor32 Red(){return  VDColor32(4278190335);}
+    static inline VDColor32 White(){return  VDColor32(0xffffffff);}
 
 
 };
@@ -133,7 +133,7 @@ inline VDColor32::VDColor32(unsigned int hex){
 }
 
 
-inline unsigned int VDColor32::getColor(void)const{
+inline unsigned int VDColor32::getColor()const{
 	return this->u;
 }
 
@@ -220,7 +220,7 @@ inline VDColor32& VDColor32::operator*=(float scalar){
 	return *this;
 }
 
-inline VDColor32 VDColor32::grayScale(void)const{
+inline VDColor32 VDColor32::grayScale()const{
 	float product = (this->r() * 0.26f) + (this->g() * 0.44f) + (this->b() * 0.14f);
 	unsigned char color = (unsigned char)(product * 255);
 	return VDColor32(color, color, color, 255);
@@ -232,10 +232,10 @@ inline bool VDColor32::isEqualColor(const VDColor32& color)const{
 inline bool VDColor32::isEqualColorOnly(const VDColor32& color)const{
 	return (this->r() == color.r() && this->g() == color.g() && this->b()  == color.b());
 }
-inline bool VDColor32::isBlack(void)const{
+inline bool VDColor32::isBlack()const{
 	return (this->r() == 0 && this->g() == 0 && this->b() == 0);
 }
-inline bool VDColor32::isTransparent(void)const{
+inline bool VDColor32::isTransparent()const{
 	return (this->a() <= 254);
 }
 

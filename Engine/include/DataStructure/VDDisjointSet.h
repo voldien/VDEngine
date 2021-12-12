@@ -36,7 +36,7 @@ public:
 	/**
 	 *
 	 */
-	int getNumberSets(void)const{
+	int getNumberSets()const{
 		int i = 0;
 		for(i = 0; i < getSize(); i++){
 			if(this->set[i] == -1)
@@ -59,7 +59,7 @@ public:
 	/**
 	 *
 	 */
-	int maxHeight(void)const{
+	int maxHeight()const{
 		int max = 0;
 		int m;
 		for(int i = 0; i < this->getSize(); i++){
@@ -72,14 +72,14 @@ public:
 
 public:
 
-	DisjointSet(void){
-		this->set = NULL;
+	DisjointSet(){
+		this->set = nullptr;
 		this->reserved = 0;
 		this->size = 0;
 	}
 
 	DisjointSet(int size){
-		this->set = NULL;
+		this->set = nullptr;
 		this->size = 0;
 		this->reserved = 0;
 		this->resize(size);
@@ -181,21 +181,21 @@ public:
 
 
 
-	inline int getSize(void)const{
+	inline int getSize()const{
 		return this->size;
 	}
 
 
-	inline int getReserved(void)const{
+	inline int getReserved()const{
 		return this->reserved;
 	}
 
 
-	inline int getTypeSize(void)const{
+	inline int getTypeSize()const{
 		return sizeof(Partition);
 	}
 
-	inline void* getData(void)const{
+	inline void* getData()const{
 		return this->set;
 	}
 

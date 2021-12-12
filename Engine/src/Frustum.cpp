@@ -6,7 +6,7 @@
 #include <cstring>
 #include<Core/Math.h>
 
-VDFrustum::VDFrustum(void){
+VDFrustum::VDFrustum(){
 	memset(planes, 0, sizeof(*planes));
 	this->nh = 0.0f;
 	this->nw = 0.0f;
@@ -51,23 +51,23 @@ void VDFrustum::setFar(float far) {
 void VDFrustum::setRatio(float ratio) {
 	this->ratio = ratio;
 }
-float VDFrustum::getFov(void) const {
+float VDFrustum::getFov() const {
 	return this->fov;
 }
 
-float VDFrustum::getNear(void) const {
+float VDFrustum::getNear() const {
 	return this->Znear;
 }
 
-float VDFrustum::getFar(void) const {
+float VDFrustum::getFar() const {
 	return this->Zfar;
 }
 
-float VDFrustum::getRatio(void) const {
+float VDFrustum::getRatio() const {
 	return this->ratio;
 }
 
-const VDMatrix4x4& VDFrustum::getProjectionMatrix(void)const{
+const VDMatrix4x4& VDFrustum::getProjectionMatrix()const{
 	return this->projectionMatrix;
 }
 
@@ -143,30 +143,30 @@ void VDFrustum::calcFrustumPlanes(const VDVector3& position, const VDVector3& lo
 
 	VDVector3 dir,nc,fc,X,Y,Z;
 
-	planes[eNEARP].setNormalAndPoint(-Z,nc);
-	planes[eFARP].setNormalAndPoint(Z,fc);
+	planes[NEARP].setNormalAndPoint(-Z,nc);
+	planes[FARP].setNormalAndPoint(Z,fc);
 
 	VDVector3 aux,normal;
 
 	aux = (nc + Y*nh) - position;
 	aux.normalize();
 	normal = aux * X;
-	planes[eTOP].setNormalAndPoint(normal,nc+Y*nh);
+	planes[TOP].setNormalAndPoint(normal,nc+Y*nh);
 
 	aux = (nc - Y*nh) - position;
 	aux.normalize();
 	normal = X * aux;
-	planes[eBOTTOM].setNormalAndPoint(normal,nc-Y*nh);
+	planes[BOTTOM].setNormalAndPoint(normal,nc-Y*nh);
 
 	aux = (nc - X*nw) - position;
 	aux.normalize();
 	normal = aux * Y;
-	planes[eLEFT].setNormalAndPoint(normal,nc-X*nw);
+	planes[LEFT].setNormalAndPoint(normal,nc-X*nw);
 
 	aux = (nc + X*nw) - position;
 	aux.normalize();
 	normal = Y * aux;
-	planes[eRIGHT].setNormalAndPoint(normal,nc+X*nw);
+	planes[RIGHT].setNormalAndPoint(normal,nc+X*nw);
 
 
 }
@@ -180,14 +180,14 @@ VDFrustum::Intersection VDFrustum::checkPoint(const VDVector3& pos)const{
 	unsigned int x;
 	for(x = 0; x < 6; x++){
 		if(this->planes[x].distance(pos) < 0)
-			return eOut;
+			return Out;
 	}
-	return eIn;
+	return In;
 }
 
 
 VDFrustum::Intersection VDFrustum::intersectionAABB(const VDVector3& min, const VDVector3& max){
-	VDFrustum::Intersection result = VDFrustum::eIn;
+	VDFrustum::Intersection result = In;
 	int i;
 
 	for(i = 0; i < 6; i++){
@@ -210,10 +210,10 @@ VDFrustum::Intersection VDFrustum::intersectionAABB(const VDVector3& min, const 
 		}
 
 		if (planes[i].distance(p) < 0.0f ) {
-			return eOut;
+			return Out;
 		}
 		else if (planes[i].distance(n) < 0.0f ) {
-			result = Intersection::eIntersect;
+			result = Intersect;
 		}
 	}
 
@@ -230,7 +230,7 @@ VDFrustum::Intersection VDFrustum::intersectionOBB(const VDVector3& x, const VDV
 
 
 	}
-	return eIn;
+	return In;
 }
 
 VDFrustum::Intersection VDFrustum::intersectionOBB(const VDOBB& obb){
@@ -238,7 +238,7 @@ VDFrustum::Intersection VDFrustum::intersectionOBB(const VDOBB& obb){
 
 
 	}
-	return eIn;
+	return In;
 }
 
 
@@ -256,7 +256,7 @@ VDFrustum::Intersection VDFrustum::intersectPlane(const VDPlane& plane)const{
 		}
 		*/
 	}
-	return status >= 5 ? eIn : eOut;
+	return status >= 5 ? In : Out;
 }
 
 
@@ -270,7 +270,7 @@ VDFrustum::Intersection VDFrustum::intersectBoundingVolume(const VDBound& bounds
 	case VDBound::eOBB:
 		return this->intersectionOBB(bounds.obb);
 	default:
-		return VDFrustum::eIn;
+		return VDFrustum::In;
 	}
 }
 
@@ -280,8 +280,8 @@ VDFrustum::Intersection VDFrustum::intersectionFrustum(const VDFrustum& frustum)
 
 	for(i = 0; i < sizeof(frustum.planes) / sizeof(frustum.planes[0]); i++){
 			if(!this->intersectPlane(frustum.planes[i])){
-				return eOut;
+				return Out;
 			}
 	}/**/
-	return eIn;
+	return In;
 }

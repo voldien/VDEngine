@@ -8,23 +8,23 @@
 #include <VDSimpleType.h>
 #include<Core/Math.h>
 
-VDCubeMap::VDCubeMap(void) : VDTexture(VDTexture::eCubeMap){
+VDCubeMap::VDCubeMap() : VDTexture(VDTexture::eCubeMap){
 	this->mWidth = 0;
 }
 
 VDCubeMap::VDCubeMap(const VDCubeMap& cubemap){
-	*this = cubemap;
+	//*this = cubemap;
 }
 
 VDCubeMap::VDCubeMap(unsigned int size, VDTexture::TextureFormat format) : VDTexture(VDTexture::eCubeMap){
 	this->mWidth = size;
 	this->bind();
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, 0, format, size, size, 0, format, VDTexture::eUnsignedByte, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, format, size, size, 0, format, VDTexture::eUnsignedByte, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, format, size, size, 0, format, VDTexture::eUnsignedByte, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, format, size, size, 0, format, VDTexture::eUnsignedByte, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, format, size, size, 0, format, VDTexture::eUnsignedByte, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, format, size, size, 0, format, VDTexture::eUnsignedByte, NULL);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, 0, format, size, size, 0, format, VDTexture::eUnsignedByte, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, format, size, size, 0, format, VDTexture::eUnsignedByte, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, format, size, size, 0, format, VDTexture::eUnsignedByte, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, format, size, size, 0, format, VDTexture::eUnsignedByte, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, format, size, size, 0, format, VDTexture::eUnsignedByte, nullptr);
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, format, size, size, 0, format, VDTexture::eUnsignedByte, nullptr);
 }
 
 VDCubeMap::VDCubeMap(const char* alignTexture) : VDTexture(VDTexture::eCubeMap){
@@ -35,7 +35,7 @@ VDCubeMap::VDCubeMap(const char* right, const char* left, const char* top, const
 	this->generate(right, left, top, bottom, far, near, bitFlag);
 }
 
-VDCubeMap::~VDCubeMap(void){
+VDCubeMap::~VDCubeMap(){
 
 }
 
@@ -45,9 +45,9 @@ unsigned int VDCubeMap::generate(const char* right,
 				const char* bottom,
 				const char* Far,
 				const char* Near, unsigned int  bitFlag ){
-	if(right == NULL || left == NULL ||
-		top == NULL || bottom == NULL ||
-		Far == NULL || Near == NULL)
+	if(right == nullptr || left == nullptr ||
+		top == nullptr || bottom == nullptr ||
+		Far == nullptr || Near == nullptr)
 		return SDL_FALSE;
 
 	this->bind();
@@ -70,7 +70,7 @@ unsigned int VDCubeMap::generate(const char* right,
 
 
 		unsigned int  width,height,format,type,internalFormat;
-		unsigned char* pixelPointer = NULL;
+		unsigned char* pixelPointer = nullptr;
 
 		/*	TODO resolve compression flag!	*/
 		if(VDTexture2D::loadTextureContent(path, &pixelPointer, &width, &height, 0, &format, &internalFormat, &type)){
@@ -96,7 +96,7 @@ unsigned int VDCubeMap::generate(const char* alignTexture, unsigned int bitFlag)
 
 	this->bind();
 	unsigned int  width,height,format,type,internalFormat;
-	unsigned char* pixelPointer = NULL;
+	unsigned char* pixelPointer = nullptr;
 
 	if(VDTexture2D::loadTextureContent(alignTexture,&pixelPointer,&width,&height,0,&format,&internalFormat,&type)){
 		for(unsigned int  x = 0; x < 6; x++){
@@ -137,7 +137,7 @@ VDQuaternion VDCubeMap::getCubePlaneQuaternion(unsigned int planetarget){
 	}
 }
 
-VDCubeMap* VDCubeMap::createErrorCubeMap(void){
+VDCubeMap* VDCubeMap::createErrorCubeMap(){
 
-	return NULL;
+	return nullptr;
 }

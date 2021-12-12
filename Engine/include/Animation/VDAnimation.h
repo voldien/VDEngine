@@ -28,24 +28,24 @@
  */
 class VDDECLSPEC VDAnimation : public VDBehavior {
    public:
-	enum AnimationState {
+	enum class AnimationState {
 		None = 0x0,      /*	*/
 		IsPlaying = 0x1, /*	*/
 		eIsQueed = 0x2,   /*	*/
 		eIsBlend = 0x4,   /*	*/
 	};
 
-	VDAnimation(void);
+	VDAnimation();
 	VDAnimation(const VDAnimation& animation);
 
 	/**
 	 *
 	 */
-	virtual void instanceInitilize(void);
-	virtual void onEnable(void);
-	virtual void onDisable(void);
-	virtual void initializeComponent(void);
-	virtual void onDestroy(void);
+	virtual void instanceInitilize();
+	virtual void onEnable();
+	virtual void onDisable();
+	virtual void initializeComponent();
+	virtual void onDestroy();
 	virtual VDBehavior* copyComponent(unsigned int& dataSize);
 
 	/**
@@ -53,14 +53,14 @@ class VDDECLSPEC VDAnimation : public VDBehavior {
 	 *
 	 *	@Return true if currently playing.
 	 */
-	bool VDAPIFASTENTRY isPlaying(void) const;
+	bool VDAPIFASTENTRY isPlaying() const;
 
 	/**
 	 *	Get animation current state.
 	 *
 	 *	@Return
 	 */
-	inline AnimationState getCurrentState(void) const {
+	inline AnimationState getCurrentState() const {
 		return (AnimationState)this->animationState;
 	}
 
@@ -92,7 +92,7 @@ class VDDECLSPEC VDAnimation : public VDBehavior {
 	/**
 	 *	Stop animation playback.
 	 */
-	void VDAPIENTRY stop(void);
+	void VDAPIENTRY stop();
 
 	/**
 	 *	Add clip.
@@ -108,7 +108,7 @@ class VDDECLSPEC VDAnimation : public VDBehavior {
 	/**
 	 *	@Return Number of animation clips.
 	 */
-	unsigned int VDAPIENTRY getNumClips(void) const;
+	unsigned int VDAPIENTRY getNumClips() const;
 
 	/**
 	 *	Remove animation clip by index if valid.
@@ -125,12 +125,12 @@ class VDDECLSPEC VDAnimation : public VDBehavior {
 	 *
 	 *	@Return Non null if currently playing.
 	 */
-	VDAnimationClip* VDAPIENTRY getCurrentPlayingClip(void);
+	VDAnimationClip* VDAPIENTRY getCurrentPlayingClip();
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY internalUpdate(void);
+	void VDAPIENTRY internalUpdate();
 
 	/**
 	 *	transformation will have a specified float of

@@ -2,7 +2,7 @@
 #include <Core/VDEvent.h>
 #include <DataStructure/VDVector.h>
 
-VDEvent::VDEvent(void){
+VDEvent::VDEvent(){
 	VDEvent::getEvents()->push(this);
 }
 
@@ -10,7 +10,7 @@ VDEvent::VDEvent(const VDEvent& event){
 	*this = event;
 }
 
-VDEvent::~VDEvent(void){
+VDEvent::~VDEvent(){
 	VDEvent::getEvents()->erase(this);
 }
 
@@ -52,11 +52,11 @@ void VDEvent::onKey(unsigned int keycode){
 
 }
 
-unsigned int VDEvent::getNumEvents(void){
+unsigned int VDEvent::getNumEvents(){
 	return VDEvent::getEvents()->size();
 }
 
-vector<VDEvent*>* VDEvent::getEvents(void){
+vector<VDEvent*>* VDEvent::getEvents(){
 	return &engine.events;
 }
 

@@ -70,7 +70,7 @@ public:
 	/**
 	 *	@Return render collection.
 	 */
-	inline static RenderCollection& getRenderCollection(void){
+	inline static RenderCollection& getRenderCollection(){
 		return rendercollection;
 	}
 
@@ -78,7 +78,7 @@ public:
 	 *
 	 *	@Return
 	 */
-	inline static RenderCollection::iterator getRenderCollectionIt(void){
+	inline static RenderCollection::iterator getRenderCollectionIt(){
 		return rendercollection.begin();
 	}
 
@@ -147,6 +147,6 @@ public:
 	static void replace(VDRenderer* renderer, unsigned int oldRenderType, unsigned int newRenderType, VDMaterial* material);
 
 
-	inline static int numRenderer(void){return 0;}
+	inline static int numRenderer(){return 0;}
 };
 #endif

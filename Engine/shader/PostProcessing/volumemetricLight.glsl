@@ -16,7 +16,7 @@ const float blur[9] = {
 
 
 /*	*/
-void main(void){
+void main(){
 	// Object Detph
 	float detph = ((2.0 * Camera.y) / (Camera.x + Camera.y - texture2D(DepthTexture, UV).x * (Camera.x - Camera.y)));		// Exp Function to Linear Function.
 	// Light Detph

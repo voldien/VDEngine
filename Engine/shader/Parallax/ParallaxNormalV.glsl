@@ -12,7 +12,7 @@ smooth out vec3 CameraEye;
 uniform mat4 ModelViewProjection;
 uniform mat4 ModelMatrix;
 
-void main(void){
+void main(){
 	gl_Position = ModelViewProjection * vec4(Vertex,1.0);
 	VertexPosition = (ModelMatrix * vec4(Vertex, 1.0)).xyz;
 	

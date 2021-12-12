@@ -15,7 +15,7 @@ const float blur[9] = {
 	0.2,0.15,0.11,0.09, 0.05
 };
 
-vec3 BlurColor(void){
+vec3 BlurColor(){
 
 	float f = getCameraFar();
 	float n = getCameraNear();
@@ -43,6 +43,6 @@ vec3 BlurColor(void){
 	}
 }
 
-void main(void){
+void main(){
 	fragColor = vec4(BlurColor(),1.0);
 }

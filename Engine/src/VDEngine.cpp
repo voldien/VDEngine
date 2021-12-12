@@ -70,7 +70,7 @@
 
 VDEngineCore engine;
 
-extern char* getGameEngineDefaultTitle(void);
+extern char* getGameEngineDefaultTitle();
 
 /*	signal interrupt event	*/
 void catchEngineSignal(int signal){
@@ -129,7 +129,7 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 	signal(SIGSEGV,	catchEngineSignal);
 
 	/*	Add engine terminate function in the event of a crash.	*/
-	atexit(VDEngine::releaseEngine);
+	atexit(VDEngine::quit);
 
 	/*	Read arguments	*/
 	engine.config = (VDConfigure::VDConfig*)malloc(sizeof(VDConfigure::VDConfig));
@@ -149,37 +149,10 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 		VDApplication::quit(EXIT_SUCCESS);
 	}
 
-
-	/*	Initialize the engine once.	*/
-	if(engine.flag & VDEngine::Initialize){
-		VDDebug::log("Engine has already been initialized.\n");
-		return VDEngine::Initialize;
-	}
-
-	/*	*/
-	engine.flag |= VDEngine::Initialize;
-	engine.flag |= subsystem;
-
-
-	//HpmCpp::init(HpmCpp::eHPM_DEFAULT);
-	if(!hpm_init(HPM_DEFAULT)){
-		fprintf(stderr, "Failed to init hpm.\n");
-		exit(EXIT_FAILURE);
-	}
-
-
-
-	/*	Initialize EC core.	*/
-	ret = SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_GAMECONTROLLER);
-	if(ret != 0){
-		fprintf(stderr, "SDL_Init failed, %s.\n", SDL_GetError());
-		VDApplication::quit(EXIT_FAILURE);
-	}
-
+	initSubSystem(subsystem);
 
 	/*	Reserve OpenGL context pointers	*/
 	engine.glcontext.resize(2 * VDSystemInfo::getCPUCoreCount());
-
 
 	/*	Get primary monitor configured resolutions.	*/
 	size = VDDisplay::getPrimaryScreenSize();
@@ -189,41 +162,11 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 	engine.window = (VDWindow*)SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			size.width() / 2, size.height() / 2,
 			SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
-	if(engine.window == NULL){
+	if(engine.window == nullptr){
 		/*	failed	*/
 		VDDebug::errorLog("Failed to create Window, %s.\n", SDL_GetError());
 		VDApplication::quit(EXIT_FAILURE);
 	}
-
-
-	/*	Create OpenGL context.	*/
-#ifdef _DEBUG
-	SDL_GL_GetAttribute(SDL_GL_CONTEXT_FLAGS, &glflagatt);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, glflagatt | SDL_GL_CONTEXT_DEBUG_FLAG);
-#endif
-	engine.glc = (VDGLContext)SDL_GL_CreateContext((SDL_Window*)engine.window);
-
-	/*	Check if OpenGL context was successfully created.	*/
-	if(engine.glc == NULL){
-		VDDebug::errorLog("Failed to create OpenGL core context.\n");
-
-		/*	setup for creating a forward compatible context	*/
-		VDDebug::log("Attempting to create another context solution.\n");
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
-
-		/*	*/
-		if(! (engine.glc = SDL_GL_CreateContext((SDL_Window*)engine.window)) ){
-			VDDebug::errorLog("Couldn't create OpenGL context.\n");
-			VDApplication::quit(EXIT_FAILURE);
-		}
-	}
-
-	/*	Allocate reference to drawable and OpenGL context.	*/
-	engine.drawable = (VDWindow*)SDL_GL_GetCurrentWindow();
-	engine.glc = (VDGLContext)SDL_GL_GetCurrentContext();
-	VDEngine::bindOpenGLContext(engine.glc);
-
 
 	/*	OpenGL information.	*/
 	VDDebug::log("\nOpenGL settings.\n");
@@ -278,15 +221,6 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 	VDDebug::log("Creating scene data struct.\n");
 	engine.scene = new VDEngineScene();
 	VDScene::init();
-
-	/*	*/
-	VDBufferObject::Target bufferTarget;
-	if(VDSystemInfo::getCompatibility()->sShaderStorageBuffer){
-		bufferTarget = VDBufferObject::eShaderStorage;
-	}
-	else{
-		bufferTarget = VDBufferObject::eUniform;
-	}
 
 	/*	*/
 	bufferTarget = VDBufferObject::eUniform;
@@ -407,35 +341,6 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 		VDApplication::quit(EXIT_SUCCESS);
 	}
 
-	/*	point sprite settings	*/
-	if(VDSystemInfo::supportSpritePoint()){
-		//glEnable(GL_POINT_SPRITE);
-		glEnable(GL_PROGRAM_POINT_SIZE);
-		glPointParameteri(GL_POINT_SPRITE_COORD_ORIGIN, GL_LOWER_LEFT);
-		glPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE, 1.0f);
-	}
-	else
-		VDDebug::errorLog("Point sprite not supported.\n> Can results in artifacts for GUI and the spritebatch rendering\n");
-
-
-	/*	initialize default value for stencil.	*/
-	if(SDL_GL_GetAttribute(SDL_GL_STENCIL_SIZE, &glatt) > 0 ){
-		VDRenderingAPICache::setState(GL_STENCIL_TEST, SDL_TRUE);
-		glEnable(GL_STENCIL_TEST);
-		glStencilFunc(GL_ALWAYS, 1, 0xFF);
-		glStencilOp(GL_KEEP,GL_KEEP,GL_REPLACE);
-		glStencilMask(0xFF);
-	}
-
-
-	/*	Enable alpha test if framebuffer support it and was requested in the argument.	*/
-	if(SDL_GL_GetAttribute(SDL_GL_ALPHA_SIZE, &glatt) > 0 ){
-		VDRenderingAPICache::setState(GL_ALPHA_TEST, SDL_TRUE);
-	}
-	else{
-		VDRenderingAPICache::setState(GL_ALPHA_TEST, SDL_FALSE);
-	}
-
 	/*	*/
 	//ret |= engine.schedule.runTaskSch();
 
@@ -444,6 +349,18 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 
 int VDEngine::initSubSystem(VDEngine::SubSystem subsystem){
 
+	// HpmCpp::init(HpmCpp::eHPM_DEFAULT);
+	if (!hpm_init(HPM_DEFAULT)) {
+		fprintf(stderr, "Failed to init hpm.\n");
+		exit(EXIT_FAILURE);
+	}
+
+	/*	Initialize EC core.	*/
+	ret = SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_GAMECONTROLLER);
+	if (ret != 0) {
+		fprintf(stderr, "SDL_Init failed, %s.\n", SDL_GetError());
+		VDApplication::quit(EXIT_FAILURE);
+	}
 
 	if(subsystem & VDEngine::Debug){
 		engine.debug = new VDDebug();
@@ -455,7 +372,7 @@ int VDEngine::initSubSystem(VDEngine::SubSystem subsystem){
 		/*	TODO create some debugging assets!	*/
 		VDCubeMap* debugCubemap = new VDCubeMap();
 		debugCubemap->setPixelData(0, 1024, 1024, 0, VDTexture::eRGB, VDTexture::eRGB, VDTexture::eByte, data);
-		if(VDRenderSetting::getSkyBox() == NULL){
+		if(VDRenderSetting::getSkyBox() == nullptr){
 			VDSkyBox* sky = new VDSkyBox();
 			sky->setCubeMap(debugCubemap);
 			VDRenderSetting::setSkyBox(sky);
@@ -472,7 +389,7 @@ int VDEngine::initSubSystem(VDEngine::SubSystem subsystem){
 		//if(( engine.log = fdopen(fileno(stdout),"w+") ) == -1)
 	    //   fprintf(stderr,"error");
 		//*stdout = *engine.log;
-		//setvbuf(fopen, NULL, _IONBF, 0 );
+		//setvbuf(fopen, nullptr, _IONBF, 0 );
 	}
 
 
@@ -514,18 +431,15 @@ int VDEngine::releaseSubSystem(SubSystem subsystem){
 	return status;
 }
 
-void VDEngine::releaseEngine(void){
+void VDEngine::quit(){
 
 	int i;
 	int result = 1;
 
 	/*	check if engine has been deinitialized	*/
-	if(engine.active & VDENGINE_DEINIT){
-		VDDebug::debugLog("");
+	if(engine.flag & All == 0){
 		return;
 	}
-
-
 	/*	Terminate task sch	*/
 	//result = VDEngine::getTaskSchedule().terminateTaskSch();
 
@@ -535,20 +449,8 @@ void VDEngine::releaseEngine(void){
 		/*	*/
 	}
 
-	/*	OpenGL	*/
-	for(i = 0; i < engine.glcontext.reserved(); i++ ){
-		if(engine.glcontext[i] != NULL){
-			SDL_GL_DeleteContext(engine.glcontext[i]);
-		}
-	}
-	if(VDEngine::getOpenGLContext()){
-		SDL_GL_DeleteContext(VDEngine::getOpenGLContext());
-	}
-
-
 	SDL_Quit();
 }
-
 
 
 int VDEngine::readArgument(int argc, const char** argv, unsigned int pre){
@@ -578,7 +480,7 @@ int VDEngine::readArgument(int argc, const char** argv, unsigned int pre){
 			{"taskschedule", 	required_argument,	0,	't'},
 			/*	Long options only.	*/
 
-			{NULL, NULL, NULL, NULL}
+			{nullptr, nullptr, nullptr, nullptr}
 	};
 
 	/*	Get config network.	*/
@@ -649,7 +551,7 @@ int VDEngine::readArgument(int argc, const char** argv, unsigned int pre){
 
 					/*  cause fork to fail somehow*/
 					//*stdout = *engine.log;
-					//setvbuf(engine.log, NULL, _IONBF, 0 );
+					//setvbuf(engine.log, nullptr, _IONBF, 0 );
 				}
 				}break;
 			case 'P':	/*	Physic engine.	*/
@@ -732,7 +634,7 @@ int VDEngine::readArgument(int argc, const char** argv, unsigned int pre){
 	}/*	*/
 
 	/*	reset opt	*/
-	optarg = NULL;
+	optarg = nullptr;
 	opterr = 0;
 	optind = 0;
 
@@ -740,7 +642,7 @@ int VDEngine::readArgument(int argc, const char** argv, unsigned int pre){
 }
 
 
-int VDEngine::run(void){
+int VDEngine::run(){
 	int status = 1;
 	SDL_Event event;
 
@@ -880,20 +782,20 @@ int VDEngine::run(void){
 	return status;
 }
 
-unsigned int VDEngine::getFlag(void){
+unsigned int VDEngine::getFlag(){
 	return engine.flag;
 }
 
-VDEngine::SubSystem VDEngine::getSubSystemFlag(void){
+VDEngine::SubSystem VDEngine::getSubSystemFlag(){
 	return (VDEngine::SubSystem) ( engine.flag & VDEngine::SubSystem::All );
 }
 
-fragcore::RendererWindow *VDEngine::getWindow(void)
+fragcore::RendererWindow *VDEngine::getWindow()
 {
 	return engine.window;
 }
 
-fragcore::RendererWindow *VDEngine::getDrawable(void)
+fragcore::RendererWindow *VDEngine::getDrawable()
 {
 	return engine.drawable;
 }
@@ -912,17 +814,17 @@ void VDEngine::setWindowTitle(const char* title){
 }
 
 void VDEngine::bindOpenGLContext(const SDL_GLContext glContext){
-	SDL_GL_MakeCurrent(NULL, NULL);
+	SDL_GL_MakeCurrent(nullptr, nullptr);
 	if(SDL_GL_MakeCurrent((SDL_Window*)VDEngine::getDrawable(), glContext) < 0){
 		VDDebug::errorLog("Failed to bind OpengGL context.\n", SDL_GetError());
 	}
 }
 
-SDL_GLContext VDEngine::getOpenGLContext(void){
+SDL_GLContext VDEngine::getOpenGLContext(){
 	return engine.glc;
 }
 
-SDL_GLContext* VDEngine::querySharedOpenGLContext(void){
+SDL_GLContext* VDEngine::querySharedOpenGLContext(){
 	SDL_GLContext* context  = engine.glcontext.obtain();
 
 	//*context =  (VDOpenGLContext)ExCreateGLSharedContext(VDEngine::getDrawable(), VDEngine::getOpenGLContext());
@@ -930,7 +832,7 @@ SDL_GLContext* VDEngine::querySharedOpenGLContext(void){
 	if(!(SDL_GLContext)*context){
 		VDDebug::errorLog("Failed to create shared OpenGL Context.\n");
 		VDEngine::returnOpenGLContext(context);
-		return NULL;
+		return nullptr;
 	}
 	return context;
 }
@@ -960,15 +862,15 @@ vector<VDCustomCallBack>& VDEngine::getCallBack(SubRoutine enumCallBack){
 	return engine.routines[enumCallBack];
 }
 
-// VDTaskSchedule& VDEngine::getTaskSchedule(void){
+// VDTaskSchedule& VDEngine::getTaskSchedule(){
 // 	return engine.schedule;
 // }
 
-VDDebug* VDEngine::getDebug(void){
+VDDebug* VDEngine::getDebug(){
 	return engine.debug;
 }
 
-VDConfigure::VDConfig* VDEngine::getConfig(void){
+VDConfigure::VDConfig* VDEngine::getConfig(){
 	return engine.config;
 }
 
@@ -989,12 +891,12 @@ unsigned int VDEngine::getBuildVersion(unsigned int* major, unsigned int* minor,
 
 #define VD_ENGINE_DEFAULT_TITLE VD_TEXT("%s | VDEngine Version %s")
 #define VD_COMPILER_VERSION(major, minor, revision) VD_STR(major)VD_TEXT(".")VD_STR(minor)VD_TEXT(".")VD_STR(revision)
-const char* VDEngine::getVersion(void){
+const char* VDEngine::getVersion(){
 	return VD_COMPILER_VERSION(MAJOR_VERSION, MINOR_VERSION, PATCH_VERSION);
 }
 
 
-char* getGameEngineDefaultTitle(void){
+char* getGameEngineDefaultTitle(){
 	static char text[512] = {0};
 	char app[PATH_MAX];
 

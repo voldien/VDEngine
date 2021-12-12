@@ -8,7 +8,7 @@ uniform vec2 billBoardSize = vec2(1.0f, 1.0f);
 in vec3 GVertex[];
 out vec2 FUV;
 
-void main(void){
+void main(){
 	vec3 CameraN = normalize(CameraPos - GVertex[0]);
 	vec3 up = vec3(0.0,1.0f,0.0);
 	vec3 right = cross(CameraN, up);

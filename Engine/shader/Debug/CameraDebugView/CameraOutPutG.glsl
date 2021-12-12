@@ -26,7 +26,7 @@ uniform float tangentSize = 1.0f;
 #define UnlitTexture 0x1000
 #define SpecularMode 
 
-void main(void){
+void main(){
 	//normal = vnormal[0];
 	//tangent = vtangent[0];
 	//UV = vUV[0];

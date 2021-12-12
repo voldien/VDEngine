@@ -11,20 +11,20 @@
 using namespace std;
 
 
-VDDebug::VDDebug(void){
+VDDebug::VDDebug(){
 	this->mode = 0;
 	memset(this->query,0,sizeof(query));
 }
 
-VDDebug::~VDDebug(void){
+VDDebug::~VDDebug(){
 
 }
 
-void VDDebug::init(void){
+void VDDebug::init(){
 	this->tools.push(new VDTweakBar());
 }
 
-void VDDebug::release(void){
+void VDDebug::release(){
 
 	/*	*/
 	glDeleteQueries(sizeof(query) / sizeof(query[0]), (GLuint*)query);
@@ -33,7 +33,7 @@ void VDDebug::release(void){
 	}
 }
 
-void VDDebug::begin(void){
+void VDDebug::begin(){
 	if(!VDDebug::isDebugEnabled()){
 		return;
 	}
@@ -48,7 +48,7 @@ void VDDebug::begin(void){
 
 }
 
-void VDDebug::end(void){
+void VDDebug::end(){
 	if(!VDDebug::isDebugEnabled()){
 		return;
 	}
@@ -81,7 +81,7 @@ void VDDebug::end(void){
 }
 
 
-bool VDDebug::isDebugBuild(void){
+bool VDDebug::isDebugBuild(){
 #ifdef VD_DEBUG
 	return true;
 #else
@@ -89,7 +89,7 @@ bool VDDebug::isDebugBuild(void){
 #endif
 }
 
-bool VDDebug::isDebugEnabled(void){
+bool VDDebug::isDebugEnabled(){
 	return (VDEngine::getSubSystemFlag() & VDEngine::SubSystem::Debug) != SDL_FALSE;
 }
 

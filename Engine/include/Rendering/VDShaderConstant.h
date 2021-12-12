@@ -173,55 +173,55 @@ public:
 	/**
 	 *	Syntax Pointer Of Shader Language of DiffuseColor.
 	 */
-	inline static const char* DiffuseColor(void){return "DiffuseColor";}
-	inline static const char* ReflectionColor(void){return "ReflectionColor";}
-	inline static const char* SpecularColor(void){return "SpecularColor";}
-	inline static const char* FragColor(void){return "fragColor";}
-	inline static const char* AmbientColor(void){return "AmbientColor";}
-	inline static const char* texCoord(void){return "TextureCoord";}
-	inline static const char* vertex(void){return "Vertex";}
-	inline static const char* Normal(void){return "Normal";}
-	inline static const char* tangent(void){return "tangent";}
-	inline static const char* VertexColour(void){return "VertexColor";}
-	inline static const char* DiffuseTexture(void){return "DiffuseTexture";}
-	inline static const char* NormalTexture(void){return "NormalTexture";}
-	inline static const char* WorldTexture(void){return "WorldTexture";}
-	inline static const char* SpecularTexture(void){ return "SpecularTexture";}
-	inline static const char* DepthTexture(void){return "DepthTexture";}
-	inline static const char* ReflectionTexture(void){return "ReflectionTexture";}
-	inline static const char* IllusionTexture(void){return "IllusionTexture";}
-	inline static const char* DisplacementTexture(void){return "DisplacementTexture";}
-	inline static const char* DisplacementHeight(void){return "DisplacementHeight";}
-	inline static const char* Offset(void){return "Offset";}
-	inline static const char* Tile(void){return "Tile";}
-	inline static const char* TextureSampler(void){return "TextureSampler";}
-	inline static const char* CameraPosition(void){return "CameraPos";}
-	inline static const char* CameraDirection(void){return "CameraDir";}
-	inline static const char* worldSpace(void){return "worldSpace";}
-	inline static const char* ScreenSpace(void){return "ScreenSpace";}
+	inline static const char* DiffuseColor(){return "DiffuseColor";}
+	inline static const char* ReflectionColor(){return "ReflectionColor";}
+	inline static const char* SpecularColor(){return "SpecularColor";}
+	inline static const char* FragColor(){return "fragColor";}
+	inline static const char* AmbientColor(){return "AmbientColor";}
+	inline static const char* texCoord(){return "TextureCoord";}
+	inline static const char* vertex(){return "Vertex";}
+	inline static const char* Normal(){return "Normal";}
+	inline static const char* tangent(){return "tangent";}
+	inline static const char* VertexColour(){return "VertexColor";}
+	inline static const char* DiffuseTexture(){return "DiffuseTexture";}
+	inline static const char* NormalTexture(){return "NormalTexture";}
+	inline static const char* WorldTexture(){return "WorldTexture";}
+	inline static const char* SpecularTexture(){ return "SpecularTexture";}
+	inline static const char* DepthTexture(){return "DepthTexture";}
+	inline static const char* ReflectionTexture(){return "ReflectionTexture";}
+	inline static const char* IllusionTexture(){return "IllusionTexture";}
+	inline static const char* DisplacementTexture(){return "DisplacementTexture";}
+	inline static const char* DisplacementHeight(){return "DisplacementHeight";}
+	inline static const char* Offset(){return "Offset";}
+	inline static const char* Tile(){return "Tile";}
+	inline static const char* TextureSampler(){return "TextureSampler";}
+	inline static const char* CameraPosition(){return "CameraPos";}
+	inline static const char* CameraDirection(){return "CameraDir";}
+	inline static const char* worldSpace(){return "worldSpace";}
+	inline static const char* ScreenSpace(){return "ScreenSpace";}
 
-	inline static const char* ProjectionMatrix(void){return "ProjectionMatrix";}
-	inline static const char* ViewMatrix(void){return "ViewMatrix";}
-	inline static const char* ModelMatrix(void){return "ModelMatrix";}
-	inline	static const char* ModelViewProjection(void){return "ModelViewProjection";}
-	inline static const char* ModelViewMatrix(void){return "ModelViewMatrix";}
-	inline static const char* ViewProjection(void){return "ViewProjection";}
+	inline static const char* ProjectionMatrix(){return "ProjectionMatrix";}
+	inline static const char* ViewMatrix(){return "ViewMatrix";}
+	inline static const char* ModelMatrix(){return "ModelMatrix";}
+	inline	static const char* ModelViewProjection(){return "ModelViewProjection";}
+	inline static const char* ModelViewMatrix(){return "ModelViewMatrix";}
+	inline static const char* ViewProjection(){return "ViewProjection";}
 
-	inline static const char* NormalMatrix(void){return "NormalMatrix";}
-	inline static const char* DeformMatrix(void){return "DeformMatrix";}
+	inline static const char* NormalMatrix(){return "NormalMatrix";}
+	inline static const char* DeformMatrix(){return "DeformMatrix";}
 
-	inline static const char* ambientCube(void){return "ambientCube";}
-	inline static const char* lightCookie(void){return "lightcookie";}
+	inline static const char* ambientCube(){return "ambientCube";}
+	inline static const char* lightCookie(){return "lightcookie";}
 
 
-	inline static const char* Time(void){return "time";}
+	inline static const char* Time(){return "time";}
 
 	/**/
-	inline static const char* engineState(void){return "enginestate";}
-	inline static const char* particleSystem(void){return "particleSystem";}
-	inline static const char* lightIndices(void){return "lightIndices";}
-	inline static const char* lightUniform(void){return "lightuniform";}
-	inline static const char* shadowstruct(void){return "shadowstructure";}
+	inline static const char* engineState(){return "enginestate";}
+	inline static const char* particleSystem(){return "particleSystem";}
+	inline static const char* lightIndices(){return "lightIndices";}
+	inline static const char* lightUniform(){return "lightuniform";}
+	inline static const char* shadowstruct(){return "shadowstructure";}
 
 };
 

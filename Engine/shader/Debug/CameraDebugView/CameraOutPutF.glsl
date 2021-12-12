@@ -26,7 +26,7 @@ uniform sampler2D SpecularTexture;
 #define UnlitTexture 0x1000
 #define SpecularMode 0x2000
 
-void main(void){
+void main(){
 	if((CameraFlag & UVMode) != 0){
 		fragColor = vec3(UV,0.0f);
 	}

@@ -1,64 +1,63 @@
 /*
-    VDEngine virtual dimension game engine.
-    Copyright (C) 2014  Valdemar Lindberg
+	VDEngine virtual dimension game engine.
+	Copyright (C) 2014  Valdemar Lindberg
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 #ifndef _VD_BEHAVIOR_H_
 #define _VD_BEHAVIOR_H_ 1
-#include "VDComponent.h"
 #include "../VDDef.h"
+#include "VDComponent.h"
 
 /**
  *	Base class for enable behavior for
  *	attachable components for gameobjects.
  */
-class VDDECLSPEC VDBehavior : public VDComponent {
-public:
-
+class VDDECLSPEC VDBehavior : public VDComponent, public fragcore::SmartReference {
+  public:
 	enum State {
-		Enable 			= 0x1,	/*	*/
-		Behavior		= 0x2,	/*	*/
-		CustomBehavior 	= 0x4,	/*	*/
-		RigidbodyActor 	= 0x8,	/*	*/
-		ColliderTrigger = 0x10,	/*	*/
-		ColliderShape 	= 0x20,	/*	*/
+		Enable = 0x1,			/*	*/
+		Behavior = 0x2,			/*	*/
+		CustomBehavior = 0x4,	/*	*/
+		RigidbodyActor = 0x8,	/*	*/
+		ColliderTrigger = 0x10, /*	*/
+		ColliderShape = 0x20,	/*	*/
 	};
 
-	VDBehavior(void);
-	~VDBehavior(void);
+	VDBehavior();
+	~VDBehavior();
 
 	/**
 	 *	Enable behavior.
 	 */
-	void VDAPIFASTENTRY enable(void);
+	void VDAPIFASTENTRY enable();
 
 	/**
 	 *	Disable behavior.
 	 */
-	void VDAPIFASTENTRY disable(void);
+	void VDAPIFASTENTRY disable();
 
 	/**
 	 *	Check if disabled.
 	 */
-	bool VDAPIFASTENTRY isDisabled(void)const;
+	bool VDAPIFASTENTRY isDisabled() const;
 
 	/**
 	 *	Check if enabled.
 	 */
-	bool VDAPIFASTENTRY isEnabled(void)const;
+	bool VDAPIFASTENTRY isEnabled() const;
 
 	/**
 	 *	Set Componet Enable State. OnEnable or OnDisable
@@ -70,7 +69,7 @@ public:
 	/**
 	 *	Get state flag.
 	 */
-	unsigned int VDAPIFASTENTRY getState(void)const;
+	unsigned int VDAPIFASTENTRY getState() const;
 
 	/**
 	 *	overridable initialize Component. Will Be
@@ -78,34 +77,33 @@ public:
 	 *	Don't Call this Method as long you know what
 	 *	it does in and out.
 	 */
-	virtual void VDAPIENTRY initializeComponent(void);
-	
+	virtual void VDAPIENTRY initializeComponent();
 
 	/**
 	 *	Overridable void Method On Destrution of
 	 *	Object. Method will be called while Destukor
 	 *	In Action.
 	 */
-	virtual void VDAPIENTRY onDestroy(void);
+	virtual void VDAPIENTRY onDestroy();
 
 	/**
 	 *	Overridable void Method On Component Enable
 	 *	Method will be read on Its Enableable.
 	 *	Useful method to switch variable on Enable Changes.
 	 */
-	virtual void VDAPIENTRY onEnable(void);
+	virtual void VDAPIENTRY onEnable();
 
 	/**
 	 *	Overriable void Method On Component Disable.
 	 *	Method will be read on Itd Disable
 	 *	Useful method to switch variable on Disable Changes
 	 */
-	virtual void VDAPIENTRY onDisable(void);
+	virtual void VDAPIENTRY onDisable();
 
 	/**
 	 *	Event when behavior has been detached.
 	 */
-	virtual void VDAPIENTRY onDetach(void);
+	virtual void VDAPIENTRY onDetach();
 
 	/**
 	 *	Overriable void Method. On Debug in ViewPort
@@ -113,8 +111,7 @@ public:
 	 *
 	 *	[Note]
 	 */
-	virtual void VDAPIENTRY onDebugDisplay(void);
-
+	virtual void VDAPIENTRY onDebugDisplay();
 
 	/**
 	 *	Overriable Behavior Method. Create a copy
@@ -124,82 +121,77 @@ public:
 	 *	to Get Scope of all Data.
 	 *	@Return
 	 */
-	virtual VDBehavior* VDAPIENTRY copyComponent(unsigned int& dataSize);
-
+	virtual VDBehavior *VDAPIENTRY copyComponent(unsigned int &dataSize);
 
 	/**
 	 *	Overriable Behavior Method. Initilize of
 	 *	Instance of Origional Data. Used for
 	 *	Treating the Data differently.
 	 */
-	virtual void VDAPIENTRY instanceInitilize(void);
-
+	virtual void VDAPIENTRY instanceInitilize();
 
 	/**
 	 *	Event on pre render of object.
 	 */
-	virtual void VDAPIENTRY onPreRender(void);
+	virtual void VDAPIENTRY onPreRender();
 
 	/**
 	 *	Event on reset.
 	 */
-	virtual void VDAPIENTRY reset(void);
+	virtual void VDAPIENTRY reset();
 
 	/**
 	 *	Event when application gets focused.
 	 */
-	virtual void VDAPIENTRY onApplicationFocus(void);
+	virtual void VDAPIENTRY onApplicationFocus();
 
 	/**
 	 *	Event when application gets unfocused.
 	 */
-	virtual void VDAPIENTRY onApplicationUnFocus(void);
+	virtual void VDAPIENTRY onApplicationUnFocus();
 
 	/**
 	 *	Event when application gets before quiting.
 	 */
-	virtual void VDAPIENTRY onApplicationQuit(void);
+	virtual void VDAPIENTRY onApplicationQuit();
 
 	/**
 	 *	Event when application gets paused.
 	 */
-	virtual void VDAPIENTRY onApplicationPause(void);
+	virtual void VDAPIENTRY onApplicationPause();
 
 	/**
 	 *
 	 */
-	VDBehavior& operator=(const VDBehavior& behavior);
+	VDBehavior &operator=(const VDBehavior &behavior);
 
 	/**
 	 *	Get custom behavior.
 	 */
-	VDCustomBehavior* VDAPIFASTENTRY getCustomBehavior(void);
+	VDCustomBehavior *VDAPIFASTENTRY getCustomBehavior();
 
 	/**
 	 *	Check if is a behavior.
 	 */
-	int VDAPIFASTENTRY isBehavior(void)const;
+	int VDAPIFASTENTRY isBehavior() const;
 
 	/**
 	 *	Check if a custom behvior.
 	 */
-	int VDAPIFASTENTRY isCustomBehavior(void)const;
+	int VDAPIFASTENTRY isCustomBehavior() const;
 
-protected:
+  protected:
+	/**
+	 *
+	 */
+	void VDAPIFASTENTRY setVTable(const void *data);
 
 	/**
 	 *
 	 */
-	void VDAPIFASTENTRY setVTable(const void* data);
+	const void *VDAPIFASTENTRY getVTable() const;
 
-	/**
-	 *
-	 */
-	const void* VDAPIFASTENTRY getVTable(void)const;
-
-
-protected:	/*	Attributes.	*/
-
+  protected: /*	Attributes.	*/
 	unsigned int menable;
 };
 

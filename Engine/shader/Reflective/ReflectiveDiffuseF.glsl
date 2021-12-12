@@ -9,7 +9,7 @@ uniform vec4 ReflectionColor;
 uniform sampler2D DiffuseTexture;
 uniform samplerCube ReflectionTexture;
 
-void main(void){
+void main(){
 	vec3 SurfaceReflection = reflect(normalize(VertexPosition - getCameraPosition()), normalize(normal)); 
 	
 	fragColor.rgb = texture2D(DiffuseTexture, UV).rgb * (getAmbientColor().rgb + getLight(normal,VertexPosition).rgb)

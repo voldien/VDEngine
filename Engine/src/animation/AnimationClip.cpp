@@ -9,7 +9,7 @@
 
 using namespace std;
 
-VDAnimationClip::VDAnimationClip(void) : VDAssetObject(){
+VDAnimationClip::VDAnimationClip() : VDAssetObject(){
 	this->duration = 0.0f;
 	this->frameTicks = 0.0f;
 	this->animationState = (AnimationClipState)0;
@@ -25,11 +25,11 @@ VDAnimationClip::VDAnimationClip(const VDAnimationClip& animationClip){
 	*this = animationClip;
 }
 
-VDAnimationClip::~VDAnimationClip(void){
+VDAnimationClip::~VDAnimationClip(){
 	this->reference.deincreemnt();
 }
 
-void VDAnimationClip::release(void){
+void VDAnimationClip::release(){
 
 }
 

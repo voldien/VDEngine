@@ -19,7 +19,7 @@
 using namespace std;
 
 
-VDMesh::VDMesh(void) : VDAssetObject(){
+VDMesh::VDMesh() : VDAssetObject(){
 	this->setDrawMode(GL_TRIANGLES);
 	this->vertexCount = 0;
 	this->indicesCount = 0;
@@ -51,13 +51,13 @@ VDMesh::VDMesh(const void* VertexBuffer, unsigned int vertexStrideSize,
 	this->assemblyMesh((unsigned char*)VertexBuffer, vertexStrideSize, VertexDataSize, (unsigned char*)indicesData, indicesTypeSize, IndicesDataSize, flag);
 }
 
-VDMesh::~VDMesh(void){
+VDMesh::~VDMesh(){
 	if(VDScene::getScene()->meshs.isValidItem(*this)){
 		VDScene::getScene()->meshs.Return(this);
 	}
 }
 
-void VDMesh::release(void){
+void VDMesh::release(){
 
 	if(glIsBuffer(this->meshdesc.VBO)){
 		glDeleteBuffers(1, &this->meshdesc.VBO);
@@ -107,7 +107,7 @@ VDMesh& VDMesh::operator=(const VDMesh& mesh){
 	return *this;
 }
 
-unsigned int VDMesh::getVertexStride(void)const{
+unsigned int VDMesh::getVertexStride()const{
 	unsigned int stride = 0;
 	if(this->getMeshFlag() & eVertex ){
 		stride += sizeof(VDVertex);
@@ -130,7 +130,7 @@ unsigned int VDMesh::getVertexStride(void)const{
 	return stride;
 }
 
-unsigned int VDMesh::getIndicesStride(void)const{
+unsigned int VDMesh::getIndicesStride()const{
 	return VDGeometryUtility::getIndicesSize(this->getNumIndices());
 }
 
@@ -186,7 +186,7 @@ void VDMesh::setVertex(unsigned int index, const VDVector3& vertex){
 	}
 }
 
-VDVertex* VDMesh::getVertexBundle(void){
+VDVertex* VDMesh::getVertexBundle(){
 
 	if(glIsBuffer(this->meshdesc.POS_VB)){
 		VDVertex* pVertices = (VDVertex*)malloc(sizeof(VDVertex) * this->getVertexCount());
@@ -204,7 +204,7 @@ VDVertex* VDMesh::getVertexBundle(void){
 		return pVertices;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 VDVector2 VDMesh::getUV(unsigned int index)const{
@@ -222,7 +222,7 @@ VDVector2 VDMesh::getUV(unsigned int index)const{
 	return UV;
 }
 
-VDVector2* VDMesh::getUVBundle(void){
+VDVector2* VDMesh::getUVBundle(){
 	if(glIsVertexArray(this->meshdesc.VAO)){
 		VDVector2* pUV = (VDVector2*)malloc(sizeof(VertexUV) * this->vertexCount);
 		VDRenderingAPICache::bindBuffer(GL_ARRAY_BUFFER, this->meshdesc.TEXCOORD_VB);
@@ -239,7 +239,7 @@ VDVector2* VDMesh::getUVBundle(void){
 		VDRenderingAPICache::bindBuffer(GL_ARRAY_BUFFER, 0);
 		return p_Uv;
 	}
-	return NULL;
+	return nullptr;
 }
 
 VDVector3 VDMesh::getNormal(unsigned int index)const{
@@ -252,7 +252,7 @@ VDVector3 VDMesh::getNormal(unsigned int index)const{
 	return normal;
 }
 
-VDVertex* VDMesh::getNormalBundle(void){
+VDVertex* VDMesh::getNormalBundle(){
 	if(glIsVertexArray(this->meshdesc.VAO)){
 		VDVertex* pnormal = (VDVertex*)malloc(sizeof(VertexNormal) * this->getVertexCount());
 		VDRenderingAPICache::bindBuffer(GL_ARRAY_BUFFER, this->meshdesc.NORMAL_VB);
@@ -269,7 +269,7 @@ VDVertex* VDMesh::getNormalBundle(void){
 		VDRenderingAPICache::bindBuffer(GL_ARRAY_BUFFER, 0);
 		return p_Ver;
 	}
-	return NULL;
+	return nullptr;
 }
 
 VDVector3 VDMesh::getTangent(unsigned int index)const{
@@ -280,7 +280,7 @@ VDVector3 VDMesh::getTangent(unsigned int index)const{
 	return tangent;
 }
 
-VDVertex* VDMesh::getTangentBundle(void){
+VDVertex* VDMesh::getTangentBundle(){
 	if(glIsVertexArray(this->meshdesc.VAO)){
 		VDVertex* ptangent = (VDVertex*)malloc(sizeof(VertexTangent) * this->vertexCount);
 		VDRenderingAPICache::bindBuffer(GL_ARRAY_BUFFER, this->meshdesc.NORMAL_VB);
@@ -298,30 +298,30 @@ VDVertex* VDMesh::getTangentBundle(void){
 		return p_tan;
 	}
 	else
-		return NULL;
+		return nullptr;
 }
 
 VDVector3 VDMesh::getBiNormal(unsigned int index)const{		/* Get biNormal[Index] */
 	return cross(this->getNormal(index), this->getTangent(index));
 }
 
-VDVector3* VDMesh::getBiNormalBundle(void){		/* Get biNormal Bundle Data. */
+VDVector3* VDMesh::getBiNormalBundle(){		/* Get biNormal Bundle Data. */
 	for(unsigned int x = 0;x < this->vertexCount; x++){
 
 
 	}
-	return NULL;
+	return nullptr;
 }
 
 VDVector3 VDMesh::getBitTangent(unsigned int index)const{	/* Get biTangent[Index] */
 	return cross(this->getTangent(index),this->getNormal(index));
 }
 
-VDVector3* VDMesh::getBitTangentBundle(void){	/* Get biTangent Bundle Data. */
-	return NULL;
+VDVector3* VDMesh::getBitTangentBundle(){	/* Get biTangent Bundle Data. */
+	return nullptr;
 }
 
-VDHANDLE VDMesh::getVBOBuffer(void){
+VDHANDLE VDMesh::getVBOBuffer(){
 	void* buffer = (void*)malloc(this->getVertexCount() * this->getVertexStride());
 	VDRenderingAPICache::bindBuffer(GL_ARRAY_BUFFER,this->meshdesc.VBO);
 	glGetBufferSubData(GL_ARRAY_BUFFER, 0, this->vertexCount * this->getVertexStride(),buffer);
@@ -336,7 +336,7 @@ unsigned int VDMesh::getIndices(unsigned int index){
 	return indicesData;
 }
 
-unsigned char* VDMesh::getIndicesBundle(void){
+unsigned char* VDMesh::getIndicesBundle(){
 	unsigned char* pIndices = (unsigned char*)malloc(this->indicesCount * this->getIndicesStride());
 	if(pIndices){
 		VDRenderingAPICache::bindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->meshdesc.IBO);
@@ -347,7 +347,7 @@ unsigned char* VDMesh::getIndicesBundle(void){
 }
 
 
-void VDMesh::computeBBox(void){
+void VDMesh::computeBBox(){
 	VDVertex* vertex = getVertexBundle();
 	if(!vertex)
 		return;
@@ -381,10 +381,10 @@ void VDMesh::assemblyMesh(void* vertexbuffer, GLuint vertexStrideSize, unsigned 
 		glGenBuffers(1, &VBO);
 		VDRenderingAPICache::bindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBufferData(GL_ARRAY_BUFFER, VertexDataSize, vertexbuffer,
-			(indices != NULL) ? GL_STATIC_READ : GL_STATIC_DRAW);
+			(indices != nullptr) ? GL_STATIC_READ : GL_STATIC_DRAW);
 
 	}
-	if(indices != NULL){
+	if(indices != nullptr){
 		glGenBuffers(1, &IBO);
 		VDRenderingAPICache::bindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, IndicesDataSize, indices, GL_STATIC_DRAW);
@@ -490,7 +490,7 @@ int VDMesh::setMeshFlag(VDMesh::meshFlag meshFlag){
 	return SDL_TRUE;
 }
 
-VDMesh* VDMesh::createMesh(void){
+VDMesh* VDMesh::createMesh(){
 	VDMesh* mesh = VDScene::getScene()->meshs.obtain();
 	*mesh = VDMesh();
 	return mesh;
@@ -510,7 +510,7 @@ VDMesh* VDMesh::findMesh(const char* pathName){
 			return x->second;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 unsigned int VDMesh::getVertexOffset(VDMesh::MeshComponent meshComponent){

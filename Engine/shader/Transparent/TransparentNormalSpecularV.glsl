@@ -15,7 +15,7 @@ out vec3 VertexPosition;
 uniform mat4 ModelViewProjection;
 uniform mat4 ModelMatrix;
 
-void main(void){
+void main(){
 	gl_Position = ModelViewProjection * vec4(Vertex,1.0);
 	VertexPosition = vec3(ModelMatrix * vec4(Vertex,1.0)).xyz;
 	UV = TextureCoord;

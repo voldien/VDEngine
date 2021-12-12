@@ -12,7 +12,7 @@ uniform sampler2D DisplacementTexture;
 uniform vec4 DiffuseColor;
 uniform vec2 DisplacementHeight;
 
-void main(void){
+void main(){
 	fragColor = texture2D(DiffuseTexture, getParallax(DisplacementTexture, UV, normalize(CameraEye), DisplacementHeight) ) * DiffuseColor.rgb *
 	(getAmbientColor() + getLight(normal));
 	fragColor = internalFog(fragColor);

@@ -15,7 +15,7 @@
 using namespace std;
 
 
-void VDApplication::focus(void){
+void VDApplication::focus(){
 	/*	*/
 	for(VDGameObjectList::iterator it = gSerlizedGameObject.begin(); it != gSerlizedGameObject.end(); it++){
 		for(unsigned int x = 0; x < (*it)->getComponentCount(); x++){
@@ -26,7 +26,7 @@ void VDApplication::focus(void){
 
 }
 
-void VDApplication::unFocus(void){
+void VDApplication::unFocus(){
 
 	/*	*/
 	for(VDGameObjectList::iterator it = gSerlizedGameObject.begin(); it != gSerlizedGameObject.end(); it++){

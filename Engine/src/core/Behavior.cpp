@@ -4,29 +4,29 @@
 #include <cstring>
 
 
-VDBehavior::VDBehavior(void) : VDComponent(){
+VDBehavior::VDBehavior() : VDComponent(){
 	this->menable = Enable;
 }
 
-VDBehavior::~VDBehavior(void){
+VDBehavior::~VDBehavior(){
 
 }
 
-void VDBehavior::enable(void){
+void VDBehavior::enable(){
 	this->menable |= Enable;
 	this->onEnable();
 }
 
-void VDBehavior::disable(void){
+void VDBehavior::disable(){
 	this->menable = this->menable & ~Enable;
 	this->onDisable();
 }
 
-bool VDBehavior::isDisabled(void)const{
+bool VDBehavior::isDisabled()const{
 	return (this->menable & VDBehavior::Enable) == 0;
 }
 
-bool VDBehavior::isEnabled(void)const{
+bool VDBehavior::isEnabled()const{
 	return (this->menable & VDBehavior::Enable) == VDBehavior::Enable ;
 }
 
@@ -34,28 +34,28 @@ void VDBehavior::setState(unsigned int state){
 	this->menable = state;
 }
 
-unsigned int VDBehavior::getState(void)const{
+unsigned int VDBehavior::getState()const{
 	return this->menable;
 }
 
-void VDBehavior::initializeComponent(void){
+void VDBehavior::initializeComponent(){
 	this->menable |= VDBehavior::Behavior;
 
 }
 
-void VDBehavior::onDestroy(void){
+void VDBehavior::onDestroy(){
 
 }
 
-void VDBehavior::onEnable(void){
+void VDBehavior::onEnable(){
 
 }
 
-void VDBehavior::onDisable(void){
+void VDBehavior::onDisable(){
 
 }
 
-void VDBehavior::onDetach(void){
+void VDBehavior::onDetach(){
 
 }
 
@@ -63,7 +63,7 @@ void VDBehavior::onDetach(void){
 
 
 
-void VDBehavior::onDebugDisplay(void){
+void VDBehavior::onDebugDisplay(){
 
 }
 
@@ -74,38 +74,38 @@ VDBehavior* VDBehavior::copyComponent(unsigned int& dataSize){
 	return BehaviorData;
 }
 
-void VDBehavior::instanceInitilize(void){
+void VDBehavior::instanceInitilize(){
 
 }
 
-void VDBehavior::onPreRender(void){
+void VDBehavior::onPreRender(){
 
 }
 
-void VDBehavior::reset(void){return;}
+void VDBehavior::reset(){return;}
 
-void VDBehavior::onApplicationFocus(void) {
+void VDBehavior::onApplicationFocus() {
 	return;
 }
-void VDBehavior::onApplicationUnFocus(void) {
+void VDBehavior::onApplicationUnFocus() {
 	return;
 }
-void VDBehavior::onApplicationQuit(void) {
+void VDBehavior::onApplicationQuit() {
 	return;
 }
-void VDBehavior::onApplicationPause(void) {
+void VDBehavior::onApplicationPause() {
 	return;
 }
 
-VDCustomBehavior* VDBehavior::getCustomBehavior(void) {
+VDCustomBehavior* VDBehavior::getCustomBehavior() {
 	return this->cast<VDCustomBehavior>();
 }
 
-int VDBehavior::isBehavior(void) const {
+int VDBehavior::isBehavior() const {
 	return (this->menable & VDBehavior::Behavior);
 }
 
-int VDBehavior::isCustomBehavior(void) const {
+int VDBehavior::isCustomBehavior() const {
 	return (this->menable & VDBehavior::CustomBehavior);
 }
 
@@ -113,7 +113,7 @@ void VDBehavior::setVTable(const void* data){
 	VD_COPY_VPTR(this, data);
 }
 
-const void* VDBehavior::getVTable(void)const{
+const void* VDBehavior::getVTable()const{
 	return this;
 }
 

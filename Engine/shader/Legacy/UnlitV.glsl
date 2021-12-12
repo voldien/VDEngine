@@ -10,7 +10,7 @@ uniform mat4 ModelViewMatrix;
 OUT vec2 vUV;
 OUT vec3 vNormal;
 
-void main(void){
+void main(){
 	vUV = uv;
 	gl_Position = ModelViewProjection * vec4(vertex,1.0);
 	vNormal = (ModelViewMatrix * vec4(normal,0.0) ).xyz;

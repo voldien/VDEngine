@@ -7,12 +7,12 @@
 #include <cstring>
 
 
-VDCurve::VDCurve(void) : VDAssetObject(){
+VDCurve::VDCurve() : VDAssetObject(){
 	this->length = 0;
 	this->cFlag = 0;
-	this->keysFrames = NULL;
-	this->pointer = NULL;
-	this->set = NULL;
+	this->keysFrames = nullptr;
+	this->pointer = nullptr;
+	this->set = nullptr;
 }
 
 VDCurve::VDCurve(const VDCurve& curve) {
@@ -24,13 +24,13 @@ VDCurve::VDCurve(int keyCount) : VDAssetObject(){
 	this->cFlag = 0;
 	this->keysFrames = (VDKeyFrame*)malloc(sizeof(*keysFrames) * keyCount);
 	memset(this->keysFrames, 0, sizeof(*keysFrames) * keyCount);
-	this->pointer = NULL;
-	this->set = NULL;
+	this->pointer = nullptr;
+	this->set = nullptr;
 }
 
-void VDCurve::release(void){
+void VDCurve::release(){
 	free(this->keysFrames);
-	this->keysFrames = NULL;
+	this->keysFrames = nullptr;
 	this->length = 0;
 }
 
@@ -82,7 +82,7 @@ void VDCurve::setMethodSetCallBack(VDSetClassMethod method){
 	this->set = method;
 }
 
-VDSetClassMethod VDCurve::getMethodSetCallBack(void)const{
+VDSetClassMethod VDCurve::getMethodSetCallBack()const{
 	return this->set;
 }
 

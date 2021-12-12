@@ -24,7 +24,7 @@ uniform float tangentSize;
 #define MipMapDefination 32
 #define OrdinaryRendering 64
 
-void main(void){
+void main(){
 
 
 	for(int x = 0; x < gl_in.length();x++){

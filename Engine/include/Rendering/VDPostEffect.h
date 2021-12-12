@@ -24,7 +24,7 @@
  *	Post effect for performing post effect
  *	on framebuffer output texture.
  */
-class VDDECLSPEC VDPostEffect : public VDMaterial{
+class VDDECLSPEC VDPostEffect : public VDMaterial {
 public:
 
 	enum Requisity{
@@ -39,10 +39,10 @@ public:
 		Multiply	= 0x1,	/*	*/
 	};
 
-	VDPostEffect(void);
+	VDPostEffect();
 	VDPostEffect(const VDPostEffect& post);
 	VDPostEffect(const char* vertexShader, const char* fragmentShader);
-	~VDPostEffect(void);
+	~VDPostEffect();
 
 private:	/*	Attributes.	*/
 
@@ -52,14 +52,14 @@ private:	/*	Attributes.	*/
 
 public:
 
-	bool isEnabled(void)const;
-	unsigned int getsNumSample(void)const;
+	bool isEnabled()const;
+	unsigned int getsNumSample()const;
 	void setNumSample(unsigned int sample);
 
 	/**
 	 *
 	 */
-	virtual void VDAPIENTRY render(void);
+	virtual void VDAPIENTRY render();
 
 	/*	TODO add virtual methods for add support for inheritance the post object and deleage the responsiblity
 	 * to the class inheritnace the post effect class.	*/
@@ -78,23 +78,23 @@ public:	/*	Static methods.	*/
 	 *	Convert Current Frame To GrayScale.
 	 *	@Return
 	 */
-	static VDPostEffect* VDAPIENTRY grayScale(void);
+	static VDPostEffect* VDAPIENTRY grayScale();
 
 	/**
 	 *
 	 *	@Return
 	 */
-	static VDPostEffect* VDAPIENTRY sepia(void);				//  sepia Color Filtering.
+	static VDPostEffect* VDAPIENTRY sepia();				//  sepia Color Filtering.
 
 	/**
 	 *
 	 */
-	static VDPostEffect* VDAPIENTRY vineta(void);
+	static VDPostEffect* VDAPIENTRY vineta();
 
 	/**
 	 *
 	 */
-	static VDPostEffect* VDAPIENTRY antialiasing(void);			//	antialiasing Frame
+	static VDPostEffect* VDAPIENTRY antialiasing();			//	antialiasing Frame
 
 	/**
 	 *
@@ -104,12 +104,12 @@ public:	/*	Static methods.	*/
 	/**
 	 *
 	 */
-	static VDPostEffect* VDAPIENTRY invert(void);				//	invert Current Frame RGB. (1.0f - RGB) 
+	static VDPostEffect* VDAPIENTRY invert();				//	invert Current Frame RGB. (1.0f - RGB)
 
 	/**
 	 *
 	 */
-	static VDPostEffect* VDAPIENTRY noise(void);				//	noise On Screen. Exemple TV noise 
+	static VDPostEffect* VDAPIENTRY noise();				//	noise On Screen. Exemple TV noise
 
 	/**
 	 *
@@ -124,48 +124,48 @@ public:	/*	Static methods.	*/
 	/**
 	 *
 	 */
-	static VDPostEffect* VDAPIENTRY bloom(void);
+	static VDPostEffect* VDAPIENTRY bloom();
 
 	/**
 	 *
 	 */
 	static VDPostEffect* VDAPIENTRY DOF(float FocusDistance = 0.65f, float FocusLenght = 0.55f);
-	static VDPostEffect* VDAPIENTRY bokeh(void);
+	static VDPostEffect* VDAPIENTRY bokeh();
 
 	/**
 	 *	Screen space reflection.
 	 */
-	static VDPostEffect* VDAPIENTRY ssr(void);
+	static VDPostEffect* VDAPIENTRY ssr();
 
 	/**
 	 *	Depth
 	 */
-	static VDPostEffect* VDAPIENTRY DepthBuffer(void);
+	static VDPostEffect* VDAPIENTRY DepthBuffer();
 
 	/**
 	 *
 	 */
-	static VDPostEffect* VDAPIENTRY GammaCorrection(void);
+	static VDPostEffect* VDAPIENTRY GammaCorrection();
 
 	/**
 	 *	Screen Space Ambient
 	 */
-	static VDPostEffect* VDAPIENTRY SSAO(void);
+	static VDPostEffect* VDAPIENTRY SSAO();
 
 	/*
 	 *	screen Space
 	 */
-	static VDPostEffect* VDAPIENTRY HBAO(void);
+	static VDPostEffect* VDAPIENTRY HBAO();
 
 	/**
 	 *
 	 */
-	static VDPostEffect* VDAPIENTRY PixelLate(void);
+	static VDPostEffect* VDAPIENTRY PixelLate();
 
 	/**
 	 *
 	 */
-	static VDPostEffect* VDAPIENTRY LightShattering(void);
+	static VDPostEffect* VDAPIENTRY LightShattering();
 
 	/**
 	 *
@@ -175,12 +175,12 @@ public:	/*	Static methods.	*/
 	/**
 	 *
 	 */
-	static VDPostEffect* VDAPIENTRY motionBlur(void);
+	static VDPostEffect* VDAPIENTRY motionBlur();
 
 	/**
 	 *
 	 */
-	static VDPostEffect* VDAPIENTRY CameraMotionBlur(void);
+	static VDPostEffect* VDAPIENTRY CameraMotionBlur();
 
 	/**
 	 *
@@ -190,12 +190,12 @@ public:	/*	Static methods.	*/
 	/**
 	 *	High Dynamic Range
 	 */
-	static VDPostEffect* VDAPIENTRY HDR(void);
+	static VDPostEffect* VDAPIENTRY HDR();
 
 	/**
 	 *
 	 */
-	static VDPostEffect* VDAPIENTRY bilateralFilter(void);
+	static VDPostEffect* VDAPIENTRY bilateralFilter();
 };
 
 #endif

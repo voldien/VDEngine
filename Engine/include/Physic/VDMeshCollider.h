@@ -26,18 +26,18 @@
 class VDDECLSPEC VDMeshCollider : public VDCollider{
 public:
 
-	VDMeshCollider(void);
+	VDMeshCollider();
 	VDMeshCollider(const VDMeshCollider& collider);
 	VDMeshCollider(bool convex);
-	VDMeshCollider(const VDMesh* mesh, bool convex, VDGameObject* gameobject = NULL);
-	~VDMeshCollider(void);
+	VDMeshCollider(const VDMesh* mesh, bool convex, VDGameObject* gameobject = nullptr);
+	~VDMeshCollider();
 
 
-	virtual void VDAPIENTRY instanceInitilize(void);
-	virtual void VDAPIENTRY onEnable(void);
-	virtual void VDAPIENTRY onDisable(void);
-	virtual void VDAPIENTRY initializeComponent(void);
-	virtual void VDAPIENTRY onDestroy(void);
+	virtual void VDAPIENTRY instanceInitilize();
+	virtual void VDAPIENTRY onEnable();
+	virtual void VDAPIENTRY onDisable();
+	virtual void VDAPIENTRY initializeComponent();
+	virtual void VDAPIENTRY onDestroy();
 	virtual VDBehavior* VDAPIENTRY copyComponent(unsigned int& dataSize);
 
 	/**
@@ -53,7 +53,7 @@ public:
 	/**
 	 *
 	 */
-	int VDAPIFASTENTRY isConvex(void)const;
+	int VDAPIFASTENTRY isConvex()const;
 
 	/**
 	 *
@@ -64,7 +64,7 @@ public:
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIFASTENTRY getScale(void)const;
+	VDVector3 VDAPIFASTENTRY getScale()const;
 
 
 	/**

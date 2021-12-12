@@ -12,10 +12,10 @@
 #include <map>
 #include <string>
 
-char* VDAssetManager::rootpath = NULL;
+char* VDAssetManager::rootpath = nullptr;
 VDAssetManager::RegistryTable VDAssetManager::assetreg;
 
-const char* VDAssetManager::getRootDirectory(void) {
+const char* VDAssetManager::getRootDirectory() {
 	return VDAssetManager::rootpath;
 }
 
@@ -44,7 +44,7 @@ void VDAssetManager::setRootDirectory(const char* cpath) {
 char* VDAssetManager::getAbsolutePath(const char* relativePath, char* buffer,
 		int len) {
 	if (!buffer) {
-		return NULL;
+		return nullptr;
 	}
 	// if (!VDFile::isRelativePath(relativePath)) {
 	// 	return (char*) relativePath;
@@ -63,7 +63,7 @@ std::string VDAssetManager::getResourcePath(ResourceType type) {
 
 	const unsigned int len = sizeof(path);
 	appname = VDSystemInfo::getAppliationName();
-	char* env = NULL;
+	char* env = nullptr;
 
 	if (VDSystemInfo::operatingSystem() & VDSystemInfo::eUnix) {
 		switch (type) {
@@ -93,7 +93,7 @@ std::string VDAssetManager::getResourcePath(ResourceType type) {
 			/*					*/
 			sprintf(path, "/tmp/%s_%d",
 					fragcore::SystemInfo::getAppliationName(),
-					VDEngine::getBuildVersion(NULL, NULL, NULL));
+					VDEngine::getBuildVersion(nullptr, nullptr, nullptr));
 
 			break;
 		default:
@@ -143,7 +143,7 @@ void VDAssetManager::releaseAsset(VDAssetObject* asset) {
 }
 
 void VDAssetManager::assignAsset(VDAssetObject* asset, ...) {
-	VDRegistry* pReg = NULL;
+	VDRegistry* pReg = nullptr;
 
 	/*	*/
 	if (assetreg[(VDGUID) asset->getInstanceID()].asset == asset) {
@@ -163,7 +163,7 @@ void VDAssetManager::assignAsset(VDAssetObject* asset, ...) {
 		VDDebug::warningLog("Registry is null.\n");
 		return;
 	}
-	if (pReg->asset == NULL) {
+	if (pReg->asset == nullptr) {
 		VDDebug::criticalLog("Registry asset is null.\n");
 		return;
 	}

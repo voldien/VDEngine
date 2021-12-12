@@ -8,17 +8,17 @@
 #include <cstring>
 
 
-VDCustomBehavior::VDCustomBehavior(void) : VDBehavior(){
+VDCustomBehavior::VDCustomBehavior() : VDBehavior(){
 }
 VDCustomBehavior::VDCustomBehavior(const VDCustomBehavior& brood){
 
 }
 
-void VDCustomBehavior::update(void){return;}
-void VDCustomBehavior::fixedUpdate(void){return;}
-void VDCustomBehavior::lateUpdate(void){return;}
-void VDCustomBehavior::onAwake(void){return;}
-void VDCustomBehavior::onGUI(void){return;}
+void VDCustomBehavior::update(){return;}
+void VDCustomBehavior::fixedUpdate(){return;}
+void VDCustomBehavior::lateUpdate(){return;}
+void VDCustomBehavior::onAwake(){return;}
+void VDCustomBehavior::onGUI(){return;}
 
 void VDCustomBehavior::onCharacterController(const VDCharacterControllerHit& hit){
 
@@ -47,20 +47,20 @@ void VDCustomBehavior::onJointBreak(float breakForce){
 
 }
 
-void VDCustomBehavior::onBecameInvisible(void){
+void VDCustomBehavior::onBecameInvisible(){
 
 }
 
-void VDCustomBehavior::onBecameVisible(void){
+void VDCustomBehavior::onBecameVisible(){
 
 }
 
-void VDCustomBehavior::onPreCulled(void){
+void VDCustomBehavior::onPreCulled(){
 
 }
 
 
-void VDCustomBehavior::initializeComponent(void){
+void VDCustomBehavior::initializeComponent(){
 	VDBehavior::initializeComponent();
 	this->menable |= VDCustomBehavior::CustomBehavior;
 	this->gameObject()->active |= VDCustomBehavior::CustomBehavior;

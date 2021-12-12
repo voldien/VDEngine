@@ -28,13 +28,13 @@
  */
 class VDDECLSPEC VDCameraController : public VDCustomBehavior {
 public:
-	VDCameraController(void);
+	VDCameraController();
 	VDCameraController(const VDCameraController& controller);
-	~VDCameraController(void);
+	~VDCameraController();
 
-	//virtual void VDAPIENTRY onDestroyed(void);
-	virtual void VDAPIENTRY fixedUpdate(void);
-	virtual void VDAPIENTRY onAwake(void);
+	//virtual void VDAPIENTRY onDestroyed();
+	virtual void VDAPIENTRY fixedUpdate();
+	virtual void VDAPIENTRY onAwake();
 	virtual void VDAPIENTRY onCharacterController(VDCharacterControllerHit& hit);
 
 private:	/*	Attributes.	*/

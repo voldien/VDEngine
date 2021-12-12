@@ -25,13 +25,13 @@
  */
 class VDDECLSPEC VDContact{
 public:
-	VDContact(void);
+	VDContact();
 	VDContact(const VDContact& contact);
 
 	/**
 	 *	@Return
 	 */
-	unsigned int VDAPIFASTENTRY getCount(void) const;
+	unsigned int VDAPIFASTENTRY getCount() const;
 
 	/**
 	 *	@Return

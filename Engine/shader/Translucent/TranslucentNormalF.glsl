@@ -15,6 +15,6 @@ uniform sampler2D DiffuseTexture;
 uniform float weight;
 
 
-void main(void){
+void main(){
 	fragColor = texture2D(DiffuseTexture, UV) * getLightTranslucent(normal);
 }

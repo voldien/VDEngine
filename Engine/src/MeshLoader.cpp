@@ -54,28 +54,28 @@
 using namespace std;
 using namespace Assimp;
 
-VDMeshLoader::VDMeshLoader(void) {
+VDMeshLoader::VDMeshLoader() {
 	this->flags = 0;
-	this->sceneRef = NULL;
+	this->sceneRef = nullptr;
 }
 
 VDMeshLoader::VDMeshLoader(const VDMeshLoader& meshloader) {
 	*this = meshloader;
 }
 
-VDMeshLoader::~VDMeshLoader(void) {
+VDMeshLoader::~VDMeshLoader() {
 
 }
 
-void VDMeshLoader::release(void) {
+void VDMeshLoader::release() {
 	VDAssetLoader::release();
 
 	/**/
-	this->sceneRef = NULL;
+	this->sceneRef = nullptr;
 	this->flags = 0;
 }
 
-int VDMeshLoader::isValid(void) const {
+int VDMeshLoader::isValid() const {
 	return 1;
 }
 
@@ -203,7 +203,7 @@ void VDMeshLoader::initNoodeRoot(const aiNode* nodes, VDGameObject* parent) {
 		if (parent) {
 			pobject->transform()->setParent(parent->transform());
 		} else
-			pobject->transform()->setParent( NULL);
+			pobject->transform()->setParent( nullptr);
 
 		/*	TODO check if works.	*/
 		pobject->transform()->setPosition(*(VDVector3*) &position);
@@ -235,7 +235,7 @@ void VDMeshLoader::initNoodeRoot(const aiNode* nodes, VDGameObject* parent) {
 					// VDMaterial* mat =
 					//         this->getMaterial(
 					//                 this->sceneRef->mMeshes[*nodes->mChildren[x]->mMeshes]->mMaterialIndex);
-					if (renderer != NULL) {
+					if (renderer != nullptr) {
 						//renderer->setMaterial(mat);
 					}
 				}
@@ -380,7 +380,7 @@ VDMaterial* VDMeshLoader::initMaterial(aiMaterial* pmaterial) {
 	unsigned int x;
 	unsigned int y;
 	char absolutepath[PATH_MAX];
-	VDMaterial* mate = NULL;
+	VDMaterial* mate = nullptr;
 	VDTexture* tex;
 
 	char* data;
@@ -401,7 +401,7 @@ VDMaterial* VDMeshLoader::initMaterial(aiMaterial* pmaterial) {
 
 	if (!pmaterial) {
 		VDDebug::debugLog("(NUll) Assimp Material.\n");
-		return NULL;
+		return nullptr;
 	}
 
 	/**/
@@ -414,18 +414,18 @@ VDMaterial* VDMeshLoader::initMaterial(aiMaterial* pmaterial) {
 	// 	for (x = 0; x < pmaterial->GetTextureCount((aiTextureType) y); x++) {
 
 	// 		/*	extract texture information.	*/
-	// 		if (pmaterial->GetTexture((aiTextureType) y, x, &path, NULL, NULL,
-	// 		        NULL, NULL, &mapmode) == aiReturn::aiReturn_SUCCESS) {
+	// 		if (pmaterial->GetTexture((aiTextureType) y, x, &path, nullptr, nullptr,
+	// 		        nullptr, nullptr, &mapmode) == aiReturn::aiReturn_SUCCESS) {
 	// 			if (path.C_Str()) {
 	// 				std::string thepath = VDFile::getDirectory(this->getPath())
 	// 				        + "/" + path.C_Str();
 	// 				tex = findTexture(thepath.c_str());
 
-	// 				if (tex == NULL) {
+	// 				if (tex == nullptr) {
 	// 					tex = VDResources::load<VDTexture2D>(thepath.c_str());
 
 	// 					/*	texture mapmode.	*/
-	// 					if (tex != NULL) {
+	// 					if (tex != nullptr) {
 	// 						switch (mapmode) {
 	// 						case aiTextureMapMode_Clamp:
 	// 							tex->setWrapMode(VDTexture::eClamp);
@@ -442,7 +442,7 @@ VDMaterial* VDMeshLoader::initMaterial(aiMaterial* pmaterial) {
 	// 			}
 	// 		}
 
-	// 		tex = NULL;
+	// 		tex = nullptr;
 	// 	}/**/
 	// }/**/
 
@@ -452,7 +452,7 @@ VDMaterial* VDMeshLoader::initMaterial(aiMaterial* pmaterial) {
 	pmaterial->Get(AI_MATKEY_BLEND_FUNC, blendfunc);
 	pmaterial->Get(AI_MATKEY_TWOSIDED, blendfunc);
 
-	if (mate->getTexture(VDShaderConstant::eNormalTexture) != NULL) {
+	if (mate->getTexture(VDShaderConstant::eNormalTexture) != nullptr) {
 		if (specular > 0.0)
 			mate->setShader(VDShaderCreator::SpecularNormal());
 		else
@@ -473,7 +473,7 @@ VDMaterial* VDMeshLoader::initMaterial(aiMaterial* pmaterial) {
 	pmaterial->Get(AI_MATKEY_SHININESS_STRENGTH, color[0]);
 	mate->setColor("", color);
 
-	if (mate->getShader() == NULL) {
+	if (mate->getShader() == nullptr) {
 		mate->setShader(VDMaterial::getDefaultMaterial()->getShader());
 	}
 	this->setMaterial(mate);
@@ -504,7 +504,7 @@ VDCamera* VDMeshLoader::initCamera(aiCamera* pCamera, unsigned int Index) {
 }
 
 VDLight* VDMeshLoader::initLight(const aiLight* Llight, unsigned int index) {
-	VDLight* light = NULL;
+	VDLight* light = nullptr;
 	light = new VDLight();
 
 	light->setColor(*(VDColor*) &Llight->mColorDiffuse);

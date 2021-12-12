@@ -85,14 +85,14 @@ public:	/*	Main rendering pipeline.	*/
 	 */
 	static void VDAPIENTRY internalForwardRendering(VDFrustum* frustum,
 	        VDCamera* camera, VDDoubleBufferedAllocator* allocator,
-	        VDQueue<VDRenderer*>* renderers = NULL);
+	        VDQueue<VDRenderer*>* renderers = nullptr);
 
 	/**
 	 *	Deferred rendering used for scene with a lot of lights.
 	 */
 	static void VDAPIENTRY internalDefferdRendering(VDFrustum* frustum,
 	        VDCamera* camera, VDDoubleBufferedAllocator* allocator,
-	        VDQueue<VDRenderer*>* renderers = NULL);
+	        VDQueue<VDRenderer*>* renderers = nullptr);
 
 	/*	*/
 	static vector< VDQueue<VDRenderer*>> queues;

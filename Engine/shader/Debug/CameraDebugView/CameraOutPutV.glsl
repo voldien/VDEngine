@@ -38,7 +38,7 @@ uniform int CameraFlag = 0x1000;
 #define UnlitTexture 0x1000
 #define SpecularMode 
 
-void main(void){
+void main(){
 	gl_Position = ModelViewProjection * vec4(Vertex,1.0f);
 	VertexData = Vertex;
 	VertexPosition = (ModelMatrix * vec4(Vertex,1.0f)).xyz;

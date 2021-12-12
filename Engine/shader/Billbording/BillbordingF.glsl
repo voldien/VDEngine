@@ -4,7 +4,7 @@ in vec2 FUV;
 uniform sampler2D DiffuseTexture;
 uniform vec4 DiffuseColor;
 
-void main(void){
+void main(){
 	fragColor = texture2D(DiffuseTexture, FUV) * DiffuseColor;
 	fragColor.a = 1.0f;
 }

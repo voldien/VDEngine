@@ -17,7 +17,7 @@ uniform float fresnelPower = 0.3f;
 uniform mat4 ModelViewProjection;
 uniform mat4 ModelMatrix;
 
-void main(void) {
+void main() {
 	VertexPosition = vec4( ModelMatrix * vec4(Vertex, 1.0)).xyz;
 	gl_Position = ModelViewProjection * vec4(Vertex, 1.0);
 	

@@ -29,14 +29,14 @@
  */
 class VDDECLSPEC VDAudioListener : public VDBehavior{
 public:
-	VDAudioListener(void);
+	VDAudioListener();
 	VDAudioListener(const VDAudioListener& listener);
 
-	virtual void VDAPIENTRY instanceInitilize(void);
-	virtual void VDAPIENTRY onEnable(void);
-	virtual void VDAPIENTRY onDisable(void);
-	virtual void VDAPIENTRY onDestroy(void);
-	virtual void VDAPIENTRY initializeComponent(void);
+	virtual void VDAPIENTRY instanceInitilize();
+	virtual void VDAPIENTRY onEnable();
+	virtual void VDAPIENTRY onDisable();
+	virtual void VDAPIENTRY onDestroy();
+	virtual void VDAPIENTRY initializeComponent();
 	virtual VDBehavior* VDAPIENTRY copyComponent(unsigned int& dataSize);
 
 
@@ -53,7 +53,7 @@ public:	/*	Static methods.	*/
 	 *	Get current audio listener.
 	 *	@Return null if no audio listener exists.
 	 */
-	static VDAudioListener* VDAPIFASTENTRY getAudioListener(void);
+	static VDAudioListener* VDAPIFASTENTRY getAudioListener();
 
 	
 };

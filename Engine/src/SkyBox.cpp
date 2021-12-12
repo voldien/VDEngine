@@ -19,7 +19,7 @@
 #include <cstring>
 
 
-VDSkyBox::VDSkyBox(void) : VDBehavior(){
+VDSkyBox::VDSkyBox() : VDBehavior(){
 
 	this->material = VDMaterial::createMaterial();
 	this->material->setName("SkyBox");
@@ -27,7 +27,7 @@ VDSkyBox::VDSkyBox(void) : VDBehavior(){
 	//VDShader* _shader = VDShader::findShader("SkyBox");
 	this->material->setShader(VDShaderCreator::SkyBox());
 	this->skyBoxMesh = VDGeometryProcedure::createCube(3.0f, 0);
-	this->cubeMap = NULL;
+	this->cubeMap = nullptr;
 
 }
 
@@ -36,31 +36,31 @@ VDSkyBox::VDSkyBox(const VDSkyBox& skybox){
 	*this = skybox;
 }
 
-VDSkyBox::~VDSkyBox(void){
+VDSkyBox::~VDSkyBox(){
 	delete skyBoxMesh;
 	material->release();
 }
 
 
-void VDSkyBox::instanceInitilize(void){
+void VDSkyBox::instanceInitilize(){
 
 }
 
-void VDSkyBox::onEnable(void){
+void VDSkyBox::onEnable(){
 
 }
 
-void VDSkyBox::onDisable(void){
+void VDSkyBox::onDisable(){
 
 }
 
-void VDSkyBox::onDestroy(void){
+void VDSkyBox::onDestroy(){
 	if(this == VDScene::getScene()->skybox){
-		VDRenderSetting::setSkyBox(NULL);
+		VDRenderSetting::setSkyBox(nullptr);
 	}
 }
 
-void VDSkyBox::initializeComponent(void){
+void VDSkyBox::initializeComponent(){
 
 }
 
@@ -72,7 +72,7 @@ VDBehavior* VDSkyBox::copyComponent(unsigned int& dataSize){
 }
 
 void VDSkyBox::render(const VDQuaternion& quat){
-	if(this->isDisabled() || this->getCubeMap() == NULL)
+	if(this->isDisabled() || this->getCubeMap() == nullptr)
 		return;
 
 	VDMatrix::matrixMode(VDMatrix::View);
@@ -116,7 +116,7 @@ void VDSkyBox::setCubeMap(VDCubeMap* cubemap){
 	}
 }
 
-VDCubeMap* VDSkyBox::getCubeMap(void)const{
+VDCubeMap* VDSkyBox::getCubeMap()const{
 	return this->cubeMap;
 }
 

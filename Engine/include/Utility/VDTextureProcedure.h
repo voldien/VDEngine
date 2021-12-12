@@ -39,7 +39,7 @@ public:
 	/**
 	 *	Create Checker Texture.
 	 *
-	 *	@Return None NULL pointer if
+	 *	@Return None nullptr pointer if
 	 */
 	static VDTexture2D* VDAPIENTRY genCheckTexture(unsigned int width, unsigned int height, unsigned int checkWith, unsigned int checkHeight, unsigned int  SurfaceinternalFormat = VDTexture::eLuminance, unsigned int  SurFaceFormat = VDTexture::eLuminance, unsigned int  SurfaceType = VDTexture::eUnsignedByte, unsigned int  MipMap = VDTexture2D::eMipMapping);
 
@@ -82,12 +82,12 @@ public:
 	/**
 	 *	@Return
 	 */
-	static VDTexture2D* VDAPIENTRY blackTexture(void);
+	static VDTexture2D* VDAPIENTRY blackTexture();
 
 	/**
 	 *	@Return
 	 */
-	static VDTexture2D* VDAPIENTRY whiteTexture(void);
+	static VDTexture2D* VDAPIENTRY whiteTexture();
 
 };
 

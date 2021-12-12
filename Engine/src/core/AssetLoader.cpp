@@ -14,7 +14,7 @@
 #include <vector>
 
 
-VDGameObject* VDAssetLoader::sceneRoot(void){
+VDGameObject* VDAssetLoader::sceneRoot(){
 	VDGameObject* root = VDGameObject::createGameObject();
 	int x;
 	if(getGameObjectRootCount() != 0){
@@ -24,7 +24,7 @@ VDGameObject* VDAssetLoader::sceneRoot(void){
 	}
 	else{
 		for(x = 0; x < getGameObjectCount(); x++){
-			if(root->transform()->getParent() == NULL)
+			if(root->transform()->getParent() == nullptr)
 				root->transform()->addChild(getGameObject(x)->transform());
 		}
 	}
@@ -37,7 +37,7 @@ VDGameObject* VDAssetLoader::getGameObjectRoot(unsigned int index){
 	unsigned int parentIndex = 0;
 	unsigned int x;
 	if(this->object.size() == 0){
-		return NULL;
+		return nullptr;
 	}
 
 
@@ -54,12 +54,12 @@ VDGameObject* VDAssetLoader::getGameObjectRoot(unsigned int index){
 }
 
 
-unsigned int VDAssetLoader::getGameObjectRootCount(void)const{
+unsigned int VDAssetLoader::getGameObjectRootCount()const{
 	return 0;
 }
 
 VDGameObject* VDAssetLoader::getGameObject(unsigned int index){
-	return (this->object.size() > index) ? this->object[index] : NULL;
+	return (this->object.size() > index) ? this->object[index] : nullptr;
 }
 
 void VDAssetLoader::setGameObject(const VDGameObject* object){
@@ -68,24 +68,24 @@ void VDAssetLoader::setGameObject(const VDGameObject* object){
 
 VDGameObject* VDAssetLoader::findGameObject(const char* cname){
 	if(!cname)
-		return NULL;
+		return nullptr;
 
 	if(strlen(cname) == 0)
-		return NULL;
+		return nullptr;
 
 	for(unsigned int x = 0; x < this->object.size(); x++){
 		if(strcmp(this->object[x]->getName(),cname) == 0)
 			return this->object[x];
 	}
-	return NULL;
+	return nullptr;
 }
 
-unsigned int VDAssetLoader::getGameObjectCount(void)const{
+unsigned int VDAssetLoader::getGameObjectCount()const{
 	return object.size();
 }
 
 VDMesh* VDAssetLoader::getMesh(unsigned int index){
-	return (index < this->meshs.size()) ? this->meshs[index] : NULL;
+	return (index < this->meshs.size()) ? this->meshs[index] : nullptr;
 }
 
 void VDAssetLoader::setMesh(const VDMesh* mesh){
@@ -102,16 +102,16 @@ VDMesh* VDAssetLoader::findMesh(const char* meshName){
 			return this->meshs[x];
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
-unsigned int VDAssetLoader::getMeshCount(void)const{
+unsigned int VDAssetLoader::getMeshCount()const{
 	return meshs.size();
 }
 
 
 VDCamera* VDAssetLoader::getCamera(unsigned int index){
-	return (index < this->cameras.size()) ? this->cameras[index] : NULL;
+	return (index < this->cameras.size()) ? this->cameras[index] : nullptr;
 }
 
 void VDAssetLoader::setCamera(const VDCamera* camera){
@@ -123,28 +123,28 @@ VDCamera* VDAssetLoader::findCamera(const char* cname){
 	if(lgameObject)
 		return lgameObject->camera();
 	else
-		return NULL;
+		return nullptr;
 }
 
-unsigned int VDAssetLoader::getCameraCount(void)const{
+unsigned int VDAssetLoader::getCameraCount()const{
 	return cameras.size();
 }
 
 
 VDLight* VDAssetLoader::getLight(unsigned int index){
-	return (index < this->lights.size()) ? this->lights[index] : NULL;
+	return (index < this->lights.size()) ? this->lights[index] : nullptr;
 }
 
 void VDAssetLoader::setLight(const VDLight* light){
 	this->lights.push_back((VDLight*)light);
 }
 
-unsigned int VDAssetLoader::getLightCount(void)const{
+unsigned int VDAssetLoader::getLightCount()const{
 	return lights.size();
 }
 
 VDTexture2D* VDAssetLoader::getTexture(unsigned int index){
-	return (index < this->textures.size()) ? (VDTexture2D*)this->textures[index] : NULL;
+	return (index < this->textures.size()) ? (VDTexture2D*)this->textures[index] : nullptr;
 }
 
 void VDAssetLoader::setTexture(const VDTexture2D* texture){
@@ -157,16 +157,16 @@ VDTexture2D* VDAssetLoader::findTexture(const char* textureName){
 		if(strcmp(VDCASTP(VDTexture2D*,this->textures[x])->getName(),textureName) == 0)
 			return VDCASTP(VDTexture2D*,this->textures[x]);
 	}
-	return NULL;
+	return nullptr;
 }
 
-unsigned int VDAssetLoader::getTextureCount(void)const{
+unsigned int VDAssetLoader::getTextureCount()const{
 	return this->textures.size();
 }
 
 
 VDMaterial* VDAssetLoader::getMaterial(unsigned int index){
-	return (index < this->materials.size()) ? this->materials[index] : NULL;
+	return (index < this->materials.size()) ? this->materials[index] : nullptr;
 }
 
 void VDAssetLoader::setMaterial(const VDMaterial* material){
@@ -180,30 +180,30 @@ VDMaterial* VDAssetLoader::findMaterial(const char* materialName){
 			return this->materials[x];
 
 	}
-	return NULL;
+	return nullptr;
 }
 
-unsigned int VDAssetLoader::getMaterialCount(void)const{
+unsigned int VDAssetLoader::getMaterialCount()const{
 	return materials.size();
 }
 
 
 VDAnimationClip* VDAssetLoader::getAnimationClip(unsigned int index){
-	return (index < this->animationClips.size()) ?  this->animationClips[index] : NULL;
+	return (index < this->animationClips.size()) ?  this->animationClips[index] : nullptr;
 }
 
 void VDAssetLoader::setAnimationClip(const VDAnimationClip* clip){
 	this->animationClips.push_back((VDAnimationClip*)clip);
 }
 
-unsigned int VDAssetLoader::getAnimationClipCount(void)const{
+unsigned int VDAssetLoader::getAnimationClipCount()const{
 	return this->animationClips.size();
 }
 
 
 
 VDAnimation* VDAssetLoader::getAnimation(unsigned int index){
-	return (index < this->animations.size()) ?  this->animations[index] : NULL;
+	return (index < this->animations.size()) ?  this->animations[index] : nullptr;
 }
 
 void VDAssetLoader::setAnimation(const VDAnimation* animation){
@@ -211,15 +211,15 @@ void VDAssetLoader::setAnimation(const VDAnimation* animation){
 }
 
 VDAnimation* VDAssetLoader::findAnimation(const char* cname){
-	return NULL;
+	return nullptr;
 }
 
-unsigned int VDAssetLoader::getAnimationCount(void)const{
+unsigned int VDAssetLoader::getAnimationCount()const{
 	return this->animations.size();
 }
 
 VDRenderer* VDAssetLoader::getRenderer(unsigned int index){
-	return (index < this->renderer.size()) ? this->renderer[index] : NULL;
+	return (index < this->renderer.size()) ? this->renderer[index] : nullptr;
 }
 
 void VDAssetLoader::setRenderer(const VDRenderer* renderer){
@@ -230,14 +230,14 @@ VDRenderer* VDAssetLoader::findRenderer(const char* cname){
 	VDGameObject* g = findGameObject(cname);
 	if(g)
 		return g->renderer();
-	return NULL;
+	return nullptr;
 }
 
-unsigned int VDAssetLoader::getRendererCount(void)const{
+unsigned int VDAssetLoader::getRendererCount()const{
 	return renderer.size();
 }
 
-void VDAssetLoader::release(void){
+void VDAssetLoader::release(){
 	int x;
 
 	/*	*/

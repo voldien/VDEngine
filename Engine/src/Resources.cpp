@@ -19,12 +19,12 @@
 
 void* VDResources::load(const char* cfilename, const VDTypeInfo& info){
 
-	void* asset = NULL;
+	void* asset = nullptr;
 
 	/**/
 	// if(!VDFile::existFile(cfilename)){
 	// 	VDDebug::errorLog("%s is not a file.\n", cfilename);
-	// 	return NULL;
+	// 	return nullptr;
 	// }
 
 	/**/
@@ -60,7 +60,7 @@ void* VDResources::load(const char* cfilename, const VDTypeInfo& info){
 
 	// /**/
 	// if(*info.getType() == typeid(VDShader)){
-	// 	char* source = NULL;
+	// 	char* source = nullptr;
 	// 	char* vs,*fs,*gs,*tcs,*tes;
 	// 	VDFile::load(cfilename, &source);
 	// 	free(source);
@@ -83,7 +83,7 @@ void* VDResources::loadAll(const char* cfilename, const VDTypeInfo& info){
 	/**/
 	// if(!VDFile::existFile(cfilename)){
 	// 	VDDebug::errorLog("%s is not a file.\n", cfilename);
-	// 	return NULL;
+	// 	return nullptr;
 	// }
 
 
