@@ -216,7 +216,7 @@ void VDLight::setInnerCone(float InnerCone){
 void VDLight::setRange(float range){
 	this->range = fragcore::Math::max<float>(range, 0.1);
 	this->setFar(range);
-	this->calcFrustumPlanes(this->transform()->getPosition(), VDVector3::up(), VDVector3::forward());
+	this->calcFrustumPlanes(this->transform()->getPosition(), VDVector3::UnitY(), VDVector3::UnitZ());
 }
 
 
@@ -430,9 +430,9 @@ void VDLight::detachShadowComponent(){
 
 	// 	/*	update transform.	*/
 	// 	light->calcFrustumPlanes(light->transform()->getPosition(),
-	// 			light->transform()->transformDirection(VDVector3::forward()),
-	// 			light->transform()->transformDirection(VDVector3::up()),
-	// 			light->transform()->transformDirection(VDVector3::right()) );
+	// 			light->transform()->transformDirection(VDVector3::UnitZ()),
+	// 			light->transform()->transformDirection(VDVector3::UnitY()),
+	// 			light->transform()->transformDirection(VDVector3::UnitX()) );
 
 
 	// 	/*	compute indices.	*/

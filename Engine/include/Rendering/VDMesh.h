@@ -1,36 +1,37 @@
 /*
-    VDEngine virtual dimension game engine.
-    Copyright (C) 2014  Valdemar Lindberg
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-*/
+ *	VDEngine virtual dimension game engine.
+ *	Copyright (C) 2014  Valdemar Lindberg
+ *
+ *	This program is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	This program is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 #ifndef _VD_MESH_H_
 #define _VD_MESH_H_ 1
-#include"../VDSystem.h"
-#include"../Asset/VDAssetObject.h"
-#include"../DataStructure/VDBoundVolume.h"
+#include "../Asset/VDAssetObject.h"
+#include "../DataStructure/VDBoundVolume.h"
+#include "../VDSystem.h"
+
 
 /**
  *
  */
-class VDDECLSPEC VDMesh : public VDAssetObject{
-public:
+class VDDECLSPEC VDMesh : public VDAssetObject {
+  public:
 	friend class VDGeometryProcedure;
 	friend class VDGeometryUtility;
 
-	typedef struct vd_mesh_description_t{
+	typedef struct vd_mesh_description_t {
 		unsigned int VBO;
 		unsigned int VAO;
 		unsigned int IBO;
@@ -42,93 +43,87 @@ public:
 		unsigned int WVP;
 		unsigned int WORLD_MAT;
 		unsigned int meshFlag;
-	}VDMeshDesc;
+	} VDMeshDesc;
 
 	enum meshFlag {
-		eStaticMesh 		= 0x800,
-		eQuadTree 			= 0x1000,
-		eDynamicMesh 		= 0x2000,
-		eInstanceRendering 	= 0x4000,
-		eVAO 				= 0x8000,
-		eVBO 				= 0x10000,
-		eArray 				= 0x20000,
-		eSkinned 			= 0x40000,		/**/
-		eStaticBatch 		= 0x80000,		/**/
-		eAABB 			= VDBound::eAABB,
-		eOBB 			= VDBound::eOBB,
-		eAllBound 		= VDBound::eBound,
+		eStaticMesh = 0x800,
+		eQuadTree = 0x1000,
+		eDynamicMesh = 0x2000,
+		eInstanceRendering = 0x4000,
+		eVAO = 0x8000,
+		eVBO = 0x10000,
+		eArray = 0x20000,
+		eSkinned = 0x40000,		/**/
+		eStaticBatch = 0x80000, /**/
+		eAABB = VDBound::eAABB,
+		eOBB = VDBound::eOBB,
+		eAllBound = VDBound::eBound,
 	};
 
-	enum BufferType{
-		eBufferArray 	= 0,				/*	*/
-		eElementArray	= 1,				/*	*/
+	enum BufferType {
+		eBufferArray = 0,  /*	*/
+		eElementArray = 1, /*	*/
 	};
 
-	enum AccessMode{
-		eRead 		= 0x88B8,	/*	GL_READ_ONLY	*/
-		eWrite 		= 0x88B9,	/*	GL_WRITE_ONLY	*/
-		eReadWrite 	= 0x88BA,	/*	GL_READ_WRITE	*/
+	enum AccessMode {
+		eRead = 0x88B8,		 /*	GL_READ_ONLY	*/
+		eWrite = 0x88B9,	 /*	GL_WRITE_ONLY	*/
+		eReadWrite = 0x88BA, /*	GL_READ_WRITE	*/
 	};
-
 
 	/**/
-	enum MeshComponent{
-		eVertex 			= 0x1,
-		eTextureCoord 		= 0x2,
-		eNormal 			= 0x4,
-		eVertexColor 		= 0x8,
-		eTangent 			= 0x10,
-		eTextureCoord2 		= 0x20,
-		eBoneID 			= 0x40,
-		eBoneWeight 		= 0x80,
-		eIndex 				= 0x100,
-		eBiNormal 			= 0x200,
-		eBitTangent			= 0x400,
+	enum MeshComponent {
+		eVertex = 0x1,
+		eTextureCoord = 0x2,
+		eNormal = 0x4,
+		eVertexColor = 0x8,
+		eTangent = 0x10,
+		eTextureCoord2 = 0x20,
+		eBoneID = 0x40,
+		eBoneWeight = 0x80,
+		eIndex = 0x100,
+		eBiNormal = 0x200,
+		eBitTangent = 0x400,
 
 		eDefaultMesh = (eVertex | eTextureCoord | eNormal | eTangent),
 	};
 
-	enum Primitive{
-		Point = 0x0,					/*	GL_POINTS*/
-		eLine = 0x1,					/*	GL_LINES*/
-		eLineLoop = 0x2,				/*	GL_LINE_LOOP	*/
-		eLineStrip = 0x3,				/*	GL_TRIANGLES*/
-		eTriangles = 0x4,				/*	GL_LINE_STRIP*/
-		eTriangleStrip = 0x5,			/*	GL_TRIANGLE_STRIP*/
-		eTriangleFan = 0x6,				/*	GL_TRIANGLE_FAN*/
-		eTriangleQuads = 0x7,			/*	GL_QUADS*/
-		eTriangleQuadTrip = 0x8,		/*	GL_QUAD_STRIP*/
-		eTrianglesAdjacency = 0x000C,	/*GL_TRIANGLES_ADJACENCY*/
+	enum Primitive {
+		Point = 0x0,				  /*	GL_POINTS*/
+		eLine = 0x1,				  /*	GL_LINES*/
+		eLineLoop = 0x2,			  /*	GL_LINE_LOOP	*/
+		eLineStrip = 0x3,			  /*	GL_TRIANGLES*/
+		eTriangles = 0x4,			  /*	GL_LINE_STRIP*/
+		eTriangleStrip = 0x5,		  /*	GL_TRIANGLE_STRIP*/
+		eTriangleFan = 0x6,			  /*	GL_TRIANGLE_FAN*/
+		eTriangleQuads = 0x7,		  /*	GL_QUADS*/
+		eTriangleQuadTrip = 0x8,	  /*	GL_QUAD_STRIP*/
+		eTrianglesAdjacency = 0x000C, /*GL_TRIANGLES_ADJACENCY*/
 	};
 
-private:
+  private:
 	VDMesh();
-	VDMesh(const VDMesh& mesh);
-	VDMesh(const char* name);
-	VDMesh(const void* VertexBuffer,
-			unsigned int vertexStrideSize,
-			unsigned int VertexDataSize,
-			const unsigned char* indicesData,
-			unsigned int indicesTypeSize,
-			unsigned int indicesDataSize,
-			unsigned int bitFlag = 0x0);
-public:
+	VDMesh(const VDMesh &mesh);
+	VDMesh(const char *name);
+	VDMesh(const void *VertexBuffer, unsigned int vertexStrideSize, unsigned int VertexDataSize,
+		   const unsigned char *indicesData, unsigned int indicesTypeSize, unsigned int indicesDataSize,
+		   unsigned int bitFlag = 0x0);
+
+  public:
 	~VDMesh();
 
-private:	/*	Attributes.	*/
+  private:					   /*	Attributes.	*/
+	unsigned int vertexCount;  /*	Number of vertex elements.*/
+	unsigned int indicesCount; /*	Indices count.	*/
+	VDMeshDesc meshdesc;	   /*	MeshInstrution.	*/
 
-	unsigned int vertexCount;	/*	Number of vertex elements.*/
-	unsigned int indicesCount;	/*	Indices count.	*/
-	VDMeshDesc meshdesc;	/*	MeshInstrution.	*/
+	unsigned int flag;		  /*	SUPPORT VALUES???	*/
+	unsigned int nSizeFlag;	  /*	Indices data type flag.	*/
+	unsigned char drawMode;	  /*	Primitivs rendering mode.	*/
+	unsigned char strideSize; /*	Size between each vertex in buffer.	*/
+	VDBound bounds;			  /*	Mesh geometry AABB.	*/
 
-	unsigned int flag;			/*	SUPPORT VALUES???	*/
-	unsigned int nSizeFlag;		/*	Indices data type flag.	*/
-	unsigned char drawMode;		/*	Primitivs rendering mode.	*/
-	unsigned char strideSize;	/*	Size between each vertex in buffer.	*/
-	VDBound bounds;	/*	Mesh geometry AABB.	*/
-
-public:
-
+  public:
 	/**
 	 *	release mesh buffer on GPU [Preference]
 	 */
@@ -137,48 +132,26 @@ public:
 	/**
 	 *	@Return
 	 */
-	VDMesh& operator=(const VDMesh& mesh);
+	VDMesh &operator=(const VDMesh &mesh);
 
-	inline void setDrawMode(unsigned int drawMode){
-		this->drawMode = drawMode;
-	}
-	inline unsigned int getDrawMode()const{
-		return this->drawMode;
-	}
+	inline void setDrawMode(unsigned int drawMode) { this->drawMode = drawMode; }
+	inline unsigned int getDrawMode() const { return this->drawMode; }
 
-	inline unsigned int getVertexCount()const{
-		return this->vertexCount;
-	}
+	inline unsigned int getVertexCount() const { return this->vertexCount; }
 
-	inline unsigned int getPolygoneCount()const{
-		return this->indicesCount;
-	}
+	inline unsigned int getPolygoneCount() const { return this->indicesCount; }
 
-	inline unsigned int getVBO()const{
-		return this->meshdesc.VBO;
-	}
+	inline unsigned int getVBO() const { return this->meshdesc.VBO; }
 
-	inline unsigned int getVAO()const{
-		return this->meshdesc.VAO;
-	}
+	inline unsigned int getVAO() const { return this->meshdesc.VAO; }
 
-	inline unsigned int getIBO()const{
-		return this->meshdesc.IBO;
-	}
+	inline unsigned int getIBO() const { return this->meshdesc.IBO; }
 
+	VDMeshDesc *getMeshDesc() { return &this->meshdesc; }
 
-	VDMeshDesc* getMeshDesc(){
-		return &this->meshdesc;
-	}
+	inline unsigned int getNumIndices() const { return this->indicesCount; }
 
-
-	inline unsigned int getNumIndices()const{
-		return this->indicesCount;
-	}
-
-	inline unsigned int getIndicesNFlag()const{
-		return this->nSizeFlag;
-	}
+	inline unsigned int getIndicesNFlag() const { return this->nSizeFlag; }
 
 	/**
 	 *
@@ -188,53 +161,47 @@ public:
 	/**
 	 *	@Return
 	 */
-	inline unsigned int getMeshFlag()const{
-		return this->flag;
-	}
-
+	inline unsigned int getMeshFlag() const { return this->flag; }
 
 	/**
 	 *	Get stride size of each vertex.
 	 */
-	unsigned int VDAPIFASTENTRY getVertexStride()const;
+	unsigned int VDAPIFASTENTRY getVertexStride() const;
 
 	/**
 	 *
 	 *	@Return
 	 */
-	unsigned int VDAPIFASTENTRY getIndicesStride()const;
+	unsigned int VDAPIFASTENTRY getIndicesStride() const;
 
 	/**
 	 *
 	 */
-	inline const VDBound& getBound()const{
-		return this->bounds;
-	}
+	inline const VDBound &getBound() const { return this->bounds; }
 
 	/*
 	 *	Get indices data type in form of a
 	 *
 	 *	@Return polygone Type.
 	 */
-	VDTypeInfo VDAPIFASTENTRY getIndicesType()const;
+	VDTypeInfo VDAPIFASTENTRY getIndicesType() const;
 
 	/**
 	 *
 	 */
-	void VDAPIENTRY setABB(const VDAABB& bounds);
+	void VDAPIENTRY setABB(const VDAABB &bounds);
 	/**
 	 *
 	 */
-	void VDAPIENTRY setOBB(const VDOBB& bounds);
+	void VDAPIENTRY setOBB(const VDOBB &bounds);
 
 	/**
 	 *
 	 *	@Return
 	 */
-	inline VDBound::BoundType getBoundType()const{
+	inline VDBound::BoundType getBoundType() const {
 		return (VDBound::BoundType)(this->getMeshFlag() & VDBound::eBound);
 	}
-
 
 	/**
 	 *	Vertex
@@ -243,84 +210,81 @@ public:
 	 *
 	 *	@Return
 	 */
-	VDVector3 VDAPIENTRY getVertex(unsigned int index)const;
+	VDVector3 VDAPIENTRY getVertex(unsigned int index) const;
 
 	/*
 	 *
 	 */
-	void VDAPIENTRY setVertex(unsigned int index, const VDVector3& vertex);
+	void VDAPIENTRY setVertex(unsigned int index, const VDVector3 &vertex);
 
 	/*
 	 *	Vertex Bundle
 	 *	@Return
 	 */
-	VDVertex* VDAPIENTRY getVertexBundle();
+	VDVertex *VDAPIENTRY getVertexBundle();
 
 	/*
 	 *
 	 */
-	void VDAPIENTRY setVertexBundle(const VDVector3* vertex);
+	void VDAPIENTRY setVertexBundle(const VDVector3 *vertex);
 
 	/*
 	 *	Get UV [Index]
 	 *	@Return
 	 */
-	VDVector2 VDAPIENTRY getUV(unsigned int index)const;
+	VDVector2 VDAPIENTRY getUV(unsigned int index) const;
 
 	/*
 	 *
 	 */
-	void VDAPIENTRY setUV(unsigned int index, const VDVector2& uv);
+	void VDAPIENTRY setUV(unsigned int index, const VDVector2 &uv);
 
 	/*
 	 *	Get UV Bundle Data
 	 *	@Return
 	 */
-	VDVector2* VDAPIENTRY getUVBundle();
+	VDVector2 *VDAPIENTRY getUVBundle();
 
 	/*
 	 *
 	 */
-	void VDAPIENTRY setUVBundle(const VDVector2* uvs);
+	void VDAPIENTRY setUVBundle(const VDVector2 *uvs);
 
 	/*
 	 *	Get Normal[Index]
 	 *	@Return
 	 */
- 	VDVector3 VDAPIENTRY getNormal(unsigned int index)const;
+	VDVector3 VDAPIENTRY getNormal(unsigned int index) const;
 
- 	/*
- 	 *
- 	 */
- 	void VDAPIENTRY setNormal(unsigned int index, const VDVector3& normal);
+	/*
+	 *
+	 */
+	void VDAPIENTRY setNormal(unsigned int index, const VDVector3 &normal);
 
- 	/*
- 	 *	Get Normal Bundle Data.
+	/*
+	 *	Get Normal Bundle Data.
 	 *	@Return
- 	 */
- 	VDVertex* VDAPIENTRY getNormalBundle();
+	 */
+	VDVertex *VDAPIENTRY getNormalBundle();
 
-	VDVector3 VDAPIENTRY getTangent(unsigned int index)const;					/* Get Tanget[Index] */
- 	void VDAPIENTRY setTangent(unsigned int index, const VDVector3& tangent);
+	VDVector3 VDAPIENTRY getTangent(unsigned int index) const; /* Get Tanget[Index] */
+	void VDAPIENTRY setTangent(unsigned int index, const VDVector3 &tangent);
 
- 	VDVertex* VDAPIENTRY getTangentBundle();								/* Get Tanget Bundle Data. */
+	VDVertex *VDAPIENTRY getTangentBundle(); /* Get Tanget Bundle Data. */
 
-	VDVector3 VDAPIENTRY getBiNormal(unsigned int index)const;					/* Get biNormal[Index] */
- 	void VDAPIENTRY setBiNormal(unsigned int index, const VDVector3& biNormal);
+	VDVector3 VDAPIENTRY getBiNormal(unsigned int index) const; /* Get biNormal[Index] */
+	void VDAPIENTRY setBiNormal(unsigned int index, const VDVector3 &biNormal);
 
-	VDVector3* VDAPIENTRY getBiNormalBundle();								/* Get biNormal Bundle Data. */
+	VDVector3 *VDAPIENTRY getBiNormalBundle(); /* Get biNormal Bundle Data. */
 
-	VDVector3 VDAPIENTRY getBitTangent(unsigned int index)const;					/* Get biTangent[Index] */
- 	void VDAPIENTRY setBiTangent(unsigned int index, const VDVector3& biTangent);
+	VDVector3 VDAPIENTRY getBitTangent(unsigned int index) const; /* Get biTangent[Index] */
+	void VDAPIENTRY setBiTangent(unsigned int index, const VDVector3 &biTangent);
 
-	VDVector3* VDAPIENTRY getBitTangentBundle();								/* Get biTangent Bundle Data. */
+	VDVector3 *VDAPIENTRY getBitTangentBundle(); /* Get biTangent Bundle Data. */
 
-
-
-	void VDAPIENTRY getMeshData(void** data, unsigned int * size);
+	void VDAPIENTRY getMeshData(void **data, unsigned int *size);
 
 	VDHANDLE VDAPIENTRY getVBOBuffer();
-
 
 	/*
 	 *	Get indices by index.
@@ -330,13 +294,12 @@ public:
 	/*
 	 *	Get i111ndices bundle
 	 */
-	unsigned char* VDAPIENTRY getIndicesBundle();
+	unsigned char *VDAPIENTRY getIndicesBundle();
 
 	/*
 	 *	ReCalculate Bounding Box
 	 */
 	void VDAPIENTRY computeBBox();
-
 
 	/*
 	 *	Calculate Normal
@@ -346,21 +309,19 @@ public:
 	/*
 	 *	set RenderFlag. what component is attached in form of unsigned int .
 	 */
-	void VDAPIENTRY setRenderFlag(const VDTypeInfo& type);	//
+	void VDAPIENTRY setRenderFlag(const VDTypeInfo &type); //
 
 	void VDAPIENTRY setBufferFlag(unsigned int bufferFlag);
 	unsigned int VDAPIENTRY getBufferFlag();
 
-
 	/**
 	 *
 	 */
-	void VDAPIENTRY assemblyMesh(void* vertexBuffer, unsigned int vertexStrideSize,
-			unsigned int VertexDataSize, void* indicesData, unsigned int  indicesTypeSize,
-			unsigned int IndicesDataSize, unsigned int meshBitFlag = 0x0);
+	void VDAPIENTRY assemblyMesh(void *vertexBuffer, unsigned int vertexStrideSize, unsigned int VertexDataSize,
+								 void *indicesData, unsigned int indicesTypeSize, unsigned int IndicesDataSize,
+								 unsigned int meshBitFlag = 0x0);
 
-public:
-
+  public:
 	/**
 	 *	Get Offset value from Vertex
 	 */
@@ -371,24 +332,23 @@ public:
 	 */
 	static unsigned int getVertexStrideSize(VDMesh::MeshComponent meshComponent);
 
-	//static unsigned int getIndicesSize(VDMesh::MeshComponent meshComponent);
+	// static unsigned int getIndicesSize(VDMesh::MeshComponent meshComponent);
 
 	/**
 	 *
 	 *	@Return
 	 */
-	static VDMesh* VDAPIENTRY createMesh();
+	static VDMesh *VDAPIENTRY createMesh();
 
 	/**
 	 *
 	 */
-	static void VDAPIFASTENTRY assignMesh(VDMesh* mesh);
+	static void VDAPIFASTENTRY assignMesh(VDMesh *mesh);
 
 	/**
 	 *
 	 */
-	static VDMesh* VDAPIENTRY findMesh(const char* meshName);
-
+	static VDMesh *VDAPIENTRY findMesh(const char *meshName);
 
 	/*
 	 *	Get mapped pointer to client address space.

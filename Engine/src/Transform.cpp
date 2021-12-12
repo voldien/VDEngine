@@ -134,7 +134,7 @@ void VDTransform::lookAt(const VDGameObject* gameObject){
 }
 
 void VDTransform::lookAt(const VDVector3& Target){
-	//this->setRotation(VDQuaternion::lookRotation((Target - this->getPosition()), VDVector3::up()).normalize());
+	//this->setRotation(VDQuaternion::lookRotation((Target - this->getPosition()), VDVector3::UnitY()).normalize());
 }
 
 VDTransform* VDTransform::findChild(const char* name){

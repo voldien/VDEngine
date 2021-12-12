@@ -75,9 +75,9 @@ void VDSkyBox::render(const VDQuaternion& quat){
 	if(this->isDisabled() || this->getCubeMap() == nullptr)
 		return;
 
-	VDMatrix::matrixMode(VDMatrix::View);
-	VDMatrix::pushMatrix();
-	VDMatrix::identity(VDMatrix::View);
+	VDMatrix::MatrixSpace::matrixMode(VDMatrix::MatrixSpace::View);
+	VDMatrix::MatrixSpace::pushMatrix();
+	VDMatrix::MatrixSpace::identity(VDMatrix::MatrixSpace::View);
 
 	GLint OldCullFaceMode;
 	//glGetIntegerv(GL_CULL_FACE_MODE, &OldCullFaceMode);
@@ -91,8 +91,8 @@ void VDSkyBox::render(const VDQuaternion& quat){
 
 
 	this->material->bind();
-	VDMatrix::rotation(quat);
-	glUniformMatrix4fv(this->material->getShader()->matrixInfo.modelViewProjectionMatrix, 1, GL_FALSE, (float*)&VDMatrix::getViewProjection()[0][0]);
+	VDMatrix::MatrixSpace::rotation(quat);
+	glUniformMatrix4fv(this->material->getShader()->matrixInfo.modelViewProjectionMatrix, 1, GL_FALSE, (float*)&VDMatrix::MatrixSpace::getViewProjection()[0][0]);
 	VDRenderer::drawMesh(this->skyBoxMesh);
 
 
@@ -101,8 +101,8 @@ void VDSkyBox::render(const VDQuaternion& quat){
 	VDRenderingAPICache::setState(GL_STENCIL_TEST, 1);
 	VDRenderingAPICache::setState(GL_BLEND, 0);
 
-	VDMatrix::matrixMode(VDMatrix::View);
-	VDMatrix::popMatrix();
+	VDMatrix::MatrixSpace::matrixMode(VDMatrix::MatrixSpace::View);
+	VDMatrix::MatrixSpace::popMatrix();
 }
 
 void VDSkyBox::setCubeMap(VDCubeMap* cubemap){

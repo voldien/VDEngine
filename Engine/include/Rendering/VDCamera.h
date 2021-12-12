@@ -32,13 +32,13 @@
  */
 class VDDECLSPEC VDCamera : public VDFrustum {
   public:
-	enum class ClearMode {
+	enum ClearMode {
 		DontClear = (1 << 0), /*	*/
 		Clear = (1 << 1),	  /*	*/
 		SkyBox = (1 << 2)	  /*	*/
 	};
 
-	enum class ProjectionMode {
+	enum ProjectionMode {
 		Perspective = (1 << 3),	 /*	*/
 		Orthographic = (1 << 4), /*	*/
 	};
@@ -52,7 +52,7 @@ class VDDECLSPEC VDCamera : public VDFrustum {
 		eFrustumOptions = (eFrustumCulling | eCullBox | eCullSphere | eCullPortal | eOcclusionCulling)
 	};
 
-	enum class PolygoneMode {
+	enum PolygoneMode {
 		eWireFrame = (1 << 10), /*	*/
 		Point = (1 << 11),		/*	*/
 		eTriangle = (1 << 12),	/*	*/
@@ -226,15 +226,7 @@ class VDDECLSPEC VDCamera : public VDFrustum {
 	 *
 	 */
 	void VDAPIENTRY enableRenderTexture(bool enabled);
-
-	/**
-	 *	Create render Target.
-	 *
-	 *	@Return
-	 */
-	VDRenderTexture *VDAPIENTRY createRenderTexture(const VDSize &size,
-													unsigned int rendertextureType = VDRenderTexture::Color);
-
+	
 	/**
 	 *	Get render Texture Target.
 	 *

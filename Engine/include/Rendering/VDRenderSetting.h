@@ -1,21 +1,21 @@
 /*
-    VDEngine virtual dimension game engine.
-    Copyright (C) 2014  Valdemar Lindberg
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-*/
+ *	VDEngine virtual dimension game engine.
+ *	Copyright (C) 2014  Valdemar Lindberg
+ *
+ *	This program is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	This program is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 #ifndef _VD_RENDERSETTING_H_
 #define _VD_RENDERSETTING_H_ 1
 #include "../VDDef.h"
@@ -23,7 +23,7 @@
 /**
  *	TODO hide inside settings source code definition.
  */
-typedef struct vd_engine_rendersettings_t{
+typedef struct vd_engine_rendersettings_t {
 
 	unsigned int flag;
 	unsigned int renderingflag;
@@ -33,79 +33,77 @@ typedef struct vd_engine_rendersettings_t{
 	unsigned int query;
 
 	/*	*/
-	typedef struct vd_snapshot_array_t{
-		VDTexture2D* frames;
+	typedef struct vd_snapshot_array_t {
+		VDTexture2D *frames;
 		unsigned int nframe;
 		unsigned int numframe;
-	}VDSnapShotArray;
+	} VDSnapShotArray;
 
 	/*	*/
 	VDSnapShotArray frame;
 
 	/*	Rendering pipeline framebuffer.	*/
-	VDRenderTexture* forward;
+	VDRenderTexture *forward;
 
 	/*	Renderpipelineshaders	*/
-	VDShader* forwardRendering;
-	VDShader* fowardShadowing;
-	VDShader* lightShadowFirstPass;
-	VDShader* lightShadowSecondPass;
-	VDShader* lightShadowCubeMap;
-	VDShader* reflectivecubemappass;
-	VDShader* toneMapping;
+	VDShader *forwardRendering;
+	VDShader *fowardShadowing;
+	VDShader *lightShadowFirstPass;
+	VDShader *lightShadowSecondPass;
+	VDShader *lightShadowCubeMap;
+	VDShader *reflectivecubemappass;
+	VDShader *toneMapping;
 
 	/*	*/
-	//VDUniformBuffer particlebuffer;
+	// VDUniformBuffer particlebuffer;
 
 	/*	*/
-	VDRenderTexture* posttexture;
+	VDRenderTexture *posttexture;
 
 	/*	*/
-	VDMesh* quadDisplay;		/*	*/
-}VDEngineRenderSettings;
+	VDMesh *quadDisplay; /*	*/
+} VDEngineRenderSettings;
 
 /**
  *
  */
-class VDDECLSPEC VDRenderSetting{
+class VDDECLSPEC VDRenderSetting {
 	friend class VDEngine;
-public:
 
+  public:
 	/**
 	 *
 	 */
-	enum FogFlag{
-		eFogDisable = 0x0,			/*	Fog disable.	*/
-		eFogEnable 	= 0x1,			/*	*/
-		eFogLinear 	= 0x2,			/*	Linear fog.	*/
-		eFogExp 	= 0x3,			/*	exponential fog.	*/
-		eFogExp2 	= 0x4,			/*	*/
+	enum FogFlag {
+		eFogDisable = 0x0, /*	Fog disable.	*/
+		eFogEnable = 0x1,  /*	*/
+		eFogLinear = 0x2,  /*	Linear fog.	*/
+		eFogExp = 0x3,	   /*	exponential fog.	*/
+		eFogExp2 = 0x4,	   /*	*/
 	};
 
 	/**
 	 *
 	 */
-	enum AmbientType{
-		eConstant 	= 0x1,	/*	*/
-		eImageBased = 0x2,	/*	*/
+	enum AmbientType {
+		eConstant = 0x1,   /*	*/
+		eImageBased = 0x2, /*	*/
 	};
 
 	/**
 	 *
 	 */
-	enum RenderPipeline{
-		eForwardRendering 	= (1 << 5),		/*	*/
+	enum RenderPipeline {
+		eForwardRendering = (1 << 5), /*	*/
 	};
 
-	VDRenderSetting(){}
+	VDRenderSetting() {}
 	VDRenderSetting(unsigned int sRenderingPath);
-	
-protected:	/*	Attributes.	*/
 
-	static VDEngineRenderSettings gRenderSettings;	/*	*/
+  protected:									   /*	Attributes.	*/
+	static VDEngineRenderSettings gRenderSettings; /*	*/
 
-public:
-
+  public:
 	/**
 	 *	Set rendering path.
 	 *
@@ -128,7 +126,7 @@ public:
 	/**
 	 *	@Return
 	 */
-	static VDRenderTexture* getForwardFramebuffer();
+	static VDRenderTexture *getForwardFramebuffer();
 
 	/**
 	 *
@@ -138,11 +136,9 @@ public:
 	/**
 	 *
 	 */
-	static VDRenderTexture* VDAPIFASTENTRY getRenderingPathFrameBuffer(RenderPipeline sRenderingPath);
+	static VDRenderTexture *VDAPIFASTENTRY getRenderingPathFrameBuffer(RenderPipeline sRenderingPath);
 
-
-public:	/*	*/
-
+  public: /*	*/
 	/**
 	 *	Enable Fog.
 	 */
@@ -174,7 +170,7 @@ public:	/*	*/
 	/**
 	 *
 	 */
-	static void VDAPIENTRY setFogColor(const VDColor& color);
+	static void VDAPIENTRY setFogColor(const VDColor &color);
 
 	/**
 	 *	@Return
@@ -194,7 +190,7 @@ public:	/*	*/
 	/**
 	 *
 	 */
-	static void VDAPIENTRY setAmbientColor(const VDColor& color);
+	static void VDAPIENTRY setAmbientColor(const VDColor &color);
 
 	/**
 	 *	@Return
@@ -210,13 +206,13 @@ public:	/*	*/
 	/**
 	 *
 	 */
-	static void VDAPIENTRY setImageAmbient(VDCubeMap* cubemap, bool compute = false);
+	static void VDAPIENTRY setImageAmbient(VDCubeMap *cubemap, bool compute = false);
 
 	/**
 	 *
 	 *	@Return
 	 */
-	static VDCubeMap* VDAPIENTRY getImageAmbient();
+	static VDCubeMap *VDAPIENTRY getImageAmbient();
 
 	/**
 	 *	Set ambient light type.
@@ -228,18 +224,17 @@ public:	/*	*/
 	 */
 	static AmbientType VDAPIENTRY getAmbientType();
 
-
 	/**
 	 *	Set skybox.
 	 *
 	 */
-	static void VDAPIENTRY setSkyBox(VDSkyBox* skybox);
+	static void VDAPIENTRY setSkyBox(VDSkyBox *skybox);
 
 	/**
 	 *
 	 *	@Return
 	 */
-	static VDSkyBox* VDAPIFASTENTRY getSkyBox();
+	static VDSkyBox *VDAPIFASTENTRY getSkyBox();
 
 	/**
 	 *
@@ -251,8 +246,7 @@ public:	/*	*/
 	 *
 	 *	@Return
 	 */
-	static VDEngineRenderSettings* VDAPIFASTENTRY getSettings();
-
+	static VDEngineRenderSettings *VDAPIFASTENTRY getSettings();
 };
 
 #endif

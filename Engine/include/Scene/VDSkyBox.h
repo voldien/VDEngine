@@ -48,7 +48,7 @@ class VDDECLSPEC VDSkyBox : public VDBehavior {
 	/**
 	 *	Render skybox.
 	 */
-	void VDAPIENTRY render(const VDQuaternion &quat = VDQuaternion::identity());
+	void VDAPIENTRY render(const VDQuaternion &quat = VDQuaternion::Identity());
 
 	/**
 	 *	Set skybox cubemap.

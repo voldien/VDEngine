@@ -435,8 +435,8 @@ void VDRenderPipeLine::internalForwardRendering(VDFrustum* frustum, VDCamera* ca
 
 
 	/*	*/
-	VDMatrix::matrixMode(VDMatrix::Model);
-	VDMatrix::pushMatrix();
+	VDMatrix::MatrixSpace::matrixMode(VDMatrix::MatrixSpace::Model);
+	VDMatrix::MatrixSpace::pushMatrix();
 
 
 	/*	set depth function if early z rejection. */
@@ -475,19 +475,19 @@ void VDRenderPipeLine::internalForwardRendering(VDFrustum* frustum, VDCamera* ca
 
 			trans = rend->transform();
 
-			VDMatrix::identity(VDMatrix::Model);
-			VDMatrix::matrixMode(VDMatrix::Model);
-			VDMatrix::translate(trans->getPosition());
-			VDMatrix::rotation(trans->getRotation());
-			VDMatrix::scale(trans->getScale());
+			VDMatrix::MatrixSpace::identity(VDMatrix::MatrixSpace::Model);
+			VDMatrix::MatrixSpace::matrixMode(VDMatrix::MatrixSpace::Model);
+			VDMatrix::MatrixSpace::translate(trans->getPosition());
+			VDMatrix::MatrixSpace::rotation(trans->getRotation());
+			VDMatrix::MatrixSpace::scale(trans->getScale());
 
-			VDMatrix::uniformLocation(rend->getMaterial()->getShader());
+			VDMatrix::MatrixSpace::uniformLocation(rend->getMaterial()->getShader());
 
 			rend->draw();
 		}
 	}
 
-	VDMatrix::matrixMode(VDMatrix::Model);
-	VDMatrix::popMatrix();
+	VDMatrix::MatrixSpace::matrixMode(VDMatrix::MatrixSpace::Model);
+	VDMatrix::MatrixSpace::popMatrix();
 }
 

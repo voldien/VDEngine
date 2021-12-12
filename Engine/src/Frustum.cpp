@@ -28,12 +28,12 @@ VDFrustum::VDFrustum(const VDFrustum& frustum){
 
 VDFrustum::VDFrustum(float fov, float aspect, float nearD, float farD){
 	this->setPerspective(fov, aspect, nearD, farD);
-	this->calcFrustumPlanes(VDVector3(0.0f), VDVector3::up(),VDVector3::right());
+	this->calcFrustumPlanes(VDVector3(0.0f), VDVector3::UnitY(),VDVector3::UnitX());
 }
 
 VDFrustum::VDFrustum(float right, float left, float bottom, float top, float near, float far){
 	this->setOrth(left, right, bottom, top, near, far);
-	this->calcFrustumPlanes(VDVector3(0.0f), VDVector3::up(),VDVector3::right());
+	this->calcFrustumPlanes(VDVector3(0.0f), VDVector3::UnitY(),VDVector3::UnitX());
 }
 
 void VDFrustum::setFov(float fov) {

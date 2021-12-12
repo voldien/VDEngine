@@ -5,7 +5,6 @@
 #include <Core/VDMatrix.h>
 #include <Core/VDScreen.h>
 #include <Core/VDTime.h>
-#include <DataStructure/VDIterator.h>
 #include <DataStructure/VDRect.h>
 #include <DataStructure/VDSize.h>
 #include <Physic/VDPhysic.h>
@@ -127,8 +126,8 @@ VDCamera::ClearBuffer VDCamera::getClearFlag(ClearBuffer clearBuffer) const {
 }
 
 void VDCamera::setProjectionMode(ProjectionMode projection) {
-	this->flag = (this->flag & ~(VDCamera::Perspective | VDCamera::Orthographic)) |
-				 (projection & (VDCamera::Perspective | VDCamera::Orthographic));
+	this->flag = (this->flag & ~(VDCamera::ProjectionMode::Perspective | VDCamera::ProjectionMode::Orthographic)) |
+				 (projection & (VDCamera::ProjectionMode::Perspective | VDCamera::ProjectionMode::Orthographic));
 }
 
 VDCamera::ProjectionMode VDCamera::getProjectionMode() const {
@@ -160,10 +159,10 @@ void VDCamera::setPostEffect(VDPostEffect *postEffect, unsigned int index) {
 	this->postEffect.push_back(postEffect); /*	TODO change to set at */
 
 	/*	Check if post render texture has been created.	*/
-	if (VDRenderSetting::getSettings()->posttexture == nullptr) {
-		VDRenderSetting::getSettings()->posttexture =
-			VDRenderTexture::createRenderTexture(VDSize(VDScreen::width(), VDScreen::height()), VDRenderTexture::Color);
-	}
+	// if (VDRenderSetting::getSettings()->posttexture == nullptr) {
+	// 	VDRenderSetting::getSettings()->posttexture =
+	// 		VDRenderTexture::createRenderTexture(VDSize(VDScreen::width(), VDScreen::height()), VDRenderTexture::Color);
+	// }
 }
 
 void VDCamera::removePostEffect(VDPostEffect *postEffect) {
@@ -208,21 +207,12 @@ void VDCamera::enableRenderTexture(bool enabled) {
 	}
 }
 
-VDRenderTexture *VDCamera::createRenderTexture(const VDSize &size, unsigned int rendertextureType) {
-	this->setRenderTexture(VDRenderTexture::createRenderTexture(size, rendertextureType));
-	return this->getRenderTexture();
-}
+
 
 void VDCamera::setRenderTexture(VDRenderTexture *rendertexture) {
 	this->enableRenderTexture(rendertexture != nullptr);
-	if ((rendertexture == nullptr) && (this->getRenderTexture() != nullptr)) {
-		this->getRenderTexture()->deincreemnt();
-	}
-	this->renderTexture = rendertexture;
 
-	if (rendertexture != nullptr) {
-		rendertexture->increment();
-	}
+	this->renderTexture = rendertexture;
 }
 
 VDRenderTexture *VDCamera::getOutpuFrameBuffer() {
@@ -249,7 +239,7 @@ void VDCamera::beginSceneRender() {
 	// /*	update uniform shared infor buffer!	*/
 	// VDScene::getScene()->uniform.engineState.ambientColor = VDRenderSetting::getAmbientColor();
 	// VDScene::getScene()->uniform.engineState.cameraDir =
-	// transform()->transformDirection(VDVector3::forward()).normalize();
+	// transform()->transformDirection(VDVector3::UnitZ()).normalize();
 	// VDScene::getScene()->uniform.engineState.cameraPosition = transform()->getPosition();
 	// VDScene::getScene()->uniform.engineState.cameraNear = this->getNear();
 	// VDScene::getScene()->uniform.engineState.cameraFar = this->getFar();
@@ -269,16 +259,16 @@ void VDCamera::beginSceneRender() {
 	// sizeof(VDScene::getScene()->uniform.engineState));
 
 	// /*	push model matrix for object matrixs	*/
-	// VDMatrix::matrixMode(VDMatrix::Projection);
-	// VDMatrix::pushMatrix();
-	// VDMatrix::identity(VDMatrix::Projection);
+	// VDMatrix::MatrixSpace::matrixMode(VDMatrix::MatrixSpace::Projection);
+	// VDMatrix::MatrixSpace::pushMatrix();
+	// VDMatrix::MatrixSpace::identity(VDMatrix::MatrixSpace::Projection);
 
 	// /*	Create perspective for the camera.	*/
 	// if((this->flag & VDCamera::Perspective)){
-	// 	VDMatrix::perspective(this->getFov(), this->getAspect(), this->getNear(), this->getFar());
+	// 	VDMatrix::MatrixSpace::perspective(this->getFov(), this->getAspect(), this->getNear(), this->getFar());
 	// }
 	// else{
-	// 	VDMatrix::ortho(
+	// 	VDMatrix::MatrixSpace::ortho(
 	// 		(float)-VDScreen::width(),
 	// 		(float)VDScreen::width(),
 	// 		(float)-VDScreen::height(),
@@ -311,11 +301,11 @@ void VDCamera::beginSceneRender() {
 	// 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	// /*	global view matrix assignment	*/
-	// VDMatrix::matrixMode(VDMatrix::View);
-	// VDMatrix::pushMatrix();
-	// VDMatrix::identity(VDMatrix::View);
-	// VDMatrix::rotation(transform()->getRotation());
-	// VDMatrix::translate(transform()->getPosition());
+	// VDMatrix::MatrixSpace::matrixMode(VDMatrix::MatrixSpace::View);
+	// VDMatrix::MatrixSpace::pushMatrix();
+	// VDMatrix::MatrixSpace::identity(VDMatrix::MatrixSpace::View);
+	// VDMatrix::MatrixSpace::rotation(transform()->getRotation());
+	// VDMatrix::MatrixSpace::translate(transform()->getPosition());
 
 	// VDRect viewRect = pixelRect();
 
@@ -359,7 +349,7 @@ void VDCamera::beginSceneRender() {
 	// }
 
 	/* update perspective !! 	*/
-	VDMatrix::matrixMode(VDMatrix::Model);
+	VDMatrix::matrixMode(VDMatrix::MatrixSpace::Model);
 }
 
 void VDCamera::endSceneRender() {
@@ -383,11 +373,11 @@ void VDCamera::endSceneRender() {
 	// }
 
 	// /**/
-	// VDMatrix::matrixMode(VDMatrix::Projection);
-	// VDMatrix::popMatrix();
-	// VDMatrix::matrixMode(VDMatrix::View);
-	// VDMatrix::popMatrix();
-	// VDMatrix::matrixMode(VDMatrix::Model);
+	// VDMatrix::MatrixSpace::matrixMode(VDMatrix::MatrixSpace::Projection);
+	// VDMatrix::MatrixSpace::popMatrix();
+	// VDMatrix::MatrixSpace::matrixMode(VDMatrix::MatrixSpace::View);
+	// VDMatrix::MatrixSpace::popMatrix();
+	// VDMatrix::MatrixSpace::matrixMode(VDMatrix::MatrixSpace::Model);
 
 	// if(this->isHDREnabled()){
 	// 	/*	tone the texture*/
@@ -454,9 +444,9 @@ VDRay VDCamera::screenPointToRay(const VDVector2 &screenCoordinate) {
 
 	float dx = tanf(getFov() * 0.5) * (screenCoordinate.x() / width - 1) / getAspect();
 	float dy = tanf(getFov() * 0.5) * (screenCoordinate.y() / height - 1) / getAspect();
-	VDVector2 xy = 2.0 * screenCoordinate - 1.0;
-	VDVector3 dir = this->transform()->transformDirection(VDVector3::forward());
-	dir.makeUnitVector();
+	VDVector2 xy = 2.0f * screenCoordinate - VDVector2(1.0f, 1.0f);
+	VDVector3 dir = this->transform()->transformDirection(VDVector3::UnitZ());
+	dir.normalize();
 	ray.setDirection(dir);
 
 	return ray;
@@ -465,13 +455,13 @@ VDRay VDCamera::screenPointToRay(const VDVector2 &screenCoordinate) {
 VDGameObject *VDCamera::screenSpaceToWorldSpaceObject(const VDVector2 &screenPos) {
 	VDVector3 world_pos;
 	VDRaycastHit hit;
-	VDVector3 direction = transform()->transformDirection(VDVector3::forward());
+	VDVector3 direction = transform()->transformDirection(VDVector3::UnitZ());
 	direction =
 		VDVector3(direction.y() + (2.0f * (screenPos.x() / (float)VDScreen::width()) - 1.0f) * (getFov() / 90.0f),
 				  direction.y() + (2.0f * (screenPos.y() / (float)VDScreen::height()) - 1.0f) * (getFov() / 90.0f),
 				  direction.z());
 
-	if (VDPhysic::rayCast(transform()->getPosition(), transform()->transformDirection(VDVector3::forward()), hit)) {
+	if (VDPhysic::rayCast(transform()->getPosition(), transform()->transformDirection(VDVector3::UnitZ()), hit)) {
 		return hit.gameObject();
 	}
 
@@ -520,10 +510,9 @@ void VDCamera::useFrustumCulling(bool use) {
 }
 
 void VDCamera::updateFrustum() {
-	this->calcFrustumPlanes(this->transform()->getPosition(),
-							this->transform()->transformDirection(VDVector3::forward()),
-							this->transform()->transformDirection(VDVector3::up()),
-							this->transform()->transformDirection(VDVector3::right()));
+	this->calcFrustumPlanes(this->transform()->getPosition(), this->transform()->transformDirection(VDVector3::UnitZ()),
+							this->transform()->transformDirection(VDVector3::UnitY()),
+							this->transform()->transformDirection(VDVector3::UnitX()));
 }
 
 int VDCamera::getCameraIndex() {

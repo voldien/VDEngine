@@ -309,7 +309,7 @@ int VDEngine::init(int argc, const char** argv, VDEngine::SubSystem subsystem){
 	VDLayer::setIndextName((unsigned int)(-1) & ~(1 << 31), "all");
 
 	/*	Initialize matrix.	*/
-	VDMatrix::init();
+	VDMatrix::MatrixSpace::init();
 
 
 	/*	Initialize sub system.	*/

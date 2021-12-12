@@ -297,25 +297,25 @@ void VDRenderer::internalMultiDraw(unsigned int primcount, const unsigned int* c
 }
 
 void VDRenderer::externalDraw(VDShader* shader){
-	VDMatrix::matrixMode(VDMatrix::Model);
-	VDMatrix::pushMatrix();	
-	VDMatrix::identity(VDMatrix::Model);
+	VDMatrix::MatrixSpace::matrixMode(VDMatrix::MatrixSpace::Model);
+	VDMatrix::MatrixSpace::pushMatrix();	
+	VDMatrix::MatrixSpace::identity(VDMatrix::MatrixSpace::Model);
 
-	VDMatrix::translate(transform()->getPosition());
-	VDMatrix::rotation(transform()->getRotation());
-	VDMatrix::scale(transform()->getScale());
-	VDMatrix::uniformLocation(shader);
+	VDMatrix::MatrixSpace::translate(transform()->getPosition());
+	VDMatrix::MatrixSpace::rotation(transform()->getRotation());
+	VDMatrix::MatrixSpace::scale(transform()->getScale());
+	VDMatrix::MatrixSpace::uniformLocation(shader);
 
 	this->internalDraw();
 
-	VDMatrix::popMatrix();
+	VDMatrix::MatrixSpace::popMatrix();
 }
 
 void VDRenderer::internalShadowDraw(VDShader* Shadowpass, VDLight* light, VDMesh::Primitive drawmode){
 
 
-	VDMatrix::matrixMode(VDMatrix::Model);
-	VDMatrix::pushMatrix();
+	VDMatrix::MatrixSpace::matrixMode(VDMatrix::MatrixSpace::Model);
+	VDMatrix::MatrixSpace::pushMatrix();
 
 	register VDTransform* trans;
 	register VDRenderer* render;
@@ -347,24 +347,24 @@ void VDRenderer::internalShadowDraw(VDShader* Shadowpass, VDLight* light, VDMesh
 						}
 
 
-						VDMatrix::identity(VDMatrix::Model);
-						VDMatrix::translate(render->transform()->getPosition());
-						VDMatrix::rotation(render->transform()->getRotation());
-						VDMatrix::scale(render->transform()->getScale());
+						VDMatrix::MatrixSpace::identity(VDMatrix::MatrixSpace::Model);
+						VDMatrix::MatrixSpace::translate(render->transform()->getPosition());
+						VDMatrix::MatrixSpace::rotation(render->transform()->getRotation());
+						VDMatrix::MatrixSpace::scale(render->transform()->getScale());
 
 						switch(light->getType()){
 						case VDLight::Point:
 							glProgramUniformMatrix4fv(Shadowpass->getProgram(), Shadowpass->matrixInfo.modelMatrix,
 													1,
 													GL_FALSE,
-													&VDMatrix::getModel()[0][0]);
+													&VDMatrix::MatrixSpace::getModel()[0][0]);
 							break;
 						case VDLight::eDirection:
 						case VDLight::eSpot:
 							glProgramUniformMatrix4fv(Shadowpass->getProgram(), Shadowpass->matrixInfo.modelViewProjectionMatrix,
 								1,
 								GL_FALSE,
-								&((light->getShadowMatrix(0) * VDMatrix::getModel())[0][0] ));
+								&((light->getShadowMatrix(0) * VDMatrix::MatrixSpace::getModel())[0][0] ));
 							break;
 						}
 
@@ -379,8 +379,8 @@ void VDRenderer::internalShadowDraw(VDShader* Shadowpass, VDLight* light, VDMesh
 	}/*collection*/
 
 
-	VDMatrix::matrixMode(VDMatrix::Model);
-	VDMatrix::popMatrix();		
+	VDMatrix::MatrixSpace::matrixMode(VDMatrix::MatrixSpace::Model);
+	VDMatrix::MatrixSpace::popMatrix();		
 }
 
 void VDRenderer::castShadow(int castShadodw){

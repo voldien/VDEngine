@@ -24,7 +24,7 @@ std::vector<VDMatrix4x4> VDMatrix::projectionMatrix;
 /**
  *
  */
-unsigned int VDMatrix::mode = VDMatrix::Model;
+unsigned int VDMatrix::mode = VDMatrix::MatrixSpace::Model;
 
 
 
@@ -32,7 +32,7 @@ unsigned int VDMatrix::mode = VDMatrix::Model;
 void VDMatrix::init(){
 	const int reservedsize = 16;
 
-	VDMatrix::mode = VDMatrix::Model;
+	VDMatrix::mode = VDMatrix::MatrixSpace::Model;
 	VDMatrix::modelMatrix.reserve(reservedsize);
 	VDMatrix::viewMatrix.reserve(reservedsize);
 	VDMatrix::projectionMatrix.reserve(reservedsize);
@@ -45,13 +45,13 @@ void VDMatrix::init(){
 
 void VDMatrix::pushMatrix(){
 	switch(VDMatrix::mode){
-	case VDMatrix::Model:
+	case VDMatrix::MatrixSpace::Model:
 		VDMatrix::modelMatrix.push_back(VDMatrix::modelMatrix[VDMatrix::modelMatrix.size() -1]);
 		break;
 	case VDMatrix::Projection:
 		VDMatrix::projectionMatrix.push_back(VDMatrix::projectionMatrix[VDMatrix::projectionMatrix.size() - 1]);
 		break;
-	case VDMatrix::View:
+	case VDMatrix::MatrixSpace::View:
 		VDMatrix::viewMatrix.push_back(VDMatrix::viewMatrix[VDMatrix::viewMatrix.size() -1]);
 		break;
 	default:
@@ -61,7 +61,7 @@ void VDMatrix::pushMatrix(){
 
 void VDMatrix::popMatrix(){
 	switch(VDMatrix::mode){
-	case VDMatrix::Model:
+	case VDMatrix::MatrixSpace::Model:
 		if(VDMatrix::modelMatrix.size() > 1)
 			VDMatrix::modelMatrix.pop_back();
 		break;
@@ -69,7 +69,7 @@ void VDMatrix::popMatrix(){
 		if(VDMatrix::projectionMatrix.size() > 1)
 			VDMatrix::projectionMatrix.pop_back();
 		break;
-	case VDMatrix::View:
+	case VDMatrix::MatrixSpace::View:
 		if(VDMatrix::viewMatrix.size() > 1)
 			VDMatrix::viewMatrix.pop_back();
 		break;
@@ -81,10 +81,10 @@ void VDMatrix::popMatrix(){
 
 void VDMatrix::setMatrix(const VDMatrix4x4& matrix){
 	switch(mode){
-	case VDMatrix::View:
+	case VDMatrix::MatrixSpace::View:
 		VDMatrix::viewMatrix[getViewIndex()] = *(VDMatrix4x4*)&matrix;
 		break;
-	case VDMatrix::Model:
+	case VDMatrix::MatrixSpace::Model:
 		VDMatrix::modelMatrix[getModelIndex()] = *(VDMatrix4x4*)&matrix;
 		break;
 	case VDMatrix::Projection:
@@ -100,10 +100,10 @@ void VDMatrix::matrixMode(unsigned int matrixMode){
 
 
 void VDMatrix::identity(){
-	if(VDMatrix::mode == VDMatrix::View){
+	if(VDMatrix::mode == VDMatrix::MatrixSpace::View){
 		VDMatrix::modelMatrix[VDMatrix::modelMatrix.size() -1] = VDMatrix4x4::identity();
 	}
-	else if(mode == VDMatrix::Model){
+	else if(mode == VDMatrix::MatrixSpace::Model){
 		VDMatrix::modelMatrix[VDMatrix::modelMatrix.size() -1] = VDMatrix4x4::identity();
 	}
 	else{
@@ -113,10 +113,10 @@ void VDMatrix::identity(){
 
 void VDMatrix::identity(unsigned int flag){
 
-	if(flag &  VDMatrix::Model){
+	if(flag &  VDMatrix::MatrixSpace::Model){
 		VDMatrix::modelMatrix[VDMatrix::modelMatrix.size() -1] = VDMatrix4x4::identity();
 	}
-	if(flag & VDMatrix::View){
+	if(flag & VDMatrix::MatrixSpace::View){
 		VDMatrix::modelMatrix[VDMatrix::modelMatrix.size() -1] = VDMatrix4x4::identity();
 	}
 	if(flag &  VDMatrix::Projection){
@@ -126,10 +126,10 @@ void VDMatrix::identity(unsigned int flag){
 
 void VDMatrix::translate(float x, float y, float z){
 	switch(VDMatrix::mode){
-	case VDMatrix::Model:
+	case VDMatrix::MatrixSpace::Model:
 		VDMatrix::modelMatrix[modelMatrix.size() -1] *= VDMatrix4x4::translate(x,y,z);
 		break;
-	case VDMatrix::View:
+	case VDMatrix::MatrixSpace::View:
 		VDMatrix::viewMatrix[viewMatrix.size() -1] *= VDMatrix4x4::translate(-x,-y,-z);
 		break;
 	case VDMatrix::Projection:
@@ -141,10 +141,10 @@ void VDMatrix::translate(float x, float y, float z){
 
 void VDMatrix::translate(const VDVector3& translation){
 	switch(VDMatrix::mode){
-	case VDMatrix::Model:
+	case VDMatrix::MatrixSpace::Model:
 		VDMatrix::modelMatrix[modelMatrix.size() -1] *= VDMatrix4x4::translate(translation);
 		break;
-	case VDMatrix::View:{
+	case VDMatrix::MatrixSpace::View:{
 		VDMatrix::viewMatrix[viewMatrix.size() -1] *= VDMatrix4x4::translate(-translation);
 
 		}break;
@@ -157,10 +157,10 @@ void VDMatrix::translate(const VDVector3& translation){
 
 void VDMatrix::scale(const VDVector3& scale){
 	switch(VDMatrix::mode){
-	case VDMatrix::Model:
+	case VDMatrix::MatrixSpace::Model:
 		VDMatrix::modelMatrix[modelMatrix.size() -1] *= HCMatrix4x4::scale(scale);
 		break;
-	case VDMatrix::View:
+	case VDMatrix::MatrixSpace::View:
 		VDMatrix::viewMatrix[viewMatrix.size() -1] *= HCMatrix4x4::scale(-scale);
 		break;
 	case VDMatrix::Projection:
@@ -170,10 +170,10 @@ void VDMatrix::scale(const VDVector3& scale){
 
 void VDMatrix::scale(float x, float y, float z){
 	switch(VDMatrix::mode){
-	case VDMatrix::Model:
+	case VDMatrix::MatrixSpace::Model:
 		VDMatrix::modelMatrix[modelMatrix.size() -1] *= HCMatrix4x4::scale(x,y,z);
 		break;
-	case VDMatrix::View:
+	case VDMatrix::MatrixSpace::View:
 		VDMatrix::viewMatrix[viewMatrix.size() -1] *= HCMatrix4x4::scale(-x,-y,-z);
 		break;
 	case VDMatrix::Projection:
@@ -183,10 +183,10 @@ void VDMatrix::scale(float x, float y, float z){
 
 void VDMatrix::scale(float alignAxis){
 	switch(VDMatrix::mode){
-	case VDMatrix::Model:
+	case VDMatrix::MatrixSpace::Model:
 		VDMatrix::modelMatrix[VDMatrix::modelMatrix.size() -1] *= HCMatrix4x4::scale(alignAxis,alignAxis,alignAxis);
 		break;
-	case VDMatrix::View:
+	case VDMatrix::MatrixSpace::View:
 		VDMatrix::viewMatrix[VDMatrix::viewMatrix.size() -1] *= HCMatrix4x4::scale(-alignAxis,-alignAxis,-alignAxis);;
 		break;
 	default:
@@ -197,11 +197,11 @@ void VDMatrix::scale(float alignAxis){
 
 void VDMatrix::rotation(const VDQuaternion& rotation){
 	switch(VDMatrix::mode){
-	case VDMatrix::Model:
+	case VDMatrix::MatrixSpace::Model:
 
 		VDMatrix::modelMatrix[modelMatrix.size() -1] *= HCMatrix4x4::rotate( rotation);
 		break;
-	case VDMatrix::View:
+	case VDMatrix::MatrixSpace::View:
 		VDMatrix::viewMatrix[viewMatrix.size() -1] *= HCMatrix4x4::rotate( rotation.conjugate());
 		break;
 	}
@@ -219,9 +219,9 @@ void VDMatrix::ortho(float left, float right, float bottom, float top, float Nea
 
 int VDMatrix::getIndex(unsigned int mode){
 	switch(mode){
-	case VDMatrix::Model:
+	case VDMatrix::MatrixSpace::Model:
 		return getModelIndex();
-	case VDMatrix::View:
+	case VDMatrix::MatrixSpace::View:
 		return getViewIndex();
 	case VDMatrix::Projection:
 		return getProjectIndex();

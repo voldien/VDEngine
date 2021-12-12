@@ -68,8 +68,8 @@
 // 	VDRaycastHit hit;
 // 	VDVector3 deltaMotion = VDVector3(0.0f);
 
-// 	deltaMotion += this->camera->transform()->transformDirection(VDVector3::forward()) * VDInput::getAxis(VDInput::eVertical) * this->speed;
-// 	deltaMotion += this->camera->transform()->transformDirection(VDVector3::right()) * VDInput::getAxis(VDInput::eHorizontal) * this->speed;
+// 	deltaMotion += this->camera->transform()->transformDirection(VDVector3::UnitZ()) * VDInput::getAxis(VDInput::eVertical) * this->speed;
+// 	deltaMotion += this->camera->transform()->transformDirection(VDVector3::UnitX()) * VDInput::getAxis(VDInput::eHorizontal) * this->speed;
 
 // 	if(VDInput::isKeyDown(SDLK_n) || VDInput::isKeyDown(SDLK_m)){
 // 		deltaMotion *= 2.15f;

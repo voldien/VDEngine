@@ -305,13 +305,13 @@ public:	/*	Public methods.	*/
 		this->setLocalPosition(VDVector3(this->postion.x(),this->postion.y(),z));
 	}
 	void inline animationSetRotationX( float x){
-		this->setRotation(VDQuaternion(x,this->rotation.getYaw(),this->rotation.getRoll()));
+		//this->setRotation(VDQuaternion(x,this->rotation.,this->rotation.getRoll()));
 	}
 	void inline AnimationSetRotationY( float y){
-		this->setRotation(VDQuaternion(this->rotation.getPitch(),y,this->rotation.getRoll()));
+		//this->setRotation(VDQuaternion(this->rotation.getPitch(),y,this->rotation.getRoll()));
 	}
 	void inline AnimationSetRotationZ( float z){
-		this->setRotation(VDQuaternion(this->rotation.getPitch(),this->rotation.getYaw(),z));
+		//this->setRotation(VDQuaternion(this->rotation.getPitch(),this->rotation.getYaw(),z));
 	}
 
 	void inline AnimationSetRotationQX(float x){

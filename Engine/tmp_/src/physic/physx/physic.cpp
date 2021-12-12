@@ -705,7 +705,7 @@ PxShape* VDPhysic::createShape(VDCollider* collider, unsigned int collisionFlag,
 			PxPlaneGeometry planeCollider = PxPlaneGeometry();
 			pxShape = colliderActor->createShape(planeCollider,*(PxMaterial*)material->getMaterial(),
 				PxTransformFromPlaneEquation(
-				PxPlane(*(PxVec3*)&collider->transform()->getPosition(),*(PxVec3*)&collider->transform()->transformDirection(-VDVector3::up())
+				PxPlane(*(PxVec3*)&collider->transform()->getPosition(),*(PxVec3*)&collider->transform()->transformDirection(-VDVector3::UnitY())
 				)));
 
 		}
